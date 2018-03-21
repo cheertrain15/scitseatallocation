@@ -12,6 +12,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<p>upload test : 박혜인</p>
+<p>upload test : 박혜인 + 정형 </p>
 </body>
 </html>
