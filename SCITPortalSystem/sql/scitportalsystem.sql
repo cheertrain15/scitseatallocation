@@ -162,6 +162,7 @@ CREATE table news(
 	newsSavedFileName varchar2(1000),			        -- 실제로 서버에 저장된 첨부파일 이름
 	newsDate date default sysdate,				        -- 공지사항 작성일
 	newsDisplay number(1) default 1,			        -- 공지사항 노출
+	newsHits number	default 0,							-- 공지사항 조회수
 	deleteStatus number(1) default 0,			        -- 논리적 삭제여부
 	deleteBy varchar2(20) not null,				        -- 논리적 삭제 실행자
 	deleteDate date default sysdate				        -- 논리적 삭제 실행일
@@ -182,6 +183,7 @@ insert into news(
 	, newsSavedFileName
 	, newsDate 
 	, newsDisplay 
+	, newsHits
 	, deleteStatus 
 	, deleteBy 
 	, deleteDate 
@@ -198,7 +200,8 @@ insert into news(
 	, ' '
 	, SYSDATE
 	, 1 
-	, 0 
+	, 0
+	, 0
 	, ' ' 
 	, SYSDATE 
     );

@@ -16,13 +16,14 @@ public class News {
 	private String newsSavedFileName; // -- 실제로 서버에 저장된 첨부파일 이름
 	private Date newsDate; // -- 공지사항 작성일
 	private int newsDisplay; // -- 공지사항 노출
+	private int newsHits; // --공지사항 조회수
 	private int deleteStatus; // -- 논리적 삭제여부
 	private String deleteBy; // -- 논리적 삭제 실행자
 	private Date deleteDate; // -- 논리적 삭제 실행일
 
 	public News(int newsNum, int writeNum, String target, String newsTitle, String newsHeader, String newsContent,
-			String newsFileName, String newsSavedFileName, Date newsDate, int newsDisplay, int deleteStatus,
-			String deleteBy, Date deleteDate) {
+			String newsFileName, String newsSavedFileName, Date newsDate, int newsDisplay, int newsHits,
+			int deleteStatus, String deleteBy, Date deleteDate) {
 		super();
 		this.newsNum = newsNum;
 		this.writeNum = writeNum;
@@ -34,6 +35,7 @@ public class News {
 		this.newsSavedFileName = newsSavedFileName;
 		this.newsDate = newsDate;
 		this.newsDisplay = newsDisplay;
+		this.newsHits = newsHits;
 		this.deleteStatus = deleteStatus;
 		this.deleteBy = deleteBy;
 		this.deleteDate = deleteDate;
@@ -123,6 +125,14 @@ public class News {
 		this.newsDisplay = newsDisplay;
 	}
 
+	public int getNewsHits() {
+		return newsHits;
+	}
+
+	public void setNewsHits(int newsHits) {
+		this.newsHits = newsHits;
+	}
+
 	public int getDeleteStatus() {
 		return deleteStatus;
 	}
@@ -152,7 +162,8 @@ public class News {
 		return "News [newsNum=" + newsNum + ", writeNum=" + writeNum + ", target=" + target + ", newsTitle=" + newsTitle
 				+ ", newsHeader=" + newsHeader + ", newsContent=" + newsContent + ", newsFileName=" + newsFileName
 				+ ", newsSavedFileName=" + newsSavedFileName + ", newsDate=" + newsDate + ", newsDisplay=" + newsDisplay
-				+ ", deleteStatus=" + deleteStatus + ", deleteBy=" + deleteBy + ", deleteDate=" + deleteDate + "]";
+				+ ", newsHits=" + newsHits + ", deleteStatus=" + deleteStatus + ", deleteBy=" + deleteBy
+				+ ", deleteDate=" + deleteDate + "]";
 	}
 
 }
