@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	
+	<typeAliases>
+		<typeAlias type="com.scitportalsystem.www.vo.AskQuestion" alias="AskQuestion" />
+		<typeAlias type="com.scitportalsystem.www.vo.BasicEvaluation" alias="BasicEvaluation" />
+		<typeAlias type="com.scitportalsystem.www.vo.ITEvaluation" alias="ITEvaluation" />
+		<typeAlias type="com.scitportalsystem.www.vo.JPEvaluation" alias="JPEvaluation" />
+		<typeAlias type="com.scitportalsystem.www.vo.MemberBasic" alias="MemberBasic" />
+		<typeAlias type="com.scitportalsystem.www.vo.MemberStaff" alias="MemberStaff" />
+		<typeAlias type="com.scitportalsystem.www.vo.MemberStudent" alias="MemberStudent" />
+		<typeAlias type="com.scitportalsystem.www.vo.MemberStudentCertificate" alias="MemberStudentCertificate" />
+		<typeAlias type="com.scitportalsystem.www.vo.MemberStudentScore" alias="MemberStudentScore" />
+		<typeAlias type="com.scitportalsystem.www.vo.MemberStudentSurvey" alias="MemberStudentSurvey" />
+		<typeAlias type="com.scitportalsystem.www.vo.News" alias="News" />
+		<typeAlias type="com.scitportalsystem.www.vo.Registration" alias="Registration" />
+		<typeAlias type="com.scitportalsystem.www.vo.Survey" alias="Survey" />
+	</typeAliases>
+
+	
+	<mappers>
+		<mapper resource="mapper/AdministrateMapper.xml" />
+		<mapper resource="mapper/AttendanceMapper.xml" />
+		<mapper resource="mapper/ConsultMapper.xml" />
+		<mapper resource="mapper/LoginMapper.xml" />
+		<mapper resource="mapper/MyPageMapper.xml" />
+		<mapper resource="mapper/NewsMapper.xml" />
+		<mapper resource="mapper/RegisterMapper.xml" />
+		<mapper resource="mapper/SeatMapper.xml" />
+		<mapper resource="mapper/StudentManageMapper.xml" />
+		<mapper resource="mapper/SurveyMapper.xml" />
+	</mappers>
+	 
+	
+</configuration>
