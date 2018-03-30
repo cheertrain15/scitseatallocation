@@ -11,18 +11,20 @@ public class Registration {
 	private String registrationContent; // -- 출결관리 글 내용
 	private String estimatedTime; // -- 도착 예정 시간
 	private Date registrationDate; // -- 출결관리 글 작성일
+	private int registerResult; // -- 출결결과 (0=정상, 1=지각, 2=결석)
 	private int deleteStatus; // -- 논리적 삭제 여부
 	private String deleteBy; // -- 논리적 삭제 실행자
 	private Date deleteDate; // --논리적 삭제 실행일
 
 	public Registration(int registrationNum, int writerNum, String registrationContent, String estimatedTime,
-			Date registrationDate, int deleteStatus, String deleteBy, Date deleteDate) {
+			Date registrationDate, int registerResult, int deleteStatus, String deleteBy, Date deleteDate) {
 		super();
 		this.registrationNum = registrationNum;
 		this.writerNum = writerNum;
 		this.registrationContent = registrationContent;
 		this.estimatedTime = estimatedTime;
 		this.registrationDate = registrationDate;
+		this.registerResult = registerResult;
 		this.deleteStatus = deleteStatus;
 		this.deleteBy = deleteBy;
 		this.deleteDate = deleteDate;
@@ -72,6 +74,14 @@ public class Registration {
 		this.registrationDate = registrationDate;
 	}
 
+	public int getRegisterResult() {
+		return registerResult;
+	}
+
+	public void setRegisterResult(int registerResult) {
+		this.registerResult = registerResult;
+	}
+
 	public int getDeleteStatus() {
 		return deleteStatus;
 	}
@@ -100,8 +110,8 @@ public class Registration {
 	public String toString() {
 		return "Registration [registrationNum=" + registrationNum + ", writerNum=" + writerNum
 				+ ", registrationContent=" + registrationContent + ", estimatedTime=" + estimatedTime
-				+ ", registrationDate=" + registrationDate + ", deleteStatus=" + deleteStatus + ", deleteBy=" + deleteBy
-				+ ", deleteDate=" + deleteDate + "]";
+				+ ", registrationDate=" + registrationDate + ", registerResult=" + registerResult + ", deleteStatus="
+				+ deleteStatus + ", deleteBy=" + deleteBy + ", deleteDate=" + deleteDate + "]";
 	}
 
 }

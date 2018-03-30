@@ -217,6 +217,7 @@ create table Registration(
     registrationContent Varchar(300) NOT NULL,  -- 출결관리 글 내용
     estimatedTime Varchar(30) NOT NULL,         -- 도착 예정 시간
     registrationDate DATE default sysdate,      -- 출결관리 글 작성일
+    registerResult number(1) default 0,			-- 출결결과 (0=정상, 1=지각, 2=결석)
     deleteStatus NUMBER(1) default 0 NOT NULL,  -- 논리적 삭제 여부
     deleteBy Varchar2(20) NOT NULL,             -- 논리적 삭제 실행자
     deleteDate Date default sysdate             -- 논리적 삭제 실행일
@@ -231,6 +232,7 @@ insert into registration(
     , registrationContent 
     , estimatedTime 
     , registrationDate 
+    , registerResult
     , deleteStatus 
     , deleteBy 
     , deleteDate 
@@ -242,6 +244,7 @@ insert into registration(
     , '쌤 저 늦잠자서 늦어요 ㅈㅅ'
     , '오후 9시 00분'
     , Sysdate 
+    , 0
     , 0 
     , ' '
     , sysdate
