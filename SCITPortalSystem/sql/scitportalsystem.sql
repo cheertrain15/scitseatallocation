@@ -252,6 +252,49 @@ insert into registration(
 
 --------------------------------------------------------------------------------
 
+--SCIT RegisterResult(출결 결과 ) 테이블
+
+create table RegisterResult(
+    registerResult number(1) primary key,			-- 출결결과 (0=출석, 1=지각, 2=결석)
+    registerResultName varchar(10) not null				-- 출결결과의 뜻(0=출석, 1=지각, 2=결석)
+);
+
+--RegisterResult 테이블에 사용할 자료 입력 (0번 == 정상)
+insert into RegisterResult(
+    registerResult ,
+    registerResultName
+    )
+    values
+    (
+    0 ,
+    '출석'
+    );
+    
+--RegisterResult 테이블에 사용할 자료 입력 (1번 == 지각)
+insert into RegisterResult(
+    registerResult ,
+    registerResultName
+    )
+    values
+    (
+    1 ,
+    '지각'
+    );
+    
+--RegisterResult 테이블에 사용할 자료 입력 (2번 == 결석)
+insert into RegisterResult(
+    registerResult ,
+    registerResultName
+    )
+    values
+    (
+    2 ,
+    '결석'
+    );    
+
+
+--------------------------------------------------------------------------------
+
 -- SCIT 학생의 자격증 보유 현황
 create table MemberStudentCertificate(
     memberNum NUMBER CONSTRAINT FK_memberbasic3 
@@ -400,14 +443,17 @@ insert into MemberStudentSurvey(
 
 -- SCIT 학생 설문조사 답변 양식(*Prototype)
 create table Survey(
-    surveyNum NUMBER Primary Key,                           -- 설문조사 양식 번호
+    surveyNum NUMBER Primary Key,               	-- 설문조사 양식 번호
     memberNum NUMBER CONSTRAINT FK_memberbasic5 
-	 REFERENCES memberbasic(memberNum) NOT NULL,-- 회원번호 
-    surveyTitle Varchar2(100) NOT NULL,         -- 설문조사 제목
-    frontBack NUMBER(1) default 2 NOT NULL,     -- 선호하는 자리(앞/뒤)
-    sideCenter NUMBER(1) default 2 NOT NULL,    -- 선호하는 자리(벽쪽/가운데)
-    avoidMember Varchar2(10),		            -- 같은 조가 되기 싫은 사람
-    etcMessage Varchar2(1000)                   -- 비고란
+	 REFERENCES memberbasic(memberNum) NOT NULL,	-- 회원번호 
+    surveyTitle Varchar2(100) NOT NULL,         	-- 설문조사 제목
+    surveyWrittenDate	Date	NOT NULL,			-- 설문조사 작성일
+    surveyStartDate		Date	NOT NULL,			-- 설문조사 시작일
+    surveyEndDate		Date	NOT NULL,			-- 설문조사 종료일
+    frontBack NUMBER(1) default 2 NOT NULL,     	-- 선호하는 자리(앞/뒤)
+    sideCenter NUMBER(1) default 2 NOT NULL,    	-- 선호하는 자리(벽쪽/가운데)
+    avoidMember Varchar2(10),		            	-- 같은 조가 되기 싫은 사람
+    etcMessage Varchar2(1000)                   	-- 비고란
 );
 
 create sequence surveyNum_seq start with 1 increment by 1;
@@ -416,7 +462,10 @@ create sequence surveyNum_seq start with 1 increment by 1;
 insert into Survey(
     surveyNum 
     , memberNum 
-    , surveyTitle 
+    , surveyTitle
+    , surveyWrittenDate
+    , surveyStartDate
+    , surveyEndDate
     , frontBack 
     , sideCenter 
     , avoidMember 
@@ -427,6 +476,9 @@ insert into Survey(
     surveyNum_seq.nextval
     , 2
     , '1차 자리 설문조사'
+    , sysdate
+    , sysdate
+    , sysdate
     , 0 
     , 1
     , '문희규' 
