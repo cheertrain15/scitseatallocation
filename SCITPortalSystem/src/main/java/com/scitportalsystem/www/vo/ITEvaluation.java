@@ -1,10 +1,11 @@
 package com.scitportalsystem.www.vo;
+
 /*
  * 학생의 IT 성적표 정보
  */
 public class ITEvaluation {
 	private int itEvaluationNum; // -- IT 평가 번호
-	private int memberNum; // -- 회원번호
+	private String id; // -- 회원ID
 	private int itTestFirst; // -- IT 1차 역량평가
 	private int itTestSecond; // -- IT 2차 역량평가
 	private int itTestThird; // -- IT 3차 역량평가
@@ -13,11 +14,11 @@ public class ITEvaluation {
 	private int itProjectThird; // -- IT 3차 프로젝트
 	private int itProjectFInal; // --IT 단체 프로젝트
 
-	public ITEvaluation(int itEvaluationNum, int memberNum, int itTestFirst, int itTestSecond, int itTestThird,
+	public ITEvaluation(int itEvaluationNum, String id, int itTestFirst, int itTestSecond, int itTestThird,
 			int itProjectFirst, int itProjectSecond, int itProjectThird, int itProjectFInal) {
 		super();
 		this.itEvaluationNum = itEvaluationNum;
-		this.memberNum = memberNum;
+		this.id = id;
 		this.itTestFirst = itTestFirst;
 		this.itTestSecond = itTestSecond;
 		this.itTestThird = itTestThird;
@@ -39,12 +40,12 @@ public class ITEvaluation {
 		this.itEvaluationNum = itEvaluationNum;
 	}
 
-	public int getMemberNum() {
-		return memberNum;
+	public String getId() {
+		return id;
 	}
 
-	public void setMemberNum(int memberNum) {
-		this.memberNum = memberNum;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public int getItTestFirst() {
@@ -105,8 +106,8 @@ public class ITEvaluation {
 
 	@Override
 	public String toString() {
-		return "ITEvaluation [itEvaluationNum=" + itEvaluationNum + ", memberNum=" + memberNum + ", itTestFirst="
-				+ itTestFirst + ", itTestSecond=" + itTestSecond + ", itTestThird=" + itTestThird + ", itProjectFirst="
+		return "ITEvaluation [itEvaluationNum=" + itEvaluationNum + ", id=" + id + ", itTestFirst=" + itTestFirst
+				+ ", itTestSecond=" + itTestSecond + ", itTestThird=" + itTestThird + ", itProjectFirst="
 				+ itProjectFirst + ", itProjectSecond=" + itProjectSecond + ", itProjectThird=" + itProjectThird
 				+ ", itProjectFInal=" + itProjectFInal + "]";
 	}

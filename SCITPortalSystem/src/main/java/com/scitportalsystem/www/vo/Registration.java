@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Registration {
 	private int registrationNum; // -- 출결관리 글 번호
-	private int writerNum; // --글 작성자 회원번호
+	private String id; // --글 작성자 회원번호
 	private String registrationContent; // -- 출결관리 글 내용
 	private String estimatedTime; // -- 도착 예정 시간
 	private Date registrationDate; // -- 출결관리 글 작성일
@@ -16,11 +16,11 @@ public class Registration {
 	private String deleteBy; // -- 논리적 삭제 실행자
 	private Date deleteDate; // --논리적 삭제 실행일
 
-	public Registration(int registrationNum, int writerNum, String registrationContent, String estimatedTime,
+	public Registration(int registrationNum, String id, String registrationContent, String estimatedTime,
 			Date registrationDate, int registerResult, int deleteStatus, String deleteBy, Date deleteDate) {
 		super();
 		this.registrationNum = registrationNum;
-		this.writerNum = writerNum;
+		this.id = id;
 		this.registrationContent = registrationContent;
 		this.estimatedTime = estimatedTime;
 		this.registrationDate = registrationDate;
@@ -42,12 +42,12 @@ public class Registration {
 		this.registrationNum = registrationNum;
 	}
 
-	public int getWriterNum() {
-		return writerNum;
+	public String getId() {
+		return id;
 	}
 
-	public void setWriterNum(int writerNum) {
-		this.writerNum = writerNum;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getRegistrationContent() {
@@ -108,10 +108,10 @@ public class Registration {
 
 	@Override
 	public String toString() {
-		return "Registration [registrationNum=" + registrationNum + ", writerNum=" + writerNum
-				+ ", registrationContent=" + registrationContent + ", estimatedTime=" + estimatedTime
-				+ ", registrationDate=" + registrationDate + ", registerResult=" + registerResult + ", deleteStatus="
-				+ deleteStatus + ", deleteBy=" + deleteBy + ", deleteDate=" + deleteDate + "]";
+		return "Registration [registrationNum=" + registrationNum + ", id=" + id + ", registrationContent="
+				+ registrationContent + ", estimatedTime=" + estimatedTime + ", registrationDate=" + registrationDate
+				+ ", registerResult=" + registerResult + ", deleteStatus=" + deleteStatus + ", deleteBy=" + deleteBy
+				+ ", deleteDate=" + deleteDate + "]";
 	}
 
 }

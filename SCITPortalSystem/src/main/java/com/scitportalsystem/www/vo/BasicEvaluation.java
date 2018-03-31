@@ -5,7 +5,7 @@ package com.scitportalsystem.www.vo;
  */
 public class BasicEvaluation {
 	private int basicEvaluationNum; // -- Basic 평가 번호
-	private int memberNum; // -- 회원번호
+	private String id; // -- 회원ID
 	private int basicAttendance; // -- 출결 평가
 	private int basicAction; // -- 언행 평가
 	private int basicBehaviour; // -- 수업 태도
@@ -13,11 +13,11 @@ public class BasicEvaluation {
 	private int basicExplanatory; // -- 사유서 작성 횟수
 	private int basicConsult;// -- 재시험 횟수
 
-	public BasicEvaluation(int basicEvaluationNum, int memberNum, int basicAttendance, int basicAction,
-			int basicBehaviour, int basicRule, int basicExplanatory, int basicConsult) {
+	public BasicEvaluation(int basicEvaluationNum, String id, int basicAttendance, int basicAction, int basicBehaviour,
+			int basicRule, int basicExplanatory, int basicConsult) {
 		super();
 		this.basicEvaluationNum = basicEvaluationNum;
-		this.memberNum = memberNum;
+		this.id = id;
 		this.basicAttendance = basicAttendance;
 		this.basicAction = basicAction;
 		this.basicBehaviour = basicBehaviour;
@@ -38,12 +38,12 @@ public class BasicEvaluation {
 		this.basicEvaluationNum = basicEvaluationNum;
 	}
 
-	public int getMemberNum() {
-		return memberNum;
+	public String getId() {
+		return id;
 	}
 
-	public void setMemberNum(int memberNum) {
-		this.memberNum = memberNum;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public int getBasicAttendance() {
@@ -96,10 +96,10 @@ public class BasicEvaluation {
 
 	@Override
 	public String toString() {
-		return "BasicEvaluation [basicEvaluationNum=" + basicEvaluationNum + ", memberNum=" + memberNum
-				+ ", basicAttendance=" + basicAttendance + ", basicAction=" + basicAction + ", basicBehaviour="
-				+ basicBehaviour + ", basicRule=" + basicRule + ", basicExplanatory=" + basicExplanatory
-				+ ", basicConsult=" + basicConsult + "]";
+		return "BasicEvaluation [basicEvaluationNum=" + basicEvaluationNum + ", id=" + id + ", basicAttendance="
+				+ basicAttendance + ", basicAction=" + basicAction + ", basicBehaviour=" + basicBehaviour
+				+ ", basicRule=" + basicRule + ", basicExplanatory=" + basicExplanatory + ", basicConsult="
+				+ basicConsult + "]";
 	}
 
 }

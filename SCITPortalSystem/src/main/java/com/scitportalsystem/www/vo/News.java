@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class News {
 	private int newsNum; // -- 공지사항 글번호
-	private int writeNum; // -- 회원번호
+	private String id; // -- 회원번호
 	private String target; // -- 공지사항 조회 대상자
 	private String newsTitle; // -- 공지사항 제목
 	private String newsHeader; // -- 공지사항 말머리
@@ -21,12 +21,12 @@ public class News {
 	private String deleteBy; // -- 논리적 삭제 실행자
 	private Date deleteDate; // -- 논리적 삭제 실행일
 
-	public News(int newsNum, int writeNum, String target, String newsTitle, String newsHeader, String newsContent,
+	public News(int newsNum, String id, String target, String newsTitle, String newsHeader, String newsContent,
 			String newsFileName, String newsSavedFileName, Date newsDate, int newsDisplay, int newsHits,
 			int deleteStatus, String deleteBy, Date deleteDate) {
 		super();
 		this.newsNum = newsNum;
-		this.writeNum = writeNum;
+		this.id = id;
 		this.target = target;
 		this.newsTitle = newsTitle;
 		this.newsHeader = newsHeader;
@@ -53,12 +53,12 @@ public class News {
 		this.newsNum = newsNum;
 	}
 
-	public int getWriteNum() {
-		return writeNum;
+	public String getId() {
+		return id;
 	}
 
-	public void setWriteNum(int writeNum) {
-		this.writeNum = writeNum;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getTarget() {
@@ -159,7 +159,7 @@ public class News {
 
 	@Override
 	public String toString() {
-		return "News [newsNum=" + newsNum + ", writeNum=" + writeNum + ", target=" + target + ", newsTitle=" + newsTitle
+		return "News [newsNum=" + newsNum + ", id=" + id + ", target=" + target + ", newsTitle=" + newsTitle
 				+ ", newsHeader=" + newsHeader + ", newsContent=" + newsContent + ", newsFileName=" + newsFileName
 				+ ", newsSavedFileName=" + newsSavedFileName + ", newsDate=" + newsDate + ", newsDisplay=" + newsDisplay
 				+ ", newsHits=" + newsHits + ", deleteStatus=" + deleteStatus + ", deleteBy=" + deleteBy

@@ -5,16 +5,16 @@ package com.scitportalsystem.www.vo;
  */
 public class MemberStudentScore {
 	private int MemberStudentScoreNum; // -- 학생 평가 테이블 번호
-	private int memberNum; // -- 회원번호
+	private String id; // -- 회원번호
 	private int itEvaluation; // -- 현재 학생에 대한 IT 성적 자료 번호
 	private int jpEvaluation; // -- 현재 학생에 대한 일본어 성적 자료 번호
 	private int basicEvaluation; // -- 현재 학생에 대한 선생님의 평가 자료 번호
 
-	public MemberStudentScore(int memberStudentScoreNum, int memberNum, int itEvaluation, int jpEvaluation,
+	public MemberStudentScore(int memberStudentScoreNum, String id, int itEvaluation, int jpEvaluation,
 			int basicEvaluation) {
 		super();
 		MemberStudentScoreNum = memberStudentScoreNum;
-		this.memberNum = memberNum;
+		this.id = id;
 		this.itEvaluation = itEvaluation;
 		this.jpEvaluation = jpEvaluation;
 		this.basicEvaluation = basicEvaluation;
@@ -32,12 +32,12 @@ public class MemberStudentScore {
 		MemberStudentScoreNum = memberStudentScoreNum;
 	}
 
-	public int getMemberNum() {
-		return memberNum;
+	public String getId() {
+		return id;
 	}
 
-	public void setMemberNum(int memberNum) {
-		this.memberNum = memberNum;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public int getItEvaluation() {
@@ -66,9 +66,8 @@ public class MemberStudentScore {
 
 	@Override
 	public String toString() {
-		return "MemberStudentScore [MemberStudentScoreNum=" + MemberStudentScoreNum + ", memberNum=" + memberNum
-				+ ", itEvaluation=" + itEvaluation + ", jpEvaluation=" + jpEvaluation + ", basicEvaluation="
-				+ basicEvaluation + "]";
+		return "MemberStudentScore [MemberStudentScoreNum=" + MemberStudentScoreNum + ", id=" + id + ", itEvaluation="
+				+ itEvaluation + ", jpEvaluation=" + jpEvaluation + ", basicEvaluation=" + basicEvaluation + "]";
 	}
 
 }

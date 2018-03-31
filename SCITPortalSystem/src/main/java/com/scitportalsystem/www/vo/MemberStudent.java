@@ -1,7 +1,8 @@
 package com.scitportalsystem.www.vo;
 
 public class MemberStudent {
-	private int memberNum; // -- 회원번호
+	private int memberstudentNum; // -- 학생번호
+	private String id; // -- 회원ID
 	private int alumni; // -- 기수
 	private int itMajor; // -- IT전공 유무
 	private int jpMajor; // -- 일본어전공 유무
@@ -12,10 +13,11 @@ public class MemberStudent {
 	private int early; // -- 조퇴
 	private int absent; // -- 결석
 
-	public MemberStudent(int memberNum, int alumni, int itMajor, int jpMajor, String classroom, int groupNum, int seat,
-			int late, int early, int absent) {
+	public MemberStudent(int memberstudentNum, String id, int alumni, int itMajor, int jpMajor, String classroom,
+			int groupNum, int seat, int late, int early, int absent) {
 		super();
-		this.memberNum = memberNum;
+		this.memberstudentNum = memberstudentNum;
+		this.id = id;
 		this.alumni = alumni;
 		this.itMajor = itMajor;
 		this.jpMajor = jpMajor;
@@ -31,12 +33,20 @@ public class MemberStudent {
 		super();
 	}
 
-	public int getMemberNum() {
-		return memberNum;
+	public int getMemberstudentNum() {
+		return memberstudentNum;
 	}
 
-	public void setMemberNum(int memberNum) {
-		this.memberNum = memberNum;
+	public void setMemberstudentNum(int memberstudentNum) {
+		this.memberstudentNum = memberstudentNum;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public int getAlumni() {
@@ -113,9 +123,9 @@ public class MemberStudent {
 
 	@Override
 	public String toString() {
-		return "MemberStudent [memberNum=" + memberNum + ", alumni=" + alumni + ", itMajor=" + itMajor + ", jpMajor="
-				+ jpMajor + ", classroom=" + classroom + ", groupNum=" + groupNum + ", seat=" + seat + ", late=" + late
-				+ ", early=" + early + ", absent=" + absent + "]";
+		return "MemberStudent [memberstudentNum=" + memberstudentNum + ", id=" + id + ", alumni=" + alumni
+				+ ", itMajor=" + itMajor + ", jpMajor=" + jpMajor + ", classroom=" + classroom + ", groupNum="
+				+ groupNum + ", seat=" + seat + ", late=" + late + ", early=" + early + ", absent=" + absent + "]";
 	}
 
 }
