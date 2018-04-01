@@ -4,9 +4,32 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>새 설문조사 작성</title>
+	<script type="text/javascript" src="./resources/js/jquery-3.2.1.js"/></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="./resources/js/survey/surveyCreate.js"/></script>
+	<link rel="stylesheet" type="text/css" href="./resources/css/survey/surveyCreate.css"/>
 </head>
 <body>
+<h1>새 설문조사 작성</h1>
+<div class="toolBar">
 
+<div class="tools" id="text"><p>텍스트툴</p></div>
+<div class="tools" id="radiogroup"><p>라디오그룹툴</p></div>
+<div class="tools" id="checkbox"><p>체크박스툴</p></div>
+
+</div>
+
+<div class="editPage">
+<p>page 수정용</p>
+</div>
+
+<div class="surveyCanvas">
+<p>여기에 툴을 drag & drop하세요</p>
+</div>
+
+<div class="editSurvey">
+<p>툴 내용 세부 수정</p>
+</div>
 </body>
 </html>

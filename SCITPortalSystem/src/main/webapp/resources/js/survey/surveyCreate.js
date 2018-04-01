@@ -1,3 +1,9 @@
 /**
  * 
  */
+
+// drag
+
+$( function() {
+    $( "#text" ).draggable();
+  } );
