@@ -12,36 +12,27 @@
 </head>
 <body>
 <h1>새 설문조사 작성</h1>
-<div class="toolBar">
 
-<div class="tools" id="text">텍스트툴</div>
-<div class="tools" id="radiogroup">라디오그룹툴</div>
-<div class="tools" id="checkbox">체크박스툴</div>
-
-
-<!-- <ul>
-<li class="tools" id="text">텍스트툴</li>
-<li class="tools" id="radiogroup">라디오그룹툴</li>
-<li class="tools" id="checkbox">체크박스툴</li>
-</ul> -->
-
+<div id="toolBar">
+<p>Tool bar</p>
+<div class="tools" id="singleinput">Single Input</div>
+<div class="tools" id="radiogroup">Radiogroup</div>
+<div class="tools" id="checkbox">Checkbox</div>
+<div class="tools" id="dropdown">Dropdown</div>
+<div class="tools" id="comment">Comment</div>
 </div>
 
-<div class="editPage">
-<p>page 수정용</p>
+<div id="editPage">
+<p>Edit page</p>
 </div>
 
-<div class="surveyCanvas">
-<p>여기에 tool 드랍하셈~</p>
-<div class="questions" id="question">설문 조사 리스트 예시</div>
-<!-- <ul id="surveyList">
-<li id="question">설문조사 내용 예시 1</li>
-</ul> -->
-
+<div id="surveyCanvas">
+<p>Survey Canvas</p>
 </div>
 
-<div class="editSurvey">
-<p>툴 내용 세부 수정</p>
+<div id="editSurvey">
+<p>Edit Survey Option</p>
 </div>
+
 </body>
 </html>
