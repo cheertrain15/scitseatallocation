@@ -100,8 +100,7 @@ $( function() {
     			+'<option>옵션3</option>'
     			+'<option>옵션4</option>'
 	    	    +'</select>'
-	    	    +'</fieldset>'
-        	    +'</div>';
+	    	    
        }
         
         	$(this).append(str);
@@ -118,7 +117,7 @@ function deleteSurvey(questionNum){
 
 function editQuestion(questionNum){
 	var str = '';
-	str += '<input type="text" id="editQuestion'+questionNum+'+" value="질문'+questionNum+'.">'
+	str += '<input type="text" id="editQuestion'+questionNum+'" value="질문'+questionNum+'.">'
 		+ '<input type="button" value="수정" onclick="javascript:completeEditQuestion('+questionNum+')">';
 	
 	$( "#question"+questionNum+" legend")
@@ -126,7 +125,11 @@ function editQuestion(questionNum){
 }
 
 function completeEditQuestion(questionNum){
+	
 	var val = $( "#editQuestion"+questionNum ).val();
-	console.log(val);
+	
+	val += '<input type="button" value="수정" onclick="javascript:editQuestion('+questionNum+')">'
+		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+questionNum+')">';
+	
 	$( "#question"+questionNum+" legend").html(val);
 }

@@ -9,27 +9,31 @@ div {
 }
 
 #toolBar {
+	display: inline-block;
 	width: 250px;
 	height: 600px;
 	float: left;
 }
 
 #editPage {
+	display: inline-block;
 	width: 500px;
 	height: 100px;
 	float: left;
 }
 
 #surveyCanvas {
+	display: inline-block;
 	width: 500px;
 	height: 500px;
 	float: left;
 }
 
 #editSurvey {
+	display: inline-block;
 	width: 250px;
 	height: 600px;
-	float: left;
+	clear: both;
 }
 
 .tools {

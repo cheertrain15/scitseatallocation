@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="./resources/css/survey/surveyCreate.css"/>
 </head>
 <body>
-<h1>새 설문조사 작성</h1>
+<h1>Create Survey</h1>
 
 <div id="toolBar">
 <p>Tool bar</p>
