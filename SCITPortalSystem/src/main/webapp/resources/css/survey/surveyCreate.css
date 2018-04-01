@@ -4,6 +4,16 @@ h1 {
 	color: blue;
 }
 
+ul {
+	list-style-type: none;
+	border: solid 1px;
+}
+
+li {
+	border: solid 1px;
+	margin: 5px;
+}
+
 div {
 	width: 300px;
 	height: 200px;
@@ -13,6 +23,13 @@ div {
 .tools {
 	width: 100px;
 	height: 50px;
+	border: solid red 1px;
+}
+
+.questions {
+	width: 250px;
+	height: 100px;
+	border: solid blue 1px;
 }
 
 .tools:hover {
