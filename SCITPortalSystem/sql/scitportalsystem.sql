@@ -564,6 +564,7 @@ create table AskQuestion(
     AskQuestionTitle Varchar2(100) NOT NULL,    	-- 문의 제목
     AskQuestionContent Varchar2(1000) NOT NULL, 	-- 문의 글 내용
     AskQuestionDate DATE default sysdate NOT NULL, 	-- 문의 글 작성일
+    askQuestionReplies Number (2) default 0, 		--문의 글의 댓글 수
     deleteStatus NUMBER(1) default 0 NOT NULL,      -- 논리적 삭제 여부
     deleteBy Varchar2(20) NOT NULL,                 -- 논리적 삭제 실행자
     deleteDate Date default sysdate NOT NULL        -- 논리적 삭제 실행일
