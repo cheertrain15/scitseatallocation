@@ -50,6 +50,7 @@ CREATE table memberbasic (
     phone varchar2(11) not null,		        -- 전화번호
     address varchar2(200) not null,		         -- 주소
     postNum varchar2(10) not null,	        	-- 우편번호
+    emailApproval NUMBER(1) NOT NULL default 0  -- 이메일 인증 여부
     deleteStatus number(1) default 0 not null,	-- 논리적 삭제 여부
     deleteBy varchar2(20) not null,		        -- 논리적 삭제 실행자
     deleteDate date default sysdate     -- 논리적 삭제 실행일
@@ -76,12 +77,13 @@ INSERT INTO memberbasic (
 	membernum_seq.nextval
 	, 'testid'
 	, 'password'
-	, 'student'
+	, 'teacher'
 	, '이름'
 	, 'aaa@aa.com'
 	, '0104445555'
 	, '서울시 강남구 삼성동 코엑스 4층'
 	, '15425'
+	, '1'
 	,' ' );
     
     -- 테스트용 학생 데이터
@@ -108,6 +110,7 @@ INSERT INTO memberbasic (
 	, '0104445555'
 	, '서울시 강남구 삼성동 코엑스 4층'
 	, '15425'
+	, '1'
 	,' ' );
 
 --------------------------------------------------------------------------------
