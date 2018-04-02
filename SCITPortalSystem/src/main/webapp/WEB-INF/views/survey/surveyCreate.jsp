@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -18,16 +19,31 @@
 		<tr>
 		<td>대상:</td>
 		<td>
-		
-		<select name="alumni" id="alumni">
-		<option>기수 선택</option>
-		<option>34기</option>
-		<option>35기</option>
-		</select>
-		
+			<select name="selectAlumni" id="selectAlumni">
+			<option>기수 선택</option>
+			<option value="${alumni}">${alumni}기</option>
+			</select>
+		</td>
+		<td>
+			<select name="selectClass" id="selectClass">
+			<option>반 선택</option>
+			<option value="all">전체</option>
+			<c:forEach items="${classRoom}" var="cl">
+			<option value="${cl}">${cl}</option>
+			</c:forEach>
+			</select>
+		</td>
+		<td>설문시작일:</td>
+		<td>
+		<input type="text" name="surveyStartDate" id="surveyStartDate">
 		</td>
 		<td></td>
-		<td></td>
+		<td>설문마감일:</td>
+		<td>
+		<input type="text" name="surveyEndDate" id="surveyEndDate">
+		</td>
+		<td><td>
+		<td><input type="button" value="저장"></td>
 		</tr>
 	</table>
 </div>
