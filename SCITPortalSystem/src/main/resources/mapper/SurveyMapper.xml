@@ -7,6 +7,32 @@
  
 <mapper namespace="com.scitportalsystem.www.mapper.SurveyMapper">
 
+<select id="countSelectAll" parameterType="int" resultType="Survey">
+	select count(*) from 
+	(
+	select s.surveynum surveynum, s.teachernum teachernum, mb.name name, 
+	s.surveytitle surveytitle, 
+	TO_CHAR(s.surveywrittendate, 'yyyy-mm-dd') surveywrittendate, 
+	TO_CHAR(s.surveystartdate, 'yyyy-mm-dd') surveystartdate, 
+	TO_CHAR(s.surveyenddate, 'yyyy-mm-dd') surveyenddate
+	from survey s, memberbasic mb, memberstaff ms
+	where s.teachernum = 1
+	and s.teachernum = ms.teachernum
+	and mb.membernum = ms.membernum
+	)
+</select>
+
+<select id="selectAll" parameterType="int" resultType="Survey">
+	select s.surveynum surveynum, s.teachernum teachernum, mb.name name, 
+	s.surveytitle surveytitle, 
+	TO_CHAR(s.surveywrittendate, 'yyyy-mm-dd') surveywrittendate, 
+	TO_CHAR(s.surveystartdate, 'yyyy-mm-dd') surveystartdate, 
+	TO_CHAR(s.surveyenddate, 'yyyy-mm-dd') surveyenddate
+	from survey s, memberbasic mb, memberstaff ms
+	where s.teachernum = 1
+	and s.teachernum = ms.teachernum
+	and mb.membernum = ms.membernum
+</select>
+
 	
 </mapper>
- 

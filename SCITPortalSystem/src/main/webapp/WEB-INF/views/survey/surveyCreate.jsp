@@ -13,6 +13,25 @@
 <body>
 <h1>Create Survey</h1>
 
+<div id="target">
+	<table>
+		<tr>
+		<td>대상:</td>
+		<td>
+		
+		<select name="alumni" id="alumni">
+		<option>기수 선택</option>
+		<option>34기</option>
+		<option>35기</option>
+		</select>
+		
+		</td>
+		<td></td>
+		<td></td>
+		</tr>
+	</table>
+</div>
+
 <div id="toolBar">
 <p>Tool bar</p>
 <div class="tools" id="singleinput">Single Input</div>

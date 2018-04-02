@@ -1,1 +1,9 @@
 @charset "UTF-8";
+
+tr td {
+	border: solid black 1px;
+}
+
+table {
+	border-collapse: collapse;
+}

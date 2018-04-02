@@ -6,11 +6,13 @@
 
 $( function() {
 	
+	// surveyCanvas 내의 항목들이 순서가 자유자재로 바뀔 수 있도록
 	$( "#surveyCanvas" ).sortable({
 	      revert: true
 	    });
 	
-    $( "#singleinput, #radiogroup, #checkbox, #dropdown, #comment").draggable(
+	// 각 툴들이 드래그 가능하도록
+    $( "#singleinput, #radiogroup, #checkbox, #dropdown, #comment" ).draggable(
     
     		{ 
     			scroll: true,
@@ -27,6 +29,7 @@ $( function() {
 	var question = 1;
 	var str = '';
     
+	// surveyCanvas에서 드래그된 것들을 받아서 그에 따른 설문지를 생성할 수 있도록
     $( "#surveyCanvas" ).droppable({
     		greedy: true,
         drop: function( event, ui ) {
@@ -38,7 +41,7 @@ $( function() {
         		
         		str +='<div class="questions" id="question' + question + '">'
         		+'<fieldset>'
-        	    +'<legend>질문' + question + '.텍스트 답변용 질문'
+        	    +'<legend>질문' + question + '. 텍스트 질문'
         	    +'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
         		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
         		+'</legend>'
@@ -52,7 +55,7 @@ $( function() {
         		
         		str += '<div class="questions" id="question' + question + '">'
     			+'<fieldset>'
-    			+'<legend>질문' + question + '.라디오 답변용 질문'
+    			+'<legend>질문' + question + '. 라디오 질문'
     			+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
         		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
         		+'</legend>'
@@ -71,7 +74,7 @@ $( function() {
         		
         		str += '<div class="questions" id="question' + question + '">'
     			+'<fieldset>'
-    			+'<legend>질문' + question + '.체크박스 답변용 질문'
+    			+'<legend>질문' + question + '. 체크박스 질문'
     			+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
         		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
         		+'</legend>'
@@ -90,7 +93,7 @@ $( function() {
         	 
     	   str +='<div class="questions" id="question' + question + '">'
  			+'<fieldset>'
-			+'<legend>질문' + question + '.셀렉트 답변용 질문'
+			+'<legend>질문' + question + '. 셀렉트 질문'
 			+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
     			+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
     			+'</legend>'
@@ -100,10 +103,26 @@ $( function() {
     			+'<option>옵션3</option>'
     			+'<option>옵션4</option>'
 	    	    +'</select>'
+	    	    +'</fieldset>'
+        	    +'</div>';
 	    	    
        }
+       
+      if (draggableId == 'comment') {
+    	
+    	  str +='<div class="questions" id="question' + question + '">'
+  		+'<fieldset>'
+  	    +'<legend>질문' + question + '. 코멘트 질문'
+  	    +'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
+  		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
+  		+'</legend>'
+  		+'<textarea rows="5" cols="30"></textarea>'
+  		+'</fieldset>'
+  		+'</div>';
+    	  
+	}
         
-        	$(this).append(str);
+        	$(this).html(str);
           
           question++;
         }
@@ -111,19 +130,22 @@ $( function() {
    
 } );
 
+// 각 설문지의 삭제버튼이 눌렸을 때 삭제 처리가 가능하도록
 function deleteSurvey(questionNum){
 	$( "#question"+questionNum ).remove();
 }
 
+// 각 설문지의 수정버튼이 눌렸을 때 질문 내용을 바꿀 수 있도록
 function editQuestion(questionNum){
 	var str = '';
-	str += '<input type="text" id="editQuestion'+questionNum+'" value="질문'+questionNum+'.">'
+	str += '<input type="text" id="editQuestion'+questionNum+'" value="질문'+questionNum+'. ">'
 		+ '<input type="button" value="수정" onclick="javascript:completeEditQuestion('+questionNum+')">';
 	
 	$( "#question"+questionNum+" legend")
 		.html(str);
 }
 
+// 각 설문지의 질문 내용을 수정하고 변경 완료할 수 있도록
 function completeEditQuestion(questionNum){
 	
 	var val = $( "#editQuestion"+questionNum ).val();

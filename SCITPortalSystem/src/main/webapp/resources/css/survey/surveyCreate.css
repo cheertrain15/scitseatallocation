@@ -8,6 +8,13 @@ div {
 	border: solid black 1px;
 }
 
+#target {
+	display: block;
+	width: 1000px;
+	height: 200px;
+	float: left;
+}
+
 #toolBar {
 	display: inline-block;
 	width: 250px;

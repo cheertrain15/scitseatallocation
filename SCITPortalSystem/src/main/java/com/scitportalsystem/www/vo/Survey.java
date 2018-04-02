@@ -10,121 +10,89 @@ import java.util.Date;
  */
 public class Survey {
 	private int surveyNum; // -- 설문조사 양식 번호
-	private int memberNum; // -- 회원번호
+	private String name; // -- 설문조사 작성한 선생님 이름
+	// 실제 데이터베이스상 Survey 테이블에는 name 항목 없음.
+	// 조인으로 다른 테이블에서 이름을 가져올 때 VO를 통해 가져오기 위해 생성한 것.
+	private int teacherNum; // -- 설문조사 작성한 선생님 번호
 	private String surveyTitle; // -- 설문조사 제목
-	private Date surveyWrittenDate; // Date NOT NULL, -- 설문조사 작성일
-	private Date surveyStartDate; // Date NOT NULL, -- 설문조사 시작일
-	private Date surveyEndDate; // Date NOT NULL, -- 설문조사 종료일
-	private int frontBack; // -- 선호하는 자리(앞/뒤)
-	private int sideCenter; // -- 선호하는 자리(벽쪽/가운데)
-	private String avoidMember; // -- 같은 조가 되기 싫은 사람
-	private String etcMessage; // -- 비고란
-
-	public Survey(int surveyNum, int memberNum, String surveyTitle, Date surveyWrittenDate, Date surveyStartDate,
-			Date surveyEndDate, int frontBack, int sideCenter, String avoidMember, String etcMessage) {
-		super();
-		this.surveyNum = surveyNum;
-		this.memberNum = memberNum;
-		this.surveyTitle = surveyTitle;
-		this.surveyWrittenDate = surveyWrittenDate;
-		this.surveyStartDate = surveyStartDate;
-		this.surveyEndDate = surveyEndDate;
-		this.frontBack = frontBack;
-		this.sideCenter = sideCenter;
-		this.avoidMember = avoidMember;
-		this.etcMessage = etcMessage;
-	}
-
-	public Survey() {
-		super();
-	}
-
+	private String surveyWrittenDate; // Date NOT NULL, -- 설문조사 작성일
+	private String surveyStartDate; // Date NOT NULL, -- 설문조사 시작일
+	private String surveyEndDate; // Date NOT NULL, -- 설문조사 종료일
+	
+//	private String surveyContent; // -- 설문조사 내용
+//	private int respondNum; // -- 설문조사 응답 번호
+//	private String classroom; // --설문조사 응답자의 반
+//	private int memberNum; // -- 설문조사 응답자 회원번호
+//	private int respondStatus; // -- 설문조사 여부
+//	private Date respondDate; // -- 설문조사 응답일
+//	private String respondContent; // -- 설문조사 응답내용
+	
+//	private int frontBack; // -- 선호하는 자리(앞/뒤)
+//	private int sideCenter; // -- 선호하는 자리(벽쪽/가운데)
+//	private String avoidMember; // -- 같은 조가 되기 싫은 사람 
+//	private String etcMessage; // -- 비고란 
+	 
 	public int getSurveyNum() {
 		return surveyNum;
 	}
-
 	public void setSurveyNum(int surveyNum) {
 		this.surveyNum = surveyNum;
 	}
-
-	public int getMemberNum() {
-		return memberNum;
+	public String getName() {
+		return name;
 	}
-
-	public void setMemberNum(int memberNum) {
-		this.memberNum = memberNum;
+	public void setName(String name) {
+		this.name = name;
 	}
-
+	public int getTeacherNum() {
+		return teacherNum;
+	}
+	public void setTeacherNum(int teacherNum) {
+		this.teacherNum = teacherNum;
+	}
 	public String getSurveyTitle() {
 		return surveyTitle;
 	}
-
 	public void setSurveyTitle(String surveyTitle) {
 		this.surveyTitle = surveyTitle;
 	}
-
-	public Date getSurveyWrittenDate() {
+	public String getSurveyWrittenDate() {
 		return surveyWrittenDate;
 	}
-
-	public void setSurveyWrittenDate(Date surveyWrittenDate) {
+	public void setSurveyWrittenDate(String surveyWrittenDate) {
 		this.surveyWrittenDate = surveyWrittenDate;
 	}
-
-	public Date getSurveyStartDate() {
+	public String getSurveyStartDate() {
 		return surveyStartDate;
 	}
-
-	public void setSurveyStartDate(Date surveyStartDate) {
+	public void setSurveyStartDate(String surveyStartDate) {
 		this.surveyStartDate = surveyStartDate;
 	}
-
-	public Date getSurveyEndDate() {
+	public String getSurveyEndDate() {
 		return surveyEndDate;
 	}
-
-	public void setSurveyEndDate(Date surveyEndDate) {
+	public void setSurveyEndDate(String surveyEndDate) {
 		this.surveyEndDate = surveyEndDate;
 	}
-
-	public int getFrontBack() {
-		return frontBack;
+	public Survey(int surveyNum, String name, int teacherNum, String surveyTitle, String surveyWrittenDate,
+			String surveyStartDate, String surveyEndDate) {
+		super();
+		this.surveyNum = surveyNum;
+		this.name = name;
+		this.teacherNum = teacherNum;
+		this.surveyTitle = surveyTitle;
+		this.surveyWrittenDate = surveyWrittenDate;
+		this.surveyStartDate = surveyStartDate;
+		this.surveyEndDate = surveyEndDate;
 	}
-
-	public void setFrontBack(int frontBack) {
-		this.frontBack = frontBack;
+	public Survey() {
+		super();
 	}
-
-	public int getSideCenter() {
-		return sideCenter;
-	}
-
-	public void setSideCenter(int sideCenter) {
-		this.sideCenter = sideCenter;
-	}
-
-	public String getAvoidMember() {
-		return avoidMember;
-	}
-
-	public void setAvoidMember(String avoidMember) {
-		this.avoidMember = avoidMember;
-	}
-
-	public String getEtcMessage() {
-		return etcMessage;
-	}
-
-	public void setEtcMessage(String etcMessage) {
-		this.etcMessage = etcMessage;
-	}
-
 	@Override
 	public String toString() {
-		return "Survey [surveyNum=" + surveyNum + ", memberNum=" + memberNum + ", surveyTitle=" + surveyTitle
-				+ ", surveyWrittenDate=" + surveyWrittenDate + ", surveyStartDate=" + surveyStartDate
-				+ ", surveyEndDate=" + surveyEndDate + ", frontBack=" + frontBack + ", sideCenter=" + sideCenter
-				+ ", avoidMember=" + avoidMember + ", etcMessage=" + etcMessage + "]";
+		return "Survey [surveyNum=" + surveyNum + ", name=" + name + ", teacherNum=" + teacherNum + ", surveyTitle="
+				+ surveyTitle + ", surveyWrittenDate=" + surveyWrittenDate + ", surveyStartDate=" + surveyStartDate
+				+ ", surveyEndDate=" + surveyEndDate + "]";
 	}
-
+	
 }
