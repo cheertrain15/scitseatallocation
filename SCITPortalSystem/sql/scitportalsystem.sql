@@ -47,10 +47,10 @@ CREATE table memberbasic (
     memberSaverPicName varchar(1000),		    -- 실제로 서버에 저장된 회원 사진 파일 이름
     name varchar2(20) not null,			        -- 이름(실명)
     email varchar2(50) not null,		        -- 이메일
+    emailApproval NUMBER(1) default 0 not null,  -- 이메일 인증 여부
     phone varchar2(11) not null,		        -- 전화번호
     address varchar2(200) not null,		         -- 주소
     postNum varchar2(10) not null,	        	-- 우편번호
-    emailApproval NUMBER(1) NOT NULL default 0  -- 이메일 인증 여부
     deleteStatus number(1) default 0 not null,	-- 논리적 삭제 여부
     deleteBy varchar2(20) not null,		        -- 논리적 삭제 실행자
     deleteDate date default sysdate     -- 논리적 삭제 실행일
@@ -67,6 +67,7 @@ INSERT INTO memberbasic (
 	, memberclass
 	, name
 	, email
+    , emailApproval
 	, phone
 	, address
 	, postnum
@@ -80,11 +81,12 @@ INSERT INTO memberbasic (
 	, 'teacher'
 	, '이름'
 	, 'aaa@aa.com'
+    ,  1
 	, '0104445555'
 	, '서울시 강남구 삼성동 코엑스 4층'
 	, '15425'
-	, '1'
-	,' ' );
+	, ' '
+    );
     
     -- 테스트용 학생 데이터
 INSERT INTO memberbasic (
@@ -94,6 +96,7 @@ INSERT INTO memberbasic (
 	, memberclass
 	, name
 	, email
+    , emailApproval
 	, phone
 	, address
 	, postnum
@@ -107,11 +110,12 @@ INSERT INTO memberbasic (
 	, 'student2'
 	, '이름2'
 	, 'aaa2@aa.com'
+    , 1
 	, '0104445555'
 	, '서울시 강남구 삼성동 코엑스 4층'
 	, '15425'
-	, '1'
 	,' ' );
+    
 
 --------------------------------------------------------------------------------
 
@@ -202,7 +206,8 @@ CREATE table news(
 	newsNum number PRIMARY KEY not null,			    -- 공지사항 글번호
 	id varchar(20) CONSTRAINT FK_memberstudent 		-- 작성자 id
 	 REFERENCES memberbasic(id) not null,		 
-	target varchar2(10) not null,				        -- 공지사항 조회 대상자
+	targetAlumni NUMBER(3) not null,				    -- 공지사항 조회 대상자 (기수)
+	targetClass varchar2(1) not null,				    -- 공지사항 조회 대상자 (반)
 	newsTitle varchar2(100) not null,			        -- 공지사항 제목
 	newsHeader varchar2(20),				            -- 공지사항 말머리
 	newsContent varchar2(1000) not null,			    -- 공지사항 글 내용
@@ -223,7 +228,8 @@ CREATE sequence newsNum_seq start with 1 increment by 1;
 insert into news(
     newsNum 
 	, id 
-	, target 
+	, targetAlumni
+	, targetClass
     , newsTitle 
 	, newsHeader 
 	, newsContent 
@@ -240,7 +246,8 @@ insert into news(
     (
     newsNum_seq.nextval
 	, 'testid' 
-	, 1 
+	, 34
+	, 'A'
     , 'TEST NEWS 빨리 나가고 싶다' 
 	, '중요' 
 	, '여러분은 여기서 이제 나갈 수 없습니다.'
