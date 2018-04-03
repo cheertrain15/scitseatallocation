@@ -4,6 +4,15 @@ h1 {
 	color: blue;
 }
 
+.canvases {
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+}
+
 div {
 	border: solid black 1px;
 }
@@ -11,14 +20,14 @@ div {
 #target {
 	display: block;
 	width: 1000px;
-	height: 200px;
+	height: 50px;
 	float: left;
 }
 
 #toolBar {
 	display: inline-block;
 	width: 250px;
-	height: 600px;
+	height: 750px;
 	float: left;
 }
 
@@ -30,16 +39,17 @@ div {
 }
 
 #surveyCanvas {
+	position: relative;
+	float: left;
 	display: inline-block;
 	width: 500px;
-	height: 500px;
-	float: left;
+	height: 650px;
 }
 
 #editSurvey {
 	display: inline-block;
 	width: 250px;
-	height: 600px;
+	height: 750px;
 	clear: both;
 }
 
@@ -56,3 +66,4 @@ div {
 .questions {
 	border: none;
 }
+

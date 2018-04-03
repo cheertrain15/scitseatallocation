@@ -18,7 +18,7 @@
 	from survey s, memberbasic mb, memberstaff ms
 	where s.teachernum = 1
 	and s.teachernum = ms.teachernum
-	and mb.membernum = ms.membernum
+	and mb.id = ms.id
 	)
 </select>
 
@@ -31,7 +31,35 @@
 	from survey s, memberbasic mb, memberstaff ms
 	where s.teachernum = 1
 	and s.teachernum = ms.teachernum
-	and mb.membernum = ms.membernum
+	and mb.id = ms.id
+</select>
+
+<select id="selectInChargeAlumni" parameterType="int" resultType="int">
+	select inchargealumni from memberStaff
+    where teachernum = #{teacherNum}
+</select>
+
+<!-- <select id="countSelectAlumni" parameterType="int" resultType="int">
+	select 
+	count(*) 
+	from(
+    select distinct alumni 
+    from memberstudent
+    where alumni = #{inChargeAlumni}
+    );
+</select> -->
+
+<select id="selectAlumni" parameterType="int" resultType="int">
+	select distinct alumni 
+    from memberstudent
+    where alumni = #{inChargeAlumni}
+</select>
+
+<select id="selectClassRoom" parameterType="int" resultType="String">
+	select distinct classroom
+    from memberstudent
+    where alumni = #{inChargeAlumni}
+    ORDER BY classroom asc
 </select>
 
 	

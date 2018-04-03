@@ -6,10 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>새 설문조사 작성</title>
+
 	<script type="text/javascript" src="./resources/js/jquery-3.2.1.js"/></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="./resources/js/survey/surveyCreate.js"/></script>
 	<link rel="stylesheet" type="text/css" href="./resources/css/survey/surveyCreate.css"/>
+	
 </head>
 <body>
 <h1>Create Survey</h1>
@@ -42,10 +44,9 @@
 		<td>
 		<input type="text" name="surveyEndDate" id="surveyEndDate">
 		</td>
-		<td><td>
-		<td><input type="button" value="저장"></td>
 		</tr>
 	</table>
+	<input type="button" value="설문조사 저장">
 </div>
 
 <div id="toolBar">
@@ -59,10 +60,18 @@
 
 <div id="editPage">
 <p>Edit page</p>
+
+<select id="pages">
+<option value="1">page1</option>
+</select>
+
+<input type="button" value="+" id="addPage" onclick="javascript:addPage()">
 </div>
 
 <div id="surveyCanvas">
-<p>Survey Canvas</p>
+<div class="canvases" id="canvas1" style="z-index:1;">
+<p>page1</p>
+</div>
 </div>
 
 <div id="editSurvey">

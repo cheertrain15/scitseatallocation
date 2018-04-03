@@ -12,4 +12,14 @@ public interface SurveyMapper {
 
 	ArrayList<Survey> selectAll(int teacherNum, RowBounds rb);
 	
+	int selectInChargeAlumni(int teacherNum);
+
+//	int countSelectAlumni(int inChargeAlumni);
+
+	int selectAlumni(int inChargeAlumni);
+
+	ArrayList<String> selectClassRoom(int inChargeAlumni);
+
+	
+	
 }
