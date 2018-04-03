@@ -51,7 +51,7 @@ public class SurveyController {
 	
 	@RequestMapping (value="surveyCreate", method=RequestMethod.GET)
 	public String surveyCreate(HttpSession session, Model model) {
-		
+		 
 //		int teacherNum = (int) session.getAttribute("teacherNum");
 //		로그인 가능하게 수정되면 위의 코드로 teacherNum 받아올 것		
 		int teacherNum = 1;

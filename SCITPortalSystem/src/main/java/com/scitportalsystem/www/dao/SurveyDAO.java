@@ -62,7 +62,7 @@ public class SurveyDAO {
 //		
 //		return result;
 //	}
-
+ 
 	public int selectAlumni(int inChargeAlumni) {
 		int result = 0;
 		

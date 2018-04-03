@@ -57,7 +57,7 @@
 <div class="tools" id="dropdown">Dropdown</div>
 <div class="tools" id="comment">Comment</div>
 </div>
-
+ 
 <div id="editPage">
 <p>Edit page</p>
 

@@ -31,7 +31,7 @@
 	from survey s, memberbasic mb, memberstaff ms
 	where s.teachernum = 1
 	and s.teachernum = ms.teachernum
-	and mb.id = ms.id
+	and mb.id = ms.id 
 </select>
 
 <select id="selectInChargeAlumni" parameterType="int" resultType="int">

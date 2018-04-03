@@ -3,7 +3,7 @@ $( document ).ready('initialize');
 $( function() {
 	    var dateFormat = "yy-mm-dd",
 	      from = $( "#surveyStartDate" ).datepicker({
-	          defaultDate: "+1w",
+	          defaultDate: "+1w", 
 	          changeMonth: true
 	        })
 	        .on( "change", function() {
