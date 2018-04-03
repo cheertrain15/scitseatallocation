@@ -11,18 +11,20 @@ public class AskQuestion {
 	private String askQuestionTitle; // -- 문의 제목
 	private String askQuestionContent; // -- 문의 글 내용
 	private Date askQuestionDate; // -- 문의 글 작성일
+	private int askQuestionReplies; // --문의 글의 댓글 수
 	private int deleteStatus; // -- 논리적 삭제 여부
 	private String deleteBy; // -- 논리적 삭제 실행자
 	private Date deleteDate; // -- 논리적 삭제 실행일
 
 	public AskQuestion(int askQuestionNum, String id, String askQuestionTitle, String askQuestionContent,
-			Date askQuestionDate, int deleteStatus, String deleteBy, Date deleteDate) {
+			Date askQuestionDate, int askQuestionReplies, int deleteStatus, String deleteBy, Date deleteDate) {
 		super();
 		this.askQuestionNum = askQuestionNum;
 		this.id = id;
 		this.askQuestionTitle = askQuestionTitle;
 		this.askQuestionContent = askQuestionContent;
 		this.askQuestionDate = askQuestionDate;
+		this.askQuestionReplies = askQuestionReplies;
 		this.deleteStatus = deleteStatus;
 		this.deleteBy = deleteBy;
 		this.deleteDate = deleteDate;
@@ -72,6 +74,14 @@ public class AskQuestion {
 		this.askQuestionDate = askQuestionDate;
 	}
 
+	public int getAskQuestionReplies() {
+		return askQuestionReplies;
+	}
+
+	public void setAskQuestionReplies(int askQuestionReplies) {
+		this.askQuestionReplies = askQuestionReplies;
+	}
+
 	public int getDeleteStatus() {
 		return deleteStatus;
 	}
@@ -100,7 +110,8 @@ public class AskQuestion {
 	public String toString() {
 		return "AskQuestion [askQuestionNum=" + askQuestionNum + ", id=" + id + ", askQuestionTitle=" + askQuestionTitle
 				+ ", askQuestionContent=" + askQuestionContent + ", askQuestionDate=" + askQuestionDate
-				+ ", deleteStatus=" + deleteStatus + ", deleteBy=" + deleteBy + ", deleteDate=" + deleteDate + "]";
+				+ ", askQuestionReplies=" + askQuestionReplies + ", deleteStatus=" + deleteStatus + ", deleteBy="
+				+ deleteBy + ", deleteDate=" + deleteDate + "]";
 	}
 
 }

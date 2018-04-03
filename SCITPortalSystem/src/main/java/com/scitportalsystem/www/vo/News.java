@@ -8,7 +8,8 @@ import java.util.Date;
 public class News {
 	private int newsNum; // -- 공지사항 글번호
 	private String id; // -- 회원번호
-	private String target; // -- 공지사항 조회 대상자
+	private int targetAlumni; // -- 공지사항 조회 대상자 (기수)
+	private String targetClass; // -- 공지사항 조회 대상자 (기수)
 	private String newsTitle; // -- 공지사항 제목
 	private String newsHeader; // -- 공지사항 말머리
 	private String newsContent; // -- 공지사항 글 내용
@@ -21,13 +22,14 @@ public class News {
 	private String deleteBy; // -- 논리적 삭제 실행자
 	private Date deleteDate; // -- 논리적 삭제 실행일
 
-	public News(int newsNum, String id, String target, String newsTitle, String newsHeader, String newsContent,
-			String newsFileName, String newsSavedFileName, Date newsDate, int newsDisplay, int newsHits,
-			int deleteStatus, String deleteBy, Date deleteDate) {
+	public News(int newsNum, String id, int targetAlumni, String targetClass, String newsTitle, String newsHeader,
+			String newsContent, String newsFileName, String newsSavedFileName, Date newsDate, int newsDisplay,
+			int newsHits, int deleteStatus, String deleteBy, Date deleteDate) {
 		super();
 		this.newsNum = newsNum;
 		this.id = id;
-		this.target = target;
+		this.targetAlumni = targetAlumni;
+		this.targetClass = targetClass;
 		this.newsTitle = newsTitle;
 		this.newsHeader = newsHeader;
 		this.newsContent = newsContent;
@@ -61,12 +63,20 @@ public class News {
 		this.id = id;
 	}
 
-	public String getTarget() {
-		return target;
+	public int getTargetAlumni() {
+		return targetAlumni;
 	}
 
-	public void setTarget(String target) {
-		this.target = target;
+	public void setTargetAlumni(int targetAlumni) {
+		this.targetAlumni = targetAlumni;
+	}
+
+	public String getTargetClass() {
+		return targetClass;
+	}
+
+	public void setTargetClass(String targetClass) {
+		this.targetClass = targetClass;
 	}
 
 	public String getNewsTitle() {
@@ -159,11 +169,11 @@ public class News {
 
 	@Override
 	public String toString() {
-		return "News [newsNum=" + newsNum + ", id=" + id + ", target=" + target + ", newsTitle=" + newsTitle
-				+ ", newsHeader=" + newsHeader + ", newsContent=" + newsContent + ", newsFileName=" + newsFileName
-				+ ", newsSavedFileName=" + newsSavedFileName + ", newsDate=" + newsDate + ", newsDisplay=" + newsDisplay
-				+ ", newsHits=" + newsHits + ", deleteStatus=" + deleteStatus + ", deleteBy=" + deleteBy
-				+ ", deleteDate=" + deleteDate + "]";
+		return "News [newsNum=" + newsNum + ", id=" + id + ", targetAlumni=" + targetAlumni + ", targetClass="
+				+ targetClass + ", newsTitle=" + newsTitle + ", newsHeader=" + newsHeader + ", newsContent="
+				+ newsContent + ", newsFileName=" + newsFileName + ", newsSavedFileName=" + newsSavedFileName
+				+ ", newsDate=" + newsDate + ", newsDisplay=" + newsDisplay + ", newsHits=" + newsHits
+				+ ", deleteStatus=" + deleteStatus + ", deleteBy=" + deleteBy + ", deleteDate=" + deleteDate + "]";
 	}
 
 }
