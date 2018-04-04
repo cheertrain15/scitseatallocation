@@ -62,10 +62,11 @@
 <p>Edit page</p>
 
 <select id="pages">
-<option value="1">page1</option>
+<option value="page1">page1</option>
 </select>
 
-<input type="button" value="+" id="addPage" onclick="javascript:addPage()">
+<input type="button" value="추가" id="addPage" onclick="javascript:addPage()">
+<input type="button" value="삭제" id="subPage" onclick="javascript:subPage()">
 </div>
 
 <div id="surveyCanvas">

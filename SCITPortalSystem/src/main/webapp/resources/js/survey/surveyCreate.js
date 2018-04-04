@@ -1,4 +1,7 @@
-$( document ).ready('initialize');
+$( document ).ready(function(){
+	initialize();
+});
+
 // 설문 시작일과 마감일 설정
 $( function() {
 	    var dateFormat = "yy-mm-dd",
@@ -57,6 +60,7 @@ $( function() {
         drop: function( event, ui ) {
         	
         	var draggableId = ui.draggable.attr("id");
+        	console.log(draggableId);
         	
         	var str = '';
         
@@ -64,7 +68,7 @@ $( function() {
         		
         		str +='<div class="questions" id="question' + question + '">'
 	        		+'<fieldset>'
-	        	    +'<legend><p id="questionContent">질문' + question + '. 내용 수정하쇼</p>'
+	        	    +'<legend>질문' + question + '. 내용 수정하쇼'
 	        	    +'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
 	        		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
 	        		+'</legend>'
@@ -78,16 +82,14 @@ $( function() {
         		
         		str += '<div class="questions" id="question' + question + '">'
 	    			+'<fieldset>'
-	    			+'<legend><p id="questionContent">질문' + question + '. 내용 수정하쇼</p>'
+	    			+'<legend>질문' + question + '. 내용 수정하쇼'
 	    			+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
 	        		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
 	        		+'</legend>'
-	        	    +'<input type="radio" name="radio-1" id="radio-1">'
-	        	    +'<label for="radio-1"><p>옵션1</p></label>'
-	        	    +'<input type="radio" name="radio-1" id="radio-2">'
-	        	    +'<label for="radio-2"><p>옵션2</p></label>'
-	        	    +'<input type="radio" name="radio-1" id="radio-3">'
-	        	    +'<label for="radio-3"><p>옵션3</p></label>'
+	        		+'<input type="button" value="+" class="addOption">'
+	        	    +'<input type="button" value="-" class="subOption">'
+	        	    +'<input type="radio" name="radio" id="radio1">'
+	        	    +'<label for="radio1" class="radio">옵션1</label>'
 	        	    +'</fieldset>'
 	        	    +'</div>';
 				
@@ -97,16 +99,14 @@ $( function() {
         		
         		str += '<div class="questions" id="question' + question + '">'
 	    			+'<fieldset>'
-	    			+'<legend><p id="questionContent">질문' + question + '. 내용 수정하쇼</p>'
+	    			+'<legend>질문' + question + '. 내용 수정하쇼'
 	    			+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
 	        		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
 	        		+'</legend>'
-	        	    +'<input type="checkbox" name="checkbox-1" id="checkbox-1">'
-	        	    +'<label for="checkbox-1"><p>옵션1</p></label>'
-	        	    +'<input type="checkbox" name="checkbox-1" id="checkbox-2">'
-	        	    +'<label for="checkbox-2"><p>옵션2</p></label>'
-	        	    +'<input type="checkbox" name="checkbox-1" id="checkbox-3">'
-	        	    +'<label for="checkbox-3"><p>옵션3</p></label>'
+	        		+'<input type="button" value="+" class="addOption">'
+	        	    +'<input type="button" value="-" class="subOption">'
+	        	    +'<input type="checkbox" name="checkbox" id="checkbox1">'
+	        	    +'<label for="checkbox1">옵션1</label>'
 	        	    +'</fieldset>'
 	        	    +'</div>';
 				
@@ -116,16 +116,17 @@ $( function() {
         	 
 	    	    str +='<div class="questions" id="question' + question + '">'
 	    	   		+'<fieldset>'
-	 			+'<legend><p id="questionContent">질문' + question + '. 내용 수정하쇼</p>'
+	    	   		+'<legend>질문' + question + '. 내용 수정하쇼'
 				+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
 	    			+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
 	    			+'</legend>'
 	    			+'<select name="select" id="select">'
-	    			+'<option>옵션1</option>'
-	    			+'<option selected="selected">옵션2</option>'
-	    			+'<option>옵션3</option>'
-	    			+'<option>옵션4</option>'
+	    			+'<option selected="selected">선택지를 추가하세요</option>'
 		    	    +'</select>'
+		    	    +'<input type="button" value="해당 선택지 삭제" id="subSelectOption">'
+		    	    +'<br>'
+		    	    +'<input type="text" id="selectOption" placeholder="추가할 선택지 내용을 입력하세요" size="30">'
+		    	    +'<input type="button" value="추가" id="addSelectOption">'
 		    	    +'</fieldset>'
 	        	    +'</div>';
 	    	    
@@ -135,7 +136,7 @@ $( function() {
     	
 	    	str +='<div class="questions" id="question' + question + '">'
 	  		+'<fieldset>'
-	  		+'<legend><p id="questionContent">질문' + question + '. 내용 수정하쇼</p>'
+	  		+'<legend>질문' + question + '. 내용 수정하쇼'
 	  	    +'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
 	  		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
 	  		+'</legend>'
@@ -146,11 +147,16 @@ $( function() {
 	}
         
         	$(this).append(str);
-          
-          question++;
+         
+        question++;
+        
+        addSubOption();
+        addSelectOption();
+        subSelectOption();
+        
         }
+    
       });
-   
 });
 
 };
@@ -194,7 +200,7 @@ $( function() {
 //		console.log("left: " + obj.left + "px, top: " + obj.top + "px");
 
 		var page = '';
-		page += '<option value="'+Num+'" selected>page'+Num+'</option>';
+		page += '<option value="page'+Num+'" selected>page'+Num+'</option>';
 		
 		zIndex++;
 		var canvas = '';
@@ -217,6 +223,19 @@ $( function() {
 		
 	};
 	
+	// 페이지 삭제하기
+	function subPage(){
+		
+		var target = $("#pages").find('option:selected');
+		var val = target.val();
+		var num = val.replace(/[^0-9]/g,"");
+		
+		target.remove();
+		
+		$("#id"+num).remove();
+		
+	}
+	
 	// select에서 페이지를 변경하면 해당 페이지를 보여주고 나머지 페이지는 숨김
 	$(function(){
 	
@@ -232,4 +251,87 @@ $( function() {
 	});
 	
 	
+	// radio와 checkbox설문 옵션 추가/제거
+	function addSubOption(){
+		
+		$(".addOption, .subOption").click(function(){
+			
+			var option = $(this).parent().find("input").eq(4).attr("type");
+			
+			console.log(option);
+			
+			if ($(this).attr("class") == "addOption") {
+				
+				if (option =="checkbox") {
+					
+					var str = '';
+					str += '<input type="checkbox" name="checkbox" id="checkbox1">'
+						+'<label for="checkbox1">옵션1</label>'
+						
+						$(this).parent()
+							.last()
+							.append(str);
+					
+				}
+				
+				if (option =="radio") {
+					
+					var str = '';
+					str += '<input type="radio" name="radio" id="radio1">'
+						+'<label for="radio1">옵션1</label>'
+						
+						$(this).parent()
+							.last()
+							.append(str);
+					
+				}
+		
+			}
+			
+			if ($(this).attr("class") == "subOption") {
+				
+				$(this).parent().children().last().remove();
+				$(this).parent().children().last().remove();
+				
+			}
+				
+				
 	
+		});
+	};
+	
+	// select 질문 선택지 추가
+	function addSelectOption(){
+		
+		$("#addSelectOption").click(function(){
+			
+			var val = $("#selectOption").val();
+			
+			console.log(val);
+			
+			var str = '';
+			str += '<option>'
+				+ ''+val+''
+				+ '</option>';
+				
+			$(this).parent()
+				.find("select")
+				.append(str);
+			
+			$("#selectOption").val('');
+			
+		});
+	};
+	
+	// select 질문 선택지 제거
+	function subSelectOption(){
+		
+		$("#subSelectOption").click(function(){
+			
+			console.log($(this).parent().find('option:selected'));
+			
+			$(this).parent()
+				.find('option:selected')
+				.remove();
+		});
+	}
