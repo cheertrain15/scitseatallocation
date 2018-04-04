@@ -193,7 +193,7 @@ $( function() {
 	
 	var Num = 2;
 	var zIndex = 1;
-	
+	 
 	function addPage(){
 //		
 //		var obj = $("#surveyCanvas").offset();
