@@ -6,6 +6,83 @@
 <!-- SCIT PORTAL 로그인/로그아웃  관련 정보 처리 SQL -->
 
 <mapper namespace="com.scitportalsystem.www.mapper.LoginMapper">
+<!-- 회원가입 -->
+<insert id="joinMember" parameterType="MemberBasic">
+insert into
+	memberbasic(
+		memberNum
+		, id
+		, password
+		, memberClass		
+		, name
+		, email
+		, phone
+		, address
+		, postNum
+		, deleteBy	
+		<if test="memberPicName != null and memberSaverPicName != null">
+			, memberPicName
+			, memberSaverPicName
+		</if>
+	) values(
+		membernum_seq.nextval
+		, #{id}
+		, #{password}
+		, #{memberClass}		
+		, #{name}
+		, #{email}
+		, #{phone}
+		, #{address}
+		, #{postNum}
+		, #{deleteBy}	
+		<if test="memberPicName != null and memberSaverPicName != null">
+			, #{memberPicName}
+			, #{memberSaverPicName}
+		</if>
+	)
+</insert> 
 
+<!-- searchOne -->
+<select id="searchOneMember" parameterType="string" resultType="MemberBasic">
+	select
+		memberNum
+		, id
+		, password
+		, memberClass			
+		, name
+		, email
+		, phone
+		, address
+		, postNum
+		, deleteBy		
+		, memberPicName	
+		, memberSaverPicName	
+	from
+		memberbasic
+	where
+		id = #{id}
+</select>
+
+<!-- 개인정보 수정 -->
+<update id="updateMember" parameterType="MemberBasic">
+update memberbasic
+	set
+		password = #{password}
+		, phone = #{phone}
+		, email = #{email}
+		, address = #{address}
+	where
+		id = #{id}
+</update>
+	
+<!-- E-mail 인증 -->
+<update id="approvalUser" parameterType="string">	
+		UPDATE 
+			memberbasic
+		SET 
+			emailApproval = '1' 
+		WHERE 
+			id like #{id}	
+</update>
 	
 </mapper>

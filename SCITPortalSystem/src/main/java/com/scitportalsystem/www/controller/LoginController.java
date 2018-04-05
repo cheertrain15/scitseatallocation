@@ -1,17 +1,440 @@
 package com.scitportalsystem.www.controller;
 
+import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.scitportalsystem.www.dao.LoginDAO;
+import com.scitportalsystem.www.util.FileService;
+import com.scitportalsystem.www.vo.MemberBasic;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
+@RequestMapping(value="member")
+@SessionAttributes("user")
 public class LoginController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
+	@Inject
+	private LoginDAO dao;	
+
+	@Inject
+	private JavaMailSender mailSender;
+	
+	private final String uploadfath = "/profile";
+	
+	
+	/**
+	 * @comment	: 회원가입 클릭 시 회원가입 페이지로 이동 
+	 * @param 	: model (오류로 인해 회원가입 실패했을 때 가입정보 다시 보여주기 위해)
+	 * @author  : 김다희
+	 */
+	@RequestMapping(value="joinForm",method=RequestMethod.GET)
+	public String userForm(Model model) {
+		logger.info("회원가입 폼 시작");
+		
+		MemberBasic memberBasic = new MemberBasic();
+		
+		model.addAttribute("user", memberBasic);
+		
+		logger.info("회원가입 폼 종료");
+		
+		return "member/joinForm";
+	}
+	
+	/**
+	 * @comment : 회원가입 시 ID 중복체크 페이지 이동 
+	 * @param	: model
+	 * @author  : 김다희
+	 */
+	@RequestMapping(value="idCheck",method=RequestMethod.GET)
+	public String idCheck(Model model){
+		logger.info("ID 중복 폼 이동 시작");
+		
+		model.addAttribute("search", false);		
+		
+		logger.info("ID 중복 폼 이동 종료");
+		return "member/idCheckForm";
+	}
+	
+	/**
+	 * @comment : 회원가입 시 ID 중복체크 
+	 * @param	: model, String (회원가입 시 작성한 ID)
+	 * @author  : 김다희
+	 */
+	@RequestMapping(value="idSearch",method=RequestMethod.POST)
+	public String idSearch(Model model, String searchId){
+		
+		logger.info("ID 찾기 폼 이동 시작");
+		
+		// id로 검색하여 정보 출력
+		MemberBasic search = dao.searchOneMember(searchId);
+		
+		model.addAttribute("searchId", searchId);
+		model.addAttribute("searchResult", search);
+		model.addAttribute("search", true);	
+		
+		logger.info("ID 찾기 폼 이동 종료");
+		
+		return "member/idCheckForm";
+	}
+	
+	/**
+	 * @comment : 회원가입처리(인증을 위한 Email 발송 기능 / 프로필 사진을 위한 파일 업로드 기능 포함)
+	 * @param memberBasic : view에서 받은 회원의 정보를 가진 객체 
+	 * @param model
+	 * @param upload
+	 * @return
+	 * @throws MessagingException
+	 * @throws UnsupportedEncodingException	 * 
+	 * @author : 김다희
+	 */
+	@RequestMapping(value="join", method=RequestMethod.POST)
+	public String join(@ModelAttribute("user") MemberBasic memberBasic, Model model, MultipartFile upload) throws MessagingException, UnsupportedEncodingException{
+		logger.info("회원가입 시작");		
+		
+		memberBasic.setDeleteBy(" ");			
+		
+		// 관리자 계정
+		String admin = "project4u5cho@gmail.com";
+		
+		
+		
+
+		if(upload.isEmpty() == false){
+			
+			String savedfile = FileService.saveFile(upload, uploadfath);
+			
+			memberBasic.setMemberPicName(upload.getOriginalFilename());
+			memberBasic.setMemberSaverPicName(savedfile);
+			
+			System.out.println(memberBasic);
+			
+			logger.info("파일 업로드 완료");	
+		}	
+			
+		boolean result = dao.joinMember(memberBasic);
+		
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper 
+								= new MimeMessageHelper(message, true, "UTF-8");
+			
+			messageHelper.setFrom(admin);	// 보내는 사람
+			messageHelper.setTo(memberBasic.getEmail());	// 받는 사람 이메일
+			messageHelper.setSubject("[Email Check]");		// 메일제목(생략해도 OK)
+			messageHelper.setText(					
+					new StringBuffer()
+					.append("Join Approval\n")
+					.append("http://localhost:8888/www/member/email4u?id=")
+					+ memberBasic.getId()
+					.toString());
+							
+			mailSender.send(message);						
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(result) {
+			
+			logger.info("회원가입 종료");				
+			
+		} else {
+			
+			model.addAttribute("erMSG", "fail");
+			return "member/joinForm";
+		}
+		
+
+		
+		return "redirect:joinComplete";	
+		
+	}
+	
+	/**
+	 * @comment : 인증을 위한 Email을 발송했다는 안내 메세지 페이지로 이동
+	 * @param session
+	 * @param memberBasic
+	 * @param model
+	 * @author  : 김다희 
+	 */
+	@RequestMapping(value="joinComplete",method=RequestMethod.GET)
+	public String joinComplete(SessionStatus session, @ModelAttribute("user") MemberBasic memberBasic, Model model){
+		
+		logger.info("회원 가입 성공 폼 이동 시작");
+		model.addAttribute("id", memberBasic.getId());
+		
+		session.setComplete();
+		
+		logger.info("회원 가입 성공 폼 이동 종료");
+		return "member/joinComplete";
+	}
+	
+	/**
+	 * @comment : 인증 받은 회원의 emailApproval 속성을 '1'로 변경한다.
+	 * @param id : Email 인증을 받은 회원의 ID
+	 * @author  : 김다희
+	 */
+	@RequestMapping(value="email4u", method=RequestMethod.GET)
+	public String approval(@RequestParam String id) {
+		
+		logger.info("E-mail approval");
+		
+		boolean approvalCom = dao.approvalUser(id);
+		
+		if(approvalCom) {
+			
+			logger.info("E-mail Success");
+		}
+		else {
+			
+			logger.info("E-mail Fail");
+		}
+		
+		return "redirect:joinSuccess";
+	}
+	
+	/**
+	 * @comment : Email 인증이 완료되었다는 인내 메세지 페이지로 이동
+	 * @author  : 김다희 
+	 */
+	@RequestMapping(value="joinSuccess", method=RequestMethod.GET)
+	public String joinSuccess() {
+		logger.info("JoinSuccess Page 이동");
+		
+		return "member/joinSuccess";
+		
+	}
+	
+	/**
+	 * @comment : 로그인 페이지로 이동 
+	 * @return
+	 */
+	@RequestMapping(value="loginForm",method=RequestMethod.GET)
+	public String loginForm(){
+		
+		
+		return "member/loginForm";
+	}
+	
+	/**
+	 * @comment : 로그인 처리(Email 인증이 완료된 회원만 로그인 가능)
+	 * @param model	: 로그인 실패 시 실패 메세지를 memberBasic에게 알리기 위한 메세지 저장
+	 * @param memberBasic : View에서 입력받은 memberBasic의 ID를 저장하고 있는 객체 
+	 * @param session	: 로그인 성공 시 memberBasic의 ID, Name, memberNum을 저장
+	 * @author : 김다희 
+	 */
+	@RequestMapping(value="login",method=RequestMethod.POST)
+	public String login(Model model, MemberBasic memberBasic, HttpSession session) {
+		
+		MemberBasic login = dao.searchOneMember(memberBasic.getId());
+		int memberEmail = (login != null) ? login.getEmailApproval() : '1';	// email 인증 여부 
+		
+		
+		// email 인증 완료한 로그인 
+		if(login != null && memberEmail == '1') {
+			
+			session.setAttribute("loginID", login.getId());
+			session.setAttribute("loginName", login.getName());
+			session.setAttribute("loginMemberNum", login.getMemberNum());	
+			
+			logger.info("login 성공 ");
+			
+		} else if(login != null && memberEmail =='0') {
+			logger.info("login 실패 ");
+			model.addAttribute("errorEmail", "Please Check Your Email!!");
+
+			return "member/loginForm";
+			
+		} else if(login == null) {
+			
+			model.addAttribute("errorId", "I'm Sorry! Please Check Your ID!!");
+			
+			return "member/loginForm";
+		} else if(!login.getPassword().equals(memberBasic.getPassword())){
+			
+			model.addAttribute("errorPw", "I'm Sorry! Please Check Your PW!!");
+			return "member/loginForm";
+		} 		
+		
+		
+		
+		return "redirect:/";
+	}
+	
+	/**
+	 * @comment : 로그아웃 처리 
+	 * @param session : session에 저장된 값 지운다. 
+	 * @author : 김다희 
+	 */
+	@RequestMapping(value="logoutForm",method=RequestMethod.GET)
+	public String logoutForm(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
+	/**
+	 * @comment : 개인정보 확인을 위한 마이페이지 (확인용)
+	 * @param model
+	 * @param memberBasic	: 로그인 한 회원의 개인정보들을 담고 있는 객체 
+	 * @param session	: 로그인 한 ID 사용하기 위함 
+	 * @author : 김다희 
+	 */
+	@RequestMapping(value="myPage",method=RequestMethod.GET)
+	public String myPage(Model model, MemberBasic memberBasic, HttpSession session){
+		logger.info("개인정보 폼 이동 시작");	
+		
+		String loginId = (String) session.getAttribute("loginID");
+	
+		MemberBasic searchOne = dao.searchOneMember(loginId);
+		
+		model.addAttribute("searchOne", searchOne);		
+		
+		logger.info("개인정보 폼 이동 종료");	
+		
+		return "member/myPage";
+	}
+	
+	/**
+	 * @comment : 개인정보 수정 페이지 이동 
+	 * @param model
+	 * @param memberBasic
+	 * @param session
+	 * @author : 김다희 
+	 */
+	@RequestMapping(value="updateMypage",method=RequestMethod.GET)
+	public String update(Model model, MemberBasic memberBasic, HttpSession session){
+		logger.info("개인정보 변경 폼 이동 시작");			
+
+		String loginId = (String) session.getAttribute("loginID");
+	
+		MemberBasic changeOne = dao.searchOneMember(loginId);
+		
+		model.addAttribute("changeOne", changeOne);		
+		
+		
+		logger.info("개인정보 변경 폼 이동 종료");	
+		return "member/updateMypage";
+	}
+	
+
+	/**
+	 * @comment : 개인정보 수정 처리 (현재, pw/phone/address/email 만 수정가능 )
+	 * @param model
+	 * @param memberBasic
+	 * @param session
+	 * @author : 김다희 
+	 */
+	@RequestMapping(value="update",method=RequestMethod.POST)
+	public String update(MemberBasic memberBasic, Model model, HttpSession session) {
+		logger.info("개인정보 변경 시작");	
+		
+		int result = dao.updateMember(memberBasic);		
+
+		if(result != 1) {
+			model.addAttribute("errorUP", "Failure");
+			logger.info("회원 정보 수정 실패");
+			return "member/updateMypage";
+			
+		}
+		
+		logger.info("개인정보 변경 종료");			
+		
+		return "redirect:updateComplete";
+	}
+	
+	/**
+	 * @comment : 개인정보 수정이 완료되었다는 안내 메세지 페이지 이동 
+	 * @param session
+	 * @param model
+	 * @param memberBasic
+	 * @author : 김다희 
+	 */
+	@RequestMapping(value="updateComplete",method=RequestMethod.GET)
+	public String updateComplete(HttpSession session, Model model, MemberBasic memberBasic) {
+		
+		String userId = (String) session.getAttribute("loginID");
+		String userName = (String) session.getAttribute("loginName");
+		
+		
+		model.addAttribute("userID", userId);
+		model.addAttribute("userName", userName);
+		
+		return "member/updateComplete";
+	}
+	
+	
+	/**
+	 * @comment : 프로필 사진을 업로드를 위한 파일 업로드 
+	 * @param id
+	 * @param response
+	 * @author : 김다희 
+	 */
+	@RequestMapping(value="downLoad",method=RequestMethod.GET)
+	public void downLoad(String id, HttpServletResponse response) {
+		logger.info("다운로드(img) 시작");	
+		
+		MemberBasic memberOne = dao.searchOneMember(id);
+		
+		String profileName = memberOne.getMemberPicName();
+		
+		try {			
+			response.setHeader("Content-Disposition", "attachment;filename="+URLEncoder.encode(profileName, "UTF-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//파일이 저장된 전체 경로(profile에 저장된 파일명까지) 
+		
+		String fullPath = uploadfath + "/" + memberOne.getMemberSaverPicName();
+		//서버의 파일을 읽을 입력 스트림과 클라이언트에게 전달할 출력스트림
+		FileInputStream fis = null; //내 pc에 있는 걸 읽어올 때 사용
+		ServletOutputStream sos = null; //서블릿을 통해 출력할 때 사용 (다른 pc와 서블릿으로 연결되어 있기때문에)
+		
+		try {
+			
+			fis = new FileInputStream(fullPath);
+			sos = response.getOutputStream();
+			
+			FileCopyUtils.copy(fis, sos);
+			
+			fis.close();
+			sos.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		logger.info("다운 로드 종료");
+	}
 
 	
 	
