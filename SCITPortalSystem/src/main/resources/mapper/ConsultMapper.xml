@@ -5,7 +5,155 @@
 
 <!-- SCIT PORTAL 1:1문의  관련 정보 처리 SQL -->
 
+
 <mapper namespace="com.scitportalsystem.www.mapper.ConsultMapper">
 
+	<!-- 1:1문의 전체보기 -->
+	<select id="selectAskQuestionAll" parameterType="hashmap" resultType="AskQuestion">
+		select 
+			a.AskQuestionNum
+			,a.id
+			,a.askQuestionReplies
+			,a.AskQuestionTitle
+			,a.AskQuestionContent
+			,a.AskQuestionDate
+		from 
+			AskQuestion a
+		<if test="searchText != null">
+			<choose>
+	            <when test="searchSelect.equals('tc')">
+		            where
+		               AskQuestionTitle like '%' || #{searchText} || '%'
+		               or
+		               AskQuestionContent like '%' || #{searchText} || '%'         
+	            </when>
+	            <otherwise>
+		            where
+		               ${searchSelect} like '%' || #{searchText} || '%'
+	            </otherwise>      
+        	</choose>
+		</if>
+		order by 
+			AskQuestionNum desc
+	</select>
 	
+		<!-- 페이징 처리  -->
+	<select id="getTotal" parameterType="hashmap" resultType="int">
+		select
+			count(*)
+		from
+			AskQuestion
+		<if test="searchText != null">
+			<choose>
+	            <when test="searchSelect.equals('tc')">
+		            where
+		               AskQuestionTitle like '%' || #{searchText} || '%'
+		               or
+		               AskQuestionContent like '%' || #{searchText} || '%'         
+	            </when>
+	            <otherwise>
+		            where
+		               ${searchSelect} like '%' || #{searchText} || '%'
+	            </otherwise>      
+         </choose>
+		</if>
+	</select>
+	
+		<!-- 1:1문의 한개 보기 -->
+	<select id="selectAskQuestionOne" parameterType="int" resultType="AskQuestion">
+		select 
+			AskQuestionNum
+			,id
+			,AskQuestionTitle
+			,AskQuestionContent
+		from 
+			AskQuestion
+		where
+			AskQuestionNum = #{AskQuestionNum}
+	</select>
+	
+		<!-- 리플 달기 -->
+	<insert id="insertReply" parameterType="AskQuestionReply">
+		insert into
+			AskQuestionReply
+			(
+				AskQuestionReplyNum
+				,AskQuestionNum
+				,id
+				,text
+			)values(
+				AskQuestionReplyNum_seq.nextval
+				,#{AskQuestionNum}
+				,#{id}
+				,#{text}
+			)			
+	</insert>
+	
+		<!-- 리플 출력 -->
+	<select id="selectReplyAll" parameterType="int" resultType="AskQuestionReply">
+		select
+			AskQuestionReplyNum
+				,AskQuestionNum
+				,id
+				,text
+				,inputdate
+		from
+			AskQuestionReply
+		where
+			AskQuestionNum = #{AskQuestionNum}
+		order by
+			AskQuestionReplyNum desc
+	
+	</select>
+	
+		<!-- 리플 삭제 -->
+	<delete id="deleteReply" parameterType="AskQuestionReply">
+		delete from
+			AskQuestionReply
+		where
+			AskQuestionReplyNum = #{AskQuestionReplyNum}
+			and
+			id = #{id}
+	</delete>
+	
+		<!-- 1:1 문의 작성 -->
+	<insert id="writeAskQuestion" parameterType="AskQuestion">
+		insert into
+			AskQuestion
+			(
+				askQuestionNum
+				,id
+				,askQuestionTitle
+				,askQuestionContent
+				,deleteBy
+			)values(
+				askQuestionNum_seq.nextval
+				,#{id}
+				,#{askQuestionTitle}
+				,#{askQuestionContent}
+				,#{deleteBy}
+			)			
+	</insert>
+	
+		<!-- 리플 갯수 상승 -->
+	<select id="updateReplyHits" parameterType="int">
+		update
+			AskQuestion
+		set
+			askQuestionReplies = askQuestionReplies+1
+		where
+			askQuestionNum = #{askQuestionNum}
+	</select>
+	
+	<!-- 리플 갯수 하락 -->
+	<select id="deleteReplyHits" parameterType="int">
+		update
+			AskQuestion
+		set
+			askQuestionReplies = askQuestionReplies-1
+		where
+			askQuestionNum = #{askQuestionNum}
+	</select>
+	
+
 </mapper>
