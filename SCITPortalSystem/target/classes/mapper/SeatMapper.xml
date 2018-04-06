@@ -7,5 +7,16 @@
 
 <mapper namespace="com.scitportalsystem.www.mapper.SeatMapper">
 
-	
+	<!-- 임의: 선생님의 정보를 가져오기 
+		 이유: 선생님의 담당 기수만 볼 수 있게 하기 위해.
+	 -->
+	<select id="getStaffInfo" resultType="MemberStaff">
+		select
+			id
+			, teacherNum
+			, inChargeAlumni
+			, inChargeSubject
+		from
+			MemberStaff
+	</select>
 </mapper>
