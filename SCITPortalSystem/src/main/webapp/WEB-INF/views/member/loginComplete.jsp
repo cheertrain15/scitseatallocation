@@ -7,7 +7,7 @@
 	<title>[Login Complete]</title>
 	<script type="text/javascript">
 	function goHome() {
-		alert("왜?");
+		
 		location.href = '../home';
 	}
 	</script>

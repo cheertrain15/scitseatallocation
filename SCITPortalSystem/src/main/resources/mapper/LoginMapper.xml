@@ -56,7 +56,8 @@ insert into
 		, postNum
 		, deleteBy		
 		, memberPicName	
-		, memberSaverPicName	
+		, memberSaverPicName
+		, emailApproval	
 	from
 		memberbasic
 	where
@@ -80,9 +81,9 @@ update memberbasic
 		UPDATE 
 			memberbasic
 		SET 
-			emailApproval = '1' 
+			emailApproval = 1
 		WHERE 
-			id like #{id}	
+			id = #{id}	
 </update>
 	
 </mapper>

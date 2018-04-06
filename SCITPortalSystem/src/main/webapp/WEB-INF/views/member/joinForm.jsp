@@ -11,6 +11,10 @@
 	<title>[Join Form]</title>	
 	<meta charset="UTF-8">	
 	<script>
+	<c:if test="${errorMsg != null}">
+	${errorMsg }
+	</c:if>
+	
 	  var loadFile = function(event) {
 	    var reader = new FileReader();
 	   	 reader.onload = function(){
@@ -25,7 +29,7 @@
 
 <body>
 <%@ include file="../header.jsp" %>
-<form action="join" style="border:1px solid #ccc" method="post" enctype="multipart/form-data">
+<form action="join" style="border:1px solid #ccc" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
   <div class="container">
   <br>
     <h1>Sign Up</h1><br>
@@ -51,7 +55,7 @@
 	
 	<b>Profile</b>
 	<img id="output" width="160" height="160"/>
-	<input type="file" accept="image/*" name="upload" onchange="loadFile(event)">
+	<input type="file" accept="image/*" name="upload" onchange="loadFile(event)" id="upload">
 	<br>
 	
 	<b>Email</b>

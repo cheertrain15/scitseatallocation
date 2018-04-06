@@ -6,9 +6,21 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link href="<c:url value ="/resources/css/mainMenu.css"/>" rel="stylesheet" type="text/css" />
 		<title>[Login Form]</title>
+<script type="text/javascript">	
+<c:if test="${errorPW != null}">
+alert('${errorPW}');		
+</c:if>		
+<c:if test="${errorEmail != null}">
+alert('${errorEmail}');
+</c:if>		
+<c:if test="${errorID != null}">
+alert('${errorEmail}');
+</c:if>	
+</script>
 	</head>
 <body>
 <%@ include file="../header.jsp" %>
+
 <br><br><br>
 <form action="login" style="border:1px solid #ccc" method="post">
   <div class="container">

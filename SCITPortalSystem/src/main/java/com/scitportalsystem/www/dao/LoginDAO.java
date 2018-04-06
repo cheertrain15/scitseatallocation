@@ -85,40 +85,25 @@ public class LoginDAO {
 	}
 	
 	// 이메일 인증
-	public boolean approvalUser(String id){
+	public int approvalUser(String id){
 		logger.info("E-mail DAO start");
 		
 		LoginMapper mapper = sqlSession.getMapper(LoginMapper.class);
 		
-		boolean result = false;
-		int updateCount = 0;
+		
+		int result = 0;
 		
 		try {
-			updateCount = mapper.approvalUser(id);
-			
+			result = mapper.approvalUser(id);			
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		if(updateCount == 1) {
-			
-			logger.info("E-mail Success");
-			result = true;
-		} else {
-
-			logger.info("E-mail Fail");
-			
-			result = false;
-		}
-		
-		
 		logger.info("E-mail DAO 종료");
 		
-		return result;
-	}
+		return result;		
 	
+	}	
 	
-	
-	
-	}
+}
