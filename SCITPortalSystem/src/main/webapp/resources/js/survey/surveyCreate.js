@@ -153,6 +153,7 @@ $( function() {
         addSubOption();
         addSelectOption();
         subSelectOption();
+        checkRequired();
         
         }
     
@@ -213,13 +214,16 @@ $( function() {
 		
 		Num++;
 		
+		// 페이지를 추가하고 나면 해당 페이지만 보여주고 나머지는 숨김
+		var target = $("#pages").find('option:selected');
+		var val = target.val();
+		var num = val.replace(/[^0-9]/g,"");
+		
+		$( '.canvases' ).hide();
+		$( '#canvas'+num ).show();
+		
 		// 페이지를 추가하고 나면 해당 페이지에도 droppable 기능 추가
 		initialize();
-		
-		// 페이지를 추가하고 나면 해당 페이지만 보여주고 나머지는 숨김
-		var state = $('#pages option:selected').val();
-		$( '.canvases' ).hide();
-		$( '#canvas'+state ).show();
 		
 	};
 	
@@ -241,10 +245,12 @@ $( function() {
 	
 		$('#pages').change(function() {
 		    
-			var state = $('#pages option:selected').val();
+			var target = $("#pages").find('option:selected');
+			var val = target.val();
+			var num = val.replace(/[^0-9]/g,"");
 		    
 		    	$( '.canvases' ).hide();
-		    $( '#canvas'+state ).show();
+		    $( '#canvas'+num ).show();
 		    
 		});
 	
@@ -328,10 +334,27 @@ $( function() {
 		
 		$("#subSelectOption").click(function(){
 			
-			console.log($(this).parent().find('option:selected'));
-			
 			$(this).parent()
 				.find('option:selected')
 				.remove();
-		});
-	}
+
+		});   
+	};
+	
+	// 질문지 선택되면 필수 응답 질문인지 설정 가능하도록 체크박스 띄우기
+	function checkRequired(){
+		
+		var str = '';
+		str += '<input type="checkbox" name="checkRequired" id="checkRequired">'
+			+ '필수 응답항목 설정'
+         
+		$( ".questions" ).selectable({
+            selected: function() {
+//               var result = $( "#result" ).empty();
+               $( ".ui-selected", this ).each(function() {
+                  $( "#editSurvey" ).html(str);
+               });
+            }
+         });
+		
+	};

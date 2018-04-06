@@ -43,6 +43,8 @@ public class SurveyController {
 		PageNavigator navi = new PageNavigator(LIMIT, PAGES, page, totalCount);
 		ArrayList<Survey> list = surveyDAO.selectAll(teacherNum, LIMIT, page);
 		
+		System.out.println(list);
+		
 		model.addAttribute("list", list);
 		model.addAttribute("navi", navi);
 		
@@ -65,14 +67,26 @@ public class SurveyController {
 		
 		model.addAttribute("alumni", alumni);
 		model.addAttribute("classRoom", classRoom);
-		
+		 
 		return "survey/surveyCreate";
-	}
-	 
+	}  
+	   
 	@RequestMapping (value="surveyAnswer", method=RequestMethod.GET)
 	public String surveyAnswer() {
 		
 		return "survey/surveyAnswer";
+	}
+	
+	@RequestMapping (value="surveyDetail", method=RequestMethod.GET)
+	public String surveyDetail() {
+		
+		return "survey/surveyDetail";
+	}
+	
+	@RequestMapping (value="surveyEdit", method=RequestMethod.GET)
+	public String surveyEdit() {
+		
+		return "survey/surveyEdit";
 	}
 	
 }

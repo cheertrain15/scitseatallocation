@@ -18,6 +18,8 @@ public class Survey {
 	private String surveyWrittenDate; // Date NOT NULL, -- 설문조사 작성일
 	private String surveyStartDate; // Date NOT NULL, -- 설문조사 시작일
 	private String surveyEndDate; // Date NOT NULL, -- 설문조사 종료일
+	private String surveyTargetAlumni; // 설문조사 대상 기수
+	private String surveyTargetClassroom; // 설문조사 대상 반
 	
 //	private String surveyContent; // -- 설문조사 내용
 //	private int respondNum; // -- 설문조사 응답 번호
@@ -30,8 +32,8 @@ public class Survey {
 //	private int frontBack; // -- 선호하는 자리(앞/뒤)
 //	private int sideCenter; // -- 선호하는 자리(벽쪽/가운데)
 //	private String avoidMember; // -- 같은 조가 되기 싫은 사람 
-//	private String etcMessage; // -- 비고란 
-	 
+//	private String etcMessage; // -- 비고란
+	
 	public int getSurveyNum() {
 		return surveyNum;
 	}
@@ -74,8 +76,20 @@ public class Survey {
 	public void setSurveyEndDate(String surveyEndDate) {
 		this.surveyEndDate = surveyEndDate;
 	}
+	public String getSurveyTargetAlumni() {
+		return surveyTargetAlumni;
+	}
+	public void setSurveyTargetAlumni(String surveyTargetAlumni) {
+		this.surveyTargetAlumni = surveyTargetAlumni;
+	}
+	public String getSurveyTargetClassroom() {
+		return surveyTargetClassroom;
+	}
+	public void setSurveyTargetClassroom(String surveyTargetClassroom) {
+		this.surveyTargetClassroom = surveyTargetClassroom;
+	}
 	public Survey(int surveyNum, String name, int teacherNum, String surveyTitle, String surveyWrittenDate,
-			String surveyStartDate, String surveyEndDate) {
+			String surveyStartDate, String surveyEndDate, String surveyTargetAlumni, String surveyTargetClassroom) {
 		super();
 		this.surveyNum = surveyNum;
 		this.name = name;
@@ -84,15 +98,20 @@ public class Survey {
 		this.surveyWrittenDate = surveyWrittenDate;
 		this.surveyStartDate = surveyStartDate;
 		this.surveyEndDate = surveyEndDate;
+		this.surveyTargetAlumni = surveyTargetAlumni;
+		this.surveyTargetClassroom = surveyTargetClassroom;
 	}
+	
 	public Survey() {
 		super();
 	}
+	
 	@Override
 	public String toString() {
 		return "Survey [surveyNum=" + surveyNum + ", name=" + name + ", teacherNum=" + teacherNum + ", surveyTitle="
 				+ surveyTitle + ", surveyWrittenDate=" + surveyWrittenDate + ", surveyStartDate=" + surveyStartDate
-				+ ", surveyEndDate=" + surveyEndDate + "]";
+				+ ", surveyEndDate=" + surveyEndDate + ", surveyTargetAlumni=" + surveyTargetAlumni
+				+ ", surveyTargetClassroom=" + surveyTargetClassroom + "]";
 	}
 	
 }
