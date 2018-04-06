@@ -59,7 +59,8 @@
 					targetClass = #{targetClass}
 			</if>	
 		order by
-			newsNum desc
+			newsHeader desc
+			, newsNum desc
 	</select>
 	
 	<!-- 전체 하나 보기 -->

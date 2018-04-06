@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../resources/css/consult/consult.css" />
 <title>[1:1 문의 게시판]</title>
 <script type="text/javascript">
 	function question(){
@@ -25,33 +26,37 @@
 </head>
 
 <body>
+<%@ include file="../header.jsp" %>
+<br><br><br><br><br>
 	<table>		
 		<tr>		
-			<td>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th>
 				<%-- <c:if test="${sessionScope.loginId != null}"> --%>
 					<input type="button" value="1:1문의하기" onclick="question()">
 				<%-- </c:if> --%>
-			</td>			
+			</th>			
 		</tr>
 			<tr>
-				<th>글 번호</th>
-				<th>이름</th>
-				<th>제목</th>
-				<th>작성일</th>
-				<th></th>
+				<th style="width: 100px">글 번호</th>
+				<th style="width: 100px">이름</th>
+				<th style="width: 400px">제목</th>
+				<th style="width: 150px">작성일</th>
 			</tr>			
 			<c:forEach var="askquestion" items="${askquestionList}">
 				<tr>					
-					<td>${askquestion.askQuestionNum}</td>
-					<td>${askquestion.id}</td>					
+					<td class="tdconsult">${askquestion.askQuestionNum}</td>
+					<td class="tdconsult">${askquestion.id}</td>					
 					<td><a href="read?askQuestionNum=${askquestion.askQuestionNum}">${askquestion.askQuestionTitle}</a>
 						[${askquestion.askQuestionReplies}]
 					</td>
-					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${askquestion.askQuestionDate}" /></td>
+					<td class="tdconsult"><fmt:formatDate pattern = "yyyy-MM-dd" value = "${askquestion.askQuestionDate}" /></td>
 				</tr>
 			</c:forEach>
 	</table>
-	<div class="centerdiv">
+	<div class="consultdiv">
 			<a href="javascript:pagingFormSubmit(1)">◁◁</a>
 			<a href="javascript:pagingFormSubmit(${navi.currentPage-1})">◀</a>
 			<c:forEach var="counter" begin="${navi.startPageGroup}" end="${navi.endPageGroup}">
@@ -66,7 +71,7 @@
 			<a href="javascript:pagingFormSubmit(${navi.currentPage+1})">▶</a>
 			<a href="javascript:pagingFormSubmit(${navi.totalPageCount})">▷▷</a>			
 		</div>		
-		<div class="centerdiv">
+		<div class="consultdiv">
 		<form action="QnA" method="GET" id="pagingForm">
 				<input type="hidden" name="page" id="page">
 				<select name="searchSelect">
@@ -79,5 +84,6 @@
 				<input type="button" onclick="pagingFormSubmit(1)" value="검색">
 		</form>
 		</div>	
+		<%@ include file="../footer.jsp"%>
 </body>
 </html>

@@ -2,9 +2,11 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../resources/css/consult/consultRead.css"/>
 <title>[글 읽기]</title>
 <script type="text/javascript">
 	function deleteReply(askQuestionReplyNum, askQuestionNum) {
@@ -41,36 +43,44 @@
 <link rel="stylesheet" type="text/css"
 	href="../resources/css/default.css" />
 </head>
-<body background="../resources/image/background.JPG">
+<body>
+<%@ include file="../header.jsp" %>
+<br><br><br><br><br>
 	<table>
 		<tr>
-			<th>제목</th>
+			<th class="return">
+				<input type="button" value="돌아가기" onclick="askQestionlistReturn()">
+			</th>
 		</tr>
 		<tr>
-			<td>${askquestion.askQuestionTitle}</td>
+			<th class="consultReadTh">제목</th>
 		</tr>
 		<tr>
-			<th>내용</th>
+			<td height="50px" width="300px">${askquestion.askQuestionTitle}</td>
 		</tr>
 		<tr>
-			<td>${askquestion.askQuestionContent}</td>
+			<th class="consultReadTh">내용</th>
+		</tr>
+		<tr>
+			<td class="consultContent" height="100px" width="300px">${askquestion.askQuestionContent}</td>
+		</tr>
+		<tr>
+			<th>
+				<%-- <c:if test="${sessionScope.loginId != null }"> --%>
+				<form action="insertReply" method="post" onsubmit="return ">
+					<input type="hidden" name="askQuestionNum" value="${askquestion.askQuestionNum}">
+					답글 <input type="text" name="text"> <input type="submit"	value="등록">
+				</form>				
+				<%-- </c:if> --%>
+			</th>
 		</tr>
 	</table>
-	<div class="centerdiv">
-		<%-- <c:if test="${sessionScope.loginId != null }"> --%>
-			<form action="insertReply" method="post" onsubmit="return ">
-				<input type="hidden" name="askQuestionNum" value="${askquestion.askQuestionNum}">
-				답글 <input type="text" name="text"> <input type="submit"	value="등록">
-			</form>
-			<input type="button" value="돌아가기" onclick="askQestionlistReturn()">
-		<%-- </c:if> --%>
-		<br>
-		<table>
-			<c:forEach var="reply" items="${replyList}">
+	<table>
+		<c:forEach var="reply" items="${replyList}">
 				<tr>
-					<td>${reply.id }</td>
-					<td>${reply.text }</td>
-					<td>${reply.inputdate }</td>
+					<td style="width: 100px" >${reply.id }</td>
+					<td class="replyconsult" style="width: 300px">${reply.text }</td>
+					<td style="width: 100px"><fmt:formatDate pattern = "yyyy-MM-dd" value = "${reply.inputdate }" /></td>
 					<td><%-- <c:if test="${sessionScope.loginId == reply.id }"> --%>
 							<a	href="javascript:deleteReply('${reply.askQuestionReplyNum}','${reply.askQuestionNum}')">
 								[삭제] </a>
@@ -82,7 +92,7 @@
 					</td>
 				</tr>
 			</c:forEach>
-		</table>
-	</div>
+	</table>
+	<%@ include file="../footer.jsp"%>
 </body>
 </html>

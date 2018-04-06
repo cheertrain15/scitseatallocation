@@ -4,6 +4,7 @@
 <html>
 	<head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../resources/css/news/newsWrite.css"/>
 	<script type="text/javascript">
 		function formCheck(){
 			var title = document.getElementById('newsTitle');
@@ -25,6 +26,9 @@
 	</script>
 	<title>[문의하기]</title>
 	</head>	
+	<body>
+	<%@ include file="../header.jsp" %>
+	<br><br><br><br><br>
 	<form action="insertNewsWrite" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
 		<table>
 			<tr>
@@ -49,5 +53,6 @@
 		</table>
 		<input type="submit" value="저장">		
 	</form>	
+	<%@ include file="../footer.jsp"%>
 	</body>
 </html>

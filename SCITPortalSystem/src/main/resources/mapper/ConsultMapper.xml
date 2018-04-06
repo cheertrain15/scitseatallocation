@@ -100,10 +100,7 @@
 		from
 			AskQuestionReply
 		where
-			AskQuestionNum = #{AskQuestionNum}
-		order by
-			AskQuestionReplyNum desc
-	
+			AskQuestionNum = #{AskQuestionNum}	
 	</select>
 	
 		<!-- 리플 삭제 -->

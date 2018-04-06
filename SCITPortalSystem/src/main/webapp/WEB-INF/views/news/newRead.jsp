@@ -5,21 +5,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../resources/css/news/newsRead.css"/>
 <title>[해달 글 읽기]</title>
 </head>
 <body>
+<%@ include file="../header.jsp" %>
+<br><br><br><br><br>
 	<table>
 		<tr>
 			<th>제목</th>
 		</tr>
 		<tr>
-			<td>${news.newsTitle}</td>
+			<td height="50px" width="300px">${news.newsTitle}</td>
 		</tr>
 		<tr>
 			<th>내용</th>
 		</tr>
 		<tr>
-			<td>${news.newsContent}</td>
+			<td height="100px" width="300px">${news.newsContent}</td>
 		</tr>
 		<tr>
 			<th>첨부파일</th>
@@ -31,6 +34,6 @@
 			</a></td>
 		</tr>
 	</table>
-
+<%@ include file="../footer.jsp"%>
 </body>
 </html>

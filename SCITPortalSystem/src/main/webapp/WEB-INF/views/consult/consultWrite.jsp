@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../resources/css/consult/consultWrite.css"/>
 <script type="text/javascript">
 		function formCheck(){
 			var title = document.getElementById('askQuestionTitle');
@@ -23,6 +24,8 @@
 <title>[문의하기]</title>
 </head>
 <body>
+<%@ include file="../header.jsp" %>
+<br><br><br><br><br>
 	<form action="writeQuestion" method="post"onsubmit="return formCheck();">
 		<table>
 			<tr>
@@ -41,5 +44,6 @@
 			</tr>		
 		</table>		
 	</form>
+	<%@ include file="../footer.jsp"%>
 </body>
 </html>
