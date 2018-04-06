@@ -52,7 +52,7 @@
 		<c:forEach var="news" items="${NewsList}">
 			<tr>
 				<td class="tdnews" width="100px">${news.newsHeader}</td>			
-				<td width="400px"><a href="read?newsNum=${news.newsNum}">${news.newsTitle}</a><c:if test="${news.newsFileName != null}">
+				<td width="300px"><a href="read?newsNum=${news.newsNum}">${news.newsTitle}</a><c:if test="${news.newsFileName != null}">
 				<img width="10px" src="../resources/img/icon.png"></c:if>
 				</td>
 				<td class="tdnews" width="100px"><fmt:formatDate pattern = "yyyy-MM-dd" value = "${news.newsDate}" /></td>
