@@ -119,11 +119,8 @@ public class LoginController {
 		logger.info("회원가입 시작");		
 		
 		memberBasic.setDeleteBy(" ");			
-		
 		// 관리자 계정
-		String admin = "project4u5cho@gmail.com";
-		
-		
+		String admin = "project4u5cho@gmail.com";		
 		
 
 		if(upload.isEmpty() == false){
@@ -167,7 +164,7 @@ public class LoginController {
 			
 		} else {
 			
-			model.addAttribute("erMSG", "fail");
+			model.addAttribute("errorMsg", "Join fail");
 			return "member/joinForm";
 		}
 		
@@ -206,9 +203,9 @@ public class LoginController {
 		
 		logger.info("E-mail approval");
 		
-		boolean approvalCom = dao.approvalUser(id);
+		int approvalCom = dao.approvalUser(id);
 		
-		if(approvalCom) {
+		if(approvalCom == 1) {
 			
 			logger.info("E-mail Success");
 		}
@@ -237,16 +234,21 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value="loginForm",method=RequestMethod.GET)
-	public String loginForm(){
-		
+	public String loginForm(){		
 		
 		return "member/loginForm";
 	}
 	
+/*	@RequestMapping(value="loginForm",method=RequestMethod.POST)
+	public String login() {
+		
+		return "member/loginForm";
+	}*/
+	
 	/**
 	 * @comment : 로그인 처리(Email 인증이 완료된 회원만 로그인 가능)
 	 * @param model	: 로그인 실패 시 실패 메세지를 memberBasic에게 알리기 위한 메세지 저장
-	 * @param memberBasic : View에서 입력받은 memberBasic의 ID를 저장하고 있는 객체 
+	 * @param memberBasic : View에서 입력받은 memberBasic의 ID와 PW를 저장하고 있는 객체 
 	 * @param session	: 로그인 성공 시 memberBasic의 ID, Name, memberNum을 저장
 	 * @author : 김다희 
 	 */
@@ -254,35 +256,35 @@ public class LoginController {
 	public String login(Model model, MemberBasic memberBasic, HttpSession session) {
 		
 		MemberBasic login = dao.searchOneMember(memberBasic.getId());
-		int memberEmail = (login != null) ? login.getEmailApproval() : '1';	// email 인증 여부 
+		int memberEmail = login.getEmailApproval(); // email 인증 여부 
 		
-		
-		// email 인증 완료한 로그인 
-		if(login != null && memberEmail == '1') {
-			
+	
+		// email 인증된 멤버만 로그인 가능 		
+		if(login != null && memberEmail == 1) {
 			session.setAttribute("loginID", login.getId());
 			session.setAttribute("loginName", login.getName());
 			session.setAttribute("loginMemberNum", login.getMemberNum());	
 			
 			logger.info("login 성공 ");
-			
-		} else if(login != null && memberEmail =='0') {
-			logger.info("login 실패 ");
+		
+		} else if(login != null && memberEmail == 0) {
+			logger.info("login 이메일 인증 실패 ");
 			model.addAttribute("errorEmail", "Please Check Your Email!!");
-
+			
+			logger.info("login 실패 ");
 			return "member/loginForm";
 			
-		} else if(login == null) {
-			
-			model.addAttribute("errorId", "I'm Sorry! Please Check Your ID!!");
-			
-			return "member/loginForm";
 		} else if(!login.getPassword().equals(memberBasic.getPassword())){
 			
-			model.addAttribute("errorPw", "I'm Sorry! Please Check Your PW!!");
+			model.addAttribute("errorPW", "I'm Sorry! Please Check Your PW!!");
+			logger.info("login 비밀번호 실패 ");
 			return "member/loginForm";
-		} 		
-		
+			
+		} else {
+			model.addAttribute("errorID", "Please Check Your ID!!");
+			
+			logger.info("login 실패 ");			
+		}
 		
 		
 		return "redirect:/";
