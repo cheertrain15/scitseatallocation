@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+.thePageDiv{
+	text-align: center;
+}
+
+.classInput {
+	width: 30px;
+}
+
+.classroomFront{
+	margin:30px;
+	border: medium;
+	border-style: solid;
+}
+.seat{
+	display: inline-block;
+	width : 10%;
+	height : 150px;
+	border: medium;
+	border-style: solid;
+	align-content: center;
+	vertical-align: middle;
+}
+
+.corridor{
+	display: inline-block;
+	width: 4%;
+}
+
+.cancelButtonDiv{
+	display: inline-block;
+	left:23%;
+}
+
+.restartDiv{
+	display: inline-block;
+	left:50%;
+}
+
+.saveButtonDiv{
+	display: inline-block;
+	left:77%;
+}
+
+.blankDiv{
+	display: inline-block;
+	width:10%;
+}

@@ -29,7 +29,7 @@
 		<h1>자리 배치 설정</h1>
 		<br>
 		담당 기수 : ${loginedStaffInfo.inChargeAlumni}기
-		<br>
+		<br><br>
 	</div>	
 		
 		<!-- 강의실 좌석을 추가하는 버튼 -->
@@ -60,11 +60,11 @@
 				<div class="cancelButtonDiv">
 					<input type="button" id="cancel" value="뒤로가기">
 				</div>
-				<div class="blankDiv"> </div>
+				<div class="blankDiv"></div>
 					<div class="restartDiv">
 						<input type="button" value="다시하기" onclick="restart()">
 				</div>
-				<div class="blankDiv"> </div>
+				<div class="blankDiv"></div>
 					<div class="saveButtonDiv">
 						<input type="button" id="save" value="저장하기" onclick="saveSeatConfig()">
 				</div>
