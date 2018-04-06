@@ -150,10 +150,10 @@ $( function() {
          
         question++;
         
-        addSubOption();
-        addSelectOption();
-        subSelectOption();
-        checkRequired();
+        addSubOption(); // 라디오, 체크박스 설문지에 대한 선택지 추가/제거
+        addSelectOption(); // 셀렉트 설문지에 대한 선택지 추가
+        subSelectOption(); // 셀렉트 설문지에 대한 선택지 제거
+        checkRequired(); // 각 설문항목 클릭시 필수 응답 항목 여부 체크 가능
         
         }
     
@@ -325,6 +325,7 @@ $( function() {
 				.append(str);
 			
 			$("#selectOption").val('');
+			$("#selectOption").empty();
 			
 		});
 	};
@@ -339,22 +340,46 @@ $( function() {
 				.remove();
 
 		});   
-	};
-	
+	}; 
+	 
 	// 질문지 선택되면 필수 응답 질문인지 설정 가능하도록 체크박스 띄우기
 	function checkRequired(){
 		
-		var str = '';
-		str += '<input type="checkbox" name="checkRequired" id="checkRequired">'
-			+ '필수 응답항목 설정'
-         
 		$( ".questions" ).selectable({
             selected: function() {
-//               var result = $( "#result" ).empty();
-               $( ".ui-selected", this ).each(function() {
-                  $( "#editSurvey" ).html(str);
-               });
+            		$.each($(this), function(index, item){
+            			
+            			var str = '';
+                   		str += '<input type="checkbox" name="checkRequired" id="checkRequired" '
+                   			+ 'associated="'+$( this ).attr("id")+'">'
+                   			+ $( this ).attr("id")+' 필수 응답항목 설정'
+                   			
+                          $( "#editSurvey" ).html(str);
+                   		
+                   		reqiredQuestion(); // 필수 응답 항목 체크 시 각 설문항목에 속성 추가
+            		});
+            		
             }
          });
+		
+	};
+	
+	// 필수 응답 체크박스에 체크될 경우 div에 required 속성 추가
+	function reqiredQuestion(){
+		
+		$("#checkRequired").change(function(){
+			
+			var id = $(this).attr('associated');
+			console.log(id);
+			
+			if($("#checkRequired").is(":checked")){
+				
+				$('#'+id).attr('required', 'required');
+				
+			} else {
+				$('#'+id).removeAttr('required');
+			}
+	
+		});
 		
 	};

@@ -36,9 +36,8 @@ public class SurveyController {
 	@RequestMapping (value="survey", method=RequestMethod.GET)
 	public String survey(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		
-//		int teacherNum = (int) session.getAttribute("teacherNum");
-//		로그인 가능하게 수정되면 위의 코드로 teacherNum 받아올 것		
-		int teacherNum = 1;
+		int teacherNum = (int) session.getAttribute("teacherNum");
+
 		int totalCount = surveyDAO.countSelectAll(teacherNum);
 		PageNavigator navi = new PageNavigator(LIMIT, PAGES, page, totalCount);
 		ArrayList<Survey> list = surveyDAO.selectAll(teacherNum, LIMIT, page);
@@ -54,9 +53,8 @@ public class SurveyController {
 	@RequestMapping (value="surveyCreate", method=RequestMethod.GET)
 	public String surveyCreate(HttpSession session, Model model) {
 		 
-//		int teacherNum = (int) session.getAttribute("teacherNum");
-//		로그인 가능하게 수정되면 위의 코드로 teacherNum 받아올 것		
-		int teacherNum = 1;
+		int teacherNum = (int) session.getAttribute("teacherNum");
+
 		int inChargeAlumni = surveyDAO.selectInChargeAlumni(teacherNum);
 		
 		// 선생님의 담당기수를 확인하여 설문조사 작성 시 대상 기수에 담당 기수만 체크할 수 있도록
