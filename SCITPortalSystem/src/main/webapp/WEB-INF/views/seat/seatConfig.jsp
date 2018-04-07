@@ -52,13 +52,17 @@
 					
 				<div id="seatTemplate">
 					<!-- 강의실 책상배치를 표시하기 (강의실 당 최대 40좌석) -->
-					<div id="seatPlacement" class="seatPlacement">
-					</div>
+					<form id="seatPlan" action="saveSeatConfig" method="post">
+						<div id="seatPlacement" class="seatPlacement">
+						</div>
+						<input type="hidden" id="seatInfo" name="seatInfo" value="">
+						<input type="hidden" id="classInfo" name="classInfo" value="">
+					</form>
 				</div>
 				
 				<br><br>
 				<div class="cancelButtonDiv">
-					<input type="button" id="cancel" value="뒤로가기">
+					<input type="button" id="cancel" value="뒤로가기" onclick="back()">
 				</div>
 				<div class="blankDiv"></div>
 					<div class="restartDiv">

@@ -1,5 +1,7 @@
 package com.scitportalsystem.www.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scitportalsystem.www.dao.SeatDAO;
 import com.scitportalsystem.www.vo.MemberStaff;
+import com.scitportalsystem.www.vo.SeatPlacement;
 
 /**
  * Handles requests for the application home page.
@@ -30,11 +33,17 @@ public class SeatController {
 	 * 학생 반 배치 페이지 불러오기
 	 */
 	@RequestMapping(value="seatpage", method=RequestMethod.GET)
-	public String seatpage(HttpSession session){
+	public String seatpage(HttpSession session, Model model){
 		logger.info("**LODING SEAT.JSP**");
 		
 		//담당 기수만 출력하게 하기 위해 로그인한 선생님의 정보를 가져오기 
-		MemberStaff foundStaff = seatdao.getStaffInfo();
+		MemberStaff foundStaff = seatdao.getStaffInfo("testid");
+		int foundMemberNum = seatdao.getMemberNum(foundStaff.getId());
+		
+		//학사 선생님이 담당하는 기수의 반의 좌석 배치도 자료를 가져오고 모델에 담는다.
+		ArrayList<SeatPlacement> loadedSeatPlacementList = seatdao.showSeatInfo(foundMemberNum);
+		model.addAttribute("loginedStaffSeatPlacement",loadedSeatPlacementList);
+		System.out.println(loadedSeatPlacementList);
 		
 		//가져온 선생님의 정보를 모델에 담아서 seat.jsp에 넘겨주기
 		session.setAttribute("loginedStaffInfo",foundStaff);
@@ -49,12 +58,6 @@ public class SeatController {
 	@RequestMapping(value="seatPageTable", method=RequestMethod.GET)
 	public String seatPageTable(Model model){
 		logger.info("**LODING SeatTable.JSP**");
-		
-		//담당 기수만 출력하게 하기 위해 로그인한 선생님의 정보를 가져오기 
-		MemberStaff foundStaff = seatdao.getStaffInfo();
-		
-		//가져온 선생님의 정보를 모델에 담아서 seat.jsp에 넘겨주기
-		model.addAttribute("loginedStaffInfo",foundStaff);
 		
 		logger.info("**FINISHED LODING SeatTable.JSP**");
 		return "seat/seatTable";
@@ -80,6 +83,28 @@ public class SeatController {
 		
 		logger.info("**FINISHED LODING seatAuto.JSP**");
 		return "seat/seatConfig";
+	}
+	
+	/*
+	 * 반 좌석 설정 정보 저장하기
+	 */
+	@RequestMapping(value="saveSeatConfig", method=RequestMethod.POST)
+	public String saveSeatConfig(HttpSession session,String seatInfo, String classInfo){
+		logger.info("**LODING saveSeatConfig**");
+			MemberStaff loginedStaff = (MemberStaff) session.getAttribute("loginedStaffInfo");
+			
+			SeatPlacement seatPlacement = new SeatPlacement();
+			seatPlacement.setSeatCreator(loginedStaff.getTeacherNum());
+			seatPlacement.setSeatAlumni(Integer.parseInt(loginedStaff.getInChargeAlumni()));
+			seatPlacement.setSeatClassroom(classInfo);
+			seatPlacement.setSeatContent(seatInfo);
+			System.out.println(seatPlacement);
+			int result = seatdao.saveSeatInfo(seatPlacement);
+			if(result == 0) {
+				logger.info("**ERROR DURING saveSeatConfig**");
+			}
+		logger.info("**FINISHED LODING saveSeatConfig**");
+		return "redirect:seatpage";
 	}
 	
 	

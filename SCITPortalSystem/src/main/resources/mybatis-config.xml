@@ -20,6 +20,7 @@
 		<typeAlias type="com.scitportalsystem.www.vo.Registration" alias="Registration" />
 		<typeAlias type="com.scitportalsystem.www.vo.Survey" alias="Survey" />
 		<typeAlias type="com.scitportalsystem.www.vo.AskQuestionReply" alias="AskQuestionReply" />
+		<typeAlias type="com.scitportalsystem.www.vo.SeatPlacement" alias="SeatPlacement" />
 	</typeAliases>
 
 	

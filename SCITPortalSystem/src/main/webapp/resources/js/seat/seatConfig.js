@@ -48,6 +48,42 @@ function deleteShow(seatCount){
 	}
 }
 
+/*
+ * '삭제'버튼을 누루면  물리적으로 좌석을 삭제해주는 기능이다.
+ */
 function deleteSeat(seatCount){
 	$('#seat'+seatCount).remove();
 }
+
+
+/*
+ * '뒤로가기' 버튼 클릭시 전 페이지로 돌아간다.
+ */
+function back(){
+	location.href='seatpage';
+}
+
+
+/*
+ * '다시하기' 버튼을 누루면 현재 페이지를 초기화 해준다.
+ */
+function restart(){
+	location.reload();
+}
+
+
+/*
+ * '저장하기' 버튼 누루면, 좌석 배치도와 반 이름 저장하기.
+ */
+function saveSeatConfig(){
+	var seatPlacement = $('#seatPlacement').html(); //좌석 배치를 String으로 변환함.
+	$('#seatInfo').val(seatPlacement);//변환한 정보를 hidden DOM안에 넣는다.
+	
+	var classInput = $('#classInput').val(); //반 이름 입력한 값을 가져옴.
+	$('#classInfo').val(classInput);//변환한 정보를 hidden DOM안에 넣는다.
+	
+	var seatPlacementForm = document.getElementById('seatPlan'); //좌석 배치를 전송할 form이다.
+	seatPlacementForm.submit();
+}
+
+

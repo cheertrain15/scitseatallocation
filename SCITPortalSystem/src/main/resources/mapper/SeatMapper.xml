@@ -10,7 +10,7 @@
 	<!-- 임의: 선생님의 정보를 가져오기 
 		 이유: 선생님의 담당 기수만 볼 수 있게 하기 위해.
 	 -->
-	<select id="getStaffInfo" resultType="MemberStaff">
+	<select id="getStaffInfo" parameterType="String" resultType="MemberStaff">
 		select
 			id
 			, teacherNum
@@ -18,5 +18,75 @@
 			, inChargeSubject
 		from
 			MemberStaff
+		where
+			id = #{id}
 	</select>
+	
+	<!-- 회원의 기본 정보 중 회원번호를 불러오기 위한 명령 -->
+	<select id="getMemberNum" parameterType="String" resultType="int">
+		select 
+			memberNum
+		from
+			memberbasic
+		where
+			id = #{id}
+	</select>
+	
+	
+	
+	<!--자리 배치도를 저장하는 명령문  -->
+	<insert id="saveSeatInfo" parameterType="SeatPlacement">
+		insert into SeatPlacement(
+		seatPlacementNum
+		, seatCreator
+		, seatAlumni
+		, seatClassroom
+		, seatContent
+		, seatCreatedDate 
+		)
+		values
+		(
+		seatPlacementNum_seq.nextval
+		, #{seatCreator}
+		, #{seatAlumni}
+		, #{seatClassroom}
+		, #{seatContent}
+		, SYSDATE
+		)
+	</insert>
+	
+	<!-- 학사 선생님이 담당하는 기수의 반배치만 조회하게 하는 sql -->
+	<select id="showSeatInfo" parameterType="int" resultType="SeatPlacement">
+	select 
+		SeatPlacement.seatPlacementNum as seatPlacementNum
+		, MemberBasic.name as seatCreatorName
+		, SeatPlacement.seatAlumni as seatAlumni
+		, SeatPlacement.seatClassroom as seatClassroom
+		, SeatPlacement.seatContent as seatContent
+		, SeatPlacement.seatCreatedDate as seatCreatedDate
+	from
+		SeatPlacement
+		, MemberBasic
+	where
+		SeatPlacement.seatCreator = #{seatCreator}
+		AND
+		MemberBasic.memberNum =#{seatCreator}
+	order by 	
+		SeatPlacement.seatClassroom ASC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
