@@ -43,7 +43,7 @@ public class SeatController {
 		//학사 선생님이 담당하는 기수의 반의 좌석 배치도 자료를 가져오고 모델에 담는다.
 		ArrayList<SeatPlacement> loadedSeatPlacementList = seatdao.showSeatInfo(foundMemberNum);
 		model.addAttribute("loginedStaffSeatPlacement",loadedSeatPlacementList);
-		System.out.println(loadedSeatPlacementList);
+		System.out.println(loadedSeatPlacementList.size());
 		
 		//가져온 선생님의 정보를 모델에 담아서 seat.jsp에 넘겨주기
 		session.setAttribute("loginedStaffInfo",foundStaff);

@@ -18,7 +18,7 @@ $(function(){
 			}
 			//좌석을 최대수로 생성해주는 기능이다.
 			for (seatCount; seatCount <= 40 ; seatCount++){
-				var seatAdd = '<div id="seat'+seatCount+'" name="seat" class="seat" seatid="seatNum'+seatCount+'" hide="0" onclick="deleteShow('+seatCount+')"></div>';
+				var seatAdd = '<div id="seat'+seatCount+'" name="seat" class="seat" seatid="seatNum'+seatCount+'" hide="0" onclick="selectedDiv('+seatCount+')"></div>';
 				$('#seatPlacement').append(seatAdd);
 				if(seatCount%8 == 3 ||seatCount%8 == 5 ){ 
 					$('#seatPlacement').append(corridor);
@@ -32,14 +32,14 @@ $(function(){
 /*
  * 좌석을 클릭하면 해당 좌석의 삭제 여부를 담당하는 기능이다.
  */
-function deleteShow(seatCount){
+function selectedDiv(seatCount){
 	//좌석을 클릭하면 삭제 버튼을 보여준다.
 	//삭제 버튼을 선택하면 좌석이 지워지고, div구역을 클릭하면 삭제버튼이 사라진다.
 	if($('#seat'+seatCount).attr('hide') == 0 ){ //클릭했을떄
 		$('#seat'+seatCount)
 			.attr('hide',1)
 			.css('opacity', '0.3')
-			.html('<br><br><br><input type="button" value="삭제" onclick="deleteSeat('+seatCount+')">');
+			.html('<br><br><br><input type="button" value="삭제" onclick="buttonShow('+seatCount+')">');
 	} else if($('#seat'+seatCount).attr('hide') == 1 ){ //다시 클릭했을때
 		$('#seat'+seatCount)
 		.attr('hide',0)
@@ -51,7 +51,7 @@ function deleteShow(seatCount){
 /*
  * '삭제'버튼을 누루면  물리적으로 좌석을 삭제해주는 기능이다.
  */
-function deleteSeat(seatCount){
+function buttonShow(seatCount){
 	$('#seat'+seatCount).remove();
 }
 

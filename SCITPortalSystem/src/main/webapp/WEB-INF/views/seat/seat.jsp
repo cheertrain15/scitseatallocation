@@ -24,7 +24,7 @@
 <body>
 <!-- 화면에 전체에 현재 div로 채워 넣기 -->
 <!-- 이유 : 각 DOM 위치를 편하게 조정할 수 있게-->
-<div>
+<div class="thePageDiv">
 
 	<h1>학생 반 배치</h1>
 	
@@ -40,14 +40,32 @@
 			<a href="seatPageTable">테이블로 보기</a>
 		</div>
 		
+		
 		<div id="seatJSP">
-			<h1>자리 배치도</h1>
+		<h1>자리 배치도</h1>
+			<c:choose>
+				<c:when test="${loginedStaffSeatPlacement != null}">					
+					<c:forEach items="${loginedStaffSeatPlacement}" var="classList">
+						<h3>${classList.seatClassroom}반</h3>
+						${classList.seatContent}
+						<br><br>
+						<hr>
+					</c:forEach>
+				</c:when>
+				
+				<c:when test="${loginedStaffSeatPlacement == null
+								|| loginedStaffSeatPlacement.isEmpty()
+								|| loginedStaffSeatPlacement.size() == 0
+								|| loginedStaffSeatPlacement == ''}">
+					<h3>생성된 반 배치도가 없습니다.</h3>
+				</c:when>
+			</c:choose>
 		</div>
 		
 		<!-- 선생님/관리자 전용 -->
 		<!-- 자동으로 반 배치하는 링크 -->
 		<div>
-			<a href="seatConfig">자리 배치 설정</a>
+			<a href="seatConfig"><input type="button" value="새로 만들기"></a>
 		</div>
 </div>	
 </body>

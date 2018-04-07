@@ -43,17 +43,16 @@
 				<div>
 					<input type="text" id="classInput" class ="classInput" name="classInput" maxlength="1"> 반
 				</div>
-					<!-- 강의실 교탁을 표시하기 -->
-					<br>
-					<div>
-						<p class="classroomFront">교탁</p>
-					</div>
-					<br>
 					
 				<div id="seatTemplate">
 					<!-- 강의실 책상배치를 표시하기 (강의실 당 최대 40좌석) -->
 					<form id="seatPlan" action="saveSeatConfig" method="post">
+						<!-- 강의실 교탁을 표시하기 -->
 						<div id="seatPlacement" class="seatPlacement">
+							<div>
+								<p class="classroomFront">교탁</p>
+							</div>
+							<br>
 						</div>
 						<input type="hidden" id="seatInfo" name="seatInfo" value="">
 						<input type="hidden" id="classInfo" name="classInfo" value="">
