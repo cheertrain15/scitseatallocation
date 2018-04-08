@@ -482,7 +482,7 @@ $( function() {
 		        
 		        	survey += pageId + ', ';
 		        surveyPage += ' page : ' + pageId
-		        				+ ', question : ';
+		        				+ ', questionId : ';
 		       
 		        	// 각 page의 설문 타입 확인 뒤 질문, 선택지 배열에 저장
 		        	$(this).find(".questions")
@@ -491,7 +491,11 @@ $( function() {
 		        			// 각 질문의 id 배열에 저장
 		        			var questionId = $(this).attr("id");
 		        			surveyPage += questionId + ', ';
-		        			surveyQuestion += ' question : ' + questionId
+		        			surveyQuestion += ', questionId : ' + questionId
+		        			
+		        			var questionContent = $(this).find('legend').text();
+		        			
+		        			surveyQuestion += ', questionContent : ' + questionContent;
 		        			
 		        			var required = $(this).attr("required");
 		        			
@@ -529,10 +533,6 @@ $( function() {
 							}
 		        		
 		        	});
-		        	
-		        
-		        	
-		        	
 		         
 		      });
         	
