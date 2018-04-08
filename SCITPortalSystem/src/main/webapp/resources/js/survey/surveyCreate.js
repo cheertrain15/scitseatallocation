@@ -1,5 +1,6 @@
 $( document ).ready(function(){
 	initialize();
+	saveSurvey();
 });
 
 // 설문 시작일과 마감일 설정
@@ -66,7 +67,7 @@ $( function() {
         
         	if (draggableId == 'singleinput') {
         		
-        		str +='<div class="questions" id="question' + question + '">'
+        		str +='<div class="questions" id="question' + question + '" surveyType="singleinput">'
 	        		+'<fieldset>'
 	        	    +'<legend>질문' + question + '. 내용 수정하쇼'
 	        	    +'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
@@ -80,7 +81,7 @@ $( function() {
         	
         	if (draggableId == 'radiogroup') {
         		
-        		str += '<div class="questions" id="question' + question + '">'
+        		str += '<div class="questions" id="question' + question + '" surveyType="radiogroup">'
 	    			+'<fieldset>'
 	    			+'<legend>질문' + question + '. 내용 수정하쇼'
 	    			+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
@@ -97,7 +98,7 @@ $( function() {
         	
         	if (draggableId == 'checkbox') {
         		
-        		str += '<div class="questions" id="question' + question + '">'
+        		str += '<div class="questions" id="question' + question + '" surveyType="checkbox">'
 	    			+'<fieldset>'
 	    			+'<legend>질문' + question + '. 내용 수정하쇼'
 	    			+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
@@ -114,14 +115,14 @@ $( function() {
         	
        if (draggableId == 'dropdown') {
         	 
-	    	    str +='<div class="questions" id="question' + question + '">'
+	    	    str +='<div class="questions" id="question' + question + '" surveyType="dropdown">'
 	    	   		+'<fieldset>'
 	    	   		+'<legend>질문' + question + '. 내용 수정하쇼'
 				+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
 	    			+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
 	    			+'</legend>'
 	    			+'<select name="select" id="select">'
-	    			+'<option selected="selected">선택지를 추가하세요</option>'
+	    			+'<option selected="selected">선택지</option>'
 		    	    +'</select>'
 		    	    +'<input type="button" value="해당 선택지 삭제" id="subSelectOption">'
 		    	    +'<br>'
@@ -134,7 +135,7 @@ $( function() {
        
       if (draggableId == 'comment') {
     	
-	    	str +='<div class="questions" id="question' + question + '">'
+	    	str +='<div class="questions" id="question' + question + '" surveyType="comment">'
 	  		+'<fieldset>'
 	  		+'<legend>질문' + question + '. 내용 수정하쇼'
 	  	    +'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
@@ -154,6 +155,7 @@ $( function() {
         addSelectOption(); // 셀렉트 설문지에 대한 선택지 추가
         subSelectOption(); // 셀렉트 설문지에 대한 선택지 제거
         checkRequired(); // 각 설문항목 클릭시 필수 응답 항목 여부 체크 가능
+        editOption();
         
         }
     
@@ -188,6 +190,45 @@ $( function() {
 			+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+questionNum+')">';
 		
 		$( "#question"+questionNum+" legend").html(val);
+	};
+	
+	// 라디오, 체크박스 옵션 내용 수정
+	function editOption(){
+		
+		$("label").dblclick(function(){
+			
+			$(this).each(function(index, item){
+				
+				var val = $(this).text();
+				
+				var str = '';
+				str += '<input type="text" id="editOption" value="'+val+'">'
+					+ '<input type="button" value="수정" id="CompleteEditOPtion">';
+				
+				$(this).html(str);
+				completeEditOption();
+				
+			});
+			
+		});
+		
+		
+		
+	};
+	
+	// 라디오, 체크박스 옵션 수정 완료
+	
+	function completeEditOption(){
+		
+		$("#CompleteEditOPtion").click(function(){
+			
+			$(this).each(function(index, item){
+				
+				var editVal = $(this).prev('input').val();
+				$(this).parent().html(editVal);
+				
+			});
+		});
 	};
 	
 	// 페이지 추가
@@ -256,6 +297,8 @@ $( function() {
 	
 	});
 	
+	var checkOptionNum = 1;
+	var radioOptionNum = 1;
 	
 	// radio와 checkbox설문 옵션 추가/제거
 	function addSubOption(){
@@ -264,37 +307,42 @@ $( function() {
 			
 			var option = $(this).parent().find("input").eq(4).attr("type");
 			
-			console.log(option);
-			
-			if ($(this).attr("class") == "addOption") {
+			if ($(this).attr("class") == "addOption ui-selectee") {
 				
 				if (option =="checkbox") {
 					
+					checkOptionNum++;
+					
 					var str = '';
-					str += '<input type="checkbox" name="checkbox" id="checkbox1">'
-						+'<label for="checkbox1">옵션1</label>'
+					str += '<input type="checkbox" name="checkbox" id="checkbox'+checkOptionNum+'">'
+						+'<label for="checkbox'+checkOptionNum+'">옵션'+checkOptionNum+'</label>'
 						
 						$(this).parent()
 							.last()
 							.append(str);
 					
+						editOption();
 				}
 				
 				if (option =="radio") {
 					
+					radioOptionNum++;
+					
 					var str = '';
-					str += '<input type="radio" name="radio" id="radio1">'
-						+'<label for="radio1">옵션1</label>'
+					str += '<input type="radio" name="radio" id="radio'+radioOptionNum+'">'
+						+'<label for="radio'+radioOptionNum+'">옵션'+radioOptionNum+'</label>'
 						
 						$(this).parent()
 							.last()
 							.append(str);
+					
+					editOption();
 					
 				}
 		
 			}
 			
-			if ($(this).attr("class") == "subOption") {
+			if ($(this).attr("class") == "subOption ui-selectee") {
 				
 				$(this).parent().children().last().remove();
 				$(this).parent().children().last().remove();
@@ -310,6 +358,8 @@ $( function() {
 	function addSelectOption(){
 		
 		$("#addSelectOption").click(function(){
+			
+			alert('눌리긴 하는겐지?');
 			
 			var val = $("#selectOption").val();
 			
@@ -382,4 +432,120 @@ $( function() {
 	
 		});
 		
+	};
+	
+	// 설문조사 저장 버튼 누름
+	function saveSurvey(){
+		
+		$("#saveSurvey").click(function(){
+			
+			// 설문 대상, 기간, 제목 가져오기
+			var surveyTargetAlumni = 
+				$(this).parents('body')
+				.find('#selectAlumni option:selected').val();
+			
+			var surveyTargetClassroom =
+				$(this).parents('body')
+				.find('#selectClass option:selected').val();
+			
+			var surveyStartDate =
+				$(this).parents('body')
+				.find('#surveyStartDate').val();
+			
+			var surveyEndDate =
+				$(this).parents('body')
+				.find('#surveyEndDate').val();
+			
+			var surveyTitle = 
+				$(this).parents('body')
+				.find('#surveyTitle').val();
+			
+			// 설문에 관련된 배열
+			var survey = '{';
+        	
+			survey += ' surveyTargetAlumni : ' + surveyTargetAlumni
+		        		+ ', surveyTargetClassroom: ' + surveyTargetClassroom
+		        		+ ', surveyStartDate: ' + surveyStartDate
+		        		+ ', surveyEndDate: ' + surveyEndDate
+		        		+ ', surveyTitle: ' + surveyTitle
+		        		+ ' , page : ';
+			
+			var surveyPage = '{';
+			
+			var surveyQuestion = '{';
+			
+			// 각 page의 id 배열에 저장
+			$(this).parents("body")
+				.find(".canvases").each(function(index, item){   
+		         
+		        	var pageId = $(this).attr("id");
+		        
+		        	survey += pageId + ', ';
+		        surveyPage += ' page : ' + pageId
+		        				+ ', question : ';
+		       
+		        	// 각 page의 설문 타입 확인 뒤 질문, 선택지 배열에 저장
+		        	$(this).find(".questions")
+		        		.each(function(index, item){
+		        			
+		        			// 각 질문의 id 배열에 저장
+		        			var questionId = $(this).attr("id");
+		        			surveyPage += questionId + ', ';
+		        			surveyQuestion += ' question : ' + questionId
+		        			
+		        			var required = $(this).attr("required");
+		        			
+		        			// 각 질문이 필수 응답 항목인지 체크하여 배열에 저장
+		        			if (required == "required") {
+		        				
+		        				surveyQuestion += ', required : required';
+		        				
+							};
+		        			
+						// 각 질문의 설문타입 가져오기
+				        	var surveyType = $(this).attr("surveyType");
+				        	
+				        	surveyQuestion += ', surveyType : ' + surveyType
+				        				+ ', surveyOption : ';
+				        	
+				        	// 설문타입이 라디오, 체크박스일 경우 옵션 선택지 가져오기
+				        	if (surveyType == 'radiogroup' || surveyType == 'checkbox') {
+				        		
+				        		// 각 체크박스의 선택지 내용
+				        		$(this).find('label')
+				        			.each(function(index, item){
+				        				surveyQuestion += $(this).text(); + ', '; 
+				        			}) 
+							};
+				        	
+				        	if (surveyType == 'dropdown') {
+				        		
+				        		// 각 셀렉트의 선택지 내용
+				        		$(this).find('option')
+				        			.each(function(index, item){
+				        				surveyQuestion += $(this).val() + ', ';
+				        			})
+								
+							}
+		        		
+		        	});
+		        	
+		        
+		        	
+		        	
+		         
+		      });
+        	
+			surveyQuestion += '}';
+			
+			surveyPage += '}';
+			
+			survey += '}';
+			
+			console.log('survey: '+survey);
+			console.log('page: '+surveyPage);
+	        console.log('question: '+surveyQuestion);
+	        
+
+		});	
 	};

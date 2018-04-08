@@ -29,7 +29,7 @@
 		<td>
 			<select name="selectClass" id="selectClass">
 			<option>반 선택</option>
-			<option value="all">전체</option>
+			<option value="ALL">ALL</option>
 			<c:forEach items="${classRoom}" var="cl">
 			<option value="${cl}">${cl}</option>
 			</c:forEach>
@@ -39,14 +39,19 @@
 		<td>
 		<input type="text" name="surveyStartDate" id="surveyStartDate">
 		</td>
-		<td></td>
-		<td>설문마감일:</td>
+		<td>설문마감일:</td> 
 		<td>
 		<input type="text" name="surveyEndDate" id="surveyEndDate">
 		</td>
 		</tr>
+		<tr>
+		<td>설문 제목:</td>
+		<td colspan="5">
+		<input type="text" size="80" id="surveyTitle">
+		</td>
+		<td><input type="button" value="설문조사 저장" id="saveSurvey"></td>
+		</tr>
 	</table>
-	<input type="button" value="설문조사 저장">
 </div>
 
 <div id="toolBar">

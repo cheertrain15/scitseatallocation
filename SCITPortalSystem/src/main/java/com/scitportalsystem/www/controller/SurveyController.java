@@ -36,7 +36,9 @@ public class SurveyController {
 	@RequestMapping (value="survey", method=RequestMethod.GET)
 	public String survey(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		
-		int teacherNum = (int) session.getAttribute("teacherNum");
+//		int teacherNum = (int) session.getAttribute("teacherNum");
+		
+		int teacherNum = 1;
 
 		int totalCount = surveyDAO.countSelectAll(teacherNum);
 		PageNavigator navi = new PageNavigator(LIMIT, PAGES, page, totalCount);
@@ -53,7 +55,9 @@ public class SurveyController {
 	@RequestMapping (value="surveyCreate", method=RequestMethod.GET)
 	public String surveyCreate(HttpSession session, Model model) {
 		 
-		int teacherNum = (int) session.getAttribute("teacherNum");
+//		int teacherNum = (int) session.getAttribute("teacherNum");
+		
+		int teacherNum = 1;
 
 		int inChargeAlumni = surveyDAO.selectInChargeAlumni(teacherNum);
 		
@@ -85,6 +89,6 @@ public class SurveyController {
 	public String surveyEdit() {
 		
 		return "survey/surveyEdit";
-	}
+	} 
 	
 }

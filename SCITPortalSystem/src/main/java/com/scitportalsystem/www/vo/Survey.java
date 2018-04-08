@@ -2,7 +2,7 @@ package com.scitportalsystem.www.vo;
 
 import java.util.Date;
 
-/*
+/* 
  * 설문조사 답변용에 대한 정보
  * 이건 설문조사 답변 양식의 프로토 타입입니다.
  * 양식이 유동적으로 바뀌게 되면 이 VO도 유동적으로 바꾸거나, 
@@ -20,20 +20,9 @@ public class Survey {
 	private String surveyEndDate; // Date NOT NULL, -- 설문조사 종료일
 	private String surveyTargetAlumni; // 설문조사 대상 기수
 	private String surveyTargetClassroom; // 설문조사 대상 반
-	
-//	private String surveyContent; // -- 설문조사 내용
-//	private int respondNum; // -- 설문조사 응답 번호
-//	private String classroom; // --설문조사 응답자의 반
-//	private int memberNum; // -- 설문조사 응답자 회원번호
-//	private int respondStatus; // -- 설문조사 여부
-//	private Date respondDate; // -- 설문조사 응답일
-//	private String respondContent; // -- 설문조사 응답내용
-	
-//	private int frontBack; // -- 선호하는 자리(앞/뒤)
-//	private int sideCenter; // -- 선호하는 자리(벽쪽/가운데)
-//	private String avoidMember; // -- 같은 조가 되기 싫은 사람 
-//	private String etcMessage; // -- 비고란
-	
+	private int surveyPage; // 각 설문에서의 페이지
+	private String surveyQuestion; // 각 설문 페이지의 질문
+	private String surveyOption; // 각 질문의 선택지
 	public int getSurveyNum() {
 		return surveyNum;
 	}
@@ -88,8 +77,27 @@ public class Survey {
 	public void setSurveyTargetClassroom(String surveyTargetClassroom) {
 		this.surveyTargetClassroom = surveyTargetClassroom;
 	}
+	public int getSurveyPage() {
+		return surveyPage;
+	}
+	public void setSurveyPage(int surveyPage) {
+		this.surveyPage = surveyPage;
+	}
+	public String getSurveyQuestion() {
+		return surveyQuestion;
+	}
+	public void setSurveyQuestion(String surveyQuestion) {
+		this.surveyQuestion = surveyQuestion;
+	}
+	public String getSurveyOption() {
+		return surveyOption;
+	}
+	public void setSurveyOption(String surveyOption) {
+		this.surveyOption = surveyOption;
+	}
 	public Survey(int surveyNum, String name, int teacherNum, String surveyTitle, String surveyWrittenDate,
-			String surveyStartDate, String surveyEndDate, String surveyTargetAlumni, String surveyTargetClassroom) {
+			String surveyStartDate, String surveyEndDate, String surveyTargetAlumni, String surveyTargetClassroom,
+			int surveyPage, String surveyQuestion, String surveyOption) {
 		super();
 		this.surveyNum = surveyNum;
 		this.name = name;
@@ -100,18 +108,36 @@ public class Survey {
 		this.surveyEndDate = surveyEndDate;
 		this.surveyTargetAlumni = surveyTargetAlumni;
 		this.surveyTargetClassroom = surveyTargetClassroom;
+		this.surveyPage = surveyPage;
+		this.surveyQuestion = surveyQuestion;
+		this.surveyOption = surveyOption;
 	}
-	
 	public Survey() {
 		super();
 	}
-	
 	@Override
 	public String toString() {
 		return "Survey [surveyNum=" + surveyNum + ", name=" + name + ", teacherNum=" + teacherNum + ", surveyTitle="
 				+ surveyTitle + ", surveyWrittenDate=" + surveyWrittenDate + ", surveyStartDate=" + surveyStartDate
 				+ ", surveyEndDate=" + surveyEndDate + ", surveyTargetAlumni=" + surveyTargetAlumni
-				+ ", surveyTargetClassroom=" + surveyTargetClassroom + "]";
+				+ ", surveyTargetClassroom=" + surveyTargetClassroom + ", surveyPage=" + surveyPage
+				+ ", surveyQuestion=" + surveyQuestion + ", surveyOption=" + surveyOption + "]";
 	}
+	
+	
+//	private String surveyContent; // -- 설문조사 내용
+//	private int respondNum; // -- 설문조사 응답 번호
+//	private String classroom; // --설문조사 응답자의 반
+//	private int memberNum; // -- 설문조사 응답자 회원번호
+//	private int respondStatus; // -- 설문조사 여부
+//	private Date respondDate; // -- 설문조사 응답일
+//	private String respondContent; // -- 설문조사 응답내용
+	
+//	private int frontBack; // -- 선호하는 자리(앞/뒤)
+//	private int sideCenter; // -- 선호하는 자리(벽쪽/가운데)
+//	private String avoidMember; // -- 같은 조가 되기 싫은 사람 
+//	private String etcMessage; // -- 비고란
+	
+	
 	
 }
