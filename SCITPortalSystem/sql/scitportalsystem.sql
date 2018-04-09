@@ -269,6 +269,7 @@ create table Registration(
     registrationNum NUMBER NOT NULL,            -- 지각통보 글 번호
     id varchar2(20) CONSTRAINT FK_MemberStudent2
     REFERENCES memberbasic(id) NOT NULL, 		-- 글 작성자 아이디
+    registrationReason	Number	default 0,		-- 지각 사유 (0=지각, 1=결석)
     registrationContent Varchar(300) NOT NULL,  -- 지각통보 글 내용
     estimatedTime Varchar(30) NOT NULL,         -- 도착 예정 시간
     registrationDate DATE default sysdate,      -- 지각통보 글 작성일
@@ -284,6 +285,7 @@ create sequence registrationNum_seq start with 1 increment by 1;
 insert into registration(
     registrationNum 
     , id
+    , registrationReason
     , registrationContent 
     , estimatedTime 
     , registrationDate 
@@ -296,6 +298,7 @@ insert into registration(
     (
     registrationNum_seq.nextval
     , 'testid2'
+    , 0
     , '쌤 저 늦잠자서 늦어요 ㅈㅅ'
     , '오후 9시 00분'
     , Sysdate 
