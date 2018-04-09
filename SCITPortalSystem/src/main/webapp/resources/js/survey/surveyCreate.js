@@ -439,6 +439,16 @@ $( function() {
 		
 		$("#saveSurvey").click(function(){
 			
+			// 해당 설문조사 배열
+			var createArray = new Array();
+			
+			var surveyArray = new Array();
+			var pageArray =  new Array();
+			var questoinArray = new Array();
+			
+			var surveyInfo = new Object();
+			var questionInfo = new Object();
+			
 			// 설문 대상, 기간, 제목 가져오기
 			var surveyTargetAlumni = 
 				$(this).parents('body')
@@ -460,92 +470,87 @@ $( function() {
 				$(this).parents('body')
 				.find('#surveyTitle').val();
 			
-			// 설문에 관련된 배열
-			var survey = '{';
-        	
-			survey += ' surveyTargetAlumni : ' + surveyTargetAlumni
-		        		+ ', surveyTargetClassroom: ' + surveyTargetClassroom
-		        		+ ', surveyStartDate: ' + surveyStartDate
-		        		+ ', surveyEndDate: ' + surveyEndDate
-		        		+ ', surveyTitle: ' + surveyTitle
-		        		+ ' , page : ';
+			surveyInfo.surveyTargetAlumni = surveyTargetAlumni;
+			surveyInfo.surveyTargetClassroom = surveyTargetClassroom;
+			surveyInfo.surveyStartDate = surveyStartDate;
+			surveyInfo.surveyEndDate = surveyEndDate;
+			surveyInfo.surveyTitle = surveyTitle;
 			
-			var surveyPage = '{';
+			var surveyPage = new Array();
 			
-			var surveyQuestion = '{';
-			
-			// 각 page의 id 배열에 저장
+			// 각 페이지 아이디
 			$(this).parents("body")
-				.find(".canvases").each(function(index, item){   
-		         
-		        	var pageId = $(this).attr("id");
-		        
-		        	survey += pageId + ', ';
-		        surveyPage += ' page : ' + pageId
-		        				+ ', questionId : ';
-		       
-		        	// 각 page의 설문 타입 확인 뒤 질문, 선택지 배열에 저장
-		        	$(this).find(".questions")
-		        		.each(function(index, item){
-		        			
-		        			// 각 질문의 id 배열에 저장
-		        			var questionId = $(this).attr("id");
-		        			surveyPage += questionId + ', ';
-		        			surveyQuestion += ', questionId : ' + questionId
-		        			
-		        			var questionContent = $(this).find('legend').text();
-		        			
-		        			surveyQuestion += ', questionContent : ' + questionContent;
-		        			
-		        			var required = $(this).attr("required");
-		        			
-		        			// 각 질문이 필수 응답 항목인지 체크하여 배열에 저장
-		        			if (required == "required") {
-		        				
-		        				surveyQuestion += ', required : required';
-		        				
-							};
-		        			
-						// 각 질문의 설문타입 가져오기
-				        	var surveyType = $(this).attr("surveyType");
-				        	
-				        	surveyQuestion += ', surveyType : ' + surveyType
-				        				+ ', surveyOption : ';
-				        	
-				        	// 설문타입이 라디오, 체크박스일 경우 옵션 선택지 가져오기
-				        	if (surveyType == 'radiogroup' || surveyType == 'checkbox') {
-				        		
-				        		// 각 체크박스의 선택지 내용
-				        		$(this).find('label')
-				        			.each(function(index, item){
-				        				surveyQuestion += $(this).text(); + ', '; 
-				        			}) 
-							};
-				        	
-				        	if (surveyType == 'dropdown') {
-				        		
-				        		// 각 셀렉트의 선택지 내용
-				        		$(this).find('option')
-				        			.each(function(index, item){
-				        				surveyQuestion += $(this).val() + ', ';
-				        			})
+				.find(".canvases")
+				.each(function(index, item){
+					
+					var pageId = new Object();
+					pageId.pageId= $(this).attr("id");
+					
+					surveyPage.push(pageId); // surveyInfo - surveyPage(pageId배열)
+					
+					
+					// 각 페이지 설문항목
+					$(this).find('.questions')
+						.each(function(index, item){
+							
+							var pageInfo = new Object();
+							pageInfo.pageId = $(this).attr("id"); // pageInfo - 각 pageId
+							
+							
+							// 각 설문항목의 질문내용
+							var questionContent = $(this).find('legend').text();
+							pageInfo.questionContent = questionContent;
+							
+							// 각 설문항목의 필수응답여부
+							var required = $(this).attr("required");
+							
+							if (required == 'required') {
+								pageInfo.questionRequired = required;
+							}
+							
+							// 각 설문항목의 타입
+							var surveyType = $(this).attr("surveyType");
+							pageInfo.questionType = surveyType;
+							
+							// 각 설문항목의 선택지
+							var surveyOption = new Array();
+							
+							// 설문타입이 라디오/체크박스일 경우 선택지 저장
+							if (surveyType == 'radiogroup' || 
+									surveyType == 'checkbox') {
+								
+								$(this).find('label')
+									.each(function(){
+										
+										var optionContent = new Object();
+										optionContent.optionContent = $(this).text();
+										surveyOption.push(optionContent);
+										
+									});
+								
+								pageInfo.surveyOption =  surveyOption;
 								
 							}
-		        		
-		        	});
-		         
-		      });
-        	
-			surveyQuestion += '}';
+							
+							if (surveyType == 'dropdown') {
+								
+								//todo 
+								
+							}
+							
+							// pageArray에 저장
+							pageArray.push(pageInfo);
+							
+						}); // 각 페이지 설문항목 끝
+					
+				}); // 각 페이지 아이디 끝
 			
-			surveyPage += '}';
+			surveyInfo.surveyPage = surveyPage;
+			surveyArray.push(surveyInfo);
 			
-			survey += '}';
+			console.log(pageArray);
 			
-			console.log('survey: '+survey);
-			console.log('page: '+surveyPage);
-	        console.log('question: '+surveyQuestion);
-	        
-
-		});	
+			
+			
+		});
 	};
