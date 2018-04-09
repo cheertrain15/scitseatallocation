@@ -440,14 +440,10 @@ $( function() {
 		$("#saveSurvey").click(function(){
 			
 			// 해당 설문조사 배열
-			var createArray = new Array();
-			
 			var surveyArray = new Array();
 			var pageArray =  new Array();
-			var questoinArray = new Array();
 			
 			var surveyInfo = new Object();
-			var questionInfo = new Object();
 			
 			// 설문 대상, 기간, 제목 가져오기
 			var surveyTargetAlumni = 
@@ -484,7 +480,9 @@ $( function() {
 				.each(function(index, item){
 					
 					var pageId = new Object();
-					pageId.pageId= $(this).attr("id");
+					var page = $(this).attr("id");
+					
+					pageId.pageId = page;
 					
 					surveyPage.push(pageId); // surveyInfo - surveyPage(pageId배열)
 					
@@ -494,23 +492,23 @@ $( function() {
 						.each(function(index, item){
 							
 							var pageInfo = new Object();
-							pageInfo.pageId = $(this).attr("id"); // pageInfo - 각 pageId
+							pageInfo.page = page; // pageInfo - 각 pageId
 							
 							
 							// 각 설문항목의 질문내용
 							var questionContent = $(this).find('legend').text();
-							pageInfo.questionContent = questionContent;
+							pageInfo.surveyQuestionContent = questionContent;
 							
 							// 각 설문항목의 필수응답여부
 							var required = $(this).attr("required");
 							
 							if (required == 'required') {
-								pageInfo.questionRequired = required;
+								pageInfo.surveyQuestionRequired = required;
 							}
 							
 							// 각 설문항목의 타입
 							var surveyType = $(this).attr("surveyType");
-							pageInfo.questionType = surveyType;
+							pageInfo.surveyQuestionType = surveyType;
 							
 							// 각 설문항목의 선택지
 							var surveyOption = new Array();
@@ -523,7 +521,7 @@ $( function() {
 									.each(function(){
 										
 										var optionContent = new Object();
-										optionContent.optionContent = $(this).text();
+										optionContent.surveyOptionContent = $(this).text();
 										surveyOption.push(optionContent);
 										
 									});
@@ -534,7 +532,18 @@ $( function() {
 							
 							if (surveyType == 'dropdown') {
 								
-								//todo 
+								console.log($(this).find('option').val());
+								
+								$(this).find('option')
+									.each(function(){
+										
+										var optionContent = new Object();
+										optionContent.surveyOptionContent = $(this).val();
+										surveyOption.push(optionContent);
+										
+									});
+								
+								pageInfo.surveyOption =  surveyOption;
 								
 							}
 							
@@ -548,9 +557,29 @@ $( function() {
 			surveyInfo.surveyPage = surveyPage;
 			surveyArray.push(surveyInfo);
 			
-			console.log(pageArray);
 			
+			// 설문조사의 정보를 담을 객체
+			var createSurvey = new Object();
+			createSurvey.surveyArray = surveyArray;
+			createSurvey.pageArray = pageArray;
 			
+			console.log(createSurvey);
+			
+			// 데이터 넘기기
+			$.ajax({
+				
+				url : 'createNewSurvey',
+				type : 'post',
+				contentType : 'application/json;charset=utf-8',
+				data : JSON.stringify(createSurvey),
+				success : function(data) {
+					alert(data);
+				},
+				error : function(err) {
+					console.log(err);
+				}
+				
+			})
 			
 		});
 	};

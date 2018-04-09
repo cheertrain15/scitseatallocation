@@ -9,20 +9,29 @@ import java.util.Date;
  * 다른 방법으로 DB의 자료 사용할 수 있도록 불러와야합니다.
  */
 public class Survey {
+	
 	private int surveyNum; // -- 설문조사 양식 번호
 	private String name; // -- 설문조사 작성한 선생님 이름
 	// 실제 데이터베이스상 Survey 테이블에는 name 항목 없음.
 	// 조인으로 다른 테이블에서 이름을 가져올 때 VO를 통해 가져오기 위해 생성한 것.
 	private int teacherNum; // -- 설문조사 작성한 선생님 번호
+	
 	private String surveyTitle; // -- 설문조사 제목
 	private String surveyWrittenDate; // Date NOT NULL, -- 설문조사 작성일
 	private String surveyStartDate; // Date NOT NULL, -- 설문조사 시작일
 	private String surveyEndDate; // Date NOT NULL, -- 설문조사 종료일
 	private String surveyTargetAlumni; // 설문조사 대상 기수
 	private String surveyTargetClassroom; // 설문조사 대상 반
-	private int surveyPage; // 각 설문에서의 페이지
-	private String surveyQuestion; // 각 설문 페이지의 질문
-	private String surveyOption; // 각 질문의 선택지
+	
+	private int surveyPageNum; //각 설문의 페이지 번호
+	
+	private int surveyQuestionNum; // 각 질문 번호
+	private String surveyQuestionContent; // 각 질문 내용
+	private String surveyQuestionType; // 각 질문 유형
+	private String surveyQuestionRequired; // 각 질문 필수 응답 여부
+	
+	private int surveyOptionNum; // 각 질문 선택지의 번호
+	private String surveyOptionContent; // 각 질문 선택지의 내용
 	public int getSurveyNum() {
 		return surveyNum;
 	}
@@ -77,27 +86,52 @@ public class Survey {
 	public void setSurveyTargetClassroom(String surveyTargetClassroom) {
 		this.surveyTargetClassroom = surveyTargetClassroom;
 	}
-	public int getSurveyPage() {
-		return surveyPage;
+	public int getSurveyPageNum() {
+		return surveyPageNum;
 	}
-	public void setSurveyPage(int surveyPage) {
-		this.surveyPage = surveyPage;
+	public void setSurveyPageNum(int surveyPageNum) {
+		this.surveyPageNum = surveyPageNum;
 	}
-	public String getSurveyQuestion() {
-		return surveyQuestion;
+	public int getSurveyQuestionNum() {
+		return surveyQuestionNum;
 	}
-	public void setSurveyQuestion(String surveyQuestion) {
-		this.surveyQuestion = surveyQuestion;
+	public void setSurveyQuestionNum(int surveyQuestionNum) {
+		this.surveyQuestionNum = surveyQuestionNum;
 	}
-	public String getSurveyOption() {
-		return surveyOption;
+	public String getSurveyQuestionContent() {
+		return surveyQuestionContent;
 	}
-	public void setSurveyOption(String surveyOption) {
-		this.surveyOption = surveyOption;
+	public void setSurveyQuestionContent(String surveyQuestionContent) {
+		this.surveyQuestionContent = surveyQuestionContent;
+	}
+	public String getSurveyQuestionType() {
+		return surveyQuestionType;
+	}
+	public void setSurveyQuestionType(String surveyQuestionType) {
+		this.surveyQuestionType = surveyQuestionType;
+	}
+	public String getSurveyQuestionRequired() {
+		return surveyQuestionRequired;
+	}
+	public void setSurveyQuestionRequired(String surveyQuestionRequired) {
+		this.surveyQuestionRequired = surveyQuestionRequired;
+	}
+	public int getSurveyOptionNum() {
+		return surveyOptionNum;
+	}
+	public void setSurveyOptionNum(int surveyOptionNum) {
+		this.surveyOptionNum = surveyOptionNum;
+	}
+	public String getSurveyOptionContent() {
+		return surveyOptionContent;
+	}
+	public void setSurveyOptionContent(String surveyOptionContent) {
+		this.surveyOptionContent = surveyOptionContent;
 	}
 	public Survey(int surveyNum, String name, int teacherNum, String surveyTitle, String surveyWrittenDate,
 			String surveyStartDate, String surveyEndDate, String surveyTargetAlumni, String surveyTargetClassroom,
-			int surveyPage, String surveyQuestion, String surveyOption) {
+			int surveyPageNum, int surveyQuestionNum, String surveyQuestionContent, String surveyQuestionType,
+			String surveyQuestionRequired, int surveyOptionNum, String surveyOptionContent) {
 		super();
 		this.surveyNum = surveyNum;
 		this.name = name;
@@ -108,9 +142,13 @@ public class Survey {
 		this.surveyEndDate = surveyEndDate;
 		this.surveyTargetAlumni = surveyTargetAlumni;
 		this.surveyTargetClassroom = surveyTargetClassroom;
-		this.surveyPage = surveyPage;
-		this.surveyQuestion = surveyQuestion;
-		this.surveyOption = surveyOption;
+		this.surveyPageNum = surveyPageNum;
+		this.surveyQuestionNum = surveyQuestionNum;
+		this.surveyQuestionContent = surveyQuestionContent;
+		this.surveyQuestionType = surveyQuestionType;
+		this.surveyQuestionRequired = surveyQuestionRequired;
+		this.surveyOptionNum = surveyOptionNum;
+		this.surveyOptionContent = surveyOptionContent;
 	}
 	public Survey() {
 		super();
@@ -120,9 +158,16 @@ public class Survey {
 		return "Survey [surveyNum=" + surveyNum + ", name=" + name + ", teacherNum=" + teacherNum + ", surveyTitle="
 				+ surveyTitle + ", surveyWrittenDate=" + surveyWrittenDate + ", surveyStartDate=" + surveyStartDate
 				+ ", surveyEndDate=" + surveyEndDate + ", surveyTargetAlumni=" + surveyTargetAlumni
-				+ ", surveyTargetClassroom=" + surveyTargetClassroom + ", surveyPage=" + surveyPage
-				+ ", surveyQuestion=" + surveyQuestion + ", surveyOption=" + surveyOption + "]";
+				+ ", surveyTargetClassroom=" + surveyTargetClassroom + ", surveyPageNum=" + surveyPageNum
+				+ ", surveyQuestionNum=" + surveyQuestionNum + ", surveyQuestionContent=" + surveyQuestionContent
+				+ ", surveyQuestionType=" + surveyQuestionType + ", surveyQuestionRequired=" + surveyQuestionRequired
+				+ ", surveyOptionNum=" + surveyOptionNum + ", surveyOptionContent=" + surveyOptionContent + "]";
 	}
+	
+	
+	
+	
+	
 	
 	
 //	private String surveyContent; // -- 설문조사 내용

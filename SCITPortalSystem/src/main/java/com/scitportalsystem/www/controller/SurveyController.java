@@ -3,21 +3,25 @@ package com.scitportalsystem.www.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.FontUIResource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.scitportalsystem.www.dao.SurveyDAO;
 import com.scitportalsystem.www.util.PageNavigator;
-import com.scitportalsystem.www.vo.MemberStudent;
+import com.scitportalsystem.www.vo.CreateSurvey;
+import com.scitportalsystem.www.vo.PageArray;
 import com.scitportalsystem.www.vo.Survey;
+import com.scitportalsystem.www.vo.SurveyArray;
 
 /**
  * Handles requests for the application home page.
@@ -71,7 +75,48 @@ public class SurveyController {
 		model.addAttribute("classRoom", classRoom);
 		 
 		return "survey/surveyCreate";
-	}  
+	} 
+	
+	@ResponseBody
+	@RequestMapping (value="createNewSurvey", method=RequestMethod.POST, produces="text/html;charset=UTF-8")
+	public String createNewSurvey(@RequestBody String createSurvey) {
+		
+		System.out.println(createSurvey);
+		
+		Gson gson = new Gson();
+		
+		CreateSurvey cs = gson.fromJson(createSurvey, CreateSurvey.class);
+		
+		Survey stc = null;
+		
+		// Survey 객체에 Survey 테이블 관련 정보 저장
+		
+		SurveyArray sa = cs.getSurveyArray().get(0);
+		
+		stc.setSurveyTargetAlumni(sa.getSurveyTargetAlumni());
+		stc.setSurveyTargetClassroom(sa.getSurveyTargetClassroom());
+		stc.setSurveyStartDate(sa.getSurveyStartDate());
+		stc.setSurveyEndDate(sa.getSurveyEndDate());
+		stc.setSurveyTitle(sa.getSurveyTitle());
+		
+		// Survey 객체에 Survey 테이블 관련 정보 저장
+		
+//		int pageArraySize = cs.getPageArray().size();
+//		
+//		ArrayList<PageArray> pa = null;
+//		
+//		for (int i = 0; i < pageArraySize ; i++) {
+//			
+//			pa.add(cs.getPageArray().get(i));
+//			
+//		}
+		
+		
+		
+		
+		
+		return "성공";
+	}
 	   
 	@RequestMapping (value="surveyAnswer", method=RequestMethod.GET)
 	public String surveyAnswer() {
