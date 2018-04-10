@@ -41,6 +41,7 @@
 		, seatCreator
 		, seatAlumni
 		, seatClassroom
+		, seatCount
 		, seatContent
 		, seatCreatedDate 
 		)
@@ -50,6 +51,7 @@
 		, #{seatCreator}
 		, #{seatAlumni}
 		, #{seatClassroom}
+		, #{seatCount}
 		, #{seatContent}
 		, SYSDATE
 		)
@@ -62,6 +64,7 @@
 		, MemberBasic.name as seatCreatorName
 		, SeatPlacement.seatAlumni as seatAlumni
 		, SeatPlacement.seatClassroom as seatClassroom
+		, SeatPlacement.seatCount as seatCount
 		, SeatPlacement.seatContent as seatContent
 		, SeatPlacement.seatCreatedDate as seatCreatedDate
 	from

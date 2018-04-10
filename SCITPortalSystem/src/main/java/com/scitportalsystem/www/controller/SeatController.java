@@ -43,7 +43,6 @@ public class SeatController {
 		//학사 선생님이 담당하는 기수의 반의 좌석 배치도 자료를 가져오고 모델에 담는다.
 		ArrayList<SeatPlacement> loadedSeatPlacementList = seatdao.showSeatInfo(foundMemberNum);
 		model.addAttribute("loginedStaffSeatPlacement",loadedSeatPlacementList);
-		System.out.println(loadedSeatPlacementList.size());
 		
 		//가져온 선생님의 정보를 모델에 담아서 seat.jsp에 넘겨주기
 		session.setAttribute("loginedStaffInfo",foundStaff);
@@ -89,7 +88,7 @@ public class SeatController {
 	 * 반 좌석 설정 정보 저장하기
 	 */
 	@RequestMapping(value="saveSeatConfig", method=RequestMethod.POST)
-	public String saveSeatConfig(HttpSession session,String seatInfo, String classInfo){
+	public String saveSeatConfig(HttpSession session,String seatInfo, String classInfo, int seatCount){
 		logger.info("**LODING saveSeatConfig**");
 			MemberStaff loginedStaff = (MemberStaff) session.getAttribute("loginedStaffInfo");
 			
@@ -98,6 +97,7 @@ public class SeatController {
 			seatPlacement.setSeatAlumni(Integer.parseInt(loginedStaff.getInChargeAlumni()));
 			seatPlacement.setSeatClassroom(classInfo);
 			seatPlacement.setSeatContent(seatInfo);
+			seatPlacement.setSeatCount(seatCount);
 			System.out.println(seatPlacement);
 			int result = seatdao.saveSeatInfo(seatPlacement);
 			if(result == 0) {

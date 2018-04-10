@@ -3,22 +3,24 @@ package com.scitportalsystem.www.vo;
 import java.util.Date;
 
 public class SeatPlacement {
-	private int seatPlacementNum; // Number Primary Key --좌석 배치도의 고유 번호
-	private int seatCreator; // Number NOT NULL --좌석 배치도 작성자(학사)의 번호
-	private String seatCreatorName; // Number NOT NULL --좌석 배치도 작성자
-	private int seatAlumni; // Number NOT NULL --이 배치도를 활용할 기수
-	private String seatClassroom; // varchar(1) NOT NULL --이 배치도를 활용할 반
-	private String seatContent; // CLOB; --좌석 배치도에 대한 html 내용
-	private Date seatCreatedDate; // Date NOT NULL --작성일
+	private int seatPlacementNum; // 좌석 배치도의 고유 번호
+	private int seatCreator; // 좌석 배치도 작성자(학사)의 번호
+	private String seatCreatorName; // 좌석 배치도 작성자
+	private int seatAlumni; // 이 배치도를 활용할 기수
+	private String seatClassroom; // 이 배치도를 활용할 반
+	private int seatCount; // 현재 존재하는 좌석의 수
+	private String seatContent; // 좌석 배치도에 대한 html 내용
+	private Date seatCreatedDate; // --작성일
 
 	public SeatPlacement(int seatPlacementNum, int seatCreator, String seatCreatorName, int seatAlumni,
-			String seatClassroom, String seatContent, Date seatCreatedDate) {
+			String seatClassroom, int seatCount, String seatContent, Date seatCreatedDate) {
 		super();
 		this.seatPlacementNum = seatPlacementNum;
 		this.seatCreator = seatCreator;
 		this.seatCreatorName = seatCreatorName;
 		this.seatAlumni = seatAlumni;
 		this.seatClassroom = seatClassroom;
+		this.seatCount = seatCount;
 		this.seatContent = seatContent;
 		this.seatCreatedDate = seatCreatedDate;
 	}
@@ -43,11 +45,11 @@ public class SeatPlacement {
 		this.seatCreator = seatCreator;
 	}
 
-	public String getseatCreatorName() {
+	public String getSeatCreatorName() {
 		return seatCreatorName;
 	}
 
-	public void setseatCreatorName(String seatCreatorName) {
+	public void setSeatCreatorName(String seatCreatorName) {
 		this.seatCreatorName = seatCreatorName;
 	}
 
@@ -65,6 +67,14 @@ public class SeatPlacement {
 
 	public void setSeatClassroom(String seatClassroom) {
 		this.seatClassroom = seatClassroom;
+	}
+
+	public int getSeatCount() {
+		return seatCount;
+	}
+
+	public void setSeatCount(int seatCount) {
+		this.seatCount = seatCount;
 	}
 
 	public String getSeatContent() {
@@ -86,8 +96,9 @@ public class SeatPlacement {
 	@Override
 	public String toString() {
 		return "SeatPlacement [seatPlacementNum=" + seatPlacementNum + ", seatCreator=" + seatCreator
-				+ ", seatCreatorName=" + seatCreatorName + ", seatAlumni=" + seatAlumni + ", seatClassroom=" + seatClassroom
-				+ ", seatContent=" + seatContent + ", seatCreatedDate=" + seatCreatedDate + "]";
+				+ ", seatCreatorName=" + seatCreatorName + ", seatAlumni=" + seatAlumni + ", seatClassroom="
+				+ seatClassroom + ", seatCount=" + seatCount + ", seatContent=" + seatContent + ", seatCreatedDate="
+				+ seatCreatedDate + "]";
 	}
 
 }

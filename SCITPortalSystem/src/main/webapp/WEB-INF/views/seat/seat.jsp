@@ -42,31 +42,43 @@
 		
 		
 		<div id="seatJSP">
-		<h1>자리 배치도</h1>
-			<c:choose>
-				<c:when test="${loginedStaffSeatPlacement != null}">					
-					<c:forEach items="${loginedStaffSeatPlacement}" var="classList">
-						<h3>${classList.seatClassroom}반</h3>
-						${classList.seatContent}
-						<br><br>
-						<hr>
-					</c:forEach>
-				</c:when>
-				
-				<c:when test="${loginedStaffSeatPlacement == null
-								|| loginedStaffSeatPlacement.isEmpty()
-								|| loginedStaffSeatPlacement.size() == 0
-								|| loginedStaffSeatPlacement == ''}">
-					<h3>생성된 반 배치도가 없습니다.</h3>
-				</c:when>
-			</c:choose>
+			<h1>자리 배치도</h1>
+			<br>
+			<!-- 선생님/관리자 전용 -->
+			<!-- 자동으로 반 배치하는 링크 -->
+			<div>
+				<a href="seatConfig"><input type="button" value="새로 만들기"></a>
+			</div>
+			<br>
+			<div id="previousClassroom" class="previousClassroom" onclick="">◁</div>
+			<div class="blankDiv"></div>
+			<div id="nextClassroom" class="nextClassroom" onclick="">▷</div>
+			<div class="showClassDiv">
+				<c:choose>
+					<c:when test="${loginedStaffSeatPlacement != null}">
+						<input type="hidden" id="seatPlacementSize" value="${loginedStaffSeatPlacement.size()}">
+							<c:forEach items="${loginedStaffSeatPlacement}" var="classList" varStatus="status">
+										<br><br>
+										<div id="showClassroom${status.index}" class="showClassroom" hide="0">
+											<h3>${classList.seatClassroom}반</h3>
+											<br>
+											좌석 수 : ${classList.seatCount}석
+											${classList.seatContent}
+										</div>
+							</c:forEach>
+					</c:when>
+					
+					<c:when test="${loginedStaffSeatPlacement == null
+									|| loginedStaffSeatPlacement.isEmpty()
+									|| loginedStaffSeatPlacement.size() == 0
+									|| loginedStaffSeatPlacement == ''}">
+						<h3>생성된 반 배치도가 없습니다.</h3>
+					</c:when>
+				</c:choose>
+			</div>
 		</div>
 		
-		<!-- 선생님/관리자 전용 -->
-		<!-- 자동으로 반 배치하는 링크 -->
-		<div>
-			<a href="seatConfig"><input type="button" value="새로 만들기"></a>
-		</div>
+		
 </div>	
 </body>
 </html>

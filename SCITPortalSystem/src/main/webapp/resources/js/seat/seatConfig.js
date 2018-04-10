@@ -2,6 +2,8 @@
  * 문희규 : 
  */
 
+var numberOfSeats = 0; //현재 존재하는 좌석의 수 
+
 $(function(){
 	
 	/*
@@ -24,8 +26,11 @@ $(function(){
 					$('#seatPlacement').append(corridor);
 				} else if(seatCount%8 == 0){
 					$('#seatPlacement').append(nextLine);
-				} 
+				}
+				numberOfSeats = seatCount;
+				$('#numberOfSeats').html('좌석 수 : '+numberOfSeats);
 			}
+			
 		});
 });
 
@@ -53,6 +58,8 @@ function selectedDiv(seatCount){
  */
 function buttonShow(seatCount){
 	$('#seat'+seatCount).remove();
+	numberOfSeats--;
+	$('#numberOfSeats').html('좌석 수 : '+numberOfSeats);
 }
 
 
@@ -76,11 +83,23 @@ function restart(){
  * '저장하기' 버튼 누루면, 좌석 배치도와 반 이름 저장하기.
  */
 function saveSeatConfig(){
+	
+	for(var i = 1; i <= 40 ; i++){ //반투명 처리 및 삭제 버튼이 표시된 DIV를 원상 복구 시킨다.
+		if($('#seat'+i).attr('hide') == 1){
+			$('#seat'+i)
+			.attr('hide',0)
+			.css('opacity','1')
+			.html('');
+		}		
+	}
+	
 	var seatPlacement = $('#seatPlacement').html(); //좌석 배치를 String으로 변환함.
 	$('#seatInfo').val(seatPlacement);//변환한 정보를 hidden DOM안에 넣는다.
 	
 	var classInput = $('#classInput').val(); //반 이름 입력한 값을 가져옴.
 	$('#classInfo').val(classInput);//변환한 정보를 hidden DOM안에 넣는다.
+	
+	$('#seatCount').val(numberOfSeats);
 	
 	var seatPlacementForm = document.getElementById('seatPlan'); //좌석 배치를 전송할 form이다.
 	seatPlacementForm.submit();

@@ -43,7 +43,9 @@
 				<div>
 					<input type="text" id="classInput" class ="classInput" name="classInput" maxlength="1"> 반
 				</div>
-					
+				<br>
+				<div id="numberOfSeats"></div>
+				<br>	
 				<div id="seatTemplate">
 					<!-- 강의실 책상배치를 표시하기 (강의실 당 최대 40좌석) -->
 					<form id="seatPlan" action="saveSeatConfig" method="post">
@@ -56,6 +58,7 @@
 						</div>
 						<input type="hidden" id="seatInfo" name="seatInfo" value="">
 						<input type="hidden" id="classInfo" name="classInfo" value="">
+						<input type="hidden" id="seatCount" name="seatCount" value="">
 					</form>
 				</div>
 				

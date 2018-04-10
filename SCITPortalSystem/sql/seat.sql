@@ -6,6 +6,7 @@ create Table seatPlacement(
 	, seatCreator Number	NOT NULL		--좌석 배치도 작성자
 	, seatAlumni Number		NOT NULL		--이 배치도를 활용할 기수
 	, seatClassroom varchar(1)	NOT NULL	--이 배치도를 활용할 반
+	, seatCount	Number		NOT NULL		--현재 존재하는 좌석의 수 
 	, seatContent CLOB		NOT NULL		--좌석 배치도에 대한 html 내용
 	, seatCreatedDate Date NOT NULL			--작성일
 	);

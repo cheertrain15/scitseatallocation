@@ -24,3 +24,36 @@
 	display: inline-block;
 	width: 4%;
 }
+
+
+.previousClassroom {
+	display: inline-block;
+}
+
+.showClassroom{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: auto;
+	display: inline-block;
+	width: 100%;
+}
+
+.nextClassroom{
+	display: inline-block;
+}
+
+
+.showClassDiv{
+	display:inline;
+	align-content: center;
+}
+
+
+.blankDiv{
+	display: inline-block;
+	width:30%;
+}
+
+
+
