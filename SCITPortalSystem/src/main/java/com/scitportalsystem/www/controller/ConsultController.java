@@ -20,6 +20,7 @@ import com.scitportalsystem.www.util.FileService;
 import com.scitportalsystem.www.util.PageNavigator;
 import com.scitportalsystem.www.vo.AskQuestion;
 import com.scitportalsystem.www.vo.AskQuestionReply;
+import com.scitportalsystem.www.vo.MemberBasic;
 import com.scitportalsystem.www.vo.News;
 
 /**
@@ -36,36 +37,64 @@ public class ConsultController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ConsultController.class);
 	
-	// 공지 사항 글 목록 전체 담아오는 컨트롤러
+	// 1:1문의 글 목록 전체 담아오는 컨트롤러
 	@RequestMapping(value="QnA", method=RequestMethod.GET)
-	public String QnA(Model model,
+	public String QnA(HttpSession session, Model model,
 			@RequestParam(value="searchText", defaultValue="") String searchText,
 			@RequestParam(value="page", defaultValue="1")int page,
 			@RequestParam(value="searchSelect", defaultValue="AskQuestionTitle") String searchSelect){
 		
 		logger.info("글 목록 이동 시작");
+		String id = (String) session.getAttribute("loginID");
+		String MemberClass = (String) session.getAttribute("loginMemberClass");
+		
 		// 검색 조건 과 검색어 담는 해쉬 맵 입니다.
 		HashMap<String, Object> searchMap = new HashMap<>();
 		searchMap.put("searchText", searchText);
 		searchMap.put("searchSelect", searchSelect);
+		searchMap.put("id", id);		
 		
-
-		int total = dao.getTotal(searchMap);
-		
-		PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, total); 		
-		System.out.println(navi);
-		
-		// 글 전체를 불러오는 다오
-		ArrayList<AskQuestion> askquestionList = dao.selectAskQuestionAll(searchMap, navi.getStartRecord(), navi.getCountPerPage());
-		
-		// 전체 글 담기
-		model.addAttribute("askquestionList", askquestionList);
-		// 검색어 담기
-		model.addAttribute("searchText", searchText);
-		// 검색조건 담기
-		model.addAttribute("searchSelect",searchSelect);
-		// 페이징 담기
-		model.addAttribute("navi", navi);
+		if (MemberClass.equals("Student")) {
+			logger.info("학생용 컨트롤러 시작");			
+			
+			int total = dao.getTotalStudent(searchMap);
+			
+			PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, total); 		
+			System.out.println(navi);
+			// 글 전체를 불러오는 다오
+			ArrayList<AskQuestion> askquestionList = dao.selectAskQuestionStudent(searchMap, navi.getStartRecord(), navi.getCountPerPage());
+			// 전체 글 담기
+			model.addAttribute("askquestionList", askquestionList);
+			// 검색어 담기
+			model.addAttribute("searchText", searchText);
+			// 검색조건 담기
+			model.addAttribute("searchSelect",searchSelect);
+			// 페이징 담기
+			model.addAttribute("navi", navi);
+			
+			logger.info("학생용 컨트롤러 종료");
+		} else {
+			logger.info("교사용 컨트롤러 시작");
+			
+			int total = dao.getTotal(searchMap);
+			
+			PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, total); 		
+			System.out.println(navi);
+			
+			// 글 전체를 불러오는 다오
+			ArrayList<AskQuestion> askquestionList = dao.selectAskQuestionAll(searchMap, navi.getStartRecord(), navi.getCountPerPage());
+			
+			// 전체 글 담기
+			model.addAttribute("askquestionList", askquestionList);
+			// 검색어 담기
+			model.addAttribute("searchText", searchText);
+			// 검색조건 담기
+			model.addAttribute("searchSelect",searchSelect);
+			// 페이징 담기
+			model.addAttribute("navi", navi);
+			
+			logger.info("교사용 컨트롤러 종료");
+		}
 		
 		logger.info("글 목록 이동 종료");
 		
@@ -93,9 +122,11 @@ public class ConsultController {
 	@RequestMapping(value="insertReply",method=RequestMethod.POST)
 	public String insertReply(AskQuestionReply askquestionreply, HttpSession session, int askQuestionNum){
 		logger.info("리플 등록 시작 컨트롤러");
-		// 임의로 아이디 넣음
-		askquestionreply.setId("CatCat");
+		
+		String id = (String) session.getAttribute("loginID");
 
+		askquestionreply.setId(id);
+		
 		dao.insertReply(askquestionreply, askQuestionNum);
 		logger.info("리플 등록 종료 컨트롤러");
 		return"redirect:read?askQuestionNum="+askquestionreply.getAskQuestionNum();
@@ -108,7 +139,9 @@ public class ConsultController {
 		logger.info("해당 글 삭제 이동 시작 컨트롤러");
 		
 		// 임의로 아이디 넣음
-		askquestionreply.setId("CatCat");
+		String id = (String) session.getAttribute("loginID");
+
+		askquestionreply.setId(id);
 		
 		dao.deleteReply(askquestionreply, askQuestionNum);
 		
@@ -131,8 +164,10 @@ public class ConsultController {
 	public String writeQuestion(HttpSession session, AskQuestion askquestion){
 		logger.info("글쓰기 시작");
 		
-		// 임의로 아이디 넣음
-		askquestion.setId("testid2");
+		// 아이디 넣음
+		String id = (String) session.getAttribute("loginID");
+
+		askquestion.setId(id);
 		// 임의로 논리적 삭제 값 넣음
 		askquestion.setDeleteBy(" ");
 		System.out.println(askquestion);

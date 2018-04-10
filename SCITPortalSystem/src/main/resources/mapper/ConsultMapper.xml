@@ -3,13 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <!-- SCIT PORTAL 1:1문의  관련 정보 처리 SQL -->
-
-
 <mapper namespace="com.scitportalsystem.www.mapper.ConsultMapper">
 
-	<!-- 1:1문의 전체보기 -->
-	<select id="selectAskQuestionAll" parameterType="hashmap" resultType="AskQuestion">
+	<!-- 1:1문의 학생용 -->
+	<select id="selectAskQuestionStudent" parameterType="hashmap" resultType="AskQuestion">
 		select 
 			a.AskQuestionNum
 			,a.id
@@ -17,11 +16,69 @@
 			,a.AskQuestionTitle
 			,a.AskQuestionContent
 			,a.AskQuestionDate
+			,m.name
 		from 
-			AskQuestion a
+			AskQuestion a, MemberBasic m
+		where
+			a.id = #{id}
+			and
+			a.id = m.id
+		<if test="searchText != null">
+			<choose>
+	            <when test="searchSelect.equals('AskQuestionTitleContent')">
+		            and
+		               a.AskQuestionTitle like '%' || #{searchText} || '%'
+		               or
+		               a.AskQuestionContent like '%' || #{searchText} || '%'         
+	            </when>
+	            <otherwise>
+		            and
+		               ${searchSelect} like '%' || #{searchText} || '%'
+	            </otherwise>      
+        	</choose>
+		</if>
+		order by 
+			AskQuestionNum desc
+	</select>
+	
+	<!-- 페이징 처리 학생용 -->
+	<select id="getTotalStudent" parameterType="hashmap" resultType="int">
+		select
+			count(*)
+		from
+			AskQuestion
+		where
+			id = #{id}
 		<if test="searchText != null">
 			<choose>
 	            <when test="searchSelect.equals('tc')">
+		            and
+		               AskQuestionTitle like '%' || #{searchText} || '%'
+		               or
+		               AskQuestionContent like '%' || #{searchText} || '%'         
+	            </when>
+	            <otherwise>
+		            and
+		               ${searchSelect} like '%' || #{searchText} || '%'
+	            </otherwise>      
+         </choose>
+		</if>
+	</select>
+
+	<!-- 1:1문의 전체보기 교사용 -->
+	<select id="selectAskQuestionAll" parameterType="hashmap" resultType="AskQuestion">
+		select 
+			AskQuestionNum
+			,id
+			,askQuestionReplies
+			,AskQuestionTitle
+			,AskQuestionContent
+			,AskQuestionDate
+		from 
+			AskQuestion
+		<if test="searchText != null">
+			<choose>
+	            <when test="searchSelect.equals('AskQuestionTitleContent')">
 		            where
 		               AskQuestionTitle like '%' || #{searchText} || '%'
 		               or
@@ -37,7 +94,7 @@
 			AskQuestionNum desc
 	</select>
 	
-		<!-- 페이징 처리  -->
+	<!-- 페이징 처리 교사용 -->
 	<select id="getTotal" parameterType="hashmap" resultType="int">
 		select
 			count(*)
@@ -59,7 +116,7 @@
 		</if>
 	</select>
 	
-		<!-- 1:1문의 한개 보기 -->
+	<!-- 1:1문의 한개 보기 -->
 	<select id="selectAskQuestionOne" parameterType="int" resultType="AskQuestion">
 		select 
 			AskQuestionNum
@@ -72,7 +129,7 @@
 			AskQuestionNum = #{AskQuestionNum}
 	</select>
 	
-		<!-- 리플 달기 -->
+	<!-- 리플 달기 -->
 	<insert id="insertReply" parameterType="AskQuestionReply">
 		insert into
 			AskQuestionReply
@@ -89,18 +146,21 @@
 			)			
 	</insert>
 	
-		<!-- 리플 출력 -->
+	<!-- 리플 출력 -->
 	<select id="selectReplyAll" parameterType="int" resultType="AskQuestionReply">
 		select
-			AskQuestionReplyNum
-				,AskQuestionNum
-				,id
-				,text
-				,inputdate
+			a.AskQuestionReplyNum
+				,a.AskQuestionNum
+				,a.id
+				,a.text
+				,a.inputdate
+				,m.name
 		from
-			AskQuestionReply
+			AskQuestionReply a, MemberBasic m
 		where
-			AskQuestionNum = #{AskQuestionNum}	
+			a.AskQuestionNum = #{AskQuestionNum}
+			and
+			a.id = m.id	
 	</select>
 	
 		<!-- 리플 삭제 -->

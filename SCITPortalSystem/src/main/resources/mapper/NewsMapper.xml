@@ -42,21 +42,23 @@
 	<!-- 전체 목록 출력 -->
 	<select id="selectNewsAll" parameterType="news" resultType="News">
 		select 
-			newsNum
-			,newsTitle
-			,newsHeader
-			,newsContent
-			,newsDate
-			,newsHits
-			, newsFileName
-			, newsSavedFileName
+			n.newsNum
+			,n.newsTitle
+			,n.newsHeader
+			,n.newsContent
+			,n.newsDate
+			,n.newsHits
+			,n.newsFileName
+			,n.newsSavedFileName
+			,m.alumni
+			,m.classroom
 		from
-			news
+			news n, memberstudent m
 			<if test="targetAlumni != null and targetClass != null" >
 				where			
-					targetAlumni = #{targetAlumni}
+					m.targetAlumni = #{targetAlumni}
 					AND 
-					targetClass = #{targetClass}
+					m.targetClass = #{targetClass}
 			</if>	
 		order by
 			newsHeader desc

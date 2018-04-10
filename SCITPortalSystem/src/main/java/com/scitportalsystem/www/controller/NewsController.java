@@ -53,23 +53,32 @@ public class NewsController {
 		
 		// 기수와 반을 담는 해쉬 맵 입니다.
 		HashMap<String, Object> searchMap = new HashMap<>();
+		
 		// 기수 담기
 		searchMap.put("targetAlumni", searchSelectAlumni);
+		
 		// 반 담기
 		searchMap.put("targetClass", searchSelectClass);
+		
 		// 잘 담앗는지 출력
 		System.out.println(searchMap);
+		
+		String MemberClass = (String) session.getAttribute("loginMemberClass");
+		System.out.println(MemberClass);
 		
 		// 글 전체를 불러오는 다오
 		ArrayList<News> NewsList = dao.selectNewsAll(searchMap, news);
 		System.out.println(NewsList);
+		
 		// 전체 글 담기
 		model.addAttribute("NewsList", NewsList);
+		
 		// 전체 기수 담기
-		model.addAttribute("targetAlumni", searchSelectAlumni);
+		model.addAttribute("targetAlumni", 33);
 		System.out.println("나 기수가 출력 되고 있어!"+searchSelectAlumni);
+		
 		// 전체 반 담기
-		model.addAttribute("targetClass", searchSelectClass);
+		model.addAttribute("targetClass", "B");
 		System.out.println("나 기수가 출력 되고 있어!"+searchSelectClass);
 		logger.info("글 목록 이동 종료");
 		return"news/news";
@@ -188,7 +197,6 @@ public class NewsController {
 
 	  logger.info("다운로드 처리 종료");
 
-	  
 
 	 }
 	

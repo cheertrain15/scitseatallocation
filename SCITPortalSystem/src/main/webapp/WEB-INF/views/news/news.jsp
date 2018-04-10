@@ -37,9 +37,9 @@
 					</form>
 				</th>
 				<th>
-					<%-- <c:if test="${sessionScope.loginId == null}"> --%>
+					<c:if test="${sessionScope.loginMemberClass == 'Teacher'}">
 						<input class="newsinput" type="button" value="글작성" onclick="newsWrite()">
-					<%-- </c:if> --%>
+					</c:if>
 				</th>
 			</tr>
 		<tr>
@@ -56,7 +56,7 @@
 				<img width="10px" src="../resources/img/icon.png"></c:if>
 				</td>
 				<td class="tdnews" width="100px"><fmt:formatDate pattern = "yyyy-MM-dd" value = "${news.newsDate}" /></td>
-				<td class="tdnews" width="10S0px">${news.newsHits}</td>
+				<td class="tdnews" width="100px">${news.newsHits}</td>
 			</tr>
 		</c:forEach>
 	</table>

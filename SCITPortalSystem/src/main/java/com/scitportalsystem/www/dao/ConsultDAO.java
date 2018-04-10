@@ -27,6 +27,42 @@ public class ConsultDAO {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ConsultDAO.class);
 	
+	/*학생용*/
+	// 페이징 처리를 위한 다오다오
+	public int getTotalStudent(HashMap<String, Object> searchMap){
+		logger.info("전체 글 개수 시작 DAO");
+		ConsultMapper mapper = sqlSession.getMapper(ConsultMapper.class);
+		int total = 0;
+		
+		try {
+			total = mapper.getTotalStudent(searchMap);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		logger.info("전체 글 개수 시작 DAO");
+		return total;
+	}
+	
+	// 전체 글 불러오기 위한 다오
+	public ArrayList<AskQuestion> selectAskQuestionStudent(HashMap<String, Object> searchMap,int StartRecord, int CountPerPage){
+		logger.info("글 목록 시작");
+		ArrayList<AskQuestion> askquestionlist = null;
+		ConsultMapper mapper = sqlSession.getMapper(ConsultMapper.class);
+		//전체 검색 결과 중 읽을 시작위치와 개수
+		RowBounds rb = new RowBounds(StartRecord, CountPerPage);
+		
+		try{
+			askquestionlist = mapper.selectAskQuestionStudent(searchMap,rb);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		logger.info("글 목록 종료");
+		return askquestionlist;
+	}
+	
+	/*교사용*/
 	// 페이징 처리를 위한 다오다오
 	public int getTotal(HashMap<String, Object> searchMap){
 		logger.info("전체 글 개수 시작 DAO");
@@ -60,6 +96,7 @@ public class ConsultDAO {
 		logger.info("글 목록 종료");
 		return askquestionlist;
 	}
+	
 	
 	// 문의글 하나 읽기 다오
 	public AskQuestion selectAskQuestionOne(int askQuestionNum){

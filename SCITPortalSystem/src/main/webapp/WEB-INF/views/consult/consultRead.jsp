@@ -78,7 +78,7 @@
 	<table>
 		<c:forEach var="reply" items="${replyList}">
 				<tr>
-					<td style="width: 100px" >${reply.id }</td>
+					<td style="width: 100px" >${reply.name}</td>
 					<td class="replyconsult" style="width: 300px">${reply.text }</td>
 					<td style="width: 100px"><fmt:formatDate pattern = "yyyy-MM-dd" value = "${reply.inputdate }" /></td>
 					<td><%-- <c:if test="${sessionScope.loginId == reply.id }"> --%>

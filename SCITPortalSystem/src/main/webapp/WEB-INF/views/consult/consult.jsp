@@ -34,27 +34,33 @@
 			<th></th>
 			<th></th>
 			<th>
-				<%-- <c:if test="${sessionScope.loginId != null}"> --%>
-					<input type="button" value="1:1문의하기" onclick="question()">
-				<%-- </c:if> --%>
+				<input type="button" value="1:1문의하기" onclick="question()">
 			</th>			
 		</tr>
+		
 			<tr>
 				<th style="width: 100px">글 번호</th>
 				<th style="width: 100px">이름</th>
 				<th style="width: 400px">제목</th>
 				<th style="width: 150px">작성일</th>
-			</tr>			
-			<c:forEach var="askquestion" items="${askquestionList}">
-				<tr>					
-					<td class="tdconsult">${askquestion.askQuestionNum}</td>
-					<td class="tdconsult">${askquestion.id}</td>					
-					<td><a href="read?askQuestionNum=${askquestion.askQuestionNum}">${askquestion.askQuestionTitle}</a>
-						[${askquestion.askQuestionReplies}]
-					</td>
-					<td class="tdconsult"><fmt:formatDate pattern = "yyyy-MM-dd" value = "${askquestion.askQuestionDate}" /></td>
-				</tr>
-			</c:forEach>
+			</tr>
+			<c:choose>
+				<c:when test="${not empty askquestionList}">			
+					<c:forEach var="askquestion" items="${askquestionList}">
+						<tr>					
+							<td class="tdconsult">${askquestion.askQuestionNum}</td>
+							<td class="tdconsult">${askquestion.name}</td>					
+							<td><a href="read?askQuestionNum=${askquestion.askQuestionNum}">${askquestion.askQuestionTitle}</a>
+								[${askquestion.askQuestionReplies}]
+							</td>
+							<td class="tdconsult"><fmt:formatDate pattern = "yyyy-MM-dd" value = "${askquestion.askQuestionDate}" /></td>
+						</tr>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>			       	
+			       		<th colspan="4">등록된 문의사항이 없습니다.</th>
+			    </c:otherwise>
+			</c:choose>
 	</table>
 	<div class="consultdiv">
 			<a href="javascript:pagingFormSubmit(1)">◁◁</a>
@@ -76,14 +82,14 @@
 				<input type="hidden" name="page" id="page">
 				<select name="searchSelect">
 					<option value="AskQuestionTitle" <c:if test="${searchSelect == 'AskQuestionTitle'}"/>>제목</option>
-					<%-- <option value="tc" <c:if test="${searchSelect == 'tc'}"/>>제목+내용</option> --%>
+					<option value="AskQuestionTitleContent" <c:if test="${searchSelect == 'AskQuestionTitleContent'}"/>>제목+내용</option>
 					<option value="AskQuestionContent" <c:if test="${AskQuestionContent == 'askQuestionContent'}"/>>내용</option>
 					<option value="id" <c:if test="${searchSelect == 'id'}"/>>작성자</option>
 				</select>
 				<input type="text" name="searchText" value="${searchText}"> 
 				<input type="button" onclick="pagingFormSubmit(1)" value="검색">
 		</form>
-		</div>	
-		<%@ include file="../footer.jsp"%>
+		</div>
+<%@ include file="../footer.jsp"%>
 </body>
 </html>

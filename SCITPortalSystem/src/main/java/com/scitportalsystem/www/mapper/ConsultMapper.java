@@ -12,6 +12,15 @@ import com.scitportalsystem.www.vo.News;
 
 
 public interface ConsultMapper {
+	
+	/*학생용*/
+	//글 전체 불러오기 매퍼
+	public ArrayList<AskQuestion> selectAskQuestionStudent(HashMap<String, Object> searchMap, RowBounds rb);
+	
+	//페이징 처리 매퍼
+	public int getTotalStudent(HashMap<String, Object> searchMap);
+	
+	/*교사용*/
 	//글 전체 불러오기 매퍼
 	public ArrayList<AskQuestion> selectAskQuestionAll(HashMap<String, Object> searchMap, RowBounds rb);
 	
