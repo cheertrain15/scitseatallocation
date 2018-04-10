@@ -64,7 +64,37 @@
     from memberstudent
     where alumni = #{inChargeAlumni}
     ORDER BY classroom asc
-</select>
+</select> 
+
+<insert id="insertSurveyPageSeq" parameterType="Survey"> 
+	INSERT INTO surveypage(surveypagenum) 
+	VALUES(surveypagenum_seq.nextval) 
+	<selectKey keyProperty="surveyPageNum" resultType="Integer" order="AFTER"> 
+	SELECT surveypagenum_seq.currval FROM dual 
+	</selectKey> 
+</insert>
+
+
+<insert id="insertToSurveyToCreate" parameterType="HashMap">
+	insert all
+	<foreach collection="surveyList" item="survey">
+	insert into survey
+	(surveynum, teachernum, surveytargetalumni, 
+	surveytargetclassroom, surveystartdate, 
+	surveyenddate, surveytitle)
+	values
+	(
+	surveynum_seq.nextval
+	, #{survey.teacherNum}
+	, #{survey.surveyTargetAlumni}
+	, #{survey.surveyTargetClassroom}
+	, #{survey.surveyStartDate}
+	, #{survey.surveyEndDate}
+	, #{survey.surveyTitle}
+	)
+	</foreach>
+	select * from dual
+</insert>
 
 	
 </mapper>

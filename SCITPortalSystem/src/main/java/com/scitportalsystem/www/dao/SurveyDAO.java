@@ -2,6 +2,7 @@ package com.scitportalsystem.www.dao;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -101,5 +102,26 @@ public class SurveyDAO {
 		
 		return result;
 	}
-	
+
+	public int insertToSurveyToCreate(HashMap map) {
+		
+		int result = 0;
+		
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.insertToSurveyToCreate(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
+	
+	// 페이지 시퀀스 추가
+	public int insertSurveyPageSeq(Survey survey) {
+		return sqlSession.insert("sql.insertSurveyPageSeq",survey);
+		
+	}
+}
+	

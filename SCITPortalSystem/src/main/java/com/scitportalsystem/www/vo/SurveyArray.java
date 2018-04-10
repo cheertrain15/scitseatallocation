@@ -1,11 +1,13 @@
 package com.scitportalsystem.www.vo;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+ 
 public class SurveyArray {
 	
 	@SerializedName("surveyTargetAlumni")
-	private String surveyTargetAlumni;
+	private int surveyTargetAlumni;
 	
 	@SerializedName("surveyTargetClassroom")
 	private String surveyTargetClassroom;
@@ -18,12 +20,23 @@ public class SurveyArray {
 	
 	@SerializedName("surveyTitle")
 	private String surveyTitle;
+	
+	@SerializedName("surveyPage")
+	private List<SurveyPage> surveyPage;
 
-	public String getSurveyTargetAlumni() {
+	public int getSurveyTargetAlumni() {
 		return surveyTargetAlumni;
 	}
 
-	public void setSurveyTargetAlumni(String surveyTargetAlumni) {
+	public List<SurveyPage> getSurveyPage() {
+		return surveyPage;
+	}
+
+	public void setSurveyPage(List<SurveyPage> surveyPage) {
+		this.surveyPage = surveyPage;
+	}
+
+	public void setSurveyTargetAlumni(int surveyTargetAlumni) {
 		this.surveyTargetAlumni = surveyTargetAlumni;
 	}
 
@@ -59,14 +72,15 @@ public class SurveyArray {
 		this.surveyTitle = surveyTitle;
 	}
 
-	public SurveyArray(String surveyTargetAlumni, String surveyTargetClassroom, String surveyStartDate,
-			String surveyEndDate, String surveyTitle) {
+	public SurveyArray(int surveyTargetAlumni, String surveyTargetClassroom, String surveyStartDate,
+			String surveyEndDate, String surveyTitle, List<SurveyPage> surveyPage) {
 		super();
 		this.surveyTargetAlumni = surveyTargetAlumni;
 		this.surveyTargetClassroom = surveyTargetClassroom;
 		this.surveyStartDate = surveyStartDate;
 		this.surveyEndDate = surveyEndDate;
 		this.surveyTitle = surveyTitle;
+		this.surveyPage = surveyPage;
 	}
 
 	public SurveyArray() {
@@ -77,6 +91,6 @@ public class SurveyArray {
 	public String toString() {
 		return "SurveyArray [surveyTargetAlumni=" + surveyTargetAlumni + ", surveyTargetClassroom="
 				+ surveyTargetClassroom + ", surveyStartDate=" + surveyStartDate + ", surveyEndDate=" + surveyEndDate
-				+ ", surveyTitle=" + surveyTitle + "]";
+				+ ", surveyTitle=" + surveyTitle + ", surveyPage=" + surveyPage + "]";
 	}
 }

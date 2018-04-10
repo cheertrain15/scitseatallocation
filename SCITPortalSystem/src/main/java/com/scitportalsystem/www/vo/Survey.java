@@ -1,14 +1,12 @@
 package com.scitportalsystem.www.vo;
 
-import java.util.Date;
-
 /* 
  * 설문조사 답변용에 대한 정보
  * 이건 설문조사 답변 양식의 프로토 타입입니다.
  * 양식이 유동적으로 바뀌게 되면 이 VO도 유동적으로 바꾸거나, 
  * 다른 방법으로 DB의 자료 사용할 수 있도록 불러와야합니다.
  */
-public class Survey {
+public class Survey { 
 	
 	private int surveyNum; // -- 설문조사 양식 번호
 	private String name; // -- 설문조사 작성한 선생님 이름
@@ -20,7 +18,7 @@ public class Survey {
 	private String surveyWrittenDate; // Date NOT NULL, -- 설문조사 작성일
 	private String surveyStartDate; // Date NOT NULL, -- 설문조사 시작일
 	private String surveyEndDate; // Date NOT NULL, -- 설문조사 종료일
-	private String surveyTargetAlumni; // 설문조사 대상 기수
+	private int surveyTargetAlumni; // 설문조사 대상 기수
 	private String surveyTargetClassroom; // 설문조사 대상 반
 	
 	private int surveyPageNum; //각 설문의 페이지 번호
@@ -28,7 +26,7 @@ public class Survey {
 	private int surveyQuestionNum; // 각 질문 번호
 	private String surveyQuestionContent; // 각 질문 내용
 	private String surveyQuestionType; // 각 질문 유형
-	private String surveyQuestionRequired; // 각 질문 필수 응답 여부
+	private int surveyQuestionRequired; // 각 질문 필수 응답 여부
 	
 	private int surveyOptionNum; // 각 질문 선택지의 번호
 	private String surveyOptionContent; // 각 질문 선택지의 내용
@@ -74,10 +72,10 @@ public class Survey {
 	public void setSurveyEndDate(String surveyEndDate) {
 		this.surveyEndDate = surveyEndDate;
 	}
-	public String getSurveyTargetAlumni() {
+	public int getSurveyTargetAlumni() {
 		return surveyTargetAlumni;
 	}
-	public void setSurveyTargetAlumni(String surveyTargetAlumni) {
+	public void setSurveyTargetAlumni(int surveyTargetAlumni) {
 		this.surveyTargetAlumni = surveyTargetAlumni;
 	}
 	public String getSurveyTargetClassroom() {
@@ -110,15 +108,16 @@ public class Survey {
 	public void setSurveyQuestionType(String surveyQuestionType) {
 		this.surveyQuestionType = surveyQuestionType;
 	}
-	public String getSurveyQuestionRequired() {
+	public int getSurveyQuestionRequired() {
 		return surveyQuestionRequired;
 	}
-	public void setSurveyQuestionRequired(String surveyQuestionRequired) {
+	public void setSurveyQuestionRequired(int surveyQuestionRequired) {
 		this.surveyQuestionRequired = surveyQuestionRequired;
 	}
 	public int getSurveyOptionNum() {
 		return surveyOptionNum;
 	}
+	
 	public void setSurveyOptionNum(int surveyOptionNum) {
 		this.surveyOptionNum = surveyOptionNum;
 	}
@@ -128,10 +127,11 @@ public class Survey {
 	public void setSurveyOptionContent(String surveyOptionContent) {
 		this.surveyOptionContent = surveyOptionContent;
 	}
+	
 	public Survey(int surveyNum, String name, int teacherNum, String surveyTitle, String surveyWrittenDate,
-			String surveyStartDate, String surveyEndDate, String surveyTargetAlumni, String surveyTargetClassroom,
-			int surveyPageNum, int surveyQuestionNum, String surveyQuestionContent, String surveyQuestionType,
-			String surveyQuestionRequired, int surveyOptionNum, String surveyOptionContent) {
+			String surveyStartDate, String surveyEndDate, int surveyTargetAlumni, String surveyTargetClassroom,
+			int surveyPageNum, String surveyPageId, int surveyQuestionNum, String surveyQuestionContent,
+			String surveyQuestionType, int surveyQuestionRequired, int surveyOptionNum, String surveyOptionContent) {
 		super();
 		this.surveyNum = surveyNum;
 		this.name = name;
@@ -159,15 +159,11 @@ public class Survey {
 				+ surveyTitle + ", surveyWrittenDate=" + surveyWrittenDate + ", surveyStartDate=" + surveyStartDate
 				+ ", surveyEndDate=" + surveyEndDate + ", surveyTargetAlumni=" + surveyTargetAlumni
 				+ ", surveyTargetClassroom=" + surveyTargetClassroom + ", surveyPageNum=" + surveyPageNum
-				+ ", surveyQuestionNum=" + surveyQuestionNum + ", surveyQuestionContent=" + surveyQuestionContent
-				+ ", surveyQuestionType=" + surveyQuestionType + ", surveyQuestionRequired=" + surveyQuestionRequired
-				+ ", surveyOptionNum=" + surveyOptionNum + ", surveyOptionContent=" + surveyOptionContent + "]";
+				+ ", surveyQuestionNum=" + surveyQuestionNum
+				+ ", surveyQuestionContent=" + surveyQuestionContent + ", surveyQuestionType=" + surveyQuestionType
+				+ ", surveyQuestionRequired=" + surveyQuestionRequired + ", surveyOptionNum=" + surveyOptionNum
+				+ ", surveyOptionContent=" + surveyOptionContent + "]";
 	}
-	
-	
-	
-	
-	
 	
 	
 //	private String surveyContent; // -- 설문조사 내용

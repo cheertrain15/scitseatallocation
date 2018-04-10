@@ -482,7 +482,7 @@ $( function() {
 					var pageId = new Object();
 					var page = $(this).attr("id");
 					
-					pageId.pageId = page;
+					pageId.surveyPageId = page;
 					
 					surveyPage.push(pageId); // surveyInfo - surveyPage(pageId배열)
 					
@@ -503,9 +503,11 @@ $( function() {
 							var required = $(this).attr("required");
 							
 							if (required == 'required') {
-								pageInfo.surveyQuestionRequired = required;
+								pageInfo.surveyQuestionRequired = 1;
+							} else {
+								pageInfo.surveyQuestionRequired = 0;
 							}
-							
+							 
 							// 각 설문항목의 타입
 							var surveyType = $(this).attr("surveyType");
 							pageInfo.surveyQuestionType = surveyType;
@@ -540,10 +542,12 @@ $( function() {
 										var optionContent = new Object();
 										optionContent.surveyOptionContent = $(this).val();
 										surveyOption.push(optionContent);
+
 										
 									});
 								
 								pageInfo.surveyOption =  surveyOption;
+								
 								
 							}
 							

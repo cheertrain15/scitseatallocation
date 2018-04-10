@@ -1,6 +1,7 @@
  package com.scitportalsystem.www.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 
@@ -19,6 +20,8 @@ public interface SurveyMapper {
 	int selectAlumni(int inChargeAlumni);
 
 	ArrayList<String> selectClassRoom(int inChargeAlumni);
+
+	int insertToSurveyToCreate(HashMap map);
 
 	
 	

@@ -1,6 +1,7 @@
 package com.scitportalsystem.www.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -79,41 +80,75 @@ public class SurveyController {
 	
 	@ResponseBody
 	@RequestMapping (value="createNewSurvey", method=RequestMethod.POST, produces="text/html;charset=UTF-8")
-	public String createNewSurvey(@RequestBody String createSurvey) {
-		
-		System.out.println(createSurvey);
-		
+	public String createNewSurvey(@RequestBody String createSurvey, HttpSession session, Survey survey) {
+
 		Gson gson = new Gson();
 		
 		CreateSurvey cs = gson.fromJson(createSurvey, CreateSurvey.class);
 		
-		Survey stc = null;
-		
 		// Survey 객체에 Survey 테이블 관련 정보 저장
 		
 		SurveyArray sa = cs.getSurveyArray().get(0);
+		System.out.println(sa);
 		
-		stc.setSurveyTargetAlumni(sa.getSurveyTargetAlumni());
-		stc.setSurveyTargetClassroom(sa.getSurveyTargetClassroom());
-		stc.setSurveyStartDate(sa.getSurveyStartDate());
-		stc.setSurveyEndDate(sa.getSurveyEndDate());
-		stc.setSurveyTitle(sa.getSurveyTitle());
+		Survey toCreate = new Survey();
+		ArrayList<Survey> surveyList = new ArrayList<Survey>();
+		HashMap map = new HashMap();
 		
-		// Survey 객체에 Survey 테이블 관련 정보 저장
+		int pageSize = sa.getSurveyPage().size();
+		System.out.println(pageSize);
 		
-//		int pageArraySize = cs.getPageArray().size();
-//		
-//		ArrayList<PageArray> pa = null;
-//		
-//		for (int i = 0; i < pageArraySize ; i++) {
-//			
-//			pa.add(cs.getPageArray().get(i));
-//			
-//		}
+//		int teacherNum = session.getAttribute("teacherNum");
+		int teacherNum = 1;
 		
+		for (int i = 0; i < pageSize; i++) {
+			
+			toCreate.setTeacherNum(teacherNum);
+			toCreate.setSurveyTargetAlumni(sa.getSurveyTargetAlumni());
+			toCreate.setSurveyTargetClassroom(sa.getSurveyTargetClassroom());
+			toCreate.setSurveyStartDate(sa.getSurveyStartDate());
+			toCreate.setSurveyEndDate(sa.getSurveyEndDate());
+			toCreate.setSurveyTitle(sa.getSurveyTitle());
+			surveyDAO.insertSurveyPageSeq(survey);
+			survey.getSurveyPageNum();
+			
+			surveyList.add(toCreate);
+			
+		}
 		
+		System.out.println(surveyList);
 		
+		map.put("surveyList", surveyList);
 		
+		int insertToSurveyToCreate = surveyDAO.insertToSurveyToCreate(map);
+	
+		int pageArraySize = cs.getPageArray().size();
+		
+		for (int i = 0; i < pageArraySize; i++) {
+			
+			PageArray pa = cs.getPageArray().get(i);
+			System.out.println(pa);
+			
+			int surveyOptionSize = 0;
+			
+			try {
+				surveyOptionSize = pa.getSurveyOption().size(); 
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			 
+			if (surveyOptionSize > 0) {
+				
+				for (int j = 0; j < surveyOptionSize; j++) {
+					
+					System.out.println(pa.getSurveyOption().get(j));
+					
+				}
+				
+			}
+			
+		}
 		
 		return "성공";
 	}
