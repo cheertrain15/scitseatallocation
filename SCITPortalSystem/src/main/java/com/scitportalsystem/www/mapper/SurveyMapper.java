@@ -21,7 +21,13 @@ public interface SurveyMapper {
 
 	ArrayList<String> selectClassRoom(int inChargeAlumni);
 
-	int insertToSurveyToCreate(HashMap map);
+	int insertSurvey(Survey survey);
+
+	int insertSurveyPage(Survey survey);
+
+	int insetSurveyQuestion(Survey survey);
+
+	int insertSurveyOption(Survey survey);
 
 	
 	

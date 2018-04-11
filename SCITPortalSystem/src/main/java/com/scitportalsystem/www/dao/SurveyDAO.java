@@ -103,24 +103,60 @@ public class SurveyDAO {
 		return result;
 	}
 
-	public int insertToSurveyToCreate(HashMap map) {
+	public int insertSurvey(Survey survey) {
 		
 		int result = 0;
 		
 		try {
 			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
-			result = mapper.insertToSurveyToCreate(map);
+			result = mapper.insertSurvey(survey);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		return result;
+		
+	}
+
+	public int insertSurveyPage(Survey survey) {
+		int result = 0;
+		
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.insertSurveyPage(survey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return result;
+		
 	}
-	
-	// 페이지 시퀀스 추가
-	public int insertSurveyPageSeq(Survey survey) {
-		return sqlSession.insert("sql.insertSurveyPageSeq",survey);
+
+	public int insetSurveyQuestion(Survey survey) {
+		int result = 0;
+		
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.insetSurveyQuestion(survey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
+
+	public int insertSurveyOption(Survey survey) {
+		int result = 0;
+		
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.insertSurveyOption(survey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 		
 	}
 }

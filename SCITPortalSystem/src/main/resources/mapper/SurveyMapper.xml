@@ -66,35 +66,87 @@
     ORDER BY classroom asc
 </select> 
 
-<insert id="insertSurveyPageSeq" parameterType="Survey"> 
-	INSERT INTO surveypage(surveypagenum) 
-	VALUES(surveypagenum_seq.nextval) 
+<insert id="insertSurvey" parameterType="Survey">
+	INSERT INTO survey
+	(surveynum
+	, teachernum
+	, surveytargetalumni
+	, surveytargetclassroom
+	, surveystartdate
+	, surveyenddate
+	, surveytitle
+	, surveywrittendate) 
+	VALUES(
+	surveynum_seq.nextval
+	, #{teacherNum}
+	, #{surveyTargetAlumni}
+	, #{surveyTargetClassroom}
+	, #{surveyStartDate}
+	, #{surveyEndDate}
+	, #{surveyTitle}
+	, sysdate
+	) 
+	<selectKey keyProperty="surveyNum" resultType="Integer" order="AFTER"> 
+	SELECT surveynum_seq.currval FROM dual 
+	</selectKey> 
+</insert>
+
+<insert id="insertSurveyPage" parameterType="Survey"> 
+	INSERT INTO surveypage
+	(
+	surveypagenum
+	, surveynum 
+	) 
+	VALUES
+	(
+	surveypagenum_seq.nextval
+	, #{surveyNum}
+	) 
 	<selectKey keyProperty="surveyPageNum" resultType="Integer" order="AFTER"> 
 	SELECT surveypagenum_seq.currval FROM dual 
 	</selectKey> 
 </insert>
 
-
-<insert id="insertToSurveyToCreate" parameterType="HashMap">
-	insert all
-	<foreach collection="surveyList" item="survey">
-	insert into survey
-	(surveynum, teachernum, surveytargetalumni, 
-	surveytargetclassroom, surveystartdate, 
-	surveyenddate, surveytitle)
-	values
+<insert id="insetSurveyQuestion" parameterType="Survey">
+	INSERT INTO surveyquestion
 	(
-	surveynum_seq.nextval
-	, #{survey.teacherNum}
-	, #{survey.surveyTargetAlumni}
-	, #{survey.surveyTargetClassroom}
-	, #{survey.surveyStartDate}
-	, #{survey.surveyEndDate}
-	, #{survey.surveyTitle}
-	)
-	</foreach>
-	select * from dual
+	surveyquestionnum
+	, surveypagenum
+	, surveyquestioncontent
+	, surveyquestiontype
+	, surveyquestionrequired
+	) 
+	VALUES
+	(
+	surveyquestionnum_seq.nextval
+	, #{surveyPageNum}
+	, #{surveyQuestionContent}
+	, #{surveyQuestionType}
+	, #{surveyQuestionRequired}
+	) 
+	<selectKey keyProperty="surveyQuestionNum" resultType="Integer" order="AFTER"> 
+	SELECT surveyquestionnum_seq.currval FROM dual 
+	</selectKey>
 </insert>
+
+<insert id="insertSurveyOption" parameterType="Survey">
+	INSERT INTO surveyoption
+	(
+	surveyoptionnum
+	, surveyquestionnum
+	, surveyoptioncontent
+	) 
+	VALUES
+	(
+	surveyoptionnum_seq.nextval
+	, #{surveyQuestionNum}
+	, #{surveyOptionContent}
+	) 
+	<selectKey keyProperty="surveyOptionNum" resultType="Integer" order="AFTER"> 
+	SELECT surveyoptionnum_seq.currval FROM dual 
+	</selectKey>
+</insert>
+	
 
 	
 </mapper>
