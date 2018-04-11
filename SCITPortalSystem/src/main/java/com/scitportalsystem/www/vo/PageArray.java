@@ -15,6 +15,9 @@ public class PageArray {
 	@SerializedName("surveyQuestionType")
 	private String surveyQuestionType;
 	
+	@SerializedName("surveyQuestionRequired")
+	private int surveyQuestionRequired;
+	
 	@SerializedName("surveyOption")
 	private List<SurveyOption> surveyOption;
 
@@ -42,6 +45,14 @@ public class PageArray {
 		this.surveyQuestionType = surveyQuestionType;
 	}
 
+	public int getSurveyQuestionRequired() {
+		return surveyQuestionRequired;
+	} 
+
+	public void setSurveyQuestionRequired(int surveyQuestionRequired) {
+		this.surveyQuestionRequired = surveyQuestionRequired;
+	}
+
 	public List<SurveyOption> getSurveyOption() {
 		return surveyOption;
 	}
@@ -51,11 +62,12 @@ public class PageArray {
 	}
 
 	public PageArray(String page, String surveyQuestionContent, String surveyQuestionType,
-			List<SurveyOption> surveyOption) {
+			int surveyQuestionRequired, List<SurveyOption> surveyOption) {
 		super();
 		this.page = page;
 		this.surveyQuestionContent = surveyQuestionContent;
 		this.surveyQuestionType = surveyQuestionType;
+		this.surveyQuestionRequired = surveyQuestionRequired;
 		this.surveyOption = surveyOption;
 	}
 
@@ -66,7 +78,10 @@ public class PageArray {
 	@Override
 	public String toString() {
 		return "PageArray [page=" + page + ", surveyQuestionContent=" + surveyQuestionContent + ", surveyQuestionType="
-				+ surveyQuestionType + ", surveyOption=" + surveyOption + "]";
+				+ surveyQuestionType + ", surveyQuestionRequired=" + surveyQuestionRequired + ", surveyOption="
+				+ surveyOption + "]";
 	}
+
+	
 
 }
