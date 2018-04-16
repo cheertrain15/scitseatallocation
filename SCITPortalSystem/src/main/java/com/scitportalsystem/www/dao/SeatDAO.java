@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import com.scitportalsystem.www.mapper.SeatMapper;
 import com.scitportalsystem.www.vo.MemberStaff;
+import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.SeatPlacement;
+import com.scitportalsystem.www.vo.SeatStudent;
 
 
 @Repository
@@ -79,6 +81,60 @@ public class SeatDAO{
 			}
 			logger.info("** LOADED showSeatInfo() **");
 			
+			return result;
+		}
+		
+		
+		public int deleteSeatInfo(int seatPlacementNum) {
+			logger.info("** LOADING deleteSeatInfo() **");
+			SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+			int result = 0;
+			try{
+				result = mapper.deleteSeatInfo(seatPlacementNum);
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+			logger.info("** LOADED deleteSeatInfo() **");
+			
+			return result;
+		}
+		
+		public SeatPlacement modifySeatPlacement(int seatPlacementNum) {
+			logger.info("** LOADING modifySeatPlacement() **");
+			SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+			SeatPlacement result = null;
+			try{
+				result = mapper.modifySeatPlacement(seatPlacementNum);
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+			logger.info("** LOADED modifySeatPlacement() **");
+			return result;
+		}
+		
+		public int modifiedSeatSave(SeatPlacement seatPlacement) {
+			logger.info("** LOADING modifiedSeatSave() **");
+				SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+				int result = 0;
+				try{
+					result = mapper.modifiedSeatSave(seatPlacement);
+				} catch (Exception e){
+					e.printStackTrace();
+				}
+			logger.info("** LOADED modifiedSeatSave() **");
+			return result;
+		}
+		
+		public ArrayList<SeatStudent> seatForStudents(int teacherAlumni){
+			logger.info("** LOADING seatForStudents() **");
+				SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+				ArrayList<SeatStudent> result = null;
+				try{
+					result = mapper.seatForStudents(teacherAlumni);
+				} catch (Exception e){
+					e.printStackTrace();
+				}
+			logger.info("** LOADED seatForStudents() **");
 			return result;
 		}
 	

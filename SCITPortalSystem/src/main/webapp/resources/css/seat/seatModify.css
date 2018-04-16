@@ -4,6 +4,28 @@
 	text-align: center;
 }
 
+.showClassDiv{
+	display:inline;
+	align-content: center;
+}
+
+.numberOfSeat{
+	display:inline;
+}
+
+.showClassroom{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: auto;
+	display: inline-block;
+	width: 100%;
+}
+
+.classInput {
+	width: 30px;
+}
+
 .classroomFront{
 	margin:30px;
 	border: medium;
@@ -25,36 +47,19 @@
 	width: 4%;
 }
 
-
-.previousClassroom {
+.cancelButtonDiv{
 	display: inline-block;
-	cursor: pointer;
+	left:23%;
 }
 
-.showClassroom{
-	position: relative;
-	float: left;
-	width: 100%;
-	height: auto;
+.restartDiv{
 	display: inline-block;
-	width: 100%;
+	left:50%;
 }
 
-.nextClassroom{
+.saveButtonDiv{
 	display: inline-block;
-	cursor: pointer;
-}
-
-
-.showClassDiv{
-	display:inline;
-	align-content: center;
-}
-
-
-.blankDiv{
-	display: inline-block;
-	width:30%;
+	left:77%;
 }
 
 .blankLowerDiv{
@@ -67,12 +72,35 @@
 	display: inline-block;
 }
 
-.fixButtonDiv{
+.resetButtonDiv{
+	display: inline-block;
+}
+
+.saveButtonDiv{
 	display: inline-block;
 }
 
 
-.allocateButtonDiv{
-	display: inline-block;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

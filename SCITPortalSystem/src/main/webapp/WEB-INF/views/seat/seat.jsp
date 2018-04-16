@@ -50,31 +50,52 @@
 				<a href="seatConfig"><input type="button" value="새로 만들기"></a>
 			</div>
 			<br>
-			<div id="previousClassroom" class="previousClassroom" onclick="">◁</div>
-			<div class="blankDiv"></div>
-			<div id="nextClassroom" class="nextClassroom" onclick="">▷</div>
 			<div class="showClassDiv">
-				<c:choose>
-					<c:when test="${loginedStaffSeatPlacement != null}">
+				
+					<c:if test="${loginedStaffSeatPlacement != null}">
 						<input type="hidden" id="seatPlacementSize" value="${loginedStaffSeatPlacement.size()}">
 							<c:forEach items="${loginedStaffSeatPlacement}" var="classList" varStatus="status">
-										<br><br>
 										<div id="showClassroom${status.index}" class="showClassroom" hide="0">
-											<h3>${classList.seatClassroom}반</h3>
+											<div id="previousClassroom" class="previousClassroom" onclick="previousClassroom('${status.index}')">
+												◁
+											</div>
+											<div class="blankDiv"></div>
+											<div id="nextClassroom" class="nextClassroom" onclick="nextClassroom('${status.index}')">
+												▷
+											</div>
+												<h3>${classList.seatClassroom}반</h3>
+												<br>
+												좌석 수 : ${classList.seatCount}석
+												${classList.seatContent}
 											<br>
-											좌석 수 : ${classList.seatCount}석
-											${classList.seatContent}
+											<div class="deleteButtonDiv">
+												<input type="button" value="좌석 배치 삭제하기 " onclick="deleteSeatPlacement('${classList.seatPlacementNum}')">
+											</div>
+											<div class="blankLowerDiv"></div>
+											<div class="fixButtonDiv">
+											
+													<input type="button" value="좌석 배치 수정하기 " onclick="fixSeatPlacement('${classList.seatPlacementNum}')">
+									
+											</div>
+											<div class="blankLowerDiv"></div>
+											<div class="allocateButtonDiv">
+											
+													<input type="button" value="학생 배치하기 " onclick="allocateSeatPlacement('${classList.seatPlacementNum}')">
+										
+											</div>
+											<br><br><br>
 										</div>
 							</c:forEach>
-					</c:when>
+					</c:if>
 					
-					<c:when test="${loginedStaffSeatPlacement == null
+					<c:if test="${loginedStaffSeatPlacement == null
 									|| loginedStaffSeatPlacement.isEmpty()
 									|| loginedStaffSeatPlacement.size() == 0
 									|| loginedStaffSeatPlacement == ''}">
 						<h3>생성된 반 배치도가 없습니다.</h3>
-					</c:when>
-				</c:choose>
+						<br>
+					</c:if>
+			
 			</div>
 		</div>
 		

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.scitportalsystem.www.dao.SeatDAO;
 import com.scitportalsystem.www.vo.MemberStaff;
+import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.SeatPlacement;
+import com.scitportalsystem.www.vo.SeatStudent;
 
 /**
  * Handles requests for the application home page.
@@ -35,18 +37,18 @@ public class SeatController {
 	@RequestMapping(value="seatpage", method=RequestMethod.GET)
 	public String seatpage(HttpSession session, Model model){
 		logger.info("**LODING SEAT.JSP**");
-		
-		//담당 기수만 출력하게 하기 위해 로그인한 선생님의 정보를 가져오기 
-		MemberStaff foundStaff = seatdao.getStaffInfo("testid");
-		int foundMemberNum = seatdao.getMemberNum(foundStaff.getId());
-		
-		//학사 선생님이 담당하는 기수의 반의 좌석 배치도 자료를 가져오고 모델에 담는다.
-		ArrayList<SeatPlacement> loadedSeatPlacementList = seatdao.showSeatInfo(foundMemberNum);
-		model.addAttribute("loginedStaffSeatPlacement",loadedSeatPlacementList);
-		
-		//가져온 선생님의 정보를 모델에 담아서 seat.jsp에 넘겨주기
-		session.setAttribute("loginedStaffInfo",foundStaff);
-		
+			
+			//담당 기수만 출력하게 하기 위해 로그인한 선생님의 정보를 가져오기 
+			MemberStaff foundStaff = seatdao.getStaffInfo("testid");
+			int foundMemberNum = seatdao.getMemberNum(foundStaff.getId());
+			
+			//학사 선생님이 담당하는 기수의 반의 좌석 배치도 자료를 가져오고 모델에 담는다.
+			ArrayList<SeatPlacement> loadedSeatPlacementList = seatdao.showSeatInfo(foundMemberNum);
+			model.addAttribute("loginedStaffSeatPlacement",loadedSeatPlacementList);
+			
+			//가져온 선생님의 정보를 모델에 담아서 seat.jsp에 넘겨주기
+			session.setAttribute("loginedStaffInfo",foundStaff);
+			
 		logger.info("**FINISHED LODING SEAT.JSP**");
 		return "seat/seat";
 	}
@@ -60,17 +62,6 @@ public class SeatController {
 		
 		logger.info("**FINISHED LODING SeatTable.JSP**");
 		return "seat/seatTable";
-	}
-	
-	/*
-	 * 학생 반 배치 페이지의 수정모드 불러오기
-	 */
-	@RequestMapping(value="seatModify", method=RequestMethod.GET)
-	public String seatModify(Model model){
-		logger.info("**LODING seatModify.JSP**");
-		
-		logger.info("**FINISHED LODING seatModify.JSP**");
-		return "seat/seatModify";
 	}
 	
 	/*
@@ -105,6 +96,58 @@ public class SeatController {
 			}
 		logger.info("**FINISHED LODING saveSeatConfig**");
 		return "redirect:seatpage";
+	}
+	
+
+	/*
+	 * 학생 반 배치 페이지의 수정모드 불러오기
+	 */
+	@RequestMapping(value="seatModify", method=RequestMethod.GET)
+	public String seatModify(Model model, int seatPlacementNum){
+		logger.info("**LODING seatModify.JSP**");	
+			SeatPlacement seatPlacement = seatdao.modifySeatPlacement(seatPlacementNum);
+			model.addAttribute("seatPlacement",seatPlacement);
+		logger.info("**FINISHED LODING seatModify.JSP**");
+		return "seat/seatModify";
+	}	
+	
+	/*
+	 * 학생 반 배치 페이지의 수정된 좌석 배치를 DB에 저장한다.
+	 */
+	@RequestMapping(value="seatModifySave", method=RequestMethod.POST)
+	public String seatModifySave(SeatPlacement seatPlacement){
+		logger.info("**LODING seatModifySave.JSP**");
+			//수정된 반 배치 정보를 DB에 저장한다.
+			seatdao.modifiedSeatSave(seatPlacement);
+		logger.info("**FINISHED LODING seatModifySave.JSP**");
+		return "redirect:seatpage";
+	}
+	
+	
+	/*
+	 * 학생 반 배치를 지우기
+	 */
+	@RequestMapping(value="seatDelete", method=RequestMethod.GET)
+	public String seatDelete(int seatPlacementNum){
+		logger.info("**LODING seatDelete**");
+			seatdao.deleteSeatInfo(seatPlacementNum);
+		logger.info("**FINISHED LODING seatDelete**");
+		return "redirect:seatpage";
+	}
+	
+	/*
+	 * 반에 학생 배치하기
+	 */
+	@RequestMapping(value="seatAllocation", method=RequestMethod.GET)
+	public String seatAllocation(HttpSession session, Model model, int seatPlacementNum){
+		logger.info("**LODING seatAllocation.jsp**");
+			SeatPlacement seatPlacement = seatdao.modifySeatPlacement(seatPlacementNum);
+			MemberStaff loginedStaff = (MemberStaff) session.getAttribute("loginedStaffInfo");
+			ArrayList<SeatStudent> getStudents = seatdao.seatForStudents(Integer.parseInt(loginedStaff.getInChargeAlumni()));
+			model.addAttribute("getStudents",getStudents);
+			model.addAttribute("seatPlacement",seatPlacement);
+		logger.info("**FINISHED LODING seatAllocation.jsp**");
+		return "seat/seatAllocation";
 	}
 	
 	

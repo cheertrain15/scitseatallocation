@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+.thePageDiv{
+	text-align: center;
+}
+
+.showClassDiv{
+	display:inline;
+	align-content: center;
+}
+
+.studentList {
+	top: 50px;
+	left: 79%;
+	position: fixed;
+	width:20%;
+	height: 600px;
+	background-color: #dcfeef;
+	border: 1px solid black;
+}
+
+.showClassroomInfo {
+	float: left;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+}
+
+.numberOfSeat{
+	display:inline;
+}
+
+.showClassroom{
+	display:inline;
+}
+
+.classInput {
+	width: 30px;
+}
+
+.classroomFront{
+	margin:30px;
+	border: medium;
+	border-style: solid;
+}
+
+.seat{
+	display: inline-block;
+	width : 10%;
+	height : 150px;
+	border: medium;
+	border-style: solid;
+	align-content: center;
+	vertical-align: middle;
+}
+
+.corridor{
+	display: inline-block;
+	width: 4%;
+}
+
+.cancelButtonDiv{
+	display: inline-block;
+	left:23%;
+}
+.resetButtonDiv{
+	display: inline-block;
+}
+
+.saveButtonDiv{
+	display: inline-block;
+	left:77%;
+}
+
+.blankLowerDiv{
+	display: inline-block;
+	width:15%;
+}
+
+.resetButtonDiv{
+	display: inline-block;
+}
+
+.studentPhoto{
+	display: inline-block;
+}
+
+.studentName{
+	display: inline-block;
+}
+
+.studentListScroll{
+	overflow: auto;
+}
+
+#minimize{
+	border: thin;
+	border-style: solid;
+	cursor: pointer;
+	width: auto;
+}
+
+#appear{
+	border: thin;
+	border-style: solid;
+	cursor: pointer;
+	width: auto;
+}
+
+.cell{
+	margin: 2px;
+	border: thin;
+	border-style: solid;
+	width: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

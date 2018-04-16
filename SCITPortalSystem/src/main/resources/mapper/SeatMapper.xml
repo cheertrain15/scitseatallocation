@@ -57,7 +57,7 @@
 		)
 	</insert>
 	
-	<!-- 학사 선생님이 담당하는 기수의 반배치만 조회하게 하는 sql -->
+	<!-- 학사 선생님이 담당하는 기수의 반 배치만 조회하게 하는 sql -->
 	<select id="showSeatInfo" parameterType="int" resultType="SeatPlacement">
 	select 
 		SeatPlacement.seatPlacementNum as seatPlacementNum
@@ -78,18 +78,58 @@
 		SeatPlacement.seatClassroom ASC
 	</select>
 	
+	<!-- 수정하기 위해 하나의 반 배치도를 불러오는 sql -->
+	<select id="modifySeatPlacement" parameterType="int" resultType="SeatPlacement">
+		select
+			seatPlacementNum
+			, seatClassroom
+			, seatCount
+			, seatContent
+		from
+			SeatPlacement
+		where
+			seatPlacementNum = #{seatPlacementNum}
+	</select>
+	
+	<!--  반 배치 지우기  -->
+	<delete id="deleteSeatInfo" parameterType="int">
+		delete from
+			SeatPlacement
+		where
+			seatPlacementNum = #{seatPlacementNum}
+	</delete>
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 수정 된 반 배치를 DB에 반영하기 -->
+	<update id="modifiedSeatSave" parameterType="SeatPlacement">
+		update
+			SeatPlacement
+		set
+			seatCount = #{seatCount}
+			, seatContent = #{seatContent}
+		where
+			seatPlacementNum = #{seatPlacementNum}
+	</update>
+
+	<!-- 반 배정 받을 학생들을 불러온다 -->
+	<select id="seatForStudents" parameterType="int" resultType="SeatStudent">
+		select
+			MemberStudent.memberstudentNum as memberstudentNum
+			, MemberStudent.id as id
+			, MemberBasic.name as name
+			, MemberBasic.memberSaverPicName as memberSaverPicName
+			, MemberStudent.alumni as alumni
+			, MemberStudent.classroom as classroom
+			, MemberStudent.groupNum as groupNum
+			, MemberStudent.seat as seat
+		from
+			MemberStudent
+			, MemberBasic
+		where
+			MemberStudent.alumni = #{teacherAlumni}
+			AND
+            MemberStudent.id = MemberBasic.id
+	</select>
 	
 	
 </mapper>
