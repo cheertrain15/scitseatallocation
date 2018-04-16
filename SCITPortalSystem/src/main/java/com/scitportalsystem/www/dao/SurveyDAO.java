@@ -159,5 +159,44 @@ public class SurveyDAO {
 		return result;
 		
 	}
+
+	public ArrayList<Survey> selectPages(int surveyNum) {
+		ArrayList<Survey> result = null;
+		
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.selectPages(surveyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Survey> selectQuestions(HashMap<String, Object> pageNum) {
+		ArrayList<Survey> result = null;
+		
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.selectQuestions(pageNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}     
+		
+		return result;
+	}
+
+	public ArrayList<Survey> selectOptions(HashMap<String, Object> questionNum) {
+		ArrayList<Survey> result = null;
+		
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.selectOptions(questionNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }
 	

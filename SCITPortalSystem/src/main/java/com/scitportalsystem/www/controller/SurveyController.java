@@ -149,14 +149,34 @@ public class SurveyController {
 	}
 
 	@RequestMapping(value = "surveyAnswer", method = RequestMethod.GET)
-	public String surveyAnswer() {
+	public String surveyAnswer(Model model) {
 
 		return "survey/surveyAnswer";
 	}
 
 	@RequestMapping(value = "surveyDetail", method = RequestMethod.GET)
-	public String surveyDetail() {
-
+	public String surveyDetail(int surveyNum, Model model) {
+		
+		ArrayList<Survey> pages = surveyDAO.selectPages(surveyNum);
+		
+		for (int i = 0; i < pages.size(); i++) {
+			System.out.println(pages.get(i).getSurveyPageNum());
+		}
+		
+		HashMap<String, Object> pageNum = new HashMap<String, Object>();
+		pageNum.put("pages", pages);
+		    
+		ArrayList<Survey> questions = surveyDAO.selectQuestions(pageNum);
+		
+		HashMap<String, Object> questionNum = new HashMap<String, Object>();
+		questionNum.put("questions", questions);
+		 
+		ArrayList<Survey> options = surveyDAO.selectOptions(questionNum);
+		
+		model.addAttribute("pages", pages);
+		model.addAttribute("questions", questions);
+		model.addAttribute("options", options);
+		
 		return "survey/surveyDetail";
 	}
 

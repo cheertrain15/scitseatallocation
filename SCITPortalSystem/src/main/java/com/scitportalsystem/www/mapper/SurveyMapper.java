@@ -18,7 +18,7 @@ public interface SurveyMapper {
 //	int countSelectAlumni(int inChargeAlumni);
 
 	int selectAlumni(int inChargeAlumni);
-
+     
 	ArrayList<String> selectClassRoom(int inChargeAlumni);
 
 	int insertSurvey(Survey survey);
@@ -29,6 +29,10 @@ public interface SurveyMapper {
 
 	int insertSurveyOption(Survey survey);
 
-	
+	ArrayList<Survey> selectPages(int surveyNum);
+
+	ArrayList<Survey> selectQuestions(HashMap<String, Object> pageNum);
+
+	ArrayList<Survey> selectOptions(HashMap<String, Object> questionNum);
 	
 }

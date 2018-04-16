@@ -1,8 +1,8 @@
 $( document ).ready(function(){
 	initialize();
 	saveSurvey();
-});
-
+});  
+  
 // 설문 시작일과 마감일 설정
 $( function() {
 	    var dateFormat = "yy-mm-dd",
@@ -37,6 +37,8 @@ $( function() {
 //});
 
 var question = 1;
+var checkbox = 1;
+var radio = 1;
 
 function initialize(){
 	
@@ -89,10 +91,12 @@ $( function() {
 	        		+'</legend>'
 	        		+'<input type="button" value="+" class="addOption">'
 	        	    +'<input type="button" value="-" class="subOption">'
-	        	    +'<input type="radio" name="radio" id="radio1">'
+	        	    +'<input type="radio" name="radio'+radio+'" id="radio1">'
 	        	    +'<label for="radio1" class="radio">옵션1</label>'
 	        	    +'</fieldset>'
 	        	    +'</div>';
+        		
+        		radio++;
 				
 			}
         	
@@ -106,10 +110,12 @@ $( function() {
 	        		+'</legend>'
 	        		+'<input type="button" value="+" class="addOption">'
 	        	    +'<input type="button" value="-" class="subOption">'
-	        	    +'<input type="checkbox" name="checkbox" id="checkbox1">'
+	        	    +'<input type="checkbox" name="checkbox'+checkbox+'"  id="checkbox1">'
 	        	    +'<label for="checkbox1">옵션1</label>'
 	        	    +'</fieldset>'
 	        	    +'</div>';
+        		
+        		checkbox++;
 				
 			}
         	
@@ -312,9 +318,12 @@ $( function() {
 				if (option =="checkbox") {
 					
 					checkOptionNum++;
+					var name = $(this).parent().find('input[type=checkbox]').attr("name");
+					console.log(name);
 					
 					var str = '';
-					str += '<input type="checkbox" name="checkbox" id="checkbox'+checkOptionNum+'">'
+					str += '<input type="checkbox" '
+						+ 'name="'+name+'" id="checkbox'+checkOptionNum+'">'
 						+'<label for="checkbox'+checkOptionNum+'">옵션'+checkOptionNum+'</label>'
 						
 						$(this).parent()
@@ -327,9 +336,12 @@ $( function() {
 				if (option =="radio") {
 					
 					radioOptionNum++;
+					var name = $(this).parent().find('input[type=radio]').attr("name");
+					console.log(name);
 					
 					var str = '';
-					str += '<input type="radio" name="radio" id="radio'+radioOptionNum+'">'
+					str += '<input type="radio" '
+						+ 'name="'+name+'" id="radio'+radioOptionNum+'">'
 						+'<label for="radio'+radioOptionNum+'">옵션'+radioOptionNum+'</label>'
 						
 						$(this).parent()
@@ -358,8 +370,6 @@ $( function() {
 	function addSelectOption(){
 		
 		$("#addSelectOption").click(function(){
-			
-			alert('눌리긴 하는겐지?');
 			
 			var val = $("#selectOption").val();
 			
@@ -402,7 +412,7 @@ $( function() {
             			var str = '';
                    		str += '<input type="checkbox" name="checkRequired" id="checkRequired" '
                    			+ 'associated="'+$( this ).attr("id")+'">'
-                   			+ $( this ).attr("id")+' 필수 응답항목 설정'
+                   			+ ' 필수 응답항목 설정';
                    			
                           $( "#editSurvey" ).html(str);
                    		
@@ -578,6 +588,7 @@ $( function() {
 				data : JSON.stringify(createSurvey),
 				success : function(data) {
 					alert(data);
+					$(location).attr('href', 'survey');
 				},
 				error : function(err) {
 					console.log(err);

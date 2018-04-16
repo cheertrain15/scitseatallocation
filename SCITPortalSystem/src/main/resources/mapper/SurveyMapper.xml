@@ -146,7 +146,33 @@
 	SELECT surveyoptionnum_seq.currval FROM dual 
 	</selectKey>
 </insert>
-	
 
+<select id="selectPages" parameterType="int" resultType="Survey">
+	select surveypagenum from surveypage
+	where surveynum = #{surveyNum}
+	order by surveypagenum asc
+</select>
+
+<select id="selectQuestions" parameterType="HashMap" resultType="Survey">
+	select *
+	from surveyquestion
+	where
+	<foreach collection="pages" item="page" open="(" close=")" separator="or">
+	surveypagenum = #{page.surveyPageNum}
+	</foreach>
+	order by surveyquestionnum asc
+	     
+</select> 
+
+<select id="selectOptions" parameterType="HashMap" resultType="Survey">
+	select *
+	from surveyoption
+	where
+	<foreach collection="questions" item="qstn" open="(" close=")" separator="or">
+	surveyquestionnum = #{qstn.surveyQuestionNum}
+	</foreach>
+	order by surveyoptionnum asc
 	
+</select>
+
 </mapper>

@@ -14,42 +14,42 @@
 	
 </head>
 <body>
-<h1>Create Survey</h1>
+<div id="create">
 
 <div id="target">
 	<table>
 		<tr>
-		<td>대상:</td>
+		<td>Target:</td>
 		<td>
 			<select name="selectAlumni" id="selectAlumni">
-			<option>기수 선택</option>
+			<option>Alumni</option>
 			<option value="${alumni}">${alumni}기</option>
 			</select>
 		</td>
 		<td>
 			<select name="selectClass" id="selectClass">
-			<option>반 선택</option>
+			<option>Classroom</option>
 			<option value="ALL">ALL</option>
 			<c:forEach items="${classRoom}" var="cl">
 			<option value="${cl}">${cl}</option>
 			</c:forEach>
 			</select>
 		</td>
-		<td>설문시작일:</td>
+		<td>Start date:</td>
 		<td>
 		<input type="text" name="surveyStartDate" id="surveyStartDate">
 		</td>
-		<td>설문마감일:</td> 
+		<td>End date:</td> 
 		<td>
 		<input type="text" name="surveyEndDate" id="surveyEndDate">
 		</td>
 		</tr>
 		<tr>
-		<td>설문 제목:</td>
+		<td>Title:</td>
 		<td colspan="5">
 		<input type="text" size="80" id="surveyTitle">
 		</td>
-		<td><input type="button" value="설문조사 저장" id="saveSurvey"></td>
+		<td><input type="button" value="Save this" id="saveSurvey"></td>
 		</tr>
 	</table>
 </div>
@@ -70,8 +70,8 @@
 <option value="page1">page1</option>
 </select>
 
-<input type="button" value="추가" id="addPage" onclick="javascript:addPage()">
-<input type="button" value="삭제" id="subPage" onclick="javascript:subPage()">
+<input type="button" value="New page" id="addPage" onclick="javascript:addPage()">
+<input type="button" value="Delete this page" id="subPage" onclick="javascript:subPage()">
 </div>
 
 <div id="surveyCanvas">
@@ -84,5 +84,6 @@
 <p>Edit Survey Option</p>
 </div>
 
+</div>
 </body>
 </html>
