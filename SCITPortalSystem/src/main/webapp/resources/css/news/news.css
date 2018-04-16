@@ -16,8 +16,14 @@ table{
 
 .tdnews{
 	text-align: center;
+	width : 100px;
 }
 
 .selectNews{
 	text-align: left;
+}
+
+.consultdiv{
+	margin: auto;
+	text-align: center;
 }
