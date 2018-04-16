@@ -39,8 +39,8 @@
 	</insert>
 	
 	
-	<!-- 전체 목록 출력 -->
-	<select id="selectNewsAll" parameterType="news" resultType="News">
+	<!-- 전체 목록 출력 학생용 -->
+	<select id="selectNewsAll" parameterType="hashmap" resultType="News">
 		select 
 			n.newsNum
 			,n.newsTitle
@@ -56,13 +56,53 @@
 			news n, memberstudent m
 			<if test="targetAlumni != null and targetClass != null" >
 				where			
-					m.targetAlumni = #{targetAlumni}
+					targetAlumni = #{targetAlumni}
 					AND 
-					m.targetClass = #{targetClass}
-			</if>	
+					targetClass = #{targetClass}
+			</if>
 		order by
 			newsHeader desc
 			, newsNum desc
+	</select>
+	
+	<!-- 전체 목록 출력 선생용-->
+	<select id="selectNewsTheacher" parameterType="hashmap" resultType="News">
+		select 
+			n.newsNum
+			,n.newsTitle
+			,n.newsHeader
+			,n.newsContent
+			,n.newsDate
+			,n.newsHits
+			,n.newsFileName
+			,n.newsSavedFileName
+			,m.alumni
+			,m.classroom
+		from
+			news n, memberstudent m
+			<if test="targetAlumni != null and targetClass != null" >
+				where			
+					targetAlumni = #{targetAlumni}
+					AND 
+					targetClass = #{targetClass}
+			</if>
+		order by
+			newsHeader desc
+			, newsNum desc
+	</select>
+	
+	<!-- 페이징 처리 -->
+	<select id="getTotal" parameterType="hashmap" resultType="int">
+		select
+			count(*)
+		from
+			news
+			<if test="targetAlumni != null and targetClass != null" >
+				where			
+					targetAlumni = #{targetAlumni}
+					AND 
+					targetClass = #{targetClass}
+			</if>
 	</select>
 	
 	<!-- 전체 하나 보기 -->

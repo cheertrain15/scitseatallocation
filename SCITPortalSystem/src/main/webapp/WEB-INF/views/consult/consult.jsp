@@ -69,7 +69,7 @@
 				<c:if test="${counter == navi.currentPage}">
 					<b>					
 				</c:if>
-					<a href="javascript:pagingFormSubmit(${counter})">${counter}</a><!-- 숫자를 무엇을 눌렀느냐를 전달 -->
+					<a href="javascript:pagingFormSubmit(${counter})">${counter}</a>
 				<c:if test="${counter == navi.currentPage}">
 					</b>
 				</c:if>										

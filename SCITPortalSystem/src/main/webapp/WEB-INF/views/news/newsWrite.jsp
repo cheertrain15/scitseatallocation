@@ -51,7 +51,9 @@
 			</tr>
 				
 		</table>
-		<input type="submit" value="저장">		
+		<div style="width: 50px; height: 50px; margin: auto;" id="submitDiv">
+			<input type="submit" value="저장">
+		</div>		
 	</form>	
 	<%@ include file="../footer.jsp"%>
 	</body>

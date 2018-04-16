@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.scitportalsystem.www.mapper.ConsultMapper;
 import com.scitportalsystem.www.mapper.NewsMapper;
 import com.scitportalsystem.www.vo.News;
 
@@ -36,13 +37,47 @@ public class NewsDAO {
 		logger.info("공지사항 글 쓰기 종료 다오");
 	}
 	
-	// 공지사항 글 전체보기 다오다오
-	public ArrayList<News> selectNewsAll(HashMap<String, Object> searchMap, News news){
+	// 페이징 처리를 위한 다오다오
+	public int getTotal(HashMap<String, Object> searchMap){
+		logger.info("전체 글 개수 시작 DAO");
 		NewsMapper mapper = sqlSession.getMapper(NewsMapper.class);
+		int total = 0;
+		
+		try {
+			total = mapper.getTotal(searchMap);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		logger.info("전체 글 개수 시작 DAO");
+		return total;
+	}
+	
+	// 공지사항 글 전체보기 학생용
+	public ArrayList<News> selectNewsAll(HashMap<String, Object> searchMap, int StartRecord, int CountPerPage){
 		logger.info("공지사항 전체 출력 시작 다오");
 		ArrayList<News> newslist = null;
+		NewsMapper mapper = sqlSession.getMapper(NewsMapper.class);
+		//전체 검색 결과 중 읽을 시작위치와 개수
+		RowBounds rb = new RowBounds(StartRecord, CountPerPage);
 		try {
-			newslist = mapper.selectNewsAll(news);
+			newslist = mapper.selectNewsAll(searchMap, rb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		logger.info("공지사항 전체 출력 종료 다오");
+		return newslist;
+	}
+	
+	// 공지사항 글 전체보기 선생용
+	public ArrayList<News> selectNewsTheacher(HashMap<String, Object> searchMap, int StartRecord, int CountPerPage){
+		logger.info("공지사항 전체 출력 시작 다오");
+		ArrayList<News> newslist = null;
+		NewsMapper mapper = sqlSession.getMapper(NewsMapper.class);
+		//전체 검색 결과 중 읽을 시작위치와 개수
+		RowBounds rb = new RowBounds(StartRecord, CountPerPage);
+		try {
+			newslist = mapper.selectNewsTheacher(searchMap, rb);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

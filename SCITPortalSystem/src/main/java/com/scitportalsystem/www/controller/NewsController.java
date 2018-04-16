@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.scitportalsystem.www.dao.NewsDAO;
 import com.scitportalsystem.www.util.FileService;
+import com.scitportalsystem.www.util.PageNavigator;
 import com.scitportalsystem.www.vo.News;
 
 
@@ -37,7 +38,7 @@ public class NewsController {
 	@Inject
 	NewsDAO dao;
 	
-	final int countPerPage = 5;
+	final int countPerPage = 15;
 	final int pagePerGroup = 5;	
 	
 	final String uploadPath = "/boardfile";
@@ -46,40 +47,73 @@ public class NewsController {
 	
 	// 공지 사항 글 목록 전체 담아오는 컨트롤러
 	@RequestMapping(value="NewsMain", method=RequestMethod.GET)
-	public String NewsMain(HttpSession session, Model model, News news,
-			@RequestParam(value="targetAlumni", defaultValue="34") String searchSelectAlumni,
-			@RequestParam(value="targetClass", defaultValue="A") String searchSelectClass){		
+	public String NewsMain(HttpSession session, Model model, String searchSelectAlumni, String searchSelectClass,
+			@RequestParam(value="page", defaultValue="1")int page){		
 		logger.info("글 목록 이동 시작");
-		
+		System.out.println(searchSelectAlumni);
+		System.out.println(searchSelectClass);
 		// 기수와 반을 담는 해쉬 맵 입니다.
 		HashMap<String, Object> searchMap = new HashMap<>();
-		
 		// 기수 담기
 		searchMap.put("targetAlumni", searchSelectAlumni);
-		
 		// 반 담기
 		searchMap.put("targetClass", searchSelectClass);
-		
-		// 잘 담앗는지 출력
 		System.out.println(searchMap);
-		
+		// 잘 담앗는지 출력
 		String MemberClass = (String) session.getAttribute("loginMemberClass");
 		System.out.println(MemberClass);
+		//만약 학생으로 로그인하고 세션에서 기수와 클래스를 받아 set을 해주면 자동입력이될것 같다.		
 		
-		// 글 전체를 불러오는 다오
-		ArrayList<News> NewsList = dao.selectNewsAll(searchMap, news);
-		System.out.println(NewsList);
-		
-		// 전체 글 담기
-		model.addAttribute("NewsList", NewsList);
-		
-		// 전체 기수 담기
-		model.addAttribute("targetAlumni", 33);
-		System.out.println("나 기수가 출력 되고 있어!"+searchSelectAlumni);
-		
-		// 전체 반 담기
-		model.addAttribute("targetClass", "B");
-		System.out.println("나 기수가 출력 되고 있어!"+searchSelectClass);
+		if (MemberClass.equals("Student")) {
+			// 페이징 처리
+			int total = dao.getTotal(searchMap);
+			
+			PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, total);
+			System.out.println(navi);
+			
+			// 글 전체를 불러오는 다오
+			ArrayList<News> NewsList = dao.selectNewsAll(searchMap, navi.getStartRecord(), navi.getCountPerPage());
+			System.out.println(NewsList);
+			
+			// 전체 글 담기
+			model.addAttribute("NewsList", NewsList);
+			
+			// 페이징 담기
+			model.addAttribute("navi", navi);
+			
+			// 전체 기수 담기
+			model.addAttribute("targetAlumni", 33);
+			System.out.println("나 기수가 출력 되고 있어!"+searchSelectAlumni);
+			
+			// 전체 반 담기
+			model.addAttribute("targetClass", "B");
+			System.out.println("나 기수가 출력 되고 있어!"+searchSelectClass);
+			
+		} else {
+			// 페이징 처리
+			int total = dao.getTotal(searchMap);
+			
+			PageNavigator navi = new PageNavigator(countPerPage, pagePerGroup, page, total);
+			System.out.println(navi);
+			
+			// 글 전체를 불러오는 다오
+			ArrayList<News> NewsList = dao.selectNewsTheacher(searchMap, navi.getStartRecord(), navi.getCountPerPage());
+			System.out.println(NewsList);
+			
+			// 전체 글 담기
+			model.addAttribute("NewsList", NewsList);
+			
+			// 페이징 담기
+			model.addAttribute("navi", navi);
+			
+			// 전체 기수 담기
+			model.addAttribute("targetAlumni", 33);
+			System.out.println("나 기수가 출력 되고 있어!"+searchSelectAlumni);
+			
+			// 전체 반 담기
+			model.addAttribute("targetClass", "B");
+			System.out.println("나 기수가 출력 되고 있어!"+searchSelectClass);
+		};
 		logger.info("글 목록 이동 종료");
 		return"news/news";
 	}
@@ -103,7 +137,7 @@ public class NewsController {
 		// 임의로 반 담기
 		news.setTargetAlumni(34);
 		// 임의로 기수 담기
-		news.setTargetClass("B");
+		news.setTargetClass("A");
 		// 임의로 논리적 삭제  담기
 		news.setDeleteBy(" ");
 		
