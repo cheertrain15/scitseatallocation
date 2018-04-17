@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SCIT PORTAL 출결관리/지각보고의  관련 정보 처리 SQL -->
+
+<mapper namespace="com.scitportalsystem.www.mapper.RegisterMapper">
+
+	<!-- 지각 및 결석 사유 저장 -->
+	<insert id="insertRegist" parameterType="Registration">
+		insert into registration (
+			registrationNum
+			, id
+			, registrationReason
+			, registrationContent
+			, estimatedTime
+			, deleteBy
+		)
+		values (
+			registrationnum_seq.nextval
+			, #{ id}
+			, #{ registrationReason}
+			, #{ registrationContent}
+			, #{ estimatedTime}
+			, #{ deleteBy}			
+		)
+	</insert>
+	
+	<!-- 지각 및 결석 사유 목록 (선생님용)-->
+	<select id="listRegistAll" parameterType="hashmap" resultType="RegistrationResult">
+		select 
+			r.registrationnum
+			, ms.alumni
+			, ms.classroom
+			, mb.name
+			, r.registerResult
+			, r.registrationcontent
+			, r.estimatedtime 
+			, r.registrationdate
+		from 
+			registration r
+			, memberstudent ms
+			, memberbasic mb
+		where
+		<if test="searchText != null">
+			(r.id in (select 
+						id 
+					from 
+						memberbasic
+					where 
+						name like '%' || #{ searchText} || '%'
+					)) 
+			and
+		</if>
+		<if test="selAlumni != ''">
+			ms.alumni = #{ selAlumni } and
+		</if>
+		<if test="selClassroom != ''">
+			ms.classroom = #{ selClassroom } and
+		</if>
+			r.id = ms.id 
+			and ms.id = mb.id
+		order by r.registrationnum desc
+	</select>
+	
+	<!-- 로그인 유저 정보 출력 -->
+	<select id="userInfo" parameterType="String" resultType="String">
+	select 
+		memberClass
+	from memberbasic
+	where
+		id = #{ id}
+	</select>
+
+	
+	<!-- 지각 및 결석 사유 목록 (학생용)-->
+	<select id="listRegistOne" parameterType="String" resultType="RegistrationResult">
+		select 
+			r.registrationnum
+			, ms.alumni
+			, ms.classroom
+			, mb.name
+			, r.registerResult
+			, r.registrationcontent
+			, r.estimatedtime
+			, r.registrationdate
+		from 
+			registration r
+			, memberstudent ms
+			, memberbasic mb
+		where 
+			r.id = #{ id} 
+			and r.id = ms.id 
+			and ms.id = mb.id
+		order by r.registrationnum desc
+	</select>
+	
+	<!-- 전체 글 개수 (검색 필터링 후) -->
+	<select id="getTotal" parameterType="string" resultType="int">
+		select 
+			count(*)
+		from
+		<if test="searchText != null">
+			registration 
+		where 
+			  id in 
+			  	(select id	from memberbasic
+					where name like '%' || #{ searchText} || '%'
+					)
+		</if>
+	</select>
+	
+	<!-- 지각 및 결석 목록 삭제 -->
+	<delete id="deleteRegist" parameterType="String">
+		delete
+			registration
+		where
+			registrationnum = #{ registrationnum}
+	</delete>
+	
+	
+	
+	
+	
+
+</mapper>
