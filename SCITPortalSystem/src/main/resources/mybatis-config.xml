@@ -18,6 +18,7 @@
 		<typeAlias type="com.scitportalsystem.www.vo.MemberStudentSurvey" alias="MemberStudentSurvey" />
 		<typeAlias type="com.scitportalsystem.www.vo.News" alias="News" />
 		<typeAlias type="com.scitportalsystem.www.vo.Registration" alias="Registration" />
+		<typeAlias type="com.scitportalsystem.www.vo.RegistrationResult" alias="RegistrationResult" />
 		<typeAlias type="com.scitportalsystem.www.vo.Survey" alias="Survey" />
 		<typeAlias type="com.scitportalsystem.www.vo.AskQuestionReply" alias="AskQuestionReply" />
 		<typeAlias type="com.scitportalsystem.www.vo.SeatPlacement" alias="SeatPlacement" />
