@@ -23,15 +23,38 @@
 		(참여하지 않았을 경우)참여페이지
 	  마감일 경과 여부에 따라
 	  	(경과했을 경우)설문 내용만 확인 가능 -->
+	  	
+	  	<!-- 로그인 한 회원이 선생님일 경우 설문 수정 버튼 보이기 -->
+	  	<h1>개별 설문 보기</h1>
+	  	<c:if test="${memberClass == 'teacher'}">
+	  	
 	  	<div id="modifyBtn">
-		<button id="editBtn"><h1>Edit</h1></button>	  	
+		<button id="editBtn">Edit</button>	  	
 	  	</div>
+	  	
+	  	</c:if>
+	  	
+	  	<div id="surveyInfo">
+	  	<table>
+	  	<tr>
+	  	<td>제목: ${survey.surveyTitle}</td>
+	  	<td>대상: ${survey.surveyTargetAlumni}기 ${survey.surveyTargetClassroom}</td>
+	  	</tr>
+	  	<tr>
+	  	<td>설문 기간: ${survey.surveyStartDate} </td>
+	  	<td>~ ${survey.surveyEndDate}</td>
+	  	</tr>
+	  	</table>
+	  	</div>
+	  	
+	  	<!-- 설문 참여 시작 -->
 
 	  	<div id="canvase">
 	  	
 	  	<c:forEach items="${pages}" var="pg" varStatus="pgStatus">
 	  	
-	  	<div id="page${pgStatus.index}" class="pages">
+	  	<div id="page${pgStatus.index}" class="pages" >
+	  	
 	  	 
 	  	<div id="leftBtn">
 	  	<br><br><br><br><br><br><br>
@@ -39,9 +62,11 @@
 	  	<button id="prevBtn" onclick="prevPage(${pgStatus.index})"><h1>◀</h1></button>
 	  	</div>
 	  		
-	  		<form action="surveyAnswer" method="post" onsubmit=""> 
+	  		<form action="surveyAnswer" method="post" onsubmit="submitSurvey();"> 
 	  		
 	  		<div id="questionWrap">
+	  		
+	  		<h1>Page${pgStatus.count} ( ${pgStatus.count} / ${pages.size()} )</h1>
 	  
 		  	<c:forEach items="${questions}" var="qs">
 		  	
@@ -108,8 +133,11 @@
 	  	</c:forEach>
 	  	</div>
 	  	
+	  	<!-- 설문 참여 끝 -->
+	  	
+	  	<!-- 로그인 한 회원이 학생일 경우 설문 응답 제출 버튼 보이기 -->
 	  	<div id="saveBtn">
-	  	<button><h1>설문 응답 제출</h1></button>
+	  	<input type="submit" value="제출">
 	  	</div>
 	  	
 </body>

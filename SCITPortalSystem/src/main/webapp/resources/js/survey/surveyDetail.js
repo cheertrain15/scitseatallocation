@@ -18,3 +18,7 @@ function nextPage(index){
 	}
 }
 
+function submitSurvey(){
+	alert('눌렸지롱');
+}
+

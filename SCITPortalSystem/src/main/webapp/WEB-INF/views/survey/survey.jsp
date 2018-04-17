@@ -14,13 +14,13 @@
 </head>
 <body> 
 	
-	<h1>설문 목록</h1>
-	
+	<h1>설문 목록</h1> 
+	<c:if test="${memberClass == 'teacher'}">
 	<a href="surveyCreate"><input type="button" value="새설문작성"></a>
-	
-	<hr>
+	</c:if>
+	<hr>   
 
-	<div>
+	<div> 
 	<table>
 	<tr>
 	<td>글번호</td>
@@ -35,7 +35,7 @@
 	<c:forEach items="${list}" var="v">
 	<tr>
 	<td>${v.surveyNum}</td>
-	<td>${v.surveyTitle}</td>
+	<td><a href="surveyDetail?surveyNum=${v.surveyNum}">${v.surveyTitle}</a></td>
 	<td>${v.name}</td>
 	<td>${v.surveyWrittenDate}</td>
 	<td>${v.surveyStartDate}</td>

@@ -1,13 +1,35 @@
 @charset "UTF-8";
+html, body {
+	margin: 0px;
+    padding: 0px;
+	height: 100%;
+}
 
 *{
 	margin: 2px;
     padding: 2px;
 }
 
-html, body {
-	height: 100%;
-	background-color: white;
+h1 {
+	color: #333333;
+}
+
+fieldset {
+	
+	border: solid #cc99ff 2px;
+	border-radius: 10px;
+	background-color: #e6ccff;
+	padding: 1%
+	
+}
+
+.canvases {
+	position: absolute;
+	top:0;
+	left:0;
+	width: 99.2%;
+	height: 98.8%;
+	background-color: #f2e6ff;
 }
 
 #create {
@@ -15,70 +37,54 @@ html, body {
 	background-color: #f2f2f2;
 }
 
-div#ui-datepicker-div {
-	border: none;
-}
-
-h1 {
-	color: #333333;
-}
-
-.canvases {
-	position: absolute;
-	top:0;
-	left:0;
-	width: 99%;
-	height: 98.5%;
-	background-color: #d9d9d9;
-}
-
-div {
-	border: solid #333333 1px;
-}
-
 #target {
 	display: block;
 	width: 99.3%;
-	height: 7%;
 	float: left;
+	background-color: #ffffe6;
 }
 
 #toolBar {
 	display: inline-block;
-	width: 7.8%;
-	height: 90.7%;
+	height: 90.3%;
+	width: 9.5%;
 	float: left;
+	background-color: #ffe6f2;
 }
 
 #editPage {
 	display: inline-block; 
-	width: 73%; 
-	height: 6%;
+	width: 71%;
 	float: left;
+	background-color: #e6ffee;
 }
 
 #surveyCanvas {
 	position: relative;
 	float: left;
 	display: inline-block;
-	width: 73%;
-	height: 83.5%;
+	width: 71%;
+	height: 83.1%;
+	background-color: #e6ccff;
 }
 
 #editSurvey {
 	display: inline-block;
-	width: 17%;
-	height: 90.5%;
+	width: 17.5%;
+	height: 90.3%;
 	clear: both;
+	background-color: #e6f2ff;
 }
 
 .tools {
+	margin: auto;
 	width: 100px;
 	height: 25px;
+	background-color: #ffcce6;
 }
 
 .tools:hover {
-	background-color: yellow;
+	background-color: #ff0080;
 }
 
 .questions {

@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.scitportalsystem.www.dao.SurveyDAO;
 import com.scitportalsystem.www.util.PageNavigator;
 import com.scitportalsystem.www.vo.CreateSurvey;
+import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.PageArray;
 import com.scitportalsystem.www.vo.Survey;
 import com.scitportalsystem.www.vo.SurveyArray;
@@ -41,14 +42,38 @@ public class SurveyController {
 	@RequestMapping(value = "survey", method = RequestMethod.GET)
 	public String survey(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 
-		// int teacherNum = (int) session.getAttribute("teacherNum");
+		int memberNum = (int) session.getAttribute("loginMemberNum");
+		String memberClass = surveyDAO.getMemberClass(memberNum);
+		
+		model.addAttribute("memberClass", memberClass);
+		
+		int totalCount = 0;
+		PageNavigator navi = null;
+		ArrayList<Survey> list = null;
+		
+		// 선생님일 경우 본인이 작성한 모든 공지 보기
+		if (memberClass.equals("teacher")) {
+			
+//			int teacherNum = (int) session.getAttribute("teacherNum");
+			int teacherNum = 1;
 
-		int teacherNum = 1;
-
-		int totalCount = surveyDAO.countSelectAll(teacherNum);
-		PageNavigator navi = new PageNavigator(LIMIT, PAGES, page, totalCount);
-		ArrayList<Survey> list = surveyDAO.selectAll(teacherNum, LIMIT, page);
-
+			totalCount = surveyDAO.countSelectAll(teacherNum);
+			navi = new PageNavigator(LIMIT, PAGES, page, totalCount);
+			list = surveyDAO.selectAll(teacherNum, LIMIT, page);
+			
+		}
+		
+		// 학생일 경우 자신이 타겟인 공지만 보기
+		if (memberClass.equals("student")) {
+//			String id = (String) session.getAttribute("loginID"); 
+			String id = "testid8";
+			
+			MemberStudent param = surveyDAO.getAlumniClassroom(id);
+			totalCount = surveyDAO.countSelectAll2(param);
+			navi = new PageNavigator(LIMIT, PAGES, page, totalCount);
+			list = surveyDAO.selectAll2(param, LIMIT, page);
+		}
+		
 		System.out.println(list);
 
 		model.addAttribute("list", list);
@@ -155,26 +180,35 @@ public class SurveyController {
 	}
 
 	@RequestMapping(value = "surveyDetail", method = RequestMethod.GET)
-	public String surveyDetail(int surveyNum, Model model) {
+	public String surveyDetail(int surveyNum, Model model, HttpSession session) {
 		
+		// 현재 로그인 한 회원 유형 확인
+//		int memberNum = (int) session.getAttribute("loginMemberNum");
+		int memberNum = 8;
+		String memberClass = surveyDAO.getMemberClass(memberNum);
+		model.addAttribute("memberClass", memberClass);
+		
+		// 설문 기본 정보(제목, 작성자 등)
+		Survey survey = surveyDAO.selectASurvey(surveyNum);
+		model.addAttribute("survey", survey);
+		
+		// 설문 페이지 관련 정보
 		ArrayList<Survey> pages = surveyDAO.selectPages(surveyNum);
-		
 		for (int i = 0; i < pages.size(); i++) {
 			System.out.println(pages.get(i).getSurveyPageNum());
 		}
-		
 		HashMap<String, Object> pageNum = new HashMap<String, Object>();
 		pageNum.put("pages", pages);
-		    
-		ArrayList<Survey> questions = surveyDAO.selectQuestions(pageNum);
+		model.addAttribute("pages", pages);
 		
+		// 설문 속 질문 관련 정보
+		ArrayList<Survey> questions = surveyDAO.selectQuestions(pageNum);
 		HashMap<String, Object> questionNum = new HashMap<String, Object>();
 		questionNum.put("questions", questions);
-		 
-		ArrayList<Survey> options = surveyDAO.selectOptions(questionNum);
-		
-		model.addAttribute("pages", pages);
 		model.addAttribute("questions", questions);
+		
+		// 설문 속 질문의 각 선택지 정보
+		ArrayList<Survey> options = surveyDAO.selectOptions(questionNum);
 		model.addAttribute("options", options);
 		
 		return "survey/surveyDetail";
