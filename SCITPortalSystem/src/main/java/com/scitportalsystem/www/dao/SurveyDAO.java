@@ -198,5 +198,72 @@ public class SurveyDAO {
 		
 		return result;
 	}
+
+	public String getMemberClass(int memberNum) {
+		String result = null;
+		
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.getMemberClass(memberNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public Survey selectASurvey(int surveyNum) {
+		Survey result = null;
+		
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.selectASurvey(surveyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
+
+	public MemberStudent getAlumniClassroom(String id) {
+		MemberStudent result = null;
+		
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.getAlumniClassroom(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public int countSelectAll2(MemberStudent param) {
+		int result = 0;
+
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.countSelectAll2(param);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public ArrayList<Survey> selectAll2(MemberStudent param, int lIMIT, int page) {
+		RowBounds rb = new RowBounds((page - 1) * lIMIT, lIMIT);
+		
+		ArrayList<Survey> result = null;
+		
+		try {
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.selectAll2(param, rb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
 	

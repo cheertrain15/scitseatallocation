@@ -30,6 +30,12 @@ public class Survey {
 	
 	private int surveyOptionNum; // 각 질문 선택지의 번호
 	private String surveyOptionContent; // 각 질문 선택지의 내용
+	
+	private int surveyRespondNum; // 설문에 대한 응답 번호
+	private int surveyRespondOptionNum; // 설문 타입이 radio, checkbox, dropdown일 경우 응답한 선택지 번호
+	private String surveyRespondContent; // 설문 타입이 singleinput, comment일 경우 응답 내용
+	private int surveyRespondmemberNum; // 응답한 회원 번호
+	private String surveyRespondDate; // 회원의 설문 응답 날짜
 	public int getSurveyNum() {
 		return surveyNum;
 	}
@@ -117,7 +123,6 @@ public class Survey {
 	public int getSurveyOptionNum() {
 		return surveyOptionNum;
 	}
-	
 	public void setSurveyOptionNum(int surveyOptionNum) {
 		this.surveyOptionNum = surveyOptionNum;
 	}
@@ -127,11 +132,43 @@ public class Survey {
 	public void setSurveyOptionContent(String surveyOptionContent) {
 		this.surveyOptionContent = surveyOptionContent;
 	}
+	public int getSurveyRespondNum() {
+		return surveyRespondNum;
+	}
+	public void setSurveyRespondNum(int surveyRespondNum) {
+		this.surveyRespondNum = surveyRespondNum;
+	}
+	public int getSurveyRespondOptionNum() {
+		return surveyRespondOptionNum;
+	}
+	public void setSurveyRespondOptionNum(int surveyRespondOptionNum) {
+		this.surveyRespondOptionNum = surveyRespondOptionNum;
+	}
+	public String getSurveyRespondContent() {
+		return surveyRespondContent;
+	}
+	public void setSurveyRespondContent(String surveyRespondContent) {
+		this.surveyRespondContent = surveyRespondContent;
+	}
+	public int getSurveyRespondmemberNum() {
+		return surveyRespondmemberNum;
+	}
+	public void setSurveyRespondmemberNum(int surveyRespondmemberNum) {
+		this.surveyRespondmemberNum = surveyRespondmemberNum;
+	}
+	public String getSurveyRespondDate() {
+		return surveyRespondDate;
+	}
+	public void setSurveyRespondDate(String surveyRespondDate) {
+		this.surveyRespondDate = surveyRespondDate;
+	}
 	
 	public Survey(int surveyNum, String name, int teacherNum, String surveyTitle, String surveyWrittenDate,
 			String surveyStartDate, String surveyEndDate, int surveyTargetAlumni, String surveyTargetClassroom,
-			int surveyPageNum, String surveyPageId, int surveyQuestionNum, String surveyQuestionContent,
-			String surveyQuestionType, int surveyQuestionRequired, int surveyOptionNum, String surveyOptionContent) {
+			int surveyPageNum, int surveyQuestionNum, String surveyQuestionContent, String surveyQuestionType,
+			int surveyQuestionRequired, int surveyOptionNum, String surveyOptionContent, int surveyRespondNum,
+			int surveyRespondOptionNum, String surveyRespondContent, int surveyRespondmemberNum,
+			String surveyRespondDate) {
 		super();
 		this.surveyNum = surveyNum;
 		this.name = name;
@@ -149,6 +186,11 @@ public class Survey {
 		this.surveyQuestionRequired = surveyQuestionRequired;
 		this.surveyOptionNum = surveyOptionNum;
 		this.surveyOptionContent = surveyOptionContent;
+		this.surveyRespondNum = surveyRespondNum;
+		this.surveyRespondOptionNum = surveyRespondOptionNum;
+		this.surveyRespondContent = surveyRespondContent;
+		this.surveyRespondmemberNum = surveyRespondmemberNum;
+		this.surveyRespondDate = surveyRespondDate;
 	}
 	public Survey() {
 		super();
@@ -159,26 +201,13 @@ public class Survey {
 				+ surveyTitle + ", surveyWrittenDate=" + surveyWrittenDate + ", surveyStartDate=" + surveyStartDate
 				+ ", surveyEndDate=" + surveyEndDate + ", surveyTargetAlumni=" + surveyTargetAlumni
 				+ ", surveyTargetClassroom=" + surveyTargetClassroom + ", surveyPageNum=" + surveyPageNum
-				+ ", surveyQuestionNum=" + surveyQuestionNum
-				+ ", surveyQuestionContent=" + surveyQuestionContent + ", surveyQuestionType=" + surveyQuestionType
-				+ ", surveyQuestionRequired=" + surveyQuestionRequired + ", surveyOptionNum=" + surveyOptionNum
-				+ ", surveyOptionContent=" + surveyOptionContent + "]";
+				+ ", surveyQuestionNum=" + surveyQuestionNum + ", surveyQuestionContent=" + surveyQuestionContent
+				+ ", surveyQuestionType=" + surveyQuestionType + ", surveyQuestionRequired=" + surveyQuestionRequired
+				+ ", surveyOptionNum=" + surveyOptionNum + ", surveyOptionContent=" + surveyOptionContent
+				+ ", surveyRespondNum=" + surveyRespondNum + ", surveyRespondOptionNum=" + surveyRespondOptionNum
+				+ ", surveyRespondContent=" + surveyRespondContent + ", surveyRespondmemberNum="
+				+ surveyRespondmemberNum + ", surveyRespondDate=" + surveyRespondDate + "]";
 	}
-	
-	
-//	private String surveyContent; // -- 설문조사 내용
-//	private int respondNum; // -- 설문조사 응답 번호
-//	private String classroom; // --설문조사 응답자의 반
-//	private int memberNum; // -- 설문조사 응답자 회원번호
-//	private int respondStatus; // -- 설문조사 여부
-//	private Date respondDate; // -- 설문조사 응답일
-//	private String respondContent; // -- 설문조사 응답내용
-	
-//	private int frontBack; // -- 선호하는 자리(앞/뒤)
-//	private int sideCenter; // -- 선호하는 자리(벽쪽/가운데)
-//	private String avoidMember; // -- 같은 조가 되기 싫은 사람 
-//	private String etcMessage; // -- 비고란
-	
 	
 	
 }

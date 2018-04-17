@@ -38,6 +38,44 @@
 	and mb.id = ms.id 
 </select>
 
+<select id="getAlumniClassroom" parameterType="String" resultType="MemberStudent">
+	select alumni, classroom from memberstudent
+	where id = #{id}
+</select>
+
+<select id="countSelectAll2" parameterType="MemberStudent" resultType="int">
+	select count(*) from 
+	( 
+	select s.surveynum surveynum, s.teachernum teachernum, mb.name name, 
+	s.surveytitle surveytitle,
+	s.surveyTargetAlumni surveyTargetAlumni, 
+	s.surveyTargetClassroom surveyTargetClassroom,
+	TO_CHAR(s.surveywrittendate, 'yyyy-mm-dd') surveywrittendate, 
+	TO_CHAR(s.surveystartdate, 'yyyy-mm-dd') surveystartdate, 
+	TO_CHAR(s.surveyenddate, 'yyyy-mm-dd') surveyenddate
+	from survey s, memberbasic mb, memberstaff ms
+	where s.teachernum = ms.teachernum
+	and mb.id = ms.id
+    and s.surveytargetalumni = #{alumni}
+    and s.surveytargetclassroom in (#{classroom}, 'ALL')
+    )
+</select>
+
+<select id="selectAll2" parameterType="MemberStudent" resultType="Survey">
+	select s.surveynum surveynum, s.teachernum teachernum, mb.name name, 
+	s.surveytitle surveytitle,
+	s.surveyTargetAlumni surveyTargetAlumni, 
+	s.surveyTargetClassroom surveyTargetClassroom,
+	TO_CHAR(s.surveywrittendate, 'yyyy-mm-dd') surveywrittendate, 
+	TO_CHAR(s.surveystartdate, 'yyyy-mm-dd') surveystartdate, 
+	TO_CHAR(s.surveyenddate, 'yyyy-mm-dd') surveyenddate
+	from survey s, memberbasic mb, memberstaff ms
+	where s.teachernum = ms.teachernum
+	and mb.id = ms.id
+    and s.surveytargetalumni = #{alumni}
+    and s.surveytargetclassroom in (#{classroom}, 'ALL')
+</select>
+
 <select id="selectInChargeAlumni" parameterType="int" resultType="int">
 	select inchargealumni from memberStaff
     where teachernum = #{teacherNum}
@@ -147,6 +185,11 @@
 	</selectKey>
 </insert>
 
+<select id="selectASurvey" parameterType="int" resultType="Survey">
+	select * from survey
+	where surveynum = #{surveyNum}
+</select>
+
 <select id="selectPages" parameterType="int" resultType="Survey">
 	select surveypagenum from surveypage
 	where surveynum = #{surveyNum}
@@ -172,7 +215,13 @@
 	surveyquestionnum = #{qstn.surveyQuestionNum}
 	</foreach>
 	order by surveyoptionnum asc
-	
 </select>
+
+<select id="getMemberClass" parameterType="int" resultType="String">
+	select memberclass from memberbasic
+	where membernum = #{memberNum}
+</select>
+
+
 
 </mapper>
