@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -27,8 +28,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.scitportalsystem.www.dao.LoginDAO;
+import com.scitportalsystem.www.dao.MyPageDAO;
 import com.scitportalsystem.www.util.FileService;
 import com.scitportalsystem.www.vo.MemberBasic;
+import com.scitportalsystem.www.vo.MemberStaff;
+import com.scitportalsystem.www.vo.MemberStudent;
+import com.scitportalsystem.www.vo.MemberStudentCertificate;
 
 /**
  * Handles requests for the application home page.
@@ -42,13 +47,13 @@ public class LoginController {
 	
 	@Inject
 	private LoginDAO dao;	
+	
+	@Inject
+	private MyPageDAO Pdao;
 
 	@Inject
 	private JavaMailSender mailSender;
-	
-	private final String uploadfath = "/profile";
-	
-	
+
 	/**
 	 * @comment	: 회원가입 클릭 시 회원가입 페이지로 이동 
 	 * @param 	: model (오류로 인해 회원가입 실패했을 때 가입정보 다시 보여주기 위해)
@@ -115,27 +120,68 @@ public class LoginController {
 	 * @author : 김다희
 	 */
 	@RequestMapping(value="join", method=RequestMethod.POST)
-	public String join(@ModelAttribute("user") MemberBasic memberBasic, Model model, MultipartFile upload) throws MessagingException, UnsupportedEncodingException{
+	public String join(MemberBasic memberBasic, Model model, MultipartFile upload, 
+			HttpServletRequest req, MemberStaff memberstaff, MemberStudentCertificate certificate,
+			MemberStudent memberstudent) throws MessagingException, UnsupportedEncodingException{
 		logger.info("회원가입 시작");		
 		
-		memberBasic.setDeleteBy(" ");			
+		memberBasic.setDeleteBy(" ");
+		memberBasic.setMemberClass("student");
+		
 		// 관리자 계정
 		String admin = "project4u5cho@gmail.com";		
 		
-
+		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/resources/img/profile");
+		
 		if(upload.isEmpty() == false){
 			
-			String savedfile = FileService.saveFile(upload, uploadfath);
+			String savedfile = FileService.saveFile(upload, UPLOAD_PATH);
 			
 			memberBasic.setMemberPicName(upload.getOriginalFilename());
 			memberBasic.setMemberSaverPicName(savedfile);
 			
-			System.out.println(memberBasic);
+			
 			
 			logger.info("파일 업로드 완료");	
 		}	
 			
 		boolean result = dao.joinMember(memberBasic);
+		
+		
+		String id = memberBasic.getId();
+		
+		// 직원 추가 정보 생성 처리
+		MemberStaff staff = new MemberStaff();		
+		staff.setId(id);
+		staff.setInChargeAlumni(" ");
+		staff.setInChargeSubject(" ");
+		
+		logger.info("staff 추가 정보 시작 ");	
+		int staffResult = Pdao.insertStaff(staff);		
+		
+		// 학생 자격증 정보 생성 처리
+		MemberStudentCertificate insertCerti = new MemberStudentCertificate();		
+		insertCerti.setId(id);
+		insertCerti.setItCertificate(0);
+		insertCerti.setJpCertificate(0);
+		insertCerti.setOtherCertificate(0);
+		
+		int insertCertificate = Pdao.insertStudentCertificate(insertCerti);
+		
+		// 학생 추가 학사 정보 생성 처리
+		MemberStudent student = new MemberStudent();
+		student.setId(id);
+		student.setAlumni(0);
+		student.setItMajor(0);
+		student.setJpMajor(0);
+		student.setClassroom(" ");
+		student.setGroupNum(0);
+		student.setSeat(0);
+		student.setLate(0);
+		student.setEarly(0);
+		student.setAbsent(0);
+		
+		int insertStudent = Pdao.memberstudent(student);
 		
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
@@ -158,7 +204,7 @@ public class LoginController {
 			e.printStackTrace();
 		}
 		
-		if(result) {
+		if(result && staffResult == 1) {
 			
 			logger.info("회원가입 종료");				
 			
@@ -239,11 +285,6 @@ public class LoginController {
 		return "member/loginForm";
 	}
 	
-/*	@RequestMapping(value="loginForm",method=RequestMethod.POST)
-	public String login() {
-		
-		return "member/loginForm";
-	}*/
 	
 	/**
 	 * @comment : 로그인 처리(Email 인증이 완료된 회원만 로그인 가능)
@@ -253,17 +294,26 @@ public class LoginController {
 	 * @author : 김다희 
 	 */
 	@RequestMapping(value="login",method=RequestMethod.POST)
-	public String login(Model model, MemberBasic memberBasic, HttpSession session) {
+	public String login(Model model, MemberBasic memberBasic, HttpSession session, MemberStaff memberStaff) {
+		
+		// 검색할 ID
+		
 		
 		MemberBasic login = dao.searchOneMember(memberBasic.getId());
 		int memberEmail = login.getEmailApproval(); // email 인증 여부 
+		
+		MemberStaff staff = Pdao.selectStaff(memberBasic.getId());
+		/*MemberBasic Admin = dao.searchOneMember("admin");*/
 		
 	
 		// email 인증된 멤버만 로그인 가능 		
 		if(login != null && memberEmail == 1) {
 			session.setAttribute("loginID", login.getId());
 			session.setAttribute("loginName", login.getName());
-			session.setAttribute("loginMemberNum", login.getMemberNum());	
+			session.setAttribute("loginMemberNum", login.getMemberNum());
+			session.setAttribute("loginMemberClass", login.getMemberClass());			
+			session.setAttribute("teacherNum", staff.getTeacherNum());	// teacherNum
+			/*session.setAttribute("adminID", Admin.getId());*/	// 관리자 계정 ID
 			
 			logger.info("login 성공 ");
 		
@@ -326,7 +376,7 @@ public class LoginController {
 	}
 	
 	/**
-	 * @comment : 개인정보 수정 페이지 이동 
+	 * @comment : 개인정보 (personal) 수정 페이지 이동 
 	 * @param model
 	 * @param memberBasic
 	 * @param session
@@ -356,7 +406,7 @@ public class LoginController {
 	 * @author : 김다희 
 	 */
 	@RequestMapping(value="update",method=RequestMethod.POST)
-	public String update(MemberBasic memberBasic, Model model, HttpSession session) {
+	public String update(MemberBasic memberBasic, Model model) {
 		logger.info("개인정보 변경 시작");	
 		
 		int result = dao.updateMember(memberBasic);		
@@ -401,12 +451,18 @@ public class LoginController {
 	 * @author : 김다희 
 	 */
 	@RequestMapping(value="downLoad",method=RequestMethod.GET)
-	public void downLoad(String id, HttpServletResponse response) {
+	public void downLoad(String id, HttpServletResponse response, HttpServletRequest req) {
 		logger.info("다운로드(img) 시작");	
 		
 		MemberBasic memberOne = dao.searchOneMember(id);
 		
 		String profileName = memberOne.getMemberPicName();
+		
+		System.out.println(memberOne);
+		
+		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/resources/img/profile");
+		
+		System.out.println(UPLOAD_PATH);
 		
 		try {			
 			response.setHeader("Content-Disposition", "attachment;filename="+URLEncoder.encode(profileName, "UTF-8"));
@@ -416,7 +472,7 @@ public class LoginController {
 		
 		//파일이 저장된 전체 경로(profile에 저장된 파일명까지) 
 		
-		String fullPath = uploadfath + "/" + memberOne.getMemberSaverPicName();
+		String fullPath = UPLOAD_PATH + "/" + memberOne.getMemberSaverPicName();
 		//서버의 파일을 읽을 입력 스트림과 클라이언트에게 전달할 출력스트림
 		FileInputStream fis = null; //내 pc에 있는 걸 읽어올 때 사용
 		ServletOutputStream sos = null; //서블릿을 통해 출력할 때 사용 (다른 pc와 서블릿으로 연결되어 있기때문에)

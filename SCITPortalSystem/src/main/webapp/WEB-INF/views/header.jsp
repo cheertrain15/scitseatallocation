@@ -13,12 +13,20 @@
 <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
   <a href="javascript:void(0)" onclick="w3_close()"
   class="w3-bar-item w3-button">Close</a>
-  <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Food</a>
-  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">About</a>
-  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">1</a>
-  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">2</a>
-  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">3</a>
-  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">4</a>
+   <c:if test="${sessionScope.loginID == null}">
+  	<a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">News</a> 
+  	<a href="<c:url value="/additionalInfo/staffPage"/>" onclick="w3_close()" class="w3-bar-item w3-button">Work Information</a>
+  	<a href="<c:url value="survey"/>" onclick="w3_close()" class="w3-bar-item w3-button">Survey</a>
+  	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">2</a>
+  	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">3</a>
+  	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">4</a>
+  </c:if>  
+  <c:if test="${sessionScope.loginID != null}">
+ 	 <c:if test="${sessionScope.loginID == 'admin'}">
+  		<a href="<c:url value="/admin/management"/>" onclick="w3_close()" class="w3-bar-item w3-button">Management</a>  
+  	</c:if>
+  </c:if>
+  
 </nav>
 <!-- ☰s -->
 <!-- Top menu -->

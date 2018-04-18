@@ -23,7 +23,7 @@ insert into
 		<if test="memberPicName != null and memberSaverPicName != null">
 			, memberPicName
 			, memberSaverPicName
-		</if>
+		</if>			
 	) values(
 		membernum_seq.nextval
 		, #{id}
@@ -38,7 +38,7 @@ insert into
 		<if test="memberPicName != null and memberSaverPicName != null">
 			, #{memberPicName}
 			, #{memberSaverPicName}
-		</if>
+		</if>			
 	)
 </insert> 
 

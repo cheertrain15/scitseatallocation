@@ -19,13 +19,14 @@ public class MemberBasic {
 	private String address; // -- 주소
 	private String postNum; // -- 우편번호
 	private int emailApproval; // --이메일 인증 여부
+	private int adminap;		// -- 회원가입 승인 여부(관리자계정)
 	private int deleteStatus; // -- 논리적 삭제 여부(0=삭제안됨, 1=삭제됨)
 	private String deleteBy; // -- 논리적 삭제 실행자
 	private Date deleteDate; // -- 논리적 삭제 실행일
-
+	
 	public MemberBasic(int memberNum, String id, String password, String memberClass, String memberPicName,
 			String memberSaverPicName, String name, String email, String phone, String address, String postNum,
-			int emailApproval, int deleteStatus, String deleteBy, Date deleteDate) {
+			int emailApproval, int adminap, int deleteStatus, String deleteBy, Date deleteDate) {
 		super();
 		this.memberNum = memberNum;
 		this.id = id;
@@ -39,6 +40,7 @@ public class MemberBasic {
 		this.address = address;
 		this.postNum = postNum;
 		this.emailApproval = emailApproval;
+		this.adminap = adminap;
 		this.deleteStatus = deleteStatus;
 		this.deleteBy = deleteBy;
 		this.deleteDate = deleteDate;
@@ -144,6 +146,14 @@ public class MemberBasic {
 		this.emailApproval = emailApproval;
 	}
 
+	public int getAdminap() {
+		return adminap;
+	}
+
+	public void setAdminap(int adminap) {
+		this.adminap = adminap;
+	}
+
 	public int getDeleteStatus() {
 		return deleteStatus;
 	}
@@ -173,8 +183,11 @@ public class MemberBasic {
 		return "MemberBasic [memberNum=" + memberNum + ", id=" + id + ", password=" + password + ", memberClass="
 				+ memberClass + ", memberPicName=" + memberPicName + ", memberSaverPicName=" + memberSaverPicName
 				+ ", name=" + name + ", email=" + email + ", phone=" + phone + ", address=" + address + ", postNum="
-				+ postNum + ", emailApproval=" + emailApproval + ", deleteStatus=" + deleteStatus + ", deleteBy="
-				+ deleteBy + ", deleteDate=" + deleteDate + "]";
+				+ postNum + ", emailApproval=" + emailApproval + ", adminap=" + adminap + ", deleteStatus="
+				+ deleteStatus + ", deleteBy=" + deleteBy + ", deleteDate=" + deleteDate + "]";
 	}
 
+	
+	
+	
 }

@@ -4,8 +4,146 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- SCIT PORTAL 마이페이지  관련 정보 처리 SQL -->
-
+<!-- 학사정보 처리(선생, 직원, 학생 포함) -->
 <mapper namespace="com.scitportalsystem.www.mapper.MyPageMapper">
 
+<!-- staff 추가 정보 입력 -->
+<insert id="insertStaff" parameterType="MemberStaff">
+insert into
+	memberstaff(
+		teacherNum
+		, id 
+		,inChargeAlumni 
+		,inChargeSubject	
+	) values(
+		teacherNum_seq.nextval
+		, #{id}
+		, #{inChargeAlumni}
+		, #{inChargeSubject}	
+	)
+</insert>
+
+<!-- staff 정보 출력 -->
+<select id="selectStaff" parameterType="String" resultType="MemberStaff">
+select
+		teacherNum
+		, id 
+		,inChargeAlumni 
+		,inChargeSubject
+	from
+		memberstaff
+	where
+		id = #{id}
+</select>
+
+<!-- staff 정보 업데이트(화면상 입력) -->
+<update id="updateStaff" parameterType="MemberStaff">
+update memberstaff
+	set
+		inChargeAlumni = #{inChargeAlumni}
+		, inChargeSubject = #{inChargeSubject}
+	where
+		id = #{id}
+</update>
 	
+<!-- 학생 학사(자격증 유무 등) 정보 입력 -->	
+<insert id="insertStudentCertificate" parameterType="MemberStudentCertificate">
+insert into
+	MemberStudentCertificate(
+	id
+	, itCertificate
+	, jpCertificate
+	, otherCertificate
+	) values(
+		#{id}
+		, #{itCertificate}
+		, #{jpCertificate}
+		, #{otherCertificate}
+	)
+</insert>
+
+<!-- 학생 자격증 정보 업데이트 -->
+<update id="updateStudentCerti" parameterType="MemberStudentCertificate">
+update MemberStudentCertificate
+	set
+		itCertificate = #{itCertificate}
+		, jpCertificate = #{jpCertificate}
+		, otherCertificate = #{otherCertificate}
+	where
+		id = #{id}
+</update>
+
+<!-- 학생 자격증 정보 출력 -->
+<select id="selectStudentCerti" parameterType="string" resultType="MemberStudentCertificate">
+select	
+	id
+	, itCertificate
+	, jpCertificate
+	, otherCertificate
+from
+	MemberStudentCertificate
+where
+	id = #{id}
+</select>
+
+<!-- 학생 기수 정보 입력 -->
+<insert id="memberstudent" parameterType="MemberStudent">
+insert into
+	memberstudent(
+		memberstudentNum
+		, id 
+		, alumni 
+		, itMajor
+		, jpMajor
+		, classroom
+		, groupNum 
+		, seat 
+		, late 
+		, early 
+		, absent 
+    )values(
+    	memberstudentNum_seq.nextval
+    	, #{id}
+    	, #{alumni}
+    	, #{itMajor}
+    	, #{jpMajor}
+    	, #{classroom}
+    	, #{groupNum}
+		, #{seat}
+		, #{late}
+		, #{early}
+		, #{absent}
+	)
+</insert>
+<!-- 학생 학사 정보 업데이트  -->
+<update id="updateStudentInfo" parameterType="MemberStudent">
+update memberstudent
+	set
+		alumni = #{alumni}
+		, itMajor = #{itMajor}
+		, jpMajor = #{jpMajor}
+	where
+		id = #{id}
+</update>
+
+<!-- 학생 학사 정보 출력 -->
+<select id="selectStudentInfo" parameterType="string" resultType="MemberStudent">
+select
+	memberstudentNum
+		, id 
+		, alumni 
+		, itMajor
+		, jpMajor
+		, classroom
+		, groupnum 
+		, seat 
+		, late 
+		, early 
+		, absent 
+from
+	memberstudent
+where
+	id = #{id}
+</select>
+
 </mapper>

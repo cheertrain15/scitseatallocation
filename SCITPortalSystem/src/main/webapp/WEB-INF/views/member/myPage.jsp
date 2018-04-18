@@ -10,8 +10,11 @@
 		function goHome() {
 			location.href = "../home";
 		}
-		function goChange() {
+		function goPersonal() {
 			location.href = 'updateMypage';
+		}
+		function goCertificate() {
+			location.href = 'updateCertificate';
 		}
 		
 		</script>
@@ -20,20 +23,22 @@
 <body>
 
 <%@ include file="../header.jsp" %>
-<br><br>
+<br><br><br><br><br>
+
+	<div class="clearfix">     
+      <button type="button" class="signupbtn" onclick='goPersonal()'>Personal</button>
+      <button type="button" class="signupbtn" onclick='goCertificate()'>Certificate</button>
+    </div>
+    
 <form action="#" style="border:1px solid #ccc" method="post">
   <br><br><br><br>
-    <h1>Personal information</h1><br>
-   
+    <h1>Personal information</h1><br>   
     <hr>
     
     <table>
     	<tr>
     		<th>Profile</th>
-    		<td>
-    		<img width="160" height="160" src="downLoad?id=${searchOne.id }">
-    	
-    		</td>
+    		<td><img width="160" height="160" src="downLoad?id=${searchOne.id }"></td>
     	</tr>    	
     	<tr>
     		<th>ID</th>
@@ -55,15 +60,10 @@
     		<th>Address</th>
     		<td>${searchOne.address}</td>
     	</tr>      
-    </table>    
-  
-
-    <div class="clearfix">
-      <button type="button" class="cancelbtn" onclick='goHome()'>Cancel</button>
-      <button type="button" class="signupbtn" onclick='goChange()'>Change</button>
-    </div>
- 
+    </table> 
 </form>
+ <button type="button" class="cancelbtn" onclick='goHome()'>Cancel</button> 
+ <br>
 <%@ include file="../footer.jsp"%>
 </body>
 </html>

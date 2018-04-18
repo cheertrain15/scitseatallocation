@@ -7,6 +7,29 @@
 
 <mapper namespace="com.scitportalsystem.www.mapper.AdministrateMapper">
 
-	
+<!-- 회원가입 목록 출력  -->
+<select id="selectmemberlist" resultType="MemberBasic">
+select
+		memberNum
+		, id		
+		, memberClass			
+		, name		
+		, phone			
+		, adminap
+	from
+		memberbasic
+	order by
+		memberNum desc
+</select>
+
+<!-- 회원가입 승인 -->
+<update id="memberApproval" parameterType="string">
+	UPDATE 
+			memberbasic
+		SET 
+			adminap = 1
+	where
+		id = #{id}
+</update>		
 </mapper>
  

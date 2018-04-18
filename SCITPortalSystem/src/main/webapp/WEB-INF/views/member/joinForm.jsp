@@ -65,17 +65,11 @@
 	<b>Phone</b>
     <input id="phone" type="text" placeholder="Enter Phone" name="phone" value="${user.phone }">
     <br>
-    
-    <b>TYPE</b>    
-    <input type="radio" name="memberClass" value="Student">Student
-    <input type="radio" name="memberClass" value="Teacher">Teacher
-    <input type="radio" name="memberClass" value="Staff">Staff   
-    <br>
-    
+        
     <b>Address</b>
     <input type="text" placeholder="PostNumber" name="postNum" id="postNum" readonly="readonly">
     <input type="button" value="ZipCode" id="searchAddress"><br>
-    <input style="width: 500px" type="text" placeholder="Enter Address" id ="Address" name="Address" value="${user.address }">
+    <input style="width: 500px" type="text" placeholder="Enter Address" id ="Address" name="address" value="${user.address }">
     <br><br>
     
 
