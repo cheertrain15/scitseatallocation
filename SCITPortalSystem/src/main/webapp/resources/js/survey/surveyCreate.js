@@ -5,21 +5,23 @@ $( document ).ready(function(){
   
 // 설문 시작일과 마감일 설정
 $( function() {
-	    var dateFormat = "yy-mm-dd",
-	      from = $( "#surveyStartDate" ).datepicker({
-	          defaultDate: "+1w", 
-	          changeMonth: true
-	        })
-	        .on( "change", function() {
-	          to.datepicker( "option", "dateFormat", dateFormat);
-	        }),
-	      to = $( "#surveyEndDate" ).datepicker({
-	        defaultDate: "+1w",
-	        changeMonth: true
-	      })
-	      .on( "change", function() {
-	        from.datepicker( "option", "dateFormat", dateFormat);
-	      });
+	    $('#surveyStartDate').datepicker({
+           dateFormat: "yy-mm-dd",            
+           changeMonth: true,                  
+           minDate: 0,                       
+           onClose: function( selectedDate ) {    
+               $("#surveyEndDate").datepicker( "option", "minDate", selectedDate );
+           }                
+       });
+
+       $('#surveyEndDate').datepicker({
+           dateFormat: "yy-mm-dd",
+           changeMonth: true,
+           minDate: 0,
+           onClose: function( selectedDate ) {
+               $("#surveyStartDate").datepicker( "option", "maxDate", selectedDate );
+           }                
+       });
 	    
 });
 
@@ -120,23 +122,21 @@ $( function() {
 			}
         	
        if (draggableId == 'dropdown') {
-        	 
 	    	    str +='<div class="questions" id="question' + question + '" surveyType="dropdown">'
 	    	   		+'<fieldset>'
 	    	   		+'<legend>질문' + question + '. 내용 수정하쇼'
-				+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
+	    	   		+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
 	    			+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
 	    			+'</legend>'
-	    			+'<select name="select" id="select">'
-	    			+'<option selected="selected">선택지</option>'
+	    			+'<select v-model="select" name="select" id="select">'
+	    			+'<option disabled value="" selected="selected">선택지</option>'
 		    	    +'</select>'
-		    	    +'<input type="button" value="해당 선택지 삭제" id="subSelectOption">'
+		    	    +'<input type="button" value="해당 선택지 삭제" id="subSelectOption'+question+'">'
 		    	    +'<br>'
-		    	    +'<input type="text" id="selectOption" placeholder="추가할 선택지 내용을 입력하세요" size="30">'
-		    	    +'<input type="button" value="추가" id="addSelectOption">'
+		    	    +'<input type="text" id="selectOption'+question+'" placeholder="추가할 선택지 내용을 입력하세요" size="30">'
+		    	    +'<input type="button" value="추가" id="addSelectOption'+question+'">'
 		    	    +'</fieldset>'
-	        	    +'</div>';
-	    	    
+	        	    +'</div>';	    	    
        }
        
       if (draggableId == 'comment') {
@@ -155,14 +155,14 @@ $( function() {
         
         	$(this).append(str);
          
-        question++;
         
         addSubOption(); // 라디오, 체크박스 설문지에 대한 선택지 추가/제거
-        addSelectOption(); // 셀렉트 설문지에 대한 선택지 추가
-        subSelectOption(); // 셀렉트 설문지에 대한 선택지 제거
+        addSelectOption(question); // 셀렉트 설문지에 대한 선택지 추가
+        subSelectOption(question); // 셀렉트 설문지에 대한 선택지 제거
         checkRequired(); // 각 설문항목 클릭시 필수 응답 항목 여부 체크 가능
         editOption();
         
+        question++;
         }
     
       });
@@ -367,14 +367,12 @@ $( function() {
 	};
 	
 	// select 질문 선택지 추가
-	function addSelectOption(){
-		
-		$("#addSelectOption").click(function(){
-			
-			var val = $("#selectOption").val();
-			
-			console.log(val);
-			
+	function addSelectOption(question){
+		console.log('addselectoptioin called~~~~, ' + question);
+		$("#addSelectOption"+question).click(function(){
+			console.log("addselectoption button clicked");
+			var val = $("#selectOption"+question).val();			
+			console.log(val);			
 			var str = '';
 			str += '<option>'
 				+ ''+val+''
@@ -384,27 +382,24 @@ $( function() {
 				.find("select")
 				.append(str);
 			
-			$("#selectOption").val('');
-			$("#selectOption").empty();
+			$("#selectOption" + question).val('');
+			$("#selectOption" + question).empty();
 			
 		});
 	};
 	
 	// select 질문 선택지 제거
-	function subSelectOption(){
-		
-		$("#subSelectOption").click(function(){
+	function subSelectOption(question){		
+		$("#subSelectOption"+question).click(function(){
 			
 			$(this).parent()
 				.find('option:selected')
 				.remove();
-
 		});   
 	}; 
 	 
 	// 질문지 선택되면 필수 응답 질문인지 설정 가능하도록 체크박스 띄우기
-	function checkRequired(){
-		
+	function checkRequired(){		
 		$( ".questions" ).selectable({
             selected: function() {
             		$.each($(this), function(index, item){
@@ -412,10 +407,8 @@ $( function() {
             			var str = '';
                    		str += '<input type="checkbox" name="checkRequired" id="checkRequired" '
                    			+ 'associated="'+$( this ).attr("id")+'">'
-                   			+ ' 필수 응답항목 설정';
-                   			
-                          $( "#editSurvey" ).html(str);
-                   		
+                   			+ ' 필수 응답항목 설정';                   			
+                          $( "#editSurvey" ).html(str);                   		
                    		reqiredQuestion(); // 필수 응답 항목 체크 시 각 설문항목에 속성 추가
             		});
             		
