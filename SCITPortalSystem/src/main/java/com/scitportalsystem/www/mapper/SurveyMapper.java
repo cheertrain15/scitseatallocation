@@ -39,11 +39,13 @@ public interface SurveyMapper {
 	String getMemberClass(int memberNum);
 
 	Survey selectASurvey(int surveyNum);
-
+ 
 	MemberStudent getAlumniClassroom(String id);
 
 	int countSelectAll2(MemberStudent param);
 
 	ArrayList<Survey> selectAll2(MemberStudent param, RowBounds rb);
+
+	int insertSurveyRespond(Survey survey);
 	
 }

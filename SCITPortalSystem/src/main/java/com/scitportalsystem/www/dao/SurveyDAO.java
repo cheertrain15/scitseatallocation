@@ -265,5 +265,19 @@ public class SurveyDAO {
 		}
 		return result;
 	}
+
+	public int insertSurveyRespond(Survey survey) {
+		int result = 0;
+		
+		try { 
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.insertSurveyRespond(survey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
 }
 	

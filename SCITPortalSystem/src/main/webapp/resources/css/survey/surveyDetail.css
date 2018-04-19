@@ -66,6 +66,10 @@ html, body {
 	border: solid cyan 1px;
 }
 
+#required {
+	color: red;
+}
+
 .pages {
 	background-color: white;
 	position: absolute;

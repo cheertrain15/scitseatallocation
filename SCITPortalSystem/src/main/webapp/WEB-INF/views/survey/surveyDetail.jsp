@@ -35,6 +35,9 @@
 	  	</c:if>
 	  	
 	  	<div id="surveyInfo">
+	  	<form action="surveyEdit" method="get" id="surveyEditForm">
+	  	<input type="hidden" id="surveyNum" name="surveyNum" value="${survey.surveyNum}">
+	  	</form>
 	  	<table>
 	  	<tr>
 	  	<td>제목: ${survey.surveyTitle}</td>
@@ -45,7 +48,7 @@
 	  	<td>~ ${survey.surveyEndDate}</td>
 	  	</tr>
 	  	</table>
-	  	</div>
+	  	</div> 
 	  	
 	  	<!-- 설문 참여 시작 -->
 
@@ -62,8 +65,6 @@
 	  	<button id="prevBtn" onclick="prevPage(${pgStatus.index})"><h1>◀</h1></button>
 	  	</div>
 	  		
-	  		<form action="surveyAnswer" method="post" onsubmit="submitSurvey();"> 
-	  		
 	  		<div id="questionWrap">
 	  		
 	  		<h1>Page${pgStatus.count} ( ${pgStatus.count} / ${pages.size()} )</h1>
@@ -73,15 +74,19 @@
 		  	<c:if test="${pg.surveyPageNum == qs.surveyPageNum}">
 		  	
 		  		<div class="questions" id="question${qs.surveyQuestionNum}">
+		  			<input type="hidden" id="questionType" value="${qs.surveyQuestionType}">
 				    	<fieldset>
 				    	<legend>${qs.surveyQuestionContent}
+				    	<c:if test="${qs.surveyQuestionRequired == 1}">
+				    	<p id="required">(* 필수응답 항목입니다.)</p>
+				    	</c:if>
 				    </legend>
 				    
 				    <c:if test="${qs.surveyQuestionType == 'singleinput'}">
-					  	<input type="text" id="option${op.surveyOptionNum}" placeholder="답변을 입력하세요." size="70">
+					  	<input type="text" id="option${qs.surveyQuestionNum}" placeholder="답변을 입력하세요." size="70">
 					</c:if>
 					<c:if test="${qs.surveyQuestionType == 'comment'}">
-					  	<textarea rows="10" cols="70">답변을 입력하세요.</textarea>
+					  	<textarea rows="10" cols="70" id="option${qs.surveyQuestionNum}">답변을 입력하세요.</textarea>
 					</c:if>
 					
 					<c:if test="${qs.surveyQuestionType == 'dropdown'}">
@@ -92,17 +97,17 @@
 					  	<c:if test="${qs.surveyQuestionNum == op.surveyQuestionNum}">
 					  	
 						  	<c:if test="${qs.surveyQuestionType == 'radiogroup'}">
-					        	    <input type="radio" name="option${op.surveyOptionNum}" id="radio${op.surveyOptionNum}">
+					        	    <input type="radio" name="option${qs.surveyQuestionNum}" id="radio${op.surveyOptionNum}">
 					        	    <label for="radio${op.surveyOptionNum}" class="radio">${op.surveyOptionContent}</label>
 						  	</c:if>
 						  	
 						  	<c:if test="${qs.surveyQuestionType == 'checkbox'}">
-					        	    <input type="checkbox" name="option${op.surveyOptionNum}" id="checkbox${op.surveyOptionNum}">
+					        	    <input type="checkbox" name="option${qs.surveyQuestionNum}" id="checkbox${op.surveyOptionNum}">
 					        	    <label for="checkbox${op.surveyOptionNum}" class="checkbox">${op.surveyOptionContent}</label>
 						  	</c:if>
 						  	
 						  	<c:if test="${qs.surveyQuestionType == 'dropdown'}">
-		    						<option>${op.surveyOptionContent}</option>
+		    						<option id="dropdown${op.surveyOptionNum}">${op.surveyOptionContent}</option>
 						  	</c:if>
 					  	</c:if>
 				  	
@@ -119,8 +124,6 @@
 			</c:forEach>
 			
 			</div>
-			  	
-		  	</form>
 		  	
 		  	<div id="rightBtn">
 		  	<br><br><br><br><br><br><br><br>
@@ -136,9 +139,11 @@
 	  	<!-- 설문 참여 끝 -->
 	  	
 	  	<!-- 로그인 한 회원이 학생일 경우 설문 응답 제출 버튼 보이기 -->
+	  	<c:if test="${memberClass == 'student'}">
 	  	<div id="saveBtn">
-	  	<input type="submit" value="제출">
+	  	<button>제출</button>
 	  	</div>
+	  	</c:if>
 	  	
 </body>
 </html>

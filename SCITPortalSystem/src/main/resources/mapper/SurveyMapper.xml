@@ -10,7 +10,10 @@
 <select id="countSelectAll" parameterType="int" resultType="int">
 	select count(*) from 
 	( 
-	select s.surveynum surveynum, s.teachernum teachernum, mb.name name, 
+	select s.surveynum surveynum, 
+    s.surveytargetalumni surveytargetalumni,
+    s.surveytargetclassroom surveytargetclassroom,
+    s.teachernum teachernum, mb.name name, 
 	s.surveytitle surveytitle, 
 	s.surveyTargetAlumni surveyTargetAlumni, 
 	s.surveyTargetClassroom surveyTargetClassroom,
@@ -25,8 +28,11 @@
 </select>
 
 <select id="selectAll" parameterType="int" resultType="Survey">
-	select s.surveynum surveynum, s.teachernum teachernum, mb.name name, 
-	s.surveytitle surveytitle,
+	select s.surveynum surveynum, 
+    s.surveytargetalumni surveytargetalumni,
+    s.surveytargetclassroom surveytargetclassroom,
+    s.teachernum teachernum, mb.name name, 
+	s.surveytitle surveytitle, 
 	s.surveyTargetAlumni surveyTargetAlumni, 
 	s.surveyTargetClassroom surveyTargetClassroom,
 	TO_CHAR(s.surveywrittendate, 'yyyy-mm-dd') surveywrittendate, 
@@ -35,7 +41,7 @@
 	from survey s, memberbasic mb, memberstaff ms
 	where s.teachernum = 1
 	and s.teachernum = ms.teachernum
-	and mb.id = ms.id 
+	and mb.id = ms.id
 </select>
 
 <select id="getAlumniClassroom" parameterType="String" resultType="MemberStudent">
@@ -46,7 +52,10 @@
 <select id="countSelectAll2" parameterType="MemberStudent" resultType="int">
 	select count(*) from 
 	( 
-	select s.surveynum surveynum, s.teachernum teachernum, mb.name name, 
+	select s.surveynum surveynum, 
+	s.surveytargetalumni surveytargetalumni,
+    s.surveytargetclassroom surveytargetclassroom,
+	s.teachernum teachernum, mb.name name, 
 	s.surveytitle surveytitle,
 	s.surveyTargetAlumni surveyTargetAlumni, 
 	s.surveyTargetClassroom surveyTargetClassroom,
@@ -58,11 +67,14 @@
 	and mb.id = ms.id
     and s.surveytargetalumni = #{alumni}
     and s.surveytargetclassroom in (#{classroom}, 'ALL')
-    )
+    )  
 </select>
 
 <select id="selectAll2" parameterType="MemberStudent" resultType="Survey">
-	select s.surveynum surveynum, s.teachernum teachernum, mb.name name, 
+	select s.surveynum surveynum, 
+	s.surveytargetalumni surveytargetalumni,
+    s.surveytargetclassroom surveytargetclassroom,
+	s.teachernum teachernum, mb.name name, 
 	s.surveytitle surveytitle,
 	s.surveyTargetAlumni surveyTargetAlumni, 
 	s.surveyTargetClassroom surveyTargetClassroom,
@@ -221,6 +233,42 @@
 	select memberclass from memberbasic
 	where membernum = #{memberNum}
 </select>
+
+<insert id="insertSurveyRespond" parameterType="Survey">
+	INSERT INTO surveyrespond
+	(
+	surveyRespondNum
+	, surveyNum
+	, surveyQuestionNum
+	, surveyQuestionType
+	<if test="surveyRespondOptionNum != null">
+	, surveyRespondOptionNum
+	</if>
+	<if test="surveyRespondContent != null">
+	, surveyRespondContent
+	</if>
+	, surveyRespondmemberNum
+	, surveyRespondDate
+	) 
+	VALUES
+	(
+	surveyRespondNum_seq.nextval
+	, #{surveyNum}
+	, #{surveyQuestionNum}
+	, #{surveyQuestionType}
+	<if test="surveyRespondOptionNum != null">
+	, #{surveyRespondOptionNum}
+	</if>
+	<if test="surveyRespondContent != null">
+	, #{surveyRespondContent}
+	</if>
+	, #{surveyRespondmemberNum}
+	, sysdate
+	) 
+	<selectKey keyProperty="surveyRespondNum" resultType="Integer" order="AFTER"> 
+	SELECT surveyRespondNum_seq.currval FROM dual 
+	</selectKey>
+</insert>
 
 
 

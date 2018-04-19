@@ -22,6 +22,8 @@ import com.scitportalsystem.www.util.PageNavigator;
 import com.scitportalsystem.www.vo.CreateSurvey;
 import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.PageArray;
+import com.scitportalsystem.www.vo.RespondArray;
+import com.scitportalsystem.www.vo.RespondSurvey;
 import com.scitportalsystem.www.vo.Survey;
 import com.scitportalsystem.www.vo.SurveyArray;
 
@@ -42,7 +44,9 @@ public class SurveyController {
 	@RequestMapping(value = "survey", method = RequestMethod.GET)
 	public String survey(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 
-		int memberNum = (int) session.getAttribute("loginMemberNum");
+//		int memberNum = (int) session.getAttribute("loginMemberNum");
+		int memberNum = 1;
+		
 		String memberClass = surveyDAO.getMemberClass(memberNum);
 		
 		model.addAttribute("memberClass", memberClass);
@@ -172,11 +176,61 @@ public class SurveyController {
 
 		return "성공";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "surveyRespond", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String surveyRespond(@RequestBody String respondSurvey, HttpSession session, Survey survey) {
+		
+		Gson gson = new Gson();
 
-	@RequestMapping(value = "surveyAnswer", method = RequestMethod.GET)
-	public String surveyAnswer(Model model) {
+		RespondSurvey rs = gson.fromJson(respondSurvey, RespondSurvey.class);
+		ArrayList<RespondArray> ra = (ArrayList<RespondArray>) rs.getRespondArray();
+		
+		int respondSize = ra.size();
+		
+		System.out.println(ra);
+		
+//		int surveyRespondmemberNum = (int) session.getAttribute("loginMemberNum");
+		int surveyRespondmemberNum = 8;
+		
+		for (int i = 0; i < respondSize; i++) {
+			
+			System.out.println(ra.get(i));
+			
+			survey.setSurveyNum(ra.get(i).getSurveyNum());
+			survey.setSurveyQuestionNum(ra.get(i).getSurveyQuestionNum());
+			survey.setSurveyQuestionType(ra.get(i).getSurveyQuestionType());
+			survey.setSurveyRespondmemberNum(surveyRespondmemberNum);
+			
+			String questionType = ra.get(i).getSurveyQuestionType();
+			
+			if (questionType.equals("checkbox")) {
+				
+				for (int j = 0; j < ra.get(i).getSurveyRespondOptionNumArray().size(); j++) {
+					survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNumArray().get(j));
+					surveyDAO.insertSurveyRespond(survey);
+					
+				}
+				
+			} else {
+				
+				if (questionType.equals("singleinput") 
+						|| questionType.equals("comment")) {
+					survey.setSurveyRespondContent(ra.get(i).getSurveyRespondContent());
+				}
+				
+				if (questionType.equals("radiogroup") 
+						|| questionType.equals("comment")) {
+					survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNum());
+				}
+				
+				surveyDAO.insertSurveyRespond(survey);
+				
+			}
+			
+		}
 
-		return "survey/surveyAnswer";
+		return "성공";
 	}
 
 	@RequestMapping(value = "surveyDetail", method = RequestMethod.GET)
@@ -184,7 +238,7 @@ public class SurveyController {
 		
 		// 현재 로그인 한 회원 유형 확인
 //		int memberNum = (int) session.getAttribute("loginMemberNum");
-		int memberNum = 8;
+		int memberNum = 1;
 		String memberClass = surveyDAO.getMemberClass(memberNum);
 		model.addAttribute("memberClass", memberClass);
 		
@@ -212,12 +266,45 @@ public class SurveyController {
 		model.addAttribute("options", options);
 		
 		return "survey/surveyDetail";
-	}
+	} 
 
 	@RequestMapping(value = "surveyEdit", method = RequestMethod.GET)
-	public String surveyEdit() {
+	public String surveyEdit(int surveyNum, Model model) {
+		
+		model.addAttribute("surveyNum", surveyNum);
+		
+		// 설문 기본 정보(제목, 작성자 등)
+		Survey survey = surveyDAO.selectASurvey(surveyNum);
+		model.addAttribute("survey", survey);
+				
+		// 설문 페이지 관련 정보
+		ArrayList<Survey> pages = surveyDAO.selectPages(surveyNum);
+		for (int i = 0; i < pages.size(); i++) {
+			System.out.println(pages.get(i).getSurveyPageNum());
+		}
+		HashMap<String, Object> pageNum = new HashMap<String, Object>();
+		pageNum.put("pages", pages);
+		model.addAttribute("pages", pages);
+				
+		// 설문 속 질문 관련 정보
+		ArrayList<Survey> questions = surveyDAO.selectQuestions(pageNum);
+		HashMap<String, Object> questionNum = new HashMap<String, Object>();
+		questionNum.put("questions", questions);
+		model.addAttribute("questions", questions);
+				
+		// 설문 속 질문의 각 선택지 정보
+		ArrayList<Survey> options = surveyDAO.selectOptions(questionNum);
+		model.addAttribute("options", options);
 
 		return "survey/surveyEdit";
+	}
+	
+	@RequestMapping (value = "completeEditSurvey", method = RequestMethod.POST)
+	public String completeEditSurvey() {
+		
+		
+		
+		return "";
 	}
 
 }
