@@ -260,7 +260,7 @@
 	VALUES
 	(
 	surveyRespondNum_seq.nextval
-	, #{surveyNum}
+	, #{surveyNum} 
 	, #{surveyQuestionNum}
 	, #{surveyQuestionType}
 	<if test="surveyRespondOptionNum != null">
