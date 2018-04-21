@@ -13,24 +13,20 @@ public class Survey {
 	// 실제 데이터베이스상 Survey 테이블에는 name 항목 없음.
 	// 조인으로 다른 테이블에서 이름을 가져올 때 VO를 통해 가져오기 위해 생성한 것.
 	private int teacherNum; // -- 설문조사 작성한 선생님 번호
-	
+	private int surveyCategory; // -- 설문조사 분
 	private String surveyTitle; // -- 설문조사 제목
 	private String surveyWrittenDate; // Date NOT NULL, -- 설문조사 작성일
 	private String surveyStartDate; // Date NOT NULL, -- 설문조사 시작일
 	private String surveyEndDate; // Date NOT NULL, -- 설문조사 종료일
 	private int surveyTargetAlumni; // 설문조사 대상 기수
 	private String surveyTargetClassroom; // 설문조사 대상 반
-	
 	private int surveyPageNum; //각 설문의 페이지 번호
-	
 	private int surveyQuestionNum; // 각 질문 번호
 	private String surveyQuestionContent; // 각 질문 내용
 	private String surveyQuestionType; // 각 질문 유형
 	private int surveyQuestionRequired; // 각 질문 필수 응답 여부
-	
 	private int surveyOptionNum; // 각 질문 선택지의 번호
 	private String surveyOptionContent; // 각 질문 선택지의 내용
-	
 	private int surveyRespondNum; // 설문에 대한 응답 번호
 	private int surveyRespondOptionNum; // 설문 타입이 radio, checkbox, dropdown일 경우 응답한 선택지 번호
 	private String surveyRespondContent; // 설문 타입이 singleinput, comment일 경우 응답 내용
@@ -53,6 +49,12 @@ public class Survey {
 	}
 	public void setTeacherNum(int teacherNum) {
 		this.teacherNum = teacherNum;
+	}
+	public int getSurveyCategory() {
+		return surveyCategory;
+	}
+	public void setSurveyCategory(int surveyCategory) {
+		this.surveyCategory = surveyCategory;
 	}
 	public String getSurveyTitle() {
 		return surveyTitle;
@@ -162,17 +164,17 @@ public class Survey {
 	public void setSurveyRespondDate(String surveyRespondDate) {
 		this.surveyRespondDate = surveyRespondDate;
 	}
-	
-	public Survey(int surveyNum, String name, int teacherNum, String surveyTitle, String surveyWrittenDate,
-			String surveyStartDate, String surveyEndDate, int surveyTargetAlumni, String surveyTargetClassroom,
-			int surveyPageNum, int surveyQuestionNum, String surveyQuestionContent, String surveyQuestionType,
-			int surveyQuestionRequired, int surveyOptionNum, String surveyOptionContent, int surveyRespondNum,
-			int surveyRespondOptionNum, String surveyRespondContent, int surveyRespondmemberNum,
+	public Survey(int surveyNum, String name, int teacherNum, int surveyCategory, String surveyTitle,
+			String surveyWrittenDate, String surveyStartDate, String surveyEndDate, int surveyTargetAlumni,
+			String surveyTargetClassroom, int surveyPageNum, int surveyQuestionNum, String surveyQuestionContent,
+			String surveyQuestionType, int surveyQuestionRequired, int surveyOptionNum, String surveyOptionContent,
+			int surveyRespondNum, int surveyRespondOptionNum, String surveyRespondContent, int surveyRespondmemberNum,
 			String surveyRespondDate) {
 		super();
 		this.surveyNum = surveyNum;
 		this.name = name;
 		this.teacherNum = teacherNum;
+		this.surveyCategory = surveyCategory;
 		this.surveyTitle = surveyTitle;
 		this.surveyWrittenDate = surveyWrittenDate;
 		this.surveyStartDate = surveyStartDate;
@@ -197,17 +199,16 @@ public class Survey {
 	}
 	@Override
 	public String toString() {
-		return "Survey [surveyNum=" + surveyNum + ", name=" + name + ", teacherNum=" + teacherNum + ", surveyTitle="
-				+ surveyTitle + ", surveyWrittenDate=" + surveyWrittenDate + ", surveyStartDate=" + surveyStartDate
-				+ ", surveyEndDate=" + surveyEndDate + ", surveyTargetAlumni=" + surveyTargetAlumni
-				+ ", surveyTargetClassroom=" + surveyTargetClassroom + ", surveyPageNum=" + surveyPageNum
-				+ ", surveyQuestionNum=" + surveyQuestionNum + ", surveyQuestionContent=" + surveyQuestionContent
-				+ ", surveyQuestionType=" + surveyQuestionType + ", surveyQuestionRequired=" + surveyQuestionRequired
-				+ ", surveyOptionNum=" + surveyOptionNum + ", surveyOptionContent=" + surveyOptionContent
-				+ ", surveyRespondNum=" + surveyRespondNum + ", surveyRespondOptionNum=" + surveyRespondOptionNum
-				+ ", surveyRespondContent=" + surveyRespondContent + ", surveyRespondmemberNum="
-				+ surveyRespondmemberNum + ", surveyRespondDate=" + surveyRespondDate + "]";
+		return "Survey [surveyNum=" + surveyNum + ", name=" + name + ", teacherNum=" + teacherNum + ", surveyCategory="
+				+ surveyCategory + ", surveyTitle=" + surveyTitle + ", surveyWrittenDate=" + surveyWrittenDate
+				+ ", surveyStartDate=" + surveyStartDate + ", surveyEndDate=" + surveyEndDate + ", surveyTargetAlumni="
+				+ surveyTargetAlumni + ", surveyTargetClassroom=" + surveyTargetClassroom + ", surveyPageNum="
+				+ surveyPageNum + ", surveyQuestionNum=" + surveyQuestionNum + ", surveyQuestionContent="
+				+ surveyQuestionContent + ", surveyQuestionType=" + surveyQuestionType + ", surveyQuestionRequired="
+				+ surveyQuestionRequired + ", surveyOptionNum=" + surveyOptionNum + ", surveyOptionContent="
+				+ surveyOptionContent + ", surveyRespondNum=" + surveyRespondNum + ", surveyRespondOptionNum="
+				+ surveyRespondOptionNum + ", surveyRespondContent=" + surveyRespondContent
+				+ ", surveyRespondmemberNum=" + surveyRespondmemberNum + ", surveyRespondDate=" + surveyRespondDate
+				+ "]";
 	}
-	
-	
 }

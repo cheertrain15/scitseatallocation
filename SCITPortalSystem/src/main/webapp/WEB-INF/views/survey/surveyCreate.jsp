@@ -19,16 +19,26 @@
 <div id="target">
 	<table>
 		<tr>
+		<td>Category:</td>
+		<td>
+			<select name="selectCategory" id="selectCategory">
+			<option disabled value="">Category</option>
+			<option value="0">만족도</option>
+			<option value="1">반배치</option>
+			<option value="2">자격증</option>
+			<option value="3">기타</option>
+			</select>
+		</td>
 		<td>Target:</td>
 		<td>
 			<select name="selectAlumni" id="selectAlumni">
-			<option>Alumni</option>
+			<option disabled value="">Alumni</option>
 			<option value="${alumni}">${alumni}기</option>
 			</select>
 		</td>
 		<td>
 			<select name="selectClass" id="selectClass">
-			<option>Classroom</option>
+			<option disabled value="">Classroom</option>
 			<option value="ALL">ALL</option>
 			<c:forEach items="${classRoom}" var="cl">
 			<option value="${cl}">${cl}</option>
@@ -46,7 +56,7 @@
 		</tr>
 		<tr>
 		<td>Title:</td>
-		<td colspan="5">
+		<td colspan="7">
 		<input type="text" size="80" id="surveyTitle">
 		</td>
 		<td><input type="button" value="Save this" id="saveSurvey"></td>

@@ -382,8 +382,9 @@ $( function() {
 				.find("select")
 				.append(str);
 			
+			$(this).parent().find("option:disabled").remove();
+			
 			$("#selectOption" + question).val('');
-			$("#selectOption" + question).empty();
 			
 		});
 	};
@@ -448,7 +449,11 @@ $( function() {
 			
 			var surveyInfo = new Object();
 			
-			// 설문 대상, 기간, 제목 가져오기
+			// 설문 분류, 대상, 기간, 제목 가져오기
+			var surveyCategory =
+				$(this).parents('body')
+				.find('#selectCategory option:selected').val();
+			
 			var surveyTargetAlumni = 
 				$(this).parents('body')
 				.find('#selectAlumni option:selected').val();
@@ -469,6 +474,7 @@ $( function() {
 				$(this).parents('body')
 				.find('#surveyTitle').val();
 			
+			surveyInfo.surveyCategory = surveyCategory;
 			surveyInfo.surveyTargetAlumni = surveyTargetAlumni;
 			surveyInfo.surveyTargetClassroom = surveyTargetClassroom;
 			surveyInfo.surveyStartDate = surveyStartDate;
@@ -581,7 +587,7 @@ $( function() {
 				data : JSON.stringify(createSurvey),
 				success : function(data) {
 					alert(data);
-					$(location).attr('href', 'survey');
+//					$(location).attr('href', 'survey');
 				},
 				error : function(err) {
 					console.log(err);

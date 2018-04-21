@@ -120,6 +120,7 @@
 	INSERT INTO survey
 	(surveynum
 	, teachernum
+	, surveycategory
 	, surveytargetalumni
 	, surveytargetclassroom
 	, surveystartdate
@@ -129,6 +130,7 @@
 	VALUES(
 	surveynum_seq.nextval
 	, #{teacherNum}
+	, #{surveyCategory}
 	, #{surveyTargetAlumni}
 	, #{surveyTargetClassroom}
 	, #{surveyStartDate}
@@ -198,7 +200,12 @@
 </insert>
 
 <select id="selectASurvey" parameterType="int" resultType="Survey">
-	select * from survey
+	select surveynum, teachernum, surveycategory, 
+        surveytargetalumni, surveytargetclassroom, surveytitle,
+        TO_CHAR(surveywrittendate, 'yyyy-mm-dd') surveywrittendate,
+        TO_CHAR(surveystartdate, 'yyyy-mm-dd') surveystartdate,
+        TO_CHAR(surveyenddate, 'yyyy-mm-dd') surveyenddate
+        from survey
 	where surveynum = #{surveyNum}
 </select>
 

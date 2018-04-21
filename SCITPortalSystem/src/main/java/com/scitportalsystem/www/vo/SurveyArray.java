@@ -12,6 +12,9 @@ public class SurveyArray {
 	@SerializedName("surveyTargetClassroom")
 	private String surveyTargetClassroom;
 	
+	@SerializedName("surveyCategory")
+	private int surveyCategory;
+	
 	@SerializedName("surveyStartDate")
 	private String surveyStartDate;
 	
@@ -28,14 +31,6 @@ public class SurveyArray {
 		return surveyTargetAlumni;
 	}
 
-	public List<SurveyPage> getSurveyPage() {
-		return surveyPage;
-	}
-
-	public void setSurveyPage(List<SurveyPage> surveyPage) {
-		this.surveyPage = surveyPage;
-	}
-
 	public void setSurveyTargetAlumni(int surveyTargetAlumni) {
 		this.surveyTargetAlumni = surveyTargetAlumni;
 	}
@@ -46,6 +41,14 @@ public class SurveyArray {
 
 	public void setSurveyTargetClassroom(String surveyTargetClassroom) {
 		this.surveyTargetClassroom = surveyTargetClassroom;
+	}
+
+	public int getSurveyCategory() {
+		return surveyCategory;
+	}
+
+	public void setSurveyCategory(int surveyCategory) {
+		this.surveyCategory = surveyCategory;
 	}
 
 	public String getSurveyStartDate() {
@@ -72,11 +75,20 @@ public class SurveyArray {
 		this.surveyTitle = surveyTitle;
 	}
 
-	public SurveyArray(int surveyTargetAlumni, String surveyTargetClassroom, String surveyStartDate,
+	public List<SurveyPage> getSurveyPage() {
+		return surveyPage;
+	}
+
+	public void setSurveyPage(List<SurveyPage> surveyPage) {
+		this.surveyPage = surveyPage;
+	}
+
+	public SurveyArray(int surveyTargetAlumni, String surveyTargetClassroom, int surveyCategory, String surveyStartDate,
 			String surveyEndDate, String surveyTitle, List<SurveyPage> surveyPage) {
 		super();
 		this.surveyTargetAlumni = surveyTargetAlumni;
 		this.surveyTargetClassroom = surveyTargetClassroom;
+		this.surveyCategory = surveyCategory;
 		this.surveyStartDate = surveyStartDate;
 		this.surveyEndDate = surveyEndDate;
 		this.surveyTitle = surveyTitle;
@@ -90,7 +102,11 @@ public class SurveyArray {
 	@Override
 	public String toString() {
 		return "SurveyArray [surveyTargetAlumni=" + surveyTargetAlumni + ", surveyTargetClassroom="
-				+ surveyTargetClassroom + ", surveyStartDate=" + surveyStartDate + ", surveyEndDate=" + surveyEndDate
-				+ ", surveyTitle=" + surveyTitle + ", surveyPage=" + surveyPage + "]";
+				+ surveyTargetClassroom + ", surveyCategory=" + surveyCategory + ", surveyStartDate=" + surveyStartDate
+				+ ", surveyEndDate=" + surveyEndDate + ", surveyTitle=" + surveyTitle + ", surveyPage=" + surveyPage
+				+ "]";
 	}
+	
+	
+
 }

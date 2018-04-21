@@ -128,6 +128,7 @@ public class SurveyController {
 			// todo : 설문대상 기수선택/반선택 막기
 			// survey 테이블에 설문 기본 정보 넣기
 			survey.setTeacherNum(teacherNum);
+			survey.setSurveyCategory(sa.getSurveyCategory());
 			survey.setSurveyTargetAlumni(sa.getSurveyTargetAlumni());
 			survey.setSurveyTargetClassroom(sa.getSurveyTargetClassroom());
 			survey.setSurveyStartDate(sa.getSurveyStartDate());
