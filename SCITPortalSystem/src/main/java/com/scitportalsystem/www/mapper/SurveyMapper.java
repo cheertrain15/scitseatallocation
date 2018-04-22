@@ -47,5 +47,15 @@ public interface SurveyMapper {
 	ArrayList<Survey> selectAll2(MemberStudent param, RowBounds rb);
 
 	int insertSurveyRespond(Survey survey);
+
+	void updateSurvey(Survey survey);
+
+	void deleteOldSurvey(int surveyNum);
+
+	int countTargetStudent(Survey target);
+
+	int countRespondStudent(int surveyNum);
+
+	int checkRespond(Survey target);
 	
 }

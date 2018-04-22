@@ -76,6 +76,7 @@ $(function(){
 								
 								optionId = $(this).find('input[type=radio]:checked')
 															.attr('id');
+								console.log(optionId);
 								surveyRespondOptionNum = optionId.replace(/[^0-9]/g,"");
 								
 								console.log('라디오옵션 아이디: '+surveyRespondOptionNum);
@@ -92,6 +93,7 @@ $(function(){
 									.each(function(index, item){
 										
 										optionId = $(this).attr('id');
+										console.log(optionId);
 										surveyRespondOptionNum = optionId.replace(/[^0-9]/g,"");
 										
 										surveyRespondOptionNumArray.push(surveyRespondOptionNum);
@@ -108,6 +110,7 @@ $(function(){
 								
 								optionId = $(this).find('select')
 											.find('option:selected').attr('id');
+								console.log(optionId);
 								surveyRespondOptionNum = optionId.replace(/[^0-9]/g,"");
 								
 								console.log('드롭다운옵션 아이디: ' + surveyRespondOptionNum);

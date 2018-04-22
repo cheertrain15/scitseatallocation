@@ -373,7 +373,7 @@ $( function() {
 			console.log("addselectoption button clicked");
 			var val = $("#selectOption"+question).val();			
 			console.log(val);			
-			var str = '';
+			var str = ''; 
 			str += '<option>'
 				+ ''+val+''
 				+ '</option>';
@@ -587,7 +587,7 @@ $( function() {
 				data : JSON.stringify(createSurvey),
 				success : function(data) {
 					alert(data);
-//					$(location).attr('href', 'survey');
+					$(location).attr('href', 'survey');
 				},
 				error : function(err) {
 					console.log(err);

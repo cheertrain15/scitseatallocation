@@ -14,17 +14,6 @@
 
 </head>
 <body>
-<!--      
-선생님 / 학생으로 구분
-
-선생님 - 설문조사의 내용과 옵션 내용 확인하고 수정 가능
-학생 - 참여 여부에 따라
-		(참여했을 경우)설문 내용과 자신의 응답내용 확인
-		(참여하지 않았을 경우)참여페이지
-	  마감일 경과 여부에 따라
-	  	(경과했을 경우)설문 내용만 확인 가능 -->
-	  	
-	  	<!-- 로그인 한 회원이 선생님일 경우 설문 수정 버튼 보이기 -->
 	  	<h1>개별 설문 보기</h1>
 	  	<c:if test="${memberClass == 'teacher'}">
 	  	
@@ -40,12 +29,24 @@
 	  	</form>
 	  	<table>
 	  	<tr>
-	  	<td>제목: ${survey.surveyTitle}</td>
-	  	<td>대상: ${survey.surveyTargetAlumni}기 ${survey.surveyTargetClassroom}</td>
+	  	<td>분류:</td>
+	  	<td>
+	  	<c:if test="${survey.surveyCategory == 0}">만족도</c:if>
+	  	<c:if test="${survey.surveyCategory == 1}">반배치</c:if>
+	  	<c:if test="${survey.surveyCategory == 2}">자격증</c:if>
+	  	<c:if test="${survey.surveyCategory == 3}">기타</c:if>
+	  	</td>
+	  	<td>대상:</td>
+	  	<td>${survey.surveyTargetAlumni}기</td>
+	  	<td>${survey.surveyTargetClassroom}</td>
 	  	</tr>
 	  	<tr>
-	  	<td>설문 기간: ${survey.surveyStartDate} </td>
-	  	<td>~ ${survey.surveyEndDate}</td>
+	  	<td>제목:</td>
+	  	<td colspan="5">${survey.surveyTitle}</td>
+	  	</tr>
+	  	<tr>
+	  	<td>설문 기간:</td>
+	  	<td colspan="5">${survey.surveyStartDate}~${survey.surveyEndDate}</td>
 	  	</tr>
 	  	</table>
 	  	</div> 
@@ -78,7 +79,7 @@
 				    	<fieldset>
 				    	<legend>${qs.surveyQuestionContent}
 				    	<c:if test="${qs.surveyQuestionRequired == 1}">
-				    	<p id="required">(* 필수응답 항목입니다.)</p>
+				    	<span id="required">(* 필수응답 항목입니다.)</span>
 				    	</c:if>
 				    </legend>
 				    

@@ -20,19 +20,47 @@
 
 <div id="infoWrap">
 	*Survey Info*
-	
+	<input type="hidden" value="${survey.surveyNum}" id="getSurveyNum">
 	<table>
 	<tr>
+	<td>Category:
+		<select id ="selectCategory">
+		<c:if test="${survey.surveyCategory == 0 }">
+		<option value="0" selected="selected">만족도</option>
+		<option value="1">반배치</option>
+		<option value="2">자격증</option>
+		<option value="3">기타</option>
+		</c:if>
+		<c:if test="${survey.surveyCategory == 1 }">
+		<option value="0">만족도</option>
+		<option value="1" selected="selected">반배치</option>
+		<option value="2">자격증</option>
+		<option value="3">기타</option>
+		</c:if>
+		<c:if test="${survey.surveyCategory == 2 }">
+		<option value="0">만족도</option>
+		<option value="1">반배치</option>
+		<option value="2" selected="selected">자격증</option>
+		<option value="3">기타</option>
+		</c:if>
+		<c:if test="${survey.surveyCategory == 3 }">
+		<option value="0">만족도</option>
+		<option value="1">반배치</option>
+		<option value="2">자격증</option>
+		<option value="3" selected="selected">기타</option>
+		</c:if>
+		</select>
+	</td>
 	<td>Target</td>
 	<td>
 		Alumni:
-		<select>
+		<select id="selectAlumni">
 		<option value="${survey.surveyTargetAlumni}" selected="selected">${survey.surveyTargetAlumni}</option>
 		</select>
 	</td>
 	<td>
 		Classroom:
-		<select>
+		<select id="selectClass">
 		<option value="ALL">ALL</option>
 		<c:forEach items="${classRoom}" var="cr">
 		<c:if test="${cr != survey.surveyTargetClassroom}">
@@ -50,11 +78,11 @@
 	<td><input type="text" id="surveyEndDate" value="${survey.surveyEndDate}"></td>
 	</tr>
 	<tr>
-	<td>Title:</td>
-	<td colspan="7"> 
-	<input type="text" size="120" value="${survey.surveyTitle}">
+	<td colspan="10">
+	Title:
+	<input type="text" size="120" value="${survey.surveyTitle}" id="surveyTitle">
 	</td>
-	<td><input type="button" value="edit"></td>
+	<td><input type="button" value="edit" id="editSurvey"></td>
 	</tr>
 	</table>
 </div>
@@ -92,13 +120,18 @@
 		  	
 		  	<c:if test="${pg.surveyPageNum == qs.surveyPageNum}">
 		  	
-		  		<div class="questions" id="question${qs.surveyQuestionNum}" surveyType="${qs.surveyQuestionType}">
+			  	<c:if test="${qs.surveyQuestionRequired == 0}">
+			  		<div class="questions" id="question${qs.surveyQuestionNum}">
+			  	</c:if>
+			  	<c:if test="${qs.surveyQuestionRequired == 1}">
+			  		<div class="questions" id="question${qs.surveyQuestionNum}" required="required">
+			  	</c:if>
 		  			<input type="hidden" id="questionType" value="${qs.surveyQuestionType}">
 				    	<fieldset>
 				    	<legend>${qs.surveyQuestionContent}
-				    	<c:if test="${qs.surveyQuestionRequired == 1}">
-				    	<p id="required">(* 필수응답 항목입니다.)</p>
-				    	</c:if>
+<%--  				<c:if test="${qs.surveyQuestionRequired == 1}">
+				    	<span id="required">(* 필수응답 항목입니다.)</span>
+				    	</c:if> --%>
 				    	<input type="button" value="수정" onclick="javascript:editQuestion(${qs.surveyQuestionNum})">
 		        		<input type="button" value="삭제" onclick="javascript:deleteQuestion(${qs.surveyQuestionNum})">
 				    </legend>
@@ -154,7 +187,7 @@
 				  	
 				  	</fieldset>
 				</div>
-			  	
+			  	 
 			</c:if>
 			</c:forEach>
 			

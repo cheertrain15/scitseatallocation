@@ -44,8 +44,7 @@ public class SurveyController {
 	@RequestMapping(value = "survey", method = RequestMethod.GET)
 	public String survey(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 
-//		int memberNum = (int) session.getAttribute("loginMemberNum");
-		int memberNum = 1;
+		int memberNum = (int) session.getAttribute("loginMemberNum");
 		
 		String memberClass = surveyDAO.getMemberClass(memberNum);
 		
@@ -58,24 +57,69 @@ public class SurveyController {
 		// 선생님일 경우 본인이 작성한 모든 공지 보기
 		if (memberClass.equals("teacher")) {
 			
-//			int teacherNum = (int) session.getAttribute("teacherNum");
-			int teacherNum = 1;
+			int teacherNum = (int) session.getAttribute("teacherNum");
 
 			totalCount = surveyDAO.countSelectAll(teacherNum);
 			navi = new PageNavigator(LIMIT, PAGES, page, totalCount);
 			list = surveyDAO.selectAll(teacherNum, LIMIT, page);
 			
+			Survey target = new Survey();
+			ArrayList<String> sizeList= new ArrayList<>();
+			
+			for (int i = 0; i < list.size(); i++) {
+				
+				target.setSurveyTargetAlumni(list.get(i).getSurveyTargetAlumni());
+				target.setSurveyTargetClassroom(list.get(i).getSurveyTargetClassroom());
+				
+				int targetStudentSize = surveyDAO.countTargetStudent(target);
+				System.out.println("targetStudentSize : " + targetStudentSize);
+				
+				int surveyNum = list.get(i).getSurveyNum();
+				
+				int respondStudentSize = surveyDAO.countRespondStudent(surveyNum);
+				System.out.println("respondStudentSize : " + respondStudentSize);
+				
+				sizeList.add(respondStudentSize + " / " +targetStudentSize);
+			}
+			
+			System.out.println(sizeList);
+			model.addAttribute("sizeList", sizeList);
+			
 		}
 		
 		// 학생일 경우 자신이 타겟인 공지만 보기
 		if (memberClass.equals("student")) {
-//			String id = (String) session.getAttribute("loginID"); 
-			String id = "testid8";
+			String id = (String) session.getAttribute("loginID"); 
 			
 			MemberStudent param = surveyDAO.getAlumniClassroom(id);
 			totalCount = surveyDAO.countSelectAll2(param);
 			navi = new PageNavigator(LIMIT, PAGES, page, totalCount);
 			list = surveyDAO.selectAll2(param, LIMIT, page);
+			
+			Survey target = new Survey();
+			ArrayList<String> checkRespondList = new ArrayList<>();
+			
+				for (int i = 0; i < list.size(); i++) {
+				
+				target.setSurveyTargetAlumni(list.get(i).getSurveyTargetAlumni());
+				target.setSurveyTargetClassroom(list.get(i).getSurveyTargetClassroom());
+				
+				int surveyNum = list.get(i).getSurveyNum();
+				
+				target.setSurveyNum(surveyNum);
+				target.setSurveyRespondmemberNum(memberNum);
+				
+				int respond = surveyDAO.checkRespond(target);
+					if (respond == 1) {
+						checkRespondList.add("참여");
+					} else {
+						checkRespondList.add("미참여");
+					}
+				
+				}
+				
+				model.addAttribute("checkRespondList", checkRespondList);
+			
 		}
 		
 		System.out.println(list);
@@ -89,9 +133,7 @@ public class SurveyController {
 	@RequestMapping(value = "surveyCreate", method = RequestMethod.GET)
 	public String surveyCreate(HttpSession session, Model model) {
 
-		// int teacherNum = (int) session.getAttribute("teacherNum");
-
-		int teacherNum = 1;
+		int teacherNum = (int) session.getAttribute("teacherNum");
 
 		int inChargeAlumni = surveyDAO.selectInChargeAlumni(teacherNum);
 
@@ -191,8 +233,7 @@ public class SurveyController {
 		
 		System.out.println(ra);
 		
-//		int surveyRespondmemberNum = (int) session.getAttribute("loginMemberNum");
-		int surveyRespondmemberNum = 8;
+		int surveyRespondmemberNum = (int) session.getAttribute("loginMemberNum");
 		
 		for (int i = 0; i < respondSize; i++) {
 			
@@ -238,8 +279,7 @@ public class SurveyController {
 	public String surveyDetail(int surveyNum, Model model, HttpSession session) {
 		
 		// 현재 로그인 한 회원 유형 확인
-//		int memberNum = (int) session.getAttribute("loginMemberNum");
-		int memberNum = 1;
+		int memberNum = (int) session.getAttribute("loginMemberNum");
 		String memberClass = surveyDAO.getMemberClass(memberNum);
 		model.addAttribute("memberClass", memberClass);
 		
@@ -276,7 +316,11 @@ public class SurveyController {
 		
 		// 설문 기본 정보(제목, 작성자 등)
 		Survey survey = surveyDAO.selectASurvey(surveyNum);
+		System.out.println(survey);
 		model.addAttribute("survey", survey);
+		
+		ArrayList<String> classRoom = surveyDAO.selectClassRoom(survey.getSurveyTargetAlumni());
+		model.addAttribute("classRoom", classRoom);
 				
 		// 설문 페이지 관련 정보
 		ArrayList<Survey> pages = surveyDAO.selectPages(surveyNum);
@@ -300,12 +344,76 @@ public class SurveyController {
 		return "survey/surveyEdit";
 	}
 	
-	@RequestMapping (value = "completeEditSurvey", method = RequestMethod.POST)
-	public String completeEditSurvey() {
+	@ResponseBody
+	@RequestMapping (value = "completeEditSurvey", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String completeEditSurvey(@RequestBody String createSurvey, HttpSession session, Survey survey) {
+		Gson gson = new Gson();
+
+		CreateSurvey cs = gson.fromJson(createSurvey, CreateSurvey.class);
+
+		// Survey 객체에 Survey 테이블 관련 정보 저장
+
+		SurveyArray sa = cs.getSurveyArray().get(0);
+
+		int pageSize = sa.getSurveyPage().size();
+		System.out.println(sa.getSurveyPage());
 		
-		
-		
-		return "";
+			int teacherNum = (int) session.getAttribute("teacherNum");
+
+			// survey 테이블에 설문 기본 정보 넣기
+			survey.setTeacherNum(teacherNum);
+			survey.setSurveyNum(sa.getSurveyNum());
+			survey.setSurveyCategory(sa.getSurveyCategory());
+			survey.setSurveyTargetAlumni(sa.getSurveyTargetAlumni());
+			survey.setSurveyTargetClassroom(sa.getSurveyTargetClassroom());
+			survey.setSurveyStartDate(sa.getSurveyStartDate());
+			survey.setSurveyEndDate(sa.getSurveyEndDate());
+			survey.setSurveyTitle(sa.getSurveyTitle());
+			surveyDAO.updateSurvey(survey);
+			
+			int surveyNum = sa.getSurveyNum();
+			surveyDAO.deleteOldSurvey(surveyNum);
+			
+			// surveyPage 테이블에 설문의 각 페이지 정보 넣기
+			for (int k = 0; k < pageSize; k++) {
+				surveyDAO.insertSurveyPage(survey);
+
+			int pageArraySize = cs.getPageArray().size();
+			for (int i = 0; i < pageArraySize; i++) {
+
+				PageArray pa = cs.getPageArray().get(i);
+
+				if (sa.getSurveyPage().get(k).getSurveyPageId().equals(pa.getPage())) {
+
+					// surveyQuesion 테이블에 각 페이지의 질문 정보 넣기
+					survey.setSurveyQuestionContent(pa.getSurveyQuestionContent());
+					survey.setSurveyQuestionType(pa.getSurveyQuestionType());
+					survey.setSurveyQuestionRequired(pa.getSurveyQuestionRequired());
+					surveyDAO.insetSurveyQuestion(survey);
+
+					// 해당 질문이 옵션이 존재하는 항목일 경우
+					int surveyOptionSize = 0;
+					try {
+						surveyOptionSize = pa.getSurveyOption().size();
+					} catch (Exception e) {
+					}
+
+					if (surveyOptionSize > 0) {
+
+						for (int j = 0; j < surveyOptionSize; j++) {
+							System.out.println(survey.getSurveyQuestionContent());
+							System.out.println(pa.getSurveyOption().get(j).getSurveyOptionContent());
+							survey.setSurveyOptionContent(pa.getSurveyOption().get(j).getSurveyOptionContent());
+							surveyDAO.insertSurveyOption(survey);
+						}
+
+					}
+				}
+			}
+
+		}
+
+		return "성공";
 	}
 
 }

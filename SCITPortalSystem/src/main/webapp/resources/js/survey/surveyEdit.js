@@ -9,6 +9,7 @@ $(document).ready(function() {
 	addSelectOption();
 	subSelectOption();
 	checkRequired();
+	editSurvey();
 
 });
 
@@ -67,7 +68,7 @@ function initialize() {
 
 								if (draggableId == 'singleinput') {
 
-									str += '<div class="questions" id="question' + question + '" surveyType="singleinput">'
+									str += '<div class="questions" id="question' + question + '">'
 											+ '<input type="hidden" id="questionType" value="singleinput">'
 											+ '<fieldset>'
 											+ '<legend>질문' + question + '. 내용 수정하쇼'
@@ -82,7 +83,7 @@ function initialize() {
 
 								if (draggableId == 'radiogroup') {
 
-									str += '<div class="questions" id="question' + question + '" surveyType="radiogroup">'
+									str += '<div class="questions" id="question' + question + '">'
 											+ '<input type="hidden" id="questionType" value="radiogroup">'
 											+ '<fieldset>'
 											+ '<legend>질문' + question + '. 내용 수정하쇼'
@@ -102,7 +103,7 @@ function initialize() {
 
 								if (draggableId == 'checkbox') {
 
-									str += '<div class="questions" id="question' + question + '" surveyType="checkbox">'
+									str += '<div class="questions" id="question' + question + '">'
 											+ '<input type="hidden" id="questionType" value="checkbox">'
 											+ '<fieldset>'
 											+ '<legend>질문' + question + '. 내용 수정하쇼'
@@ -121,7 +122,7 @@ function initialize() {
 								}
 
 								if (draggableId == 'dropdown') {
-									str += '<div class="questions" id="question' + question + '" surveyType="dropdown">'
+									str += '<div class="questions" id="question' + question + '">'
 											+ '<input type="hidden" id="questionType" value="dropdown">'
 											+ '<fieldset>'
 											+ '<legend>질문' + question + '. 내용 수정하쇼'
@@ -141,7 +142,7 @@ function initialize() {
 
 								if (draggableId == 'comment') {
 
-									str += '<div class="questions" id="question' + question + '" surveyType="comment">'
+									str += '<div class="questions" id="question' + question + '">'
 											+ '<input type="hidden" id="questionType" value="comment">'
 											+ '<fieldset>'
 											+ '<legend>질문' + question + '. 내용 수정하쇼'
@@ -175,7 +176,19 @@ function initialize() {
 
 //각 설문지의 삭제버튼이 눌렸을 때 삭제 처리
 function deleteQuestion(questionNum){
-	$( "#question"+questionNum ).remove();
+	
+	var questionSize = $('.questions').length;
+	
+	if (questionSize <= 1) {
+		
+		alert('질문내용은 반드시 1개이상 존재해야합니다.');
+		
+	} else {
+		
+		$( "#question"+questionNum ).remove();
+		
+	}
+	
 };
 
 //각 설문지의 수정버튼이 눌렸을 때 질문 내용을 변경
@@ -238,7 +251,6 @@ function completeEditOption(){
 };
 
 // 페이지 추가
-
 function addPage(pageSize){
 	
 	var Num = pageSize+1;
@@ -272,21 +284,29 @@ function addPage(pageSize){
 //페이지 삭제하기
 function subPage(){
 	
-	var target = $( "#pagesWrap" ).find('option:selected');
-	console.log(target);
-	var val = target.val();
-	var num = val.replace(/[^0-9]/g,"");
+	var pageSize = $( "#pagesWrap" ).find('option').length;
 	
-	target.remove();
-	
-	$( '#page'+num ).remove();
-	
-	target = $( "#pagesWrap" ).find('option:selected');
-	console.log(target);
-	val = target.val();
-	num = val.replace(/[^0-9]/g,"");
-	
-	$( '#page'+num ).show();
+	if (pageSize <= 1) {
+		alert('남아있는 페이지가 1개일 경우 삭제할 수 없습니다.');
+	} else {
+		
+		var target = $( "#pagesWrap" ).find('option:selected');
+		console.log(target);
+		var val = target.val();
+		var num = val.replace(/[^0-9]/g,"");
+		
+		target.remove();
+		
+		$( '#page'+num ).remove();
+		
+		target = $( "#pagesWrap" ).find('option:selected');
+		console.log(target);
+		val = target.val();
+		num = val.replace(/[^0-9]/g,"");
+		
+		$( '#page'+num ).show();
+		
+	}
 	
 };
 
@@ -364,12 +384,20 @@ function addOption(){
 	});
 };
 
-//radio와 checkbox설문 옵션 추가
+//radio와 checkbox설문 옵션 삭제
 function subOption(){
 	
 	$(".subOption")
 		.off("click").on("click", function(){
 		
+			var optionSize = $(this).parents('.questions').find('input').length;
+			
+			if (optionSize <= 1 ) {
+				
+				alert ('선택지는 반드시 1개이상 존재해야합니다.');
+				
+			} else {
+			
 			var option = $(this).parents('.questions')
 							.find('input:checked');
 			
@@ -383,6 +411,8 @@ function subOption(){
 				optionLabel.remove();
 				
 			});
+				
+			};
 			
 	});
 	
@@ -413,11 +443,22 @@ function subSelectOption(){
 	
 	$(".subSelectOption").click(function(){
 		
+		var optionSize = $(this).parent().find('option').length;
+		
+		if (optionSize <= 1) {
+			
+			alert('선택지는 반드시 1개이상 존재해야 합니다.');
+			
+		} else {
+		
 		$(this).parent()
 			.find('option:selected')
 			.remove();
 		
-	});   
+		};
+		
+	}); 
+		
 };
 
 //질문지 선택되면 필수 응답 질문인지 설정 가능하도록 체크박스 띄우기
@@ -428,17 +469,19 @@ function checkRequired(){
         		$(this).each(function(index, item){
         			
         			var required = $(this).attr('required');
+        			var val = $(this).find('legend').text();
+        			console.log(val);
         			
         			var str = '';
         			
         			if (required == 'required') {
         				str += '<input type="checkbox" checked="checked" id="checkRequired" '
                    		+ 'associated="'+$( this ).attr('id')+'">'
-                   		+ ' 필수 응답항목 설정';
+                   		+ '<' + val + '> 필수 응답항목 설정';
 					} else {
                		str += '<input type="checkbox" id="checkRequired" '
                			+ 'associated="'+$( this ).attr('id')+'">'
-               			+ ' 필수 응답항목 설정';
+               			+ '<' + val + '> 필수 응답항목 설정';
 					}
                		
                       $( "#attributeWrap" ).html(str); 
@@ -468,5 +511,172 @@ function reqiredQuestion(){
 	});
 	
 };
+
+function editSurvey(){
+	
+	$("#editSurvey").click(function(){
+		
+		alert('수정 버튼은 눌렸냐ㅋㅋ');
+		
+		// 해당 설문조사 배열
+		var surveyArray = new Array();
+		var pageArray =  new Array();
+		
+		var surveyInfo = new Object();
+		
+		// 설문 번호, 분류, 대상, 기간, 제목 가져오기
+		var surveyNum =
+			$(this).parents('body')
+			.find('#getSurveyNum').val();
+		
+		var surveyCategory =
+			$(this).parents('body')
+			.find('#selectCategory option:selected').val();
+		
+		var surveyTargetAlumni = 
+			$(this).parents('body')
+			.find('#selectAlumni option:selected').val();
+		
+		var surveyTargetClassroom =
+			$(this).parents('body')
+			.find('#selectClass option:selected').val();
+		
+		var surveyStartDate =
+			$(this).parents('body')
+			.find('#surveyStartDate').val();
+		
+		var surveyEndDate =
+			$(this).parents('body')
+			.find('#surveyEndDate').val();
+		
+		var surveyTitle = 
+			$(this).parents('body')
+			.find('#surveyTitle').val();
+		
+		surveyInfo.surveyNum = surveyNum;
+		surveyInfo.surveyCategory = surveyCategory;
+		surveyInfo.surveyTargetAlumni = surveyTargetAlumni;
+		surveyInfo.surveyTargetClassroom = surveyTargetClassroom;
+		surveyInfo.surveyStartDate = surveyStartDate;
+		surveyInfo.surveyEndDate = surveyEndDate;
+		surveyInfo.surveyTitle = surveyTitle;
+		
+		var surveyPage = new Array();
+		
+		// 각 페이지 아이디
+		$(this).parents("body")
+			.find(".pages")
+			.each(function(index, item){
+				
+				var pageId = new Object();
+				var page = $(this).attr("id");
+				
+				pageId.surveyPageId = page;
+				
+				surveyPage.push(pageId); // surveyInfo - surveyPage(pageId배열)
+				
+				
+				// 각 페이지 설문항목
+				$(this).find('.questions')
+					.each(function(index, item){
+						
+						var pageInfo = new Object();
+						pageInfo.page = page; // pageInfo - 각 pageId
+						
+						
+						// 각 설문항목의 질문내용
+						var questionContent = $(this).find('legend').text();
+						
+						pageInfo.surveyQuestionContent = $.trim(questionContent);
+						
+						// 각 설문항목의 필수응답여부
+						var required = $(this).attr("required");
+						
+						if (required == 'required') {
+							pageInfo.surveyQuestionRequired = 1;
+						} else {
+							pageInfo.surveyQuestionRequired = 0;
+						}
+						 
+						// 각 설문항목의 타입
+						var surveyType = $(this).find('input[type="hidden"]').val();
+						pageInfo.surveyQuestionType = surveyType;
+						
+						// 각 설문항목의 선택지
+						var surveyOption = new Array();
+						
+						// 설문타입이 라디오/체크박스일 경우 선택지 저장
+						if (surveyType == 'radiogroup' || 
+								surveyType == 'checkbox') {
+							
+							$(this).find('label')
+								.each(function(){
+									
+									var optionContent = new Object();
+									optionContent.surveyOptionContent = $(this).text();
+									surveyOption.push(optionContent);
+									
+								});
+							
+							pageInfo.surveyOption =  surveyOption;
+							
+						}
+						
+						if (surveyType == 'dropdown') {
+							
+							console.log($(this).find('option').val());
+							
+							$(this).find('option')
+								.each(function(){
+									
+									var optionContent = new Object();
+									optionContent.surveyOptionContent = $(this).val();
+									surveyOption.push(optionContent);
+
+									
+								});
+							
+							pageInfo.surveyOption =  surveyOption;
+							
+							
+						}
+						
+						// pageArray에 저장
+						pageArray.push(pageInfo);
+						
+					}); // 각 페이지 설문항목 끝
+				
+			}); // 각 페이지 아이디 끝
+		
+		surveyInfo.surveyPage = surveyPage;
+		surveyArray.push(surveyInfo);
+		
+		
+		// 설문조사의 정보를 담을 객체
+		var createSurvey = new Object();
+		createSurvey.surveyArray = surveyArray;
+		createSurvey.pageArray = pageArray;
+		
+		console.log(createSurvey);
+		
+		// 데이터 넘기기
+		$.ajax({
+			
+			url : 'completeEditSurvey',
+			type : 'post',
+			contentType : 'application/json;charset=utf-8',
+			data : JSON.stringify(createSurvey),
+			success : function(data) {
+				alert(data);
+				$(location).attr('href', 'survey');
+			},
+			error : function(err) {
+				console.log(err);
+			}
+			
+		})
+		
+	});
+}; 
 
 

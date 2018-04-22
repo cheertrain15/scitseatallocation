@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/survey/survey.css">
 	
 </head>
-<body> 
+<body>   
 	
 	<h1>설문 목록</h1> 
 	<c:if test="${memberClass == 'teacher'}">
@@ -24,25 +24,54 @@
 	<table>
 	<tr>
 	<td>글번호</td>
+	<td>분류</td>
+	<td>대상 기수</td>
+	<td>대상 반</td>
 	<td>제목</td>
 	<td>작성자</td>
 	<td>설문 작성일</td>
 	<td>설문 시작일</td>
 	<td>설문 마감일</td>
+	<c:if test="${memberClass == 'teacher' }">
 	<td>참여자 수</td>
+	</c:if>
+	<c:if test="${memberClass == 'student' }">
+	<td>참여 여부</td>
+	</c:if>
 	</tr>
-	
-	<c:forEach items="${list}" var="v">
+	<c:forEach items="${list}" var="v" varStatus="st">
 	<tr>
 	<td>${v.surveyNum}</td>
+	
+	<c:if test="${v.surveyCategory == 0}">
+	<td>만족도</td>
+	</c:if>
+	<c:if test="${v.surveyCategory == 1}">
+	<td>반배치</td>
+	</c:if>
+	<c:if test="${v.surveyCategory == 2}">
+	<td>자격증</td>
+	</c:if>
+	<c:if test="${v.surveyCategory == 3}">
+	<td>기타</td>
+	</c:if>
+	
+	<td>${v.surveyTargetAlumni}기</td>
+	<td>${v.surveyTargetClassroom}</td>
 	<td><a href="surveyDetail?surveyNum=${v.surveyNum}">${v.surveyTitle}</a></td>
 	<td>${v.name}</td>
 	<td>${v.surveyWrittenDate}</td>
 	<td>${v.surveyStartDate}</td>
 	<td>${v.surveyEndDate}</td>
-	<td>차후join으로가져올것</td>
+	<c:if test="${memberClass == 'teacher' }">
+	<td>${sizeList[st.index]}</td>
+	</c:if>
+	<c:if test="${memberClass == 'student' }">
+	<td>${checkRespondList[st.index]}</td>
+	</c:if>
 	</tr>
 	</c:forEach>
+	
  
 	</table>
 	</div>

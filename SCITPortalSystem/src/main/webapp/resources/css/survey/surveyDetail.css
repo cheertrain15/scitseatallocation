@@ -11,7 +11,7 @@ html, body {
 	display: block;
 	width: 100%;
 	height: 5%;
-	border: solid cyan 1px;
+	border: solid gray 1px;
 }
 
 #canvase {
@@ -20,7 +20,7 @@ html, body {
 	position: relative;
 	height: 80%;
 	width: 100%;
-	border: solid black 1px;
+	border: solid red 1px;
 }
 
 #leftBtn {
@@ -28,7 +28,7 @@ html, body {
 	display: inline-block;
 	width: 15%;
 	height: 100%;
-	border: solid pink 1px;
+	border: solid yellow 1px;
 	text-align: center;
 }
 
@@ -37,7 +37,7 @@ html, body {
 	display: inline-block;
 	width: 100%;
 	height: 8%;
-	border: solid blue 1px;
+	border: solid green 1px;
 }
 
 #questionWrap {
@@ -46,7 +46,7 @@ html, body {
 	width: 69.6%;
 	height: 100%;
 	position: absolute;
-	border: solid gray 1px;
+	border: solid blue 1px;
 }
 
 #rightBtn {
@@ -54,7 +54,7 @@ html, body {
 	display: inline-block;
 	width: 15%;
 	height: 100%;
-	border: solid pink 1px;
+	border: solid purple 1px;
 	text-align: center;
 }
 
@@ -71,19 +71,17 @@ html, body {
 }
 
 .pages {
-	background-color: white;
 	position: absolute;
 	height: 100%;
 	width: 100%;
 	top: 0px;
 	left: 0px;
-	border: solid red 1px;
+	border: solid pink 1px;
 }
 
 .questions {
 	margin: 1%;
-	background-color: yellow;
-	border: solid blue 1px;
+	border: solid lime 1px;
 	
 }
 

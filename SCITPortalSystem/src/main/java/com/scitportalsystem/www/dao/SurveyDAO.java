@@ -279,5 +279,68 @@ public class SurveyDAO {
 		return result;
 		
 	}
+
+	public void updateSurvey(Survey survey) {
+		
+		try { 
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			mapper.updateSurvey(survey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void deleteOldSurvey(int surveyNum) {
+		
+		try { 
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			mapper.deleteOldSurvey(surveyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public int countTargetStudent(Survey target) {
+		int result = 0;
+		
+		try { 
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.countTargetStudent(target);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public int countRespondStudent(int surveyNum) {
+		int result = 0;
+		
+		try { 
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.countRespondStudent(surveyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public int checkRespond(Survey target) {
+		int result = 0;
+		
+		try { 
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.checkRespond(target);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+
 }
 	

@@ -6,7 +6,10 @@ import com.google.gson.annotations.SerializedName;
  
 public class SurveyArray {
 	
-	@SerializedName("surveyTargetAlumni")
+	@SerializedName("surveyNum")
+	private int surveyNum;
+	
+	@SerializedName("surveyTargetAlumni") 
 	private int surveyTargetAlumni;
 	
 	@SerializedName("surveyTargetClassroom")
@@ -26,6 +29,14 @@ public class SurveyArray {
 	
 	@SerializedName("surveyPage")
 	private List<SurveyPage> surveyPage;
+
+	public int getSurveyNum() {
+		return surveyNum;
+	}
+
+	public void setSurveyNum(int surveyNum) {
+		this.surveyNum = surveyNum;
+	}
 
 	public int getSurveyTargetAlumni() {
 		return surveyTargetAlumni;
@@ -83,9 +94,10 @@ public class SurveyArray {
 		this.surveyPage = surveyPage;
 	}
 
-	public SurveyArray(int surveyTargetAlumni, String surveyTargetClassroom, int surveyCategory, String surveyStartDate,
-			String surveyEndDate, String surveyTitle, List<SurveyPage> surveyPage) {
+	public SurveyArray(int surveyNum, int surveyTargetAlumni, String surveyTargetClassroom, int surveyCategory,
+			String surveyStartDate, String surveyEndDate, String surveyTitle, List<SurveyPage> surveyPage) {
 		super();
+		this.surveyNum = surveyNum;
 		this.surveyTargetAlumni = surveyTargetAlumni;
 		this.surveyTargetClassroom = surveyTargetClassroom;
 		this.surveyCategory = surveyCategory;
@@ -101,12 +113,10 @@ public class SurveyArray {
 
 	@Override
 	public String toString() {
-		return "SurveyArray [surveyTargetAlumni=" + surveyTargetAlumni + ", surveyTargetClassroom="
-				+ surveyTargetClassroom + ", surveyCategory=" + surveyCategory + ", surveyStartDate=" + surveyStartDate
-				+ ", surveyEndDate=" + surveyEndDate + ", surveyTitle=" + surveyTitle + ", surveyPage=" + surveyPage
-				+ "]";
+		return "SurveyArray [surveyNum=" + surveyNum + ", surveyTargetAlumni=" + surveyTargetAlumni
+				+ ", surveyTargetClassroom=" + surveyTargetClassroom + ", surveyCategory=" + surveyCategory
+				+ ", surveyStartDate=" + surveyStartDate + ", surveyEndDate=" + surveyEndDate + ", surveyTitle="
+				+ surveyTitle + ", surveyPage=" + surveyPage + "]";
 	}
-	
-	
 
 }
