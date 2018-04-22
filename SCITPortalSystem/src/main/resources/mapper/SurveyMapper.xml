@@ -24,6 +24,7 @@
 	where s.teachernum = 1
 	and s.teachernum = ms.teachernum
 	and mb.id = ms.id
+	order by surveynum desc
 	)
 </select>
 
@@ -42,6 +43,7 @@
 	where s.teachernum = 1
 	and s.teachernum = ms.teachernum
 	and mb.id = ms.id
+	order by surveynum desc
 </select>
 
 <select id="getAlumniClassroom" parameterType="String" resultType="MemberStudent">
@@ -67,7 +69,8 @@
 	and mb.id = ms.id
     and s.surveytargetalumni = #{alumni}
     and s.surveytargetclassroom in (#{classroom}, 'ALL')
-    )  
+    )
+    order by surveynum desc
 </select>
 
 <select id="selectAll2" parameterType="MemberStudent" resultType="Survey">
@@ -86,6 +89,7 @@
 	and mb.id = ms.id
     and s.surveytargetalumni = #{alumni}
     and s.surveytargetclassroom in (#{classroom}, 'ALL')
+    order by surveynum desc
 </select>
 
 <select id="selectInChargeAlumni" parameterType="int" resultType="int">
@@ -260,7 +264,7 @@
 	VALUES
 	(
 	surveyRespondNum_seq.nextval
-	, #{surveyNum} 
+	, #{surveyNum}  
 	, #{surveyQuestionNum}
 	, #{surveyQuestionType}
 	<if test="surveyRespondOptionNum != null">
@@ -277,6 +281,52 @@
 	</selectKey>
 </insert>
 
+<update id="updateSurvey" parameterType="Survey">
+	update survey
+	set 
+	surveyCategory = #{surveyCategory},
+	surveyTargetAlumni = #{surveyTargetAlumni},
+	surveyTargetClassroom = #{surveyTargetClassroom},
+	surveyTitle = #{surveyTitle},
+	surveyWrittenDate = sysdate,
+	surveyStartDate = #{surveyStartDate},
+	surveyEndDate = #{surveyEndDate}
+	where
+	surveyNum = #{surveyNum}
+	and
+	teacherNum = #{teacherNum}
+</update>
 
+<delete id="deleteOldSurvey" parameterType="int">
+	delete surveypage
+	where surveyNum = #{surveyNum}
+</delete>
+
+<select id="countTargetStudent" parameterType="Survey" resultType="int">
+	select count(*) from memberstudent
+	where alumni = #{surveyTargetAlumni}
+	<if test="surveyTargetClassroom != 'ALL'">
+	and classroom = #{surveyTargetClassroom}
+	</if>
+</select>
+
+<select id="countRespondStudent" parameterType="int" resultType="int">
+	select count(*) 
+	from (
+	select distinct surveyrespondmembernum
+	from surveyrespond
+	where surveynum = #{surveyNum})
+</select>
+
+<select id="checkRespond" parameterType="Survey" resultType="int">
+	select count(*)
+	from (
+	select distinct surveyRespondmemberNum
+	from surveyrespond
+	where surveyRespondmemberNum = #{surveyRespondmemberNum}
+	and
+	surveynum = #{surveyNum}
+	)
+</select>
 
 </mapper>
