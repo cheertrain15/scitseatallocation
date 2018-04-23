@@ -209,7 +209,7 @@ $( function() {
 				
 				var str = '';
 				str += '<input type="text" id="editOption" value="'+val+'">'
-					+ '<input type="button" value="수정" id="CompleteEditOPtion">';
+					+ '<input type="button" value="수정" class="btnModifyOption" id="CompleteEditOPtion">';
 				
 				$(this).html(str);
 				completeEditOption();
@@ -226,13 +226,13 @@ $( function() {
 	
 	function completeEditOption(){
 		
-		$("#CompleteEditOPtion").click(function(){
+		$(".btnModifyOption").off().click(function(){
 			
 			$(this).each(function(index, item){
 				
 				var editVal = $(this).prev('input').val();
 				$(this).parent().html(editVal);
-				
+				console.log(editVal);
 			});
 		});
 	};
@@ -277,13 +277,29 @@ $( function() {
 	// 페이지 삭제하기
 	function subPage(){
 		
-		var target = $("#pages").find('option:selected');
-		var val = target.val();
-		var num = val.replace(/[^0-9]/g,"");
+		var pageSize = $( "#pages" ).find('option').length;
 		
-		target.remove();
-		
-		$("#id"+num).remove();
+		if (pageSize <= 1) {
+			alert('남아있는 페이지가 1개일 경우 삭제할 수 없습니다.');
+		} else {
+			
+			var target = $( "#pages" ).find('option:selected');
+			console.log(target);
+			var val = target.val();
+			var num = val.replace(/[^0-9]/g,"");
+			
+			target.remove();
+			
+			$( "#id"+num ).remove();
+			
+			target = $( "#pages" ).find('option:selected');
+			console.log(target);
+			val = target.val();
+			num = val.replace(/[^0-9]/g,"");
+			
+			$( "#id"+num ).show();
+			
+		}
 		
 	}
 	
