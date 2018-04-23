@@ -146,4 +146,24 @@ where
 	id = #{id}
 </select>
 
+<!-- 지각 횟수 카운팅  -->
+<update id="updateLate" parameterType="String">
+		update 
+			memberstudent
+		set 
+			late = late + 1
+		where 
+			id = #{id}
+</update>
+
+<!-- 결석 횟수 카운팅 -->
+<update id="updateAbsent" parameterType="String">
+		update 
+			memberstudent
+		set 
+			absent = absent + 1
+		where 
+			id = #{id}
+</update>
+
 </mapper>

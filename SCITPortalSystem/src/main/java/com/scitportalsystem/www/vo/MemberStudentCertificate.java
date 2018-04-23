@@ -7,18 +7,19 @@ public class MemberStudentCertificate {
 	private String id; // -- 회원번호
 	private int itCertificate; // -- 정보처리기사/산업기사 유무
 	private int jpCertificate; // -- JLPT
-	private int otherCertificate; // -- 기타 자격증
+	private String otherCertificate; // -- 기타 자격증
+	
+	public MemberStudentCertificate() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-	public MemberStudentCertificate(String id, int itCertificate, int jpCertificate, int otherCertificate) {
+	public MemberStudentCertificate(String id, int itCertificate, int jpCertificate, String otherCertificate) {
 		super();
 		this.id = id;
 		this.itCertificate = itCertificate;
 		this.jpCertificate = jpCertificate;
 		this.otherCertificate = otherCertificate;
-	}
-
-	public MemberStudentCertificate() {
-		super();
 	}
 
 	public String getId() {
@@ -45,11 +46,11 @@ public class MemberStudentCertificate {
 		this.jpCertificate = jpCertificate;
 	}
 
-	public int getOtherCertificate() {
+	public String getOtherCertificate() {
 		return otherCertificate;
 	}
 
-	public void setOtherCertificate(int otherCertificate) {
+	public void setOtherCertificate(String otherCertificate) {
 		this.otherCertificate = otherCertificate;
 	}
 
@@ -59,4 +60,5 @@ public class MemberStudentCertificate {
 				+ jpCertificate + ", otherCertificate=" + otherCertificate + "]";
 	}
 
+	
 }

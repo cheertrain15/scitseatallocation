@@ -50,6 +50,7 @@ public class MemberBasic {
 		super();
 	}
 
+	
 	public int getMemberNum() {
 		return memberNum;
 	}

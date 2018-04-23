@@ -55,11 +55,11 @@ public class LoginController {
 	private JavaMailSender mailSender;
 
 	/**
-	 * @comment	: 회원가입 클릭 시 회원가입 페이지로 이동 
+	 * @comment	: 회원가입 클릭 시 종류에 따라 회원가입 페이지로 이동 
 	 * @param 	: model (오류로 인해 회원가입 실패했을 때 가입정보 다시 보여주기 위해)
 	 * @author  : 김다희
 	 */
-	@RequestMapping(value="joinForm",method=RequestMethod.GET)
+	@RequestMapping(value="joinType",method=RequestMethod.GET)
 	public String userForm(Model model) {
 		logger.info("회원가입 폼 시작");
 		
@@ -69,8 +69,49 @@ public class LoginController {
 		
 		logger.info("회원가입 폼 종료");
 		
-		return "member/joinForm";
+		return "member/joinType";
 	}
+	
+	@RequestMapping(value="joinStaff",method=RequestMethod.GET)
+	public String joinStaff(Model model){
+		logger.info("staff 회원가입 폼 시작");
+		
+		MemberBasic memberBasic = new MemberBasic();
+		
+		model.addAttribute("user", memberBasic);
+		
+		logger.info("staff 회원가입 폼 종료");		
+		
+		
+		return "member/joinStaff";
+	}
+	
+	@RequestMapping(value="joinStudent",method=RequestMethod.GET)
+	public String joinStudent(Model model){
+		logger.info("student 회원가입 폼 시작");
+		
+		MemberBasic memberBasic = new MemberBasic();
+		
+		model.addAttribute("user", memberBasic);
+		
+		logger.info("student 회원가입 폼 종료");
+		
+		
+		return "member/joinStudent";
+	}
+
+	@RequestMapping(value="joinTeacher",method=RequestMethod.GET)
+	public String joinTeacher(Model model){
+		logger.info("teacher 회원가입 폼 시작");
+		
+		MemberBasic memberBasic = new MemberBasic();
+		
+		model.addAttribute("user", memberBasic);
+		
+		logger.info("teacher 회원가입 폼 종료");
+		return "member/joinTeacher";
+	}
+	
 	
 	/**
 	 * @comment : 회원가입 시 ID 중복체크 페이지 이동 
@@ -126,7 +167,7 @@ public class LoginController {
 		logger.info("회원가입 시작");		
 		
 		memberBasic.setDeleteBy(" ");
-		memberBasic.setMemberClass("student");
+		/*memberBasic.setMemberClass("student");*/
 		
 		// 관리자 계정
 		String admin = "project4u5cho@gmail.com";		
@@ -164,7 +205,7 @@ public class LoginController {
 		insertCerti.setId(id);
 		insertCerti.setItCertificate(0);
 		insertCerti.setJpCertificate(0);
-		insertCerti.setOtherCertificate(0);
+		insertCerti.setOtherCertificate(" ");
 		
 		int insertCertificate = Pdao.insertStudentCertificate(insertCerti);
 		
@@ -308,16 +349,27 @@ public class LoginController {
 	
 		// email 인증된 멤버만 로그인 가능 		
 		if(login != null && memberEmail == 1) {
-			session.setAttribute("loginID", login.getId());
-			session.setAttribute("loginName", login.getName());
-			session.setAttribute("loginMemberNum", login.getMemberNum());
-			session.setAttribute("loginMemberClass", login.getMemberClass());			
-			session.setAttribute("teacherNum", staff.getTeacherNum());	// teacherNum
-			/*session.setAttribute("adminID", Admin.getId());*/	// 관리자 계정 ID
+			if(login.getMemberClass().equals("student")) {	// 학생으로 로그인 했을 떄는 teacherNum 제외
+				session.setAttribute("loginID", login.getId());
+				session.setAttribute("loginName", login.getName());
+				session.setAttribute("loginMemberNum", login.getMemberNum());
+				session.setAttribute("loginMemberClass", login.getMemberClass());	
+				
+				logger.info("학생 login 성공 ");
+			} else {				
+				session.setAttribute("loginID", login.getId());
+				session.setAttribute("loginName", login.getName());
+				session.setAttribute("loginMemberNum", login.getMemberNum());
+				session.setAttribute("loginMemberClass", login.getMemberClass());			
+				session.setAttribute("teacherNum", staff.getTeacherNum());	// teacherNum
+				
+				logger.info("staff / teacher login 성공 ");
+				
+			}			
 			
-			logger.info("login 성공 ");
-		
-		} else if(login != null && memberEmail == 0) {
+			logger.info("login 성공 ");		
+		} 		
+		else if(login != null && memberEmail == 0) {
 			logger.info("login 이메일 인증 실패 ");
 			model.addAttribute("errorEmail", "Please Check Your Email!!");
 			
@@ -353,96 +405,6 @@ public class LoginController {
 		return "redirect:/";
 	}
 	
-	/**
-	 * @comment : 개인정보 확인을 위한 마이페이지 (확인용)
-	 * @param model
-	 * @param memberBasic	: 로그인 한 회원의 개인정보들을 담고 있는 객체 
-	 * @param session	: 로그인 한 ID 사용하기 위함 
-	 * @author : 김다희 
-	 */
-	@RequestMapping(value="myPage",method=RequestMethod.GET)
-	public String myPage(Model model, MemberBasic memberBasic, HttpSession session){
-		logger.info("개인정보 폼 이동 시작");	
-		
-		String loginId = (String) session.getAttribute("loginID");
-	
-		MemberBasic searchOne = dao.searchOneMember(loginId);
-		
-		model.addAttribute("searchOne", searchOne);		
-		
-		logger.info("개인정보 폼 이동 종료");	
-		
-		return "member/myPage";
-	}
-	
-	/**
-	 * @comment : 개인정보 (personal) 수정 페이지 이동 
-	 * @param model
-	 * @param memberBasic
-	 * @param session
-	 * @author : 김다희 
-	 */
-	@RequestMapping(value="updateMypage",method=RequestMethod.GET)
-	public String update(Model model, MemberBasic memberBasic, HttpSession session){
-		logger.info("개인정보 변경 폼 이동 시작");			
-
-		String loginId = (String) session.getAttribute("loginID");
-	
-		MemberBasic changeOne = dao.searchOneMember(loginId);
-		
-		model.addAttribute("changeOne", changeOne);		
-		
-		
-		logger.info("개인정보 변경 폼 이동 종료");	
-		return "member/updateMypage";
-	}
-	
-
-	/**
-	 * @comment : 개인정보 수정 처리 (현재, pw/phone/address/email 만 수정가능 )
-	 * @param model
-	 * @param memberBasic
-	 * @param session
-	 * @author : 김다희 
-	 */
-	@RequestMapping(value="update",method=RequestMethod.POST)
-	public String update(MemberBasic memberBasic, Model model) {
-		logger.info("개인정보 변경 시작");	
-		
-		int result = dao.updateMember(memberBasic);		
-
-		if(result != 1) {
-			model.addAttribute("errorUP", "Failure");
-			logger.info("회원 정보 수정 실패");
-			return "member/updateMypage";
-			
-		}
-		
-		logger.info("개인정보 변경 종료");			
-		
-		return "redirect:updateComplete";
-	}
-	
-	/**
-	 * @comment : 개인정보 수정이 완료되었다는 안내 메세지 페이지 이동 
-	 * @param session
-	 * @param model
-	 * @param memberBasic
-	 * @author : 김다희 
-	 */
-	@RequestMapping(value="updateComplete",method=RequestMethod.GET)
-	public String updateComplete(HttpSession session, Model model, MemberBasic memberBasic) {
-		
-		String userId = (String) session.getAttribute("loginID");
-		String userName = (String) session.getAttribute("loginName");
-		
-		
-		model.addAttribute("userID", userId);
-		model.addAttribute("userName", userName);
-		
-		return "member/updateComplete";
-	}
-	
 	
 	/**
 	 * @comment : 프로필 사진을 업로드를 위한 파일 업로드 
@@ -456,13 +418,11 @@ public class LoginController {
 		
 		MemberBasic memberOne = dao.searchOneMember(id);
 		
-		String profileName = memberOne.getMemberPicName();
+		String profileName = memberOne.getMemberPicName();	
 		
-		System.out.println(memberOne);
 		
-		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/resources/img/profile");
-		
-		System.out.println(UPLOAD_PATH);
+		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/resources/img/profile");		
+	
 		
 		try {			
 			response.setHeader("Content-Disposition", "attachment;filename="+URLEncoder.encode(profileName, "UTF-8"));

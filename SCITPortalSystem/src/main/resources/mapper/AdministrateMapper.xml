@@ -31,5 +31,6 @@ select
 	where
 		id = #{id}
 </update>		
+
 </mapper>
  

@@ -5,8 +5,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<script type="text/javascript" src="<c:url value="../js/jquery-3.2.1.js"/>"></script>
-		<script type="text/javascript" src="<c:url value="../js/administrate.js"/>"></script>
-		<title>[Member Management]</title>
+		<script type="text/javascript" src="<c:url value="../js/admin/admin.js"/>"></script>
+		<title>[Member Management]</title>		
 	</head>
 <body>
 <%@ include file="../header.jsp" %>
@@ -28,23 +28,24 @@
 			</thead>
 			
 		<c:forEach var ="MemberBasic" items="${memberList}">
-			<tbody>			
+			<tbody>		
+			<c:if test="${MemberBasic.id != 'admin'}">	
 			<tr>
-				<td>${MemberBasic.memberNum}</td>
-				<td id="id">${MemberBasic.id}</td>
+				<td>${MemberBasic.memberNum}</td>			
+				<td>${MemberBasic.id}</td>				
 				<td>${MemberBasic.name}</td>
 				<td>${MemberBasic.memberClass}</td>
 				<td>${MemberBasic.phone}</td>
 				<td>
-				<c:if test="${MemberBasic.adminap == 0}">
-					<input type="button" value="OK" name="apComplete" onclick='approval()'>				
+				<c:if test="${MemberBasic.adminap == 0}">					
+					<input type="button" i="${MemberBasic.id}" class="btn_click" value="확인"/>								
 				</c:if>
 				<c:if test="${MemberBasic.adminap == 1}">
 					<b>complete</b>				
-				</c:if>
-				
+				</c:if>				
 				</td>				
-			</tr>			
+			</tr>	
+			</c:if>		
 			</tbody>	
 		</c:forEach>		
 			</table>

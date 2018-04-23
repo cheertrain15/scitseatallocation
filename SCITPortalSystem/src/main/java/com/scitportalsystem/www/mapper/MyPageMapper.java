@@ -36,5 +36,11 @@ public interface MyPageMapper {
 	// student 학사 정보 출력
 	public MemberStudent selectStudentInfo(String id);
 	
+	// student 지각 횟수 카운팅
+	public int updateLate(String id);
+	
+	// student 결석 횟수 카운팅
+	public int updateAbsent(String id);
+	
 	
 }

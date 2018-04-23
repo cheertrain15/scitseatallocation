@@ -10,23 +10,26 @@
 
 
 <!-- <Sidebar (hidden by default)> -->
-<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
+<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:10%;min-width:300px; background-color: #eeeeeeb5;" id="mySidebar">
   <a href="javascript:void(0)" onclick="w3_close()"
   class="w3-bar-item w3-button">Close</a>
-   <c:if test="${sessionScope.loginID == null}">
-  	<a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">News</a> 
-  	<a href="<c:url value="/additionalInfo/staffPage"/>" onclick="w3_close()" class="w3-bar-item w3-button">Work Information</a>
-  	<a href="<c:url value="survey"/>" onclick="w3_close()" class="w3-bar-item w3-button">Survey</a>
-  	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">2</a>
-  	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">3</a>
-  	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">4</a>
-  </c:if>  
-  <c:if test="${sessionScope.loginID != null}">
- 	 <c:if test="${sessionScope.loginID == 'admin'}">
-  		<a href="<c:url value="/admin/management"/>" onclick="w3_close()" class="w3-bar-item w3-button">Management</a>  
-  	</c:if>
-  </c:if>
   
+  <c:choose>
+  	<c:when test="${sessionScope.loginID != null}">
+  		<c:if test="${sessionScope.loginID eq 'admin'}">
+  			<a href="<c:url value="/admin/management"/>" onclick="w3_close()" class="w3-bar-item w3-button">Management</a>
+  		</c:if>    		
+  		<c:if test="${sessionScope.loginID != 'admin'}">
+  			<a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">News</a> 
+		  	<a href="<c:url value="/additionalInfo/staffPage"/>" onclick="w3_close()" class="w3-bar-item w3-button">Work Information</a>
+		  	<a href="<c:url value="survey"/>" onclick="w3_close()" class="w3-bar-item w3-button">Survey</a>
+		  	<a href="<c:url value="/attendance/attendance"/>" onclick="w3_close()" class="w3-bar-item w3-button">Attendance</a>
+		  	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">3</a>
+		  	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">4</a>   		
+  		</c:if>
+  	</c:when>  	
+  </c:choose>
+    
 </nav>
 <!-- ☰s -->
 <!-- Top menu -->
@@ -36,7 +39,7 @@
         <div class="w3-right w3-padding-16"> 
         <c:if test="${sessionScope.loginID == null }">
             <span><a href="<c:url value="/member/loginForm"/>">Login</a></span>
-      		<span><a href="<c:url value="/member/joinForm"/>">Join</a></span>                                  
+      		<span><a href="<c:url value="/member/joinType"/>">Join</a></span>                                  
         </c:if>
         <c:if test="${sessionScope.loginID != null }">
         	<span><a href="<c:url value="/member/logoutForm"/>">Logout</a></span>
@@ -45,7 +48,9 @@
       
     </div>
     <div class="w3-center w3-padding-16">
+    <a href="<c:url value="/"/>">
       <img src="<c:url value="/resources/img/logo.jpg"/>">
+     </a>
     </div>
   </div>
 </div>

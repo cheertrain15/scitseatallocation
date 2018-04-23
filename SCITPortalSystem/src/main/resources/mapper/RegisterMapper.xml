@@ -38,6 +38,7 @@
 			, r.registrationcontent
 			, r.estimatedtime 
 			, r.registrationdate
+			, r.registrationReason
 		from 
 			registration r
 			, memberstudent ms
@@ -85,6 +86,7 @@
 			, r.registrationcontent
 			, r.estimatedtime
 			, r.registrationdate
+			, r.registrationReason
 		from 
 			registration r
 			, memberstudent ms
@@ -118,10 +120,7 @@
 		where
 			registrationnum = #{ registrationnum}
 	</delete>
-	
-	
-	
-	
+
 	
 
 </mapper>

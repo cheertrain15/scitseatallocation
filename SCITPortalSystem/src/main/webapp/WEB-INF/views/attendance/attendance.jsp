@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@	taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,6 +10,7 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery-ui.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery-ui.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/seat/seat.js"/>"></script>
+	<script type="text/javascript" src="<c:url value="/resources/js/attendance/attendance.js"/>"></script>
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/attendance/attendance.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.min.css"/>">
@@ -54,6 +54,12 @@
 				$('#delList').submit();
 			});
 		});
+		
+		function comfirm_btn() {
+			document.getElementById("comFirmBTN").value = '완료';			
+}
+		
+		
 	</script>
 	
 	
@@ -62,7 +68,7 @@
 	<%@ include file="../header.jsp" %>
 	<br><br><br><br><br>	
 	<div class="attendanceMain" id="attendanceMain" align="center">
-		<c:if test="${memberClass == 'teacher' }">
+		<c:if test="${memberClass == 'staff' }">
 			<input type="button" id="delRegiBtn" value="삭제">
 			<table>
 				<tr>
@@ -71,9 +77,11 @@
 					<th width="70px"> 기수</th>
 					<th width="70px">반</th>	
 					<th width="90px">이름</th>
-					<th width="350px">사유</th>
+					<th width="70px">종류</th>
+					<th width="200px">사유</th>
 					<th width="150px">도착예정시간</th>
 					<th width="150px">작성일시</th>
+					<th width="150px">확인</th>
 		  	 	</tr>
 	  	 		<c:choose>
 	  	 			<c:when test="${registlist != null }">
@@ -88,9 +96,18 @@
 								<td width="70px" align="center"> 
 									<a> ${list.name } </a> <!-- 이름 클릭 시, 학생 정보 창 보여기주기 위한 a Tag -->
 								</td>
+								<c:if test="${list.registrationReason == 0}">
+									<td width="50px" align="center"> 지각</td>
+								</c:if>
+								<c:if test="${list.registrationReason == 1}">
+									<td width="50px" align="center"> 결석</td>
+								</c:if>								
 								<td width="300px"> ${list.registrationContent }</td>
 								<td width="100px" > ${list.estimatedTime } </td>
 								<td width="150px"> <fmt:formatDate  value="${list.registrationDate }" pattern="yyyy/MM/dd HH:mm"/> </td> <!-- 시간 까지 출력되도록 설정 -->
+								<td>
+									<input type="button" value="확인" id="btn_${list.registrationNum}" class="comFirmBTN" />
+								</td>
 							</tr>
 						</c:forEach>
 					</c:when>
@@ -148,7 +165,7 @@
 		
 		
 		<!-- 학생 로그인시 보여줄 화면 -->
-		<c:if test="${memberClass == 'student2' }">
+		<c:if test="${memberClass == 'student' }">
 			<table>
 				<tr>
 					<td colspan="7">
@@ -160,6 +177,7 @@
 					<th width="70px">기수</th>
 					<th width="70px">반</th>
 					<th width="90px">이름</th>
+					<th width="90px">종류</th>
 					<th width="350px">사유</th>
 					<th width="150px">도착예정시간</th>
 					<th width="150px">작성일시</th>
@@ -174,6 +192,12 @@
 								<td width="70px" align="center"> 
 									<a> ${list.name } </a> <!-- 이름 클릭 시, 학생 정보 창 보여기주기 위한 a Tag -->
 								</td>
+								<c:if test="${list.registrationReason == 1}">
+									<td width="50px" align="center"> 결석 </td>
+								</c:if>
+								<c:if test="${list.registrationReason == 0}">
+									<td width="50px" align="center"> 지각 </td>
+								</c:if>								
 								<td width="300px"> ${list.registrationContent }</td>
 								<td width="100px" > ${list.estimatedTime } </td>
 								<td width="150px"> <fmt:formatDate  value="${list.registrationDate }" pattern="yyyy/MM/dd HH:mm"/> </td> <!-- 시간 까지 출력되도록 설정 -->

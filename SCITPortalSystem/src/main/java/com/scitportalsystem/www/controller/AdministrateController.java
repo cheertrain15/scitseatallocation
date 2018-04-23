@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scitportalsystem.www.dao.AdministrateDAO;
 import com.scitportalsystem.www.dao.LoginDAO;
@@ -20,6 +21,7 @@ import com.scitportalsystem.www.vo.MemberBasic;
  * Handles requests for the application home page.
  */
 @Controller
+@RequestMapping(value="admin")
 public class AdministrateController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdministrateController.class);
@@ -31,7 +33,7 @@ public class AdministrateController {
 	AdministrateDAO adDAO;
 	
 	
-	@RequestMapping(value="admin/management",method=RequestMethod.GET)
+	@RequestMapping(value="management",method=RequestMethod.GET)
 	public String management(Model model){
 		logger.info("회원가입 목록 출력 DAO");
 		
@@ -44,11 +46,12 @@ public class AdministrateController {
 		return "/admin/management";
 	}
 	
-	@RequestMapping(value="admin/approvalComplete",method=RequestMethod.GET)
-	public String approvalComplete(Model model, MemberBasic memberBasic){
-			
+	@RequestMapping(value="approvalComplete",method=RequestMethod.GET)
+	@ResponseBody
+	public void approvalComplete(Model model, String id){		
 		
-		int approval = adDAO.memberApproval(memberBasic.getId());
+		int approval = adDAO.memberApproval(id);
+	
 		
 		if(approval == 1){
 			logger.info("회원승인 성공");			
@@ -57,7 +60,10 @@ public class AdministrateController {
 			
 		}	
 		
-		return "redirect:management";
 	}
+	
+	
+	
+	
 	
 }

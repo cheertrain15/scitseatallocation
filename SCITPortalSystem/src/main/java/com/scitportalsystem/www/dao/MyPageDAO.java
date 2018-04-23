@@ -170,5 +170,37 @@ public class MyPageDAO {
 		logger.info("student 학사 정보 업데이트  DAO 종료");
 		return result;
 	}
+
+	// 학생 지각 카운팅 업데이트
+	public int updateLate(String id){
+		logger.info("student 지각 카운팅  DAO 시작");
+		MyPageMapper mapper = sqlSession.getMapper(MyPageMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.updateLate(id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		logger.info("student 지각 카운팅  DAO 종료");
+		return result;
+	}
 	
+	// 학생 결석 카운팅 업데이트
+	public int updateAbsent(String id){
+		logger.info("student 결석 카운팅  DAO 시작");
+		MyPageMapper mapper = sqlSession.getMapper(MyPageMapper.class);
+		int result = 0;
+		
+		try {
+			result = mapper.updateAbsent(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		logger.info("student 결석 카운팅  DAO 종료");
+		return result;
+	}
 }

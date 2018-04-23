@@ -3,6 +3,7 @@ package com.scitportalsystem.www.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.scitportalsystem.www.dao.MyPageDAO;
 import com.scitportalsystem.www.dao.RegisterDAO;
 import com.scitportalsystem.www.util.PageNavigator;
 import com.scitportalsystem.www.vo.Registration;
@@ -31,7 +35,10 @@ public class RegisterController {
 	private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
 	
 	@Autowired
-	RegisterDAO dao;		// 학새 지각 및 결석 관련 데이터 처리 객체
+	RegisterDAO dao;		// 학생 지각 및 결석 관련 데이터 처리 객체
+	
+	@Inject
+	MyPageDAO MDAO;	// 학생 정보 관련 데이터 처리 객체
 	
 	//지각 및 결석 게시판 관련 상수값들(선생님용)
 	final int countPerPage = 5;			//페이지 당 글 수
@@ -75,6 +82,17 @@ public class RegisterController {
 		
 		int result = dao.insertRegist(registration);
 		
+		/*int lateCount = 0;
+		int AbsentCount = 0;
+		
+		if(registration.getRegistrationReason() == 0) {
+			// 지각 카운팅 증가
+			lateCount = MDAO.updateLate(id);
+		} else if(registration.getRegistrationReason() == 1) {
+			// 결석 카운팅 증가 
+			AbsentCount = MDAO.updateAbsent(id);
+		}	*/
+		
 		if (result != 1) {
 			model.addAttribute("errMsg", "등록 실패");
 			logger.info("지각 및 결석 등록  실패");
@@ -83,6 +101,40 @@ public class RegisterController {
 		
 		logger.info("지각 및 결석 글 등록 종료");
 		return "attendance/attendanceWriteComplete";
+	}
+	
+	
+	@RequestMapping(value="lateComplete",method=RequestMethod.GET)
+	@ResponseBody
+	public void lateCount(String name) {
+		
+		int late = MDAO.updateLate(name);
+		
+
+		if(late == 1){
+			logger.info("지각승인 성공");			
+		} else {
+			logger.info("지각승인 실패");
+			
+		}	
+		
+		
+	}
+	
+	
+	@RequestMapping(value="absentComplete",method=RequestMethod.GET)
+	@ResponseBody
+	public void absentCount(String name) {
+		
+		int absent = MDAO.updateLate(name);
+		
+		if(absent == 1){
+			logger.info("결석승인 성공");			
+		} else {
+			logger.info("결석승인 실패");
+			
+		}	
+		
 	}
 	
 	
@@ -100,7 +152,7 @@ public class RegisterController {
 		logger.info("지각 및 결석 등록 목록 출력 시작");
 		logger.info("page: {}, searchText: {}", page, searchText, selAlumni, selClassroom);
 		
-		HashMap<String, Object> searchMap = new HashMap<>();
+		HashMap<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("searchText", searchText);
 		searchMap.put("selAlumni", selAlumni);
 		searchMap.put("selClassroom", selClassroom);
@@ -143,7 +195,7 @@ public class RegisterController {
 	public String delRegistration(String reginumCheck , HttpSession session, Model model ){
 		
 		System.out.println(reginumCheck);
-		HashMap<String, Object> delMap = new HashMap<>();
+		HashMap<String, Object> delMap = new HashMap<String, Object>();
 		
 		String[] registrationNum1 = reginumCheck.split(",");
 		System.out.println(registrationNum1);
