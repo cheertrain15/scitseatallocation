@@ -283,24 +283,21 @@ $( function() {
 			alert('남아있는 페이지가 1개일 경우 삭제할 수 없습니다.');
 		} else {
 			
-			var target = $( "#pages" ).find('option:selected');
-			console.log(target);
+			var target = $("#pages").find('option:selected');
 			var val = target.val();
 			var num = val.replace(/[^0-9]/g,"");
 			
 			target.remove();
 			
-			$( "#id"+num ).remove();
+			$("#canvas"+num).remove();
 			
-			target = $( "#pages" ).find('option:selected');
-			console.log(target);
+			target = $("#pages").find('option:selected');
 			val = target.val();
 			num = val.replace(/[^0-9]/g,"");
 			
-			$( "#id"+num ).show();
+			$(".canvases").eq(0).show();
 			
 		}
-		
 	}
 	
 	// select에서 페이지를 변경하면 해당 페이지를 보여주고 나머지 페이지는 숨김
@@ -384,7 +381,7 @@ $( function() {
 	
 	// select 질문 선택지 추가
 	function addSelectOption(question){
-		console.log('addselectoptioin called~~~~, ' + question);
+		
 		$("#addSelectOption"+question).click(function(){
 			console.log("addselectoption button clicked");
 			var val = $("#selectOption"+question).val();			
