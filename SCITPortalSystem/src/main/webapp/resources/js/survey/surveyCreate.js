@@ -413,22 +413,34 @@ $( function() {
 	}; 
 	 
 	// 질문지 선택되면 필수 응답 질문인지 설정 가능하도록 체크박스 띄우기
-	function checkRequired(){		
+	function checkRequired(){
 		$( ".questions" ).selectable({
-            selected: function() {
-            		$.each($(this), function(index, item){
-            			
-            			var str = '';
-                   		str += '<input type="checkbox" name="checkRequired" id="checkRequired" '
-                   			+ 'associated="'+$( this ).attr("id")+'">'
-                   			+ ' 필수 응답항목 설정';                   			
-                          $( "#editSurvey" ).html(str);                   		
-                   		reqiredQuestion(); // 필수 응답 항목 체크 시 각 설문항목에 속성 추가
-            		});
-            		
-            }
-         });
-		
+	        selected: function() {
+	        		$(this).each(function(index, item){
+	        			
+	        			var required = $(this).attr('required');
+	        			var val = $(this).find('legend').text();
+	        			console.log(val);
+	        			
+	        			var str = '';
+	        			
+	        			if (required == 'required') {
+	        				str += '<input type="checkbox" checked="checked" id="checkRequired" '
+	                   		+ 'associated="'+$( this ).attr('id')+'">'
+	                   		+ '필수 응답항목 설정';
+						} else {
+	               		str += '<input type="checkbox" id="checkRequired" '
+	               			+ 'associated="'+$( this ).attr('id')+'">'
+	               			+ '필수 응답항목 설정';
+						}
+	               		
+	        			$( "#editSurvey" ).html(str); 
+	                      
+	               		reqiredQuestion(); // 필수 응답 항목 체크 시 각 설문항목에 속성 추가
+	        		});
+	        		
+	        }
+	     });
 	};
 	
 	// 필수 응답 체크박스에 체크될 경우 div에 required 속성 추가
