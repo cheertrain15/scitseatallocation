@@ -22,6 +22,7 @@
 			id = #{id}
 	</select>
 	
+
 	<!-- 회원의 기본 정보 중 회원번호를 불러오기 위한 명령 -->
 	<select id="getMemberNum" parameterType="String" resultType="int">
 		select 
@@ -77,6 +78,24 @@
 	order by 	
 		SeatPlacement.seatClassroom ASC
 	</select>
+	
+	<!-- 학생이 조회할 수 있는 반배치도 출력 -->
+	<select id="showSeatInfoForStudent" parameterType="int" resultType="SeatPlacement">
+	select 
+		seatPlacementNum 
+		, seatAlumni 
+		, seatClassroom 
+		, seatCount 
+		, seatContent
+		, seatCreatedDate
+	from
+		SeatPlacement
+	where
+		seatAlumni = #{seatAlumni}
+	order by 	
+		seatClassroom ASC
+	</select>
+	
 	
 	<!-- 수정하기 위해 하나의 반 배치도를 불러오는 sql -->
 	<select id="modifySeatPlacement" parameterType="int" resultType="SeatPlacement">

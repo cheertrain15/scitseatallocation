@@ -13,6 +13,7 @@ public interface SeatMapper {
 	public int getMemberNum(String id);
 	public int saveSeatInfo(SeatPlacement seatPlacement);
 	public ArrayList<SeatPlacement> showSeatInfo(int seatCreator);
+	public ArrayList<SeatPlacement> showSeatInfoForStudent(int alumni);
 	public int deleteSeatInfo(int seatPlacementNum);
 	public SeatPlacement modifySeatPlacement(int seatPlacementNum);
 	public int modifiedSeatSave(SeatPlacement seatPlacement);

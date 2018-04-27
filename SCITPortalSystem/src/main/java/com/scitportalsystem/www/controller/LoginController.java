@@ -369,16 +369,11 @@ public class LoginController {
 	public String login(Model model, MemberBasic memberBasic, HttpSession session, MemberStaff memberStaff) {
 		
 		// 검색할 ID
-		
-		
 		MemberBasic login = dao.searchOneMember(memberBasic.getId());
 		int memberEmail = login.getEmailApproval(); // email 인증 여부 
-		
 		MemberStudent student = Pdao.selectStudentInfo(memberBasic.getId());
-		
 		MemberStaff staff = Pdao.selectStaff(memberBasic.getId());
 		/*MemberBasic Admin = dao.searchOneMember("admin");*/
-		
 	
 		// email 인증된 멤버만 로그인 가능 		
 		if(login != null && memberEmail == 1) {
@@ -393,6 +388,7 @@ public class LoginController {
 			} else if(login.getMemberClass().equals("admin")){
 				session.setAttribute("loginID", login.getId());
 				session.setAttribute("loginName", login.getName());
+				session.setAttribute("loginMemberClass", login.getMemberClass());
 				session.setAttribute("loginMemberNum", login.getMemberNum());
 			} else {				
 				session.setAttribute("loginID", login.getId());

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.scitportalsystem.www.dao.SeatDAO;
 import com.scitportalsystem.www.vo.EvaluationCount;
 import com.scitportalsystem.www.vo.MemberStaff;
-
+import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.SeatPlacement;
 import com.scitportalsystem.www.vo.SeatStudent;
 import com.scitportalsystem.www.vo.SendSeatStudent;
@@ -35,6 +35,11 @@ import com.scitportalsystem.www.vo.SendSeatStudent;
 @Controller
 @RequestMapping("seat")
 
+/**
+ * 
+ * @author 문희규
+ *
+ */
 public class SeatController {
 	
 	@Autowired
@@ -48,16 +53,27 @@ public class SeatController {
 	@RequestMapping(value="seatpage", method=RequestMethod.GET)
 	public String seatpage(HttpSession session, Model model){
 		logger.info("**LODING SEAT.JSP**");
-			
-			//TODO : 결합할때 손봐야할 부분 (로그인 세션)
-			//담당 기수만 출력하게 하기 위해 로그인한 선생님의 정보를 가져오기 
+			//현재 접속 중인 유저의 ID와 등급을 세션에서 가져온다.
 			String loginedId = (String) session.getAttribute("loginID");
-			MemberStaff foundStaff = seatdao.getStaffInfo(loginedId);
-			int foundMemberNum = seatdao.getMemberNum(foundStaff.getId());
+			String currentMemberClass = (String) session.getAttribute("loginMemberClass");
 			
-			//학사 선생님이 담당하는 기수의 반의 좌석 배치도 자료를 가져오고 모델에 담는다.
-			ArrayList<SeatPlacement> loadedSeatPlacementList = seatdao.showSeatInfo(foundMemberNum);
-			model.addAttribute("loginedStaffSeatPlacement",loadedSeatPlacementList);
+			if(currentMemberClass.equals("teacher")) {
+				//담당 기수만 출력하게 하기 위해 로그인한 선생님의 정보를 가져오기 
+				MemberStaff foundStaff = seatdao.getStaffInfo(loginedId);
+				int foundMemberNum = seatdao.getMemberNum(foundStaff.getId());
+				//학사 선생님이 담당하는 기수의 반의 좌석 배치도 자료를 가져오고 모델에 담는다.
+				ArrayList<SeatPlacement> loadedSeatPlacementList = seatdao.showSeatInfo(foundMemberNum);
+				model.addAttribute("loginedStaffSeatPlacement",loadedSeatPlacementList);
+				System.out.println(currentMemberClass);
+				
+			} else if(currentMemberClass.equals("student")) {
+				//학생이 조회할 수 있는 반 배치도를 가져온다.
+				int alumni = (int)session.getAttribute("loginedAlumni");
+				ArrayList<SeatPlacement> loadedSeatPlacementList = seatdao.showSeatInfoForStudent(alumni);
+				model.addAttribute("loginedStaffSeatPlacement",loadedSeatPlacementList);
+				System.out.println(currentMemberClass);
+				
+			}
 			
 		logger.info("**FINISHED LODING SEAT.JSP**");
 		return "seat/seat";

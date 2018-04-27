@@ -127,7 +127,7 @@ update memberstudent
 </update>
 
 <!-- 학생 학사 정보 출력 -->
-<select id="selectStudentInfo" parameterType="string" resultType="MemberStudent">
+<select id="selectStudentInfo" parameterType="String" resultType="MemberStudent">
 select
 	memberstudentNum
 		, id 

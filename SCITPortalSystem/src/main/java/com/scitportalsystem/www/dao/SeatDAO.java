@@ -86,6 +86,20 @@ public class SeatDAO{
 			return result;
 		}
 		
+		public ArrayList<SeatPlacement> showSeatInfoForStudent(int alumni) {
+			logger.info("** LOADING showSeatInfo() **");
+			SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+			ArrayList<SeatPlacement> result = null;
+			try{
+				result = mapper.showSeatInfoForStudent(alumni);
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+			logger.info("** LOADED showSeatInfo() **");
+			
+			return result;
+		}
+		
 		public int defaultStudentSeat(int seatPlacementNum) {
 			logger.info("** LOADING deleteSeatInfo() **");
 			SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
