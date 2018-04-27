@@ -54,7 +54,7 @@ public class ConsultController {
 		searchMap.put("searchSelect", searchSelect);
 		searchMap.put("id", id);		
 		
-		if (MemberClass.equals("Student")) {
+		if (MemberClass.equals("student")) {
 			logger.info("학생용 컨트롤러 시작");			
 			
 			int total = dao.getTotalStudent(searchMap);
