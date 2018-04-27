@@ -159,9 +159,10 @@ public class LoginController {
 	 * @throws MessagingException
 	 * @throws UnsupportedEncodingException	 * 
 	 * @author : 김다희
+	 * @modifiedBy : 문희규
 	 */
-	@RequestMapping(value="join", method=RequestMethod.POST)
-	public String join(MemberBasic memberBasic, Model model, MultipartFile upload, 
+	@RequestMapping(value="joinTheStudent", method=RequestMethod.POST)
+	public String joinTheStudent(MemberBasic memberBasic, Model model, MultipartFile upload, 
 			HttpServletRequest req, MemberStaff memberstaff, MemberStudentCertificate certificate,
 			MemberStudent memberstudent) throws MessagingException, UnsupportedEncodingException{
 		logger.info("회원가입 시작");		
@@ -171,34 +172,17 @@ public class LoginController {
 		
 		// 관리자 계정
 		String admin = "project4u5cho@gmail.com";		
-		
 		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/resources/img/profile");
 		
 		if(upload.isEmpty() == false){
-			
 			String savedfile = FileService.saveFile(upload, UPLOAD_PATH);
-			
 			memberBasic.setMemberPicName(upload.getOriginalFilename());
 			memberBasic.setMemberSaverPicName(savedfile);
-			
-			
-			
 			logger.info("파일 업로드 완료");	
 		}	
 			
 		boolean result = dao.joinMember(memberBasic);
-		
-		
 		String id = memberBasic.getId();
-		
-		// 직원 추가 정보 생성 처리
-		MemberStaff staff = new MemberStaff();		
-		staff.setId(id);
-		staff.setInChargeAlumni(" ");
-		staff.setInChargeSubject(" ");
-		
-		logger.info("staff 추가 정보 시작 ");	
-		int staffResult = Pdao.insertStaff(staff);		
 		
 		// 학생 자격증 정보 생성 처리
 		MemberStudentCertificate insertCerti = new MemberStudentCertificate();		
@@ -206,7 +190,6 @@ public class LoginController {
 		insertCerti.setItCertificate(0);
 		insertCerti.setJpCertificate(0);
 		insertCerti.setOtherCertificate(" ");
-		
 		int insertCertificate = Pdao.insertStudentCertificate(insertCerti);
 		
 		// 학생 추가 학사 정보 생성 처리
@@ -221,14 +204,11 @@ public class LoginController {
 		student.setLate(0);
 		student.setEarly(0);
 		student.setAbsent(0);
-		
 		int insertStudent = Pdao.memberstudent(student);
 		
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper 
-								= new MimeMessageHelper(message, true, "UTF-8");
-			
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 			messageHelper.setFrom(admin);	// 보내는 사람
 			messageHelper.setTo(memberBasic.getEmail());	// 받는 사람 이메일
 			messageHelper.setSubject("[Email Check]");		// 메일제목(생략해도 OK)
@@ -237,28 +217,79 @@ public class LoginController {
 					.append("Join Approval\n")
 					.append("http://localhost:8888/www/member/email4u?id=")
 					+ memberBasic.getId()
-					.toString());
-							
+					.toString());				
 			mailSender.send(message);						
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(result) {
+			logger.info("회원가입 종료");					
+		} else {	
+			model.addAttribute("errorMsg", "Join fail");
+			return "member/joinForm";
+		}
+		return "redirect:joinComplete";	
+		
+	}
+	
+	
+	@RequestMapping(value="joinTheStaff", method=RequestMethod.POST)
+	public String joinTheStaff(MemberBasic memberBasic, Model model, MultipartFile upload, 
+			HttpServletRequest req, MemberStaff memberstaff, MemberStudentCertificate certificate,
+			MemberStudent memberstudent) throws MessagingException, UnsupportedEncodingException{
+		logger.info("회원가입 시작");		
+		
+		memberBasic.setDeleteBy(" ");
+		/*memberBasic.setMemberClass("student");*/
+		
+		// 관리자 계정
+		String admin = "project4u5cho@gmail.com";		
+		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/resources/img/profile");
+		
+		if(upload.isEmpty() == false){
+			String savedfile = FileService.saveFile(upload, UPLOAD_PATH);
+			memberBasic.setMemberPicName(upload.getOriginalFilename());
+			memberBasic.setMemberSaverPicName(savedfile);
+			logger.info("파일 업로드 완료");	
+		}	
 			
+		boolean result = dao.joinMember(memberBasic);
+		String id = memberBasic.getId();
+		
+		// 직원 추가 정보 생성 처리
+		MemberStaff staff = new MemberStaff();		
+		staff.setId(id);
+		staff.setInChargeAlumni(" ");
+		staff.setInChargeSubject(" ");
+		
+		logger.info("staff 추가 정보 시작 ");	
+		int staffResult = Pdao.insertStaff(staff);		
+		
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			messageHelper.setFrom(admin);	// 보내는 사람
+			messageHelper.setTo(memberBasic.getEmail());	// 받는 사람 이메일
+			messageHelper.setSubject("[Email Check]");		// 메일제목(생략해도 OK)
+			messageHelper.setText(					
+					new StringBuffer()
+					.append("Join Approval\n")
+					.append("http://localhost:8888/www/member/email4u?id=")
+					+ memberBasic.getId()
+					.toString());				
+			mailSender.send(message);						
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		if(result && staffResult == 1) {
-			
-			logger.info("회원가입 종료");				
-			
-		} else {
-			
+			logger.info("회원가입 종료");					
+		} else {	
 			model.addAttribute("errorMsg", "Join fail");
 			return "member/joinForm";
-		}
-		
-
-		
-		return "redirect:joinComplete";	
-		
+		}		
+		return "redirect:joinComplete";			
 	}
 	
 	/**
@@ -343,6 +374,8 @@ public class LoginController {
 		MemberBasic login = dao.searchOneMember(memberBasic.getId());
 		int memberEmail = login.getEmailApproval(); // email 인증 여부 
 		
+		MemberStudent student = Pdao.selectStudentInfo(memberBasic.getId());
+		
 		MemberStaff staff = Pdao.selectStaff(memberBasic.getId());
 		/*MemberBasic Admin = dao.searchOneMember("admin");*/
 		
@@ -353,16 +386,21 @@ public class LoginController {
 				session.setAttribute("loginID", login.getId());
 				session.setAttribute("loginName", login.getName());
 				session.setAttribute("loginMemberNum", login.getMemberNum());
-				session.setAttribute("loginMemberClass", login.getMemberClass());	
+				session.setAttribute("loginMemberClass", login.getMemberClass());
+				session.setAttribute("loginedAlumni", student.getAlumni());
 				
 				logger.info("학생 login 성공 ");
+			} else if(login.getMemberClass().equals("admin")){
+				session.setAttribute("loginID", login.getId());
+				session.setAttribute("loginName", login.getName());
+				session.setAttribute("loginMemberNum", login.getMemberNum());
 			} else {				
 				session.setAttribute("loginID", login.getId());
 				session.setAttribute("loginName", login.getName());
 				session.setAttribute("loginMemberNum", login.getMemberNum());
 				session.setAttribute("loginMemberClass", login.getMemberClass());			
 				session.setAttribute("teacherNum", staff.getTeacherNum());	// teacherNum
-				session.setAttribute("loginedStaffInfo",staff.getInChargeAlumni());
+				session.setAttribute("loginedAlumni",staff.getInChargeAlumni());
 				logger.info("staff / teacher login 성공 ");
 				
 			}			

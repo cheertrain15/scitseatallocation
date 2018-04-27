@@ -29,7 +29,7 @@
 
 <body>
 <%@ include file="../header.jsp" %>
-<form action="join" style="border:1px solid #ccc" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
+<form action="joinTheTeacher" style="border:1px solid #ccc" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
 <input type="hidden" name="memberClass" value="teacher">
   <div class="container">
   <br>

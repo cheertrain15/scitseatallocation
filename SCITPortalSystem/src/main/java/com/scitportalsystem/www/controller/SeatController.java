@@ -80,14 +80,17 @@ public class SeatController {
 	@RequestMapping(value="saveSeatConfig", method=RequestMethod.POST)
 	public String saveSeatConfig(HttpSession session,String seatInfo, String classInfo, int seatCount){
 		logger.info("**LODING saveSeatConfig**");
-			MemberStaff loginedStaff = (MemberStaff) session.getAttribute("loginedStaffInfo");
+			String loginedId = (String) session.getAttribute("loginID");
+			MemberStaff loginedStaff = seatdao.getStaffInfo(loginedId);
+			int alumni = Integer.parseInt((String)session.getAttribute("loginedChargeAlumni"));
 			
 			SeatPlacement seatPlacement = new SeatPlacement();
 			seatPlacement.setSeatCreator(loginedStaff.getTeacherNum());
-			seatPlacement.setSeatAlumni(Integer.parseInt(loginedStaff.getInChargeAlumni()));
+			seatPlacement.setSeatAlumni(alumni);
 			seatPlacement.setSeatClassroom(classInfo);
 			seatPlacement.setSeatContent(seatInfo);
 			seatPlacement.setSeatCount(seatCount);
+			
 			int result = seatdao.saveSeatInfo(seatPlacement);
 			if(result == 0) {
 				logger.info("**ERROR DURING saveSeatConfig**");

@@ -12,7 +12,6 @@
 <br><br><br><br><br>
 <a href="joinStaff">Staff</a><br>
 <a href="joinStudent">Student</a><br>
-<a href="joinTeacher">Teacher</a><br>
 <br>
 
 <%@ include file="../footer.jsp"%>

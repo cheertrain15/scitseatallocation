@@ -31,7 +31,7 @@
 	<!-- 로그인한 선생님이 담당 하는 기수만 보여주기 -->
 	<div>
 		<div class="autoAllocation">
-		담당 기수 : ${loginedStaffInfo.inChargeAlumni}기
+		담당 기수 : ${sessionScope.loginedAlumni}기
 		</div>
 	</div>
 		
@@ -40,9 +40,11 @@
 			<br>
 			<!-- 선생님/관리자 전용 -->
 			<!-- 자동으로 반배치하는 링크 -->
-			<div>
-				<a href="seatConfig"><input type="button" value="새로 만들기"></a>
-			</div>
+			<c:if test="${sessionScope.loginMemberClass == 'teacher' || sessionScope.loginMemberClass == 'admin'}">
+				<div>
+					<a href="seatConfig"><input type="button" value="새로 만들기"></a>
+				</div>
+			</c:if>
 			<br>
 			<div class="showClassDiv">
 				
@@ -62,21 +64,23 @@
 												좌석 수 : ${classList.seatCount}석
 												${classList.seatContent}
 											<br>
-											<div class="deleteButtonDiv">
-												<input type="button" value="반 배치 삭제 " onclick="deleteSeatPlacement('${classList.seatPlacementNum}')">
-											</div>
-											<div class="blankLowerDiv"></div>
-											<div class="fixButtonDiv">
-											
-													<input type="button" value="반 배치 수정" onclick="fixSeatPlacement('${classList.seatPlacementNum}')">
-									
-											</div>
-											<div class="blankLowerDiv"></div>
-											<div class="allocateButtonDiv">
-											
-													<input type="button" value="학생 배치 " onclick="allocateSeatPlacement('${classList.seatPlacementNum}')">
+											<c:if test="${sessionScope.loginMemberClass == 'teacher' || sessionScope.loginMemberClass == 'admin'}">
+												<div class="deleteButtonDiv">
+													<input type="button" value="반 배치 삭제 " onclick="deleteSeatPlacement('${classList.seatPlacementNum}')">
+												</div>
+												<div class="blankLowerDiv"></div>
+												<div class="fixButtonDiv">
+												
+														<input type="button" value="반 배치 수정" onclick="fixSeatPlacement('${classList.seatPlacementNum}')">
 										
-											</div>
+												</div>
+												<div class="blankLowerDiv"></div>
+												<div class="allocateButtonDiv">
+												
+														<input type="button" value="학생 배치 " onclick="allocateSeatPlacement('${classList.seatPlacementNum}')">
+											
+												</div>
+											</c:if>
 											<br><br><br>
 										</div>
 							</c:forEach>
