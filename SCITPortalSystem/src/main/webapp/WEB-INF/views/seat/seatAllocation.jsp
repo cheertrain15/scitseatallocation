@@ -29,54 +29,62 @@
 			<div class="showClassroomInfo">
 				<h2>${seatPlacement.seatClassroom}반</h2>
 				<br>
-				<form id="seatPlan" action="seatModifySave" method="post">
 					좌석 수 : <div class="numberOfSeat">${seatPlacement.seatCount}</div>석
 					<br>
-					<div class="seatInfo">
-						${seatPlacement.seatContent}
+					
+					<form id="seatPlan" action="seatAllocationSave" method="post">
+						<div class="seatInfo">
+							${seatPlacement.seatContent}
+						</div>
+						<input type="hidden" id="seatPlacementNum" name="seatPlacementNum" value="${seatPlacement.seatPlacementNum}">
+						<input type="hidden" id="dispatchedSeatPlacement" name="dispatchedSeatPlacement" value="">
+						<input type="hidden" id="studentNumOfStudentList" name="studentNumOfStudentList" value="">
+					</form>				
+					
+					<!-- 반 배정을 기다리는 학생을 표시하는 DIV -->
+				
+					<div class="studentList">
+						<h4>미배정 학생 목록</h4>
+						<!-- 
+						<div id="minimize" onclick="minimize()">숨기기</div>
+						<div id="appear" onclick="appear()">최대화</div>
+						 -->
+						<hr>
+						<!-- 자동 배치 버튼 -->
+						<input type="button" id="autoAllocation" value="자동배치">
+						<hr>
+						<div class="studentListScroll">
+							<input type="hidden" id="evaluationCount" value="${evaluationCount}">${evaluationCount}
+							<c:forEach items="${getStudents}" var="students" varStatus="status">
+								<div id="cell${status.index+1}" class="cell">
+									<div class="studentPhoto">
+										${students.id}
+									</div>
+									<div class="studentName">
+										${students.name}
+									</div>
+									<input type="hidden" class="memberstudentNum" name="memberstudentNum" value="${students.memberstudentNum}">
+									<input type="hidden" class="id" name="id"  value="${students.id}">					
+									<input type="hidden" class="classroom" name="classroom"  value="${seatPlacement.seatClassroom}">
+									<input type="hidden" class="seat" name="seat"  value="0">
+									<input type="hidden" class="itMajor" value="${students.itMajor}">
+									<input type="hidden" class="jpMajor" value="${students.jpMajor}">
+									<input type="hidden" class="jpCertificate" value="${students.jpCertificate}">
+								</div>
+							</c:forEach>
+						</div>
 					</div>
-					<input type="hidden" id="seatPlacementNum" name="seatPlacementNum" value="${seatPlacement.seatPlacementNum}">
-					<input type="hidden" id="classInput" name="seatClassroom" value="${seatPlacement.seatClassroom}">
-					<input type="hidden" id="seatCount" name="seatCount" value="">
-					<input type="hidden" id="seatContent" name="seatContent" value="">
-				</form>
-			</div>
-			
+				</div>
+			<hr>
 			<br>
-			<div class="resetButtonDiv">
-				<form id="fixButton" action="seatModify" method="post">
-					<input type="button" value="좌석 배치 수정하기 " onclick="fixSeatPlacement()">
-					<input type="hidden" id="seatPlacementNum" name="seatPlacementNum" value="${seatPlacement.seatPlacementNum}">
-				</form>
-			</div>
-			<div class="blankLowerDiv"></div>
 			<div class="saveButtonDiv">
 				<input type="button" id="saveButton" value="저장하기 " onclick="saveSeatConfig()">
 			</div>
-			<br><br><br>
-		</div>
-	</div>
-	<!-- 반 배정을 기다리는 학생을 표시하는 DIV -->
-	<div class="studentList">
-		<h4>미배정 학생 목록</h4>
-		<div id="minimize" onclick="minimize()">숨기기</div>
-		<div id="appear" onclick="appear()">최대화</div>
-		<hr>
-		<div class="studentListScroll">
-			<c:forEach items="${getStudents}" var="students" varStatus="status">
-				<div id="${status.index}" class="cell">
-					<div class="studentPhoto">
-						${students.id}
-					</div>
-					<div class="studentName">
-						${students.name}
-					</div>
-				</div>
-				<br>
-			</c:forEach>
+			<br><br>
 		</div>
 	</div>
 </div>
+			
 </body>
 </html>
 

@@ -2,6 +2,8 @@ package com.scitportalsystem.www.dao;
 
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
@@ -10,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.scitportalsystem.www.mapper.SeatMapper;
+import com.scitportalsystem.www.vo.EvaluationCount;
 import com.scitportalsystem.www.vo.MemberStaff;
-import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.SeatPlacement;
 import com.scitportalsystem.www.vo.SeatStudent;
 
@@ -84,6 +86,19 @@ public class SeatDAO{
 			return result;
 		}
 		
+		public int defaultStudentSeat(int seatPlacementNum) {
+			logger.info("** LOADING deleteSeatInfo() **");
+			SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+			int result = 0;
+			try{
+				result = mapper.defaultStudentSeat(seatPlacementNum);
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+			logger.info("** LOADED deleteSeatInfo() **");
+			
+			return result;
+		}
 		
 		public int deleteSeatInfo(int seatPlacementNum) {
 			logger.info("** LOADING deleteSeatInfo() **");
@@ -137,5 +152,65 @@ public class SeatDAO{
 			logger.info("** LOADED seatForStudents() **");
 			return result;
 		}
+		
+		public int cancelStudentSeat(int[] studentNumOfStudentList) {
+			logger.info("** LOADING cancelStudentSeat() **");
+			SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+			int result = 0;
+			try{
+				//TODO : Find a way of updating a list type object in sql.
+				for(int i = 0 ; i < studentNumOfStudentList.length ; i++ ) {
+				result += mapper.cancelStudentSeat(studentNumOfStudentList[i]);
+				}
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+			logger.info("** LOADED cancelStudentSeat() **");
+			return result;
+		
+		}
+		
+		public int dispatchSeatForStudent(List<SeatStudent> seatStudent) {
+			logger.info("** LOADING dispatchSeatForStudent() **");
+			SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+			int result = 0;
+			try{
+				//TODO : Find a way of updating a list type object in sql.
+				for(int i = 0 ; i < seatStudent.size() ; i++ ) {
+				result += mapper.dispatchSeatForStudent(seatStudent.get(i));
+				}
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+			logger.info("** LOADED dispatchSeatForStudent() **");
+			return result;
+		}
+		
+		public int modifiedSeatStudentPlacement(SeatPlacement seatPlacement) {
+			logger.info("** LOADING modifiedSeatStudentPlacement() **");
+			SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+			int result = 0;
+			try{
+				result = mapper.modifiedSeatStudentPlacement(seatPlacement);
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		logger.info("** LOADED modifiedSeatStudentPlacement() **");
+		return result;
+		}
+		
+		public EvaluationCount getEvaluationCount(int alumni) {
+			logger.info("** LOADING getEvaluationCount() **");
+			SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+			EvaluationCount result = null;
+			try{
+				result = mapper.getEvaluationCount(alumni);
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		logger.info("** LOADED getEvaluationCount() **");
+		return result;
+		}
+		
 	
 	}

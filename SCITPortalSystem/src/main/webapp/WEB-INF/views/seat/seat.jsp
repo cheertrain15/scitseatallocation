@@ -34,18 +34,12 @@
 		담당 기수 : ${loginedStaffInfo.inChargeAlumni}기
 		</div>
 	</div>
-	
-		<!-- 테이블 모드, 배치도 모드 버튼 -->
-		<div>
-			<a href="seatPageTable">테이블로 보기</a>
-		</div>
-		
 		
 		<div id="seatJSP">
 			<h1>자리 배치도</h1>
 			<br>
 			<!-- 선생님/관리자 전용 -->
-			<!-- 자동으로 반 배치하는 링크 -->
+			<!-- 자동으로 반배치하는 링크 -->
 			<div>
 				<a href="seatConfig"><input type="button" value="새로 만들기"></a>
 			</div>
@@ -69,18 +63,18 @@
 												${classList.seatContent}
 											<br>
 											<div class="deleteButtonDiv">
-												<input type="button" value="좌석 배치 삭제하기 " onclick="deleteSeatPlacement('${classList.seatPlacementNum}')">
+												<input type="button" value="반 배치 삭제 " onclick="deleteSeatPlacement('${classList.seatPlacementNum}')">
 											</div>
 											<div class="blankLowerDiv"></div>
 											<div class="fixButtonDiv">
 											
-													<input type="button" value="좌석 배치 수정하기 " onclick="fixSeatPlacement('${classList.seatPlacementNum}')">
+													<input type="button" value="반 배치 수정" onclick="fixSeatPlacement('${classList.seatPlacementNum}')">
 									
 											</div>
 											<div class="blankLowerDiv"></div>
 											<div class="allocateButtonDiv">
 											
-													<input type="button" value="학생 배치하기 " onclick="allocateSeatPlacement('${classList.seatPlacementNum}')">
+													<input type="button" value="학생 배치 " onclick="allocateSeatPlacement('${classList.seatPlacementNum}')">
 										
 											</div>
 											<br><br><br>

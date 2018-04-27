@@ -30,7 +30,7 @@
 				<h2>${seatPlacement.seatClassroom}반</h2>
 				<br>
 				<form id="seatPlan" action="seatModifySave" method="post">
-					좌석 수 : <div class="numberOfSeat">${seatPlacement.seatCount}</div>석
+					좌석 수 : <div class="numberOfSeat" value="${seatPlacement.seatCount}">${seatPlacement.seatCount}</div>석
 					<br>
 					<div class="seatInfo">
 						${seatPlacement.seatContent}
@@ -39,6 +39,7 @@
 					<input type="hidden" id="classInput" name="seatClassroom" value="${seatPlacement.seatClassroom}">
 					<input type="hidden" id="seatCount" name="seatCount" value="">
 					<input type="hidden" id="seatContent" name="seatContent" value="">
+					<input type="hidden" id="deletedStudentNum" name="deletedStudentNum" value="">
 				</form>
 			</div>
 			<br>

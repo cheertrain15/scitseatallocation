@@ -91,6 +91,27 @@
 			seatPlacementNum = #{seatPlacementNum}
 	</select>
 	
+	
+	<!-- 반 배치 지우기 전에 해당 반에 있는 학생들의 반 배치 정보를 초기화  -->
+	<update id="defaultStudentSeat" parameterType="int">
+	update
+		MemberStudent
+	set
+		classroom = ' '
+		, seat = 0
+	where
+		classroom = 
+		(
+		select 
+			seatClassroom
+		from
+			seatPlacement
+		where
+			seatPlacementNum = #{seatPlacementNum}		
+		) 	
+	</update>
+	
+	
 	<!--  반 배치 지우기  -->
 	<delete id="deleteSeatInfo" parameterType="int">
 		delete from
@@ -122,14 +143,80 @@
 			, MemberStudent.classroom as classroom
 			, MemberStudent.groupNum as groupNum
 			, MemberStudent.seat as seat
+			, MemberStudent.itMajor as itMajor
+			, MemberStudent.jpMajor as jpMajor
+			, MemberStudentCertificate.itCertificate as itCertificate
+			, MemberStudentCertificate.jpCertificate as jpCertificate
 		from
 			MemberStudent
 			, MemberBasic
+			, MemberStudentCertificate
 		where
 			MemberStudent.alumni = #{teacherAlumni}
 			AND
-            MemberStudent.id = MemberBasic.id
+			(
+			MemberStudent.classroom = ' '
+			OR
+			MemberStudent.seat = 0
+			)
+			AND
+            (MemberStudent.id = MemberBasic.id
+            AND
+            MemberStudentCertificate.id = MemberBasic.id
+            )
 	</select>
 	
+	<!-- 역량평가 횟수 가져오기 -->
+	<select id="getEvaluationCount" parameterType="int" resultType="EvaluationCount">
+	select
+        COUNT(ItEvaluation.ID) as  itEvaluationCount
+        , COUNT(JpEvaluation.ID) as jpEvaluationCount  
+		from
+			ItEvaluation
+			, MemberBasic
+			, JpEvaluation
+            , MemberStudent
+		where
+			MemberStudent.alumni = #{teacherAlumni}
+			AND
+            (ItEvaluation.id = MemberBasic.id
+            AND
+            JpEvaluation.id = MemberBasic.id
+            )
+    </select>
+	
+	<!-- 다시 미배정으로 분류된 학생된 학생들의 정보를 초기화  -->
+	<update id="cancelStudentSeat" parameterType="int">
+	update
+		MemberStudent
+	set
+			classroom = ' '
+			, seat = 0
+	where
+			memberstudentNum = #{memberstudentNum}
+	
+	</update>
+	
+	<!--반 배정 받은 학생의 반,정보를 갱신하기 -->
+	<update id="dispatchSeatForStudent" parameterType="SeatStudent">
+	update
+		MemberStudent
+	set
+			classroom = #{classroom}
+			, seat = #{seat}
+	where
+			memberstudentNum = #{memberstudentNum}
+
+	</update>
+	
+	<!-- 반 좌석과 학생 자리 배치도를 저장한다.  -->
+	<update id="modifiedSeatStudentPlacement" parameterType="SeatPlacement">
+		update
+			SeatPlacement
+		set
+			seatContent = #{seatContent}
+		where
+			seatPlacementNum = #{seatPlacementNum}
+	</update>
 	
 </mapper>

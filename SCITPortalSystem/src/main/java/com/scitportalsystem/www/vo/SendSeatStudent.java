@@ -1,6 +1,8 @@
 package com.scitportalsystem.www.vo;
 
-public class SeatStudent {
+import java.util.List;
+
+public class SendSeatStudent {
 	private int memberstudentNum; // 학생번호
 	private String id; // 회원아이디
 	private String name; // 회원이름
@@ -9,13 +11,10 @@ public class SeatStudent {
 	private String classroom;// 반
 	private int groupNum; // 조 번호
 	private int seat; // 좌석 번호
-	private int itMajor; // -- IT전공 유무
-	private int jpMajor; // -- 일본어전공 유무
-	private int itCertificate; // -- 정보처리기사/산업기사 유무
-	private int jpCertificate; // -- JLPT
+	private List<SendSeatStudent> sendSeatStudentList; // 학생 묶음
 
-	public SeatStudent(int memberstudentNum, String id, String name, String memberSaverPicName, int alumni,
-			String classroom, int groupNum, int seat, int itMajor, int jpMajor, int itCertificate, int jpCertificate) {
+	public SendSeatStudent(int memberstudentNum, String id, String name, String memberSaverPicName, int alumni,
+			String classroom, int groupNum, int seat, List<SendSeatStudent> sendSeatStudentList) {
 		super();
 		this.memberstudentNum = memberstudentNum;
 		this.id = id;
@@ -25,13 +24,10 @@ public class SeatStudent {
 		this.classroom = classroom;
 		this.groupNum = groupNum;
 		this.seat = seat;
-		this.itMajor = itMajor;
-		this.jpMajor = jpMajor;
-		this.itCertificate = itCertificate;
-		this.jpCertificate = jpCertificate;
+		this.sendSeatStudentList = sendSeatStudentList;
 	}
 
-	public SeatStudent() {
+	public SendSeatStudent() {
 		super();
 	}
 
@@ -99,44 +95,23 @@ public class SeatStudent {
 		this.seat = seat;
 	}
 
-	public int getItMajor() {
-		return itMajor;
+	public List<SendSeatStudent> getSendSeatStudentList() {
+		return sendSeatStudentList;
 	}
 
-	public void setItMajor(int itMajor) {
-		this.itMajor = itMajor;
-	}
-
-	public int getJpMajor() {
-		return jpMajor;
-	}
-
-	public void setJpMajor(int jpMajor) {
-		this.jpMajor = jpMajor;
-	}
-
-	public int getItCertificate() {
-		return itCertificate;
-	}
-
-	public void setItCertificate(int itCertificate) {
-		this.itCertificate = itCertificate;
-	}
-
-	public int getJpCertificate() {
-		return jpCertificate;
-	}
-
-	public void setJpCertificate(int jpCertificate) {
-		this.jpCertificate = jpCertificate;
+	public void setSendSeatStudentList(List<SendSeatStudent> sendSeatStudentList) {
+		this.sendSeatStudentList = sendSeatStudentList;
 	}
 
 	@Override
 	public String toString() {
-		return "SeatStudent [memberstudentNum=" + memberstudentNum + ", id=" + id + ", name=" + name
-				+ ", memberSaverPicName=" + memberSaverPicName + ", alumni=" + alumni + ", classroom=" + classroom
-				+ ", groupNum=" + groupNum + ", seat=" + seat + ", itMajor=" + itMajor + ", jpMajor=" + jpMajor
-				+ ", itCertificate=" + itCertificate + ", jpCertificate=" + jpCertificate + "]";
+		return "\n\nSendSeatStudent [멤버번호 =" + memberstudentNum + "\n 아이디=" + id + "\n 이름=" + name
+				+ "\n 사진경로=" + memberSaverPicName + "\n 기수=" + alumni + "\n 반=" + classroom
+				+ "\n 조 번호=" + groupNum + "\n 좌석=" + seat + "\n sendSeatStudentList=" + sendSeatStudentList + "]";
 	}
+
+	
+
+	
 
 }

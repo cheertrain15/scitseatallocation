@@ -20,12 +20,12 @@
   			<a href="<c:url value="/admin/management"/>" onclick="w3_close()" class="w3-bar-item w3-button">Management</a>
   		</c:if>    		
   		<c:if test="${sessionScope.loginID != 'admin'}">
-  			<a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">News</a> 
+  			<a href="<c:url value="/News/NewsMain"/>" onclick="w3_close()" class="w3-bar-item w3-button">News</a> 
 		  	<a href="<c:url value="/additionalInfo/staffPage"/>" onclick="w3_close()" class="w3-bar-item w3-button">Work Information</a>
 		  	<a href="<c:url value="survey"/>" onclick="w3_close()" class="w3-bar-item w3-button">Survey</a>
 		  	<a href="<c:url value="/attendance/attendance"/>" onclick="w3_close()" class="w3-bar-item w3-button">Attendance</a>
-		  	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">3</a>
-		  	<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">4</a>   		
+		  	<a href="<c:url value="/seat/seatpage"/>" onclick="w3_close()" class="w3-bar-item w3-button">Seat Placement</a>
+		  	<a href="<c:url value="/AskQuestion/QnA"/>" onclick="w3_close()" class="w3-bar-item w3-button">Consult</a>   		
   		</c:if>
   	</c:when>  	
   </c:choose>

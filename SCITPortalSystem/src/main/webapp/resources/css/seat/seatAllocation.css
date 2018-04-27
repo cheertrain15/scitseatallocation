@@ -17,6 +17,7 @@
 	height: 600px;
 	background-color: #dcfeef;
 	border: 1px solid black;
+	z-index: 10;
 }
 
 .showClassroomInfo {
@@ -44,7 +45,7 @@
 	border-style: solid;
 }
 
-.seat{
+.seatNum{
 	display: inline-block;
 	width : 10%;
 	height : 150px;
@@ -83,28 +84,17 @@
 
 .studentPhoto{
 	display: inline-block;
+	border-style: solid;
 }
 
 .studentName{
 	display: inline-block;
+	border-style: solid;
 }
 
 .studentListScroll{
+	height: 500px;
 	overflow: auto;
-}
-
-#minimize{
-	border: thin;
-	border-style: solid;
-	cursor: pointer;
-	width: auto;
-}
-
-#appear{
-	border: thin;
-	border-style: solid;
-	cursor: pointer;
-	width: auto;
 }
 
 .cell{
@@ -112,9 +102,9 @@
 	border: thin;
 	border-style: solid;
 	width: auto;
+	cursor: pointer;
+	
 }
-
-
 
 
 

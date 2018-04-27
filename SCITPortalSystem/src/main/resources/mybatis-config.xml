@@ -23,6 +23,7 @@
 		<typeAlias type="com.scitportalsystem.www.vo.AskQuestionReply" alias="AskQuestionReply" />
 		<typeAlias type="com.scitportalsystem.www.vo.SeatPlacement" alias="SeatPlacement" />
 		<typeAlias type="com.scitportalsystem.www.vo.SeatStudent" alias="SeatStudent" />
+		<typeAlias type="com.scitportalsystem.www.vo.EvaluationCount" alias="EvaluationCount" />
 	</typeAliases>
 
 	

@@ -10,7 +10,7 @@
 }
 
 .numberOfSeat{
-	display:inline;
+	display:inline-block;
 }
 
 .showClassroom{
@@ -32,7 +32,7 @@
 	border-style: solid;
 }
 
-.seat{
+.seatNum{
 	display: inline-block;
 	width : 10%;
 	height : 150px;
@@ -80,9 +80,24 @@
 	display: inline-block;
 }
 
+.cell{
+	margin: 2px;
+	border: thin;
+	border-style: solid;
+	width: auto;
+	cursor: pointer;
+	
+}
 
+.studentPhoto{
+	display: inline-block;
+	border-style: solid;
+}
 
-
+.studentName{
+	display: inline-block;
+	border-style: solid;
+}
 
 
 

@@ -2,8 +2,9 @@ package com.scitportalsystem.www.mapper;
 
 import java.util.ArrayList;
 
+import com.scitportalsystem.www.vo.EvaluationCount;
 import com.scitportalsystem.www.vo.MemberStaff;
-import com.scitportalsystem.www.vo.MemberStudent;
+
 import com.scitportalsystem.www.vo.SeatPlacement;
 import com.scitportalsystem.www.vo.SeatStudent;
 
@@ -16,5 +17,9 @@ public interface SeatMapper {
 	public SeatPlacement modifySeatPlacement(int seatPlacementNum);
 	public int modifiedSeatSave(SeatPlacement seatPlacement);
 	public ArrayList<SeatStudent> seatForStudents(int teacherAlumni);
-	
+	public int cancelStudentSeat(int memberstudentNum);
+	public int dispatchSeatForStudent(SeatStudent seatStudent);
+	public int modifiedSeatStudentPlacement(SeatPlacement seatPlacement);
+	public int defaultStudentSeat(int seatPlacementNum);
+	public EvaluationCount getEvaluationCount(int alumni);
 }

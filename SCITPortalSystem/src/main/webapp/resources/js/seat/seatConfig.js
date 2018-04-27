@@ -20,7 +20,7 @@ $(function(){
 			}
 			//좌석을 최대수로 생성해주는 기능이다.
 			for (seatCount; seatCount <= 40 ; seatCount++){
-				var seatAdd = '<div id="seat'+seatCount+'" name="seat" class="seat" seatid="seatNum'+seatCount+'" hide="0" onclick="selectedDiv('+seatCount+')"></div>';
+				var seatAdd = '<div id="seat'+seatCount+'" name="seatNum" class="seatNum" seatid="'+seatCount+'" hide="0" onclick="selectedDiv('+seatCount+')"></div>';
 				$('#seatPlacement').append(seatAdd);
 				if(seatCount%8 == 3 ||seatCount%8 == 5 ){ 
 					$('#seatPlacement').append(corridor);
