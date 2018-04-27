@@ -78,6 +78,7 @@ public class NewsDAO {
 		RowBounds rb = new RowBounds(StartRecord, CountPerPage);
 		try {
 			newslist = mapper.selectNewsTheacher(searchMap, rb);
+			System.out.println("출력 되고 있서요!"+newslist);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -31,7 +31,7 @@
 					<form action="NewsMain" method="get">
 						<select name="searchSelectAlumni">
 							<option value="34" <c:if test="${targetAlumni == '34' }">selected</c:if>>34기</option>
-							<option value="33" <c:if test="${targetAlumni == '33' }">selected</c:if>>33기</option>
+							<option value="35" <c:if test="${targetAlumni == '35' }">selected</c:if>>35기</option>
 						</select>
 						<select name="searchSelectClass">
 							<option value="A" <c:if test="${targetClass == 'A' }">selected</c:if>>A반</option>
@@ -43,7 +43,7 @@
 					</form>
 				</th>
 				<th>
-					<c:if test="${sessionScope.loginMemberClass == 'Teacher'}">
+					<c:if test="${sessionScope.loginMemberClass == 'teacher'}">
 						<input class="newsinput" type="button" value="글작성" onclick="newsWrite()">
 					</c:if>
 				</th>

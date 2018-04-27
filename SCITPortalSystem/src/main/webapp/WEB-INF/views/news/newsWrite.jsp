@@ -37,7 +37,20 @@
 			</tr>
 			<tr>
 				<th></th>
-				<td><input type="checkbox" id="newsHeader" name="newsHeader" value="중요">중요</td>
+				<td><input type="checkbox" id="newsHeader" name="newsHeader" value="중요">중요
+					<select name="writeAlumni">
+							<option value="0">전체공지</option>
+							<option value="34">34기</option>
+							<option value="35">35기</option>
+						</select>
+						<select name="writeClass">
+							<option value="Z">--</option>
+							<option value="A">A반</option>
+							<option value="B">B반</option>
+							<option value="C">C반</option>
+							<option value="D">D반</option>
+						</select>
+				</td>
 			</tr>
 			<tr>
 				<th>내용</th>

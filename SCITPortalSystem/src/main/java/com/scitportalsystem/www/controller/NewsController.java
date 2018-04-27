@@ -64,7 +64,7 @@ public class NewsController {
 		System.out.println(MemberClass);
 		//만약 학생으로 로그인하고 세션에서 기수와 클래스를 받아 set을 해주면 자동입력이될것 같다.		
 		
-		if (MemberClass.equals("Student")) {
+		if (MemberClass.equals("student")) {
 			// 페이징 처리
 			int total = dao.getTotal(searchMap);
 			
@@ -82,11 +82,11 @@ public class NewsController {
 			model.addAttribute("navi", navi);
 			
 			// 전체 기수 담기
-			model.addAttribute("targetAlumni", 33);
+			model.addAttribute("targetAlumni", 34);
 			System.out.println("나 기수가 출력 되고 있어!"+searchSelectAlumni);
 			
 			// 전체 반 담기
-			model.addAttribute("targetClass", "B");
+			model.addAttribute("targetClass", "A");
 			System.out.println("나 기수가 출력 되고 있어!"+searchSelectClass);
 			
 		} else {
@@ -107,11 +107,11 @@ public class NewsController {
 			model.addAttribute("navi", navi);
 			
 			// 전체 기수 담기
-			model.addAttribute("targetAlumni", 33);
+			model.addAttribute("targetAlumni", 34);
 			System.out.println("나 기수가 출력 되고 있어!"+searchSelectAlumni);
 			
 			// 전체 반 담기
-			model.addAttribute("targetClass", "B");
+			model.addAttribute("targetClass", "A");
 			System.out.println("나 기수가 출력 되고 있어!"+searchSelectClass);
 		};
 		logger.info("글 목록 이동 종료");
@@ -129,15 +129,19 @@ public class NewsController {
 	
 	// 공지사항 글쓰기 컨트롤러
 	@RequestMapping(value="insertNewsWrite", method=RequestMethod.POST)
-	public String insertNewsWrite(News news, MultipartFile upload){
+	public String insertNewsWrite(HttpSession session, News news, MultipartFile upload, int writeAlumni, String writeClass){
 		logger.info("글쓰기 시작");
-		
+				
 		// 임의로 아이디 담기
-		news.setId("testid");
+		String id = (String) session.getAttribute("loginID");
+		news.setId(id);
+		System.out.println(id);
 		// 임의로 반 담기
-		news.setTargetAlumni(34);
+		news.setTargetAlumni(writeAlumni);
+		System.out.println(writeAlumni);
 		// 임의로 기수 담기
-		news.setTargetClass("A");
+		news.setTargetClass(writeClass);
+		System.out.println(writeClass);
 		// 임의로 논리적 삭제  담기
 		news.setDeleteBy(" ");
 		

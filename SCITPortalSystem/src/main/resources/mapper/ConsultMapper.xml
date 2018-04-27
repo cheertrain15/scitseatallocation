@@ -68,21 +68,22 @@
 	<!-- 1:1문의 전체보기 교사용 -->
 	<select id="selectAskQuestionAll" parameterType="hashmap" resultType="AskQuestion">
 		select 
-			AskQuestionNum
-			,id
-			,askQuestionReplies
-			,AskQuestionTitle
-			,AskQuestionContent
-			,AskQuestionDate
+			a.AskQuestionNum
+			,a.id
+			,a.askQuestionReplies
+			,a.AskQuestionTitle
+			,a.AskQuestionContent
+			,a.AskQuestionDate
+			,m.name
 		from 
-			AskQuestion
+			AskQuestion a, MemberBasic m
 		<if test="searchText != null">
 			<choose>
 	            <when test="searchSelect.equals('AskQuestionTitleContent')">
 		            where
-		               AskQuestionTitle like '%' || #{searchText} || '%'
+		               a.AskQuestionTitle like '%' || #{searchText} || '%'
 		               or
-		               AskQuestionContent like '%' || #{searchText} || '%'         
+		               a.AskQuestionContent like '%' || #{searchText} || '%'         
 	            </when>
 	            <otherwise>
 		            where
