@@ -100,21 +100,18 @@
 	                                        </c:if>
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
 	                                        <li><a href="">  Survey  </a></li>
-	                                        <li><a href="">  Seat  </a></li>
-	                                        
+	                                        <li><a href="">  Seat  </a></li>	                                        
 	                                    </ul> 
-                               			</c:if>
-                               			<%-- <c:if test="${sessionScope.loginMemberClass == 'staff'}">
-                               				<li><a href="">  News  </a></li>
-	                                        <li><a href="">  Attendance  </a></li>
+                               			</c:if>                               			
+                                     </c:when>
+                                     <c:when test="${sessionScope.loginID == null}">    
+                                    	 <ul>                                 
+                                     		<li><a href="">  News  </a></li>	                                       
+	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
 	                                        <li><a href="">  Survey  </a></li>
 	                                        <li><a href="">  Seat  </a></li>
-	                                        <li><a href="">  Work Information  </a></li>                               			
-                               			</c:if>   
-                               			   --%>
-                               			  		
-                                     </c:when>
-                                     
+	                                       </ul>	
+                                     </c:when>                                     
                                </c:choose>
                                 </nav>
                             </div>
