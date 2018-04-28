@@ -368,7 +368,7 @@
     inner join memberbasic mb on mb.id = ms.id
     where s.surveynum = #{value}
     order by sq.surveyquestionnum asc
-</select>
+</select> 
    
 <select id="getRespondTargetStudents" parameterType="int" resultType="Survey">
 	select distinct mb.membernum, mb.name, ms.alumni, ms.classroom
