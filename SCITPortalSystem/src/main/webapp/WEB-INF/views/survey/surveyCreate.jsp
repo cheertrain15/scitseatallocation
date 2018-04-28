@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>새 설문조사 작성</title>
+<title>설문조사 생성</title>
 
 	<script type="text/javascript" src="./resources/js/jquery-3.2.1.js"/></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -14,86 +14,91 @@
 	
 </head>
 <body>
-<div id="create">
+ 
+<%@ include file="../header.jsp" %>
+<br><br><br><br><br><br>
 
-<div id="target">
+<div id="bodyWrap">
+
+<div id="infoWrap">
 	<table>
 		<tr>
-		<td>Category:</td>
-		<td>
-			<select name="selectCategory" id="selectCategory">
-			<option disabled value="">Category</option>
-			<option value="0">만족도</option>
-			<option value="1">반배치</option>
-			<option value="2">자격증</option>
-			<option value="3">기타</option>
-			</select>
-		</td>
-		<td>Target:</td>
-		<td>
-			<select name="selectAlumni" id="selectAlumni">
-			<option disabled value="">Alumni</option>
-			<option value="${alumni}">${alumni}기</option>
-			</select>
-		</td>
-		<td>
-			<select name="selectClass" id="selectClass">
-			<option disabled value="">Classroom</option>
-			<option value="ALL">ALL</option>
-			<c:forEach items="${classRoom}" var="cl">
-			<option value="${cl}">${cl}</option>
-			</c:forEach>
-			</select>
-		</td>
-		<td>Start date:</td>
-		<td>
-		<input type="text" name="surveyStartDate" id="surveyStartDate">
-		</td>
-		<td>End date:</td> 
-		<td>
-		<input type="text" name="surveyEndDate" id="surveyEndDate">
-		</td>
+			<td>
+				<select name="selectCategory">
+					<option disabled value="">분류</option>
+					<option value="0">만족도</option>
+					<option value="1">반배치</option>
+					<option value="2">자격증</option>
+					<option value="3">기타</option>
+				</select>
+			</td>
+			<td>
+				<select id="selectAlumni">
+					<option disabled value="">설문대상 기수</option>
+					<option value="${alumni}">${alumni}기</option>
+				</select>
+			</td>
+			<td>
+				<select name="selectClass" id="selectClass">
+					<option disabled value="">설문대상 반</option>
+					<option value="ALL">전체</option>
+					<c:forEach items="${classRoom}" var="cl">
+					<option value="${cl}">${cl}</option>
+					</c:forEach>
+				</select>
+			</td>
+			<td>
+				<input type="text" id="surveyStartDate" placeholder="설문 시작일">
+			</td>
+			<td>
+				<input type="text" id="surveyEndDate" placeholder="설문 종료일">
+			</td>
 		</tr>
 		<tr>
-		<td>Title:</td>
-		<td colspan="7">
-		<input type="text" size="80" id="surveyTitle">
-		</td>
-		<td><input type="button" value="Save this" id="saveSurvey"></td>
+			<td colspan="7">
+				<input type="text" size="80" id="surveyTitle" placeholder="설문 제목을 입력하세요.">
+			</td>
+			<td>
+				<input type="button" value="설문 생성" id="saveSurvey">
+			</td>
 		</tr>
 	</table>
 </div>
 
-<div id="toolBar">
-<p>Tool bar</p>
-<div class="tools" id="singleinput">Single Input</div>
-<div class="tools" id="radiogroup">Radiogroup</div>
-<div class="tools" id="checkbox">Checkbox</div>
-<div class="tools" id="dropdown">Dropdown</div>
-<div class="tools" id="comment">Comment</div>
+<div id="toolsWrap">
+
+	<div class="tools" id="singleinput">Single Input</div>
+	<div class="tools" id="radiogroup">Radiogroup</div>
+	<div class="tools" id="checkbox">Checkbox</div>
+	<div class="tools" id="dropdown">Dropdown</div>
+	<div class="tools" id="comment">Comment</div>
+
 </div> 
- 
-<div id="editPage">
-<p>Edit page</p>
+  
+<div id="pagesWrap">
 
-<select id="pages">
-<option value="page1">page1</option>
-</select>
-
-<input type="button" value="New page" id="addPage" onclick="javascript:addPage()">
-<input type="button" value="Delete this page" id="subPage" onclick="javascript:subPage()">
-</div>
-
-<div id="surveyCanvas">
-<div class="canvases" id="canvas1" style="z-index:1;">
-<p>page1</p>
-</div>
-</div>
-
-<div id="editSurvey">
-<p>Edit Survey Option</p>
-</div>
+	<select id="pages">
+		<option value="page1">페이지 1</option>
+	</select>
+	
+	<input type="button" value="페이지 추가" onclick="javascript:addPage()">
+	<input type="button" value="페이지 삭제" onclick="javascript:subPage()">
 
 </div>
+
+<div id="questionsWrap">
+	
+	<div id="page1" class="pages">
+	<h1>페이지 1</h1>
+	
+	</div>
+</div>
+
+<div id="attributeWrap">
+</div>
+
+</div>
+
+<%@ include file="../footer.jsp"%>
 </body>
 </html>

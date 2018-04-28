@@ -1,5 +1,5 @@
 package com.scitportalsystem.www.vo;
-
+ 
 /* 
  * 설문조사 답변용에 대한 정보
  * 이건 설문조사 답변 양식의 프로토 타입입니다.
@@ -7,7 +7,7 @@ package com.scitportalsystem.www.vo;
  * 다른 방법으로 DB의 자료 사용할 수 있도록 불러와야합니다.
  */
 public class Survey { 
-	
+	  
 	private int surveyNum; // -- 설문조사 양식 번호
 	private String name; // -- 설문조사 작성한 선생님 이름
 	// 실제 데이터베이스상 Survey 테이블에는 name 항목 없음.
@@ -32,13 +32,52 @@ public class Survey {
 	private String surveyRespondContent; // 설문 타입이 singleinput, comment일 경우 응답 내용
 	private int surveyRespondmemberNum; // 응답한 회원 번호
 	private String surveyRespondDate; // 회원의 설문 응답 날짜
+	private int alumni; // 설문 참여 대상 기수
+	private int memberNum; // 설문 참여한 학생 회원번호
+	private String classroom; // 설문 참여 대상 반
+	public Survey(int surveyNum, String name, int teacherNum, int surveyCategory, String surveyTitle,
+			String surveyWrittenDate, String surveyStartDate, String surveyEndDate, int surveyTargetAlumni,
+			String surveyTargetClassroom, int surveyPageNum, int surveyQuestionNum, String surveyQuestionContent,
+			String surveyQuestionType, int surveyQuestionRequired, int surveyOptionNum, String surveyOptionContent,
+			int surveyRespondNum, int surveyRespondOptionNum, String surveyRespondContent, int surveyRespondmemberNum,
+			String surveyRespondDate, int alumni, int memberNum, String classroom) {
+		super();
+		this.surveyNum = surveyNum;
+		this.name = name;
+		this.teacherNum = teacherNum;
+		this.surveyCategory = surveyCategory;
+		this.surveyTitle = surveyTitle;
+		this.surveyWrittenDate = surveyWrittenDate;
+		this.surveyStartDate = surveyStartDate;
+		this.surveyEndDate = surveyEndDate;
+		this.surveyTargetAlumni = surveyTargetAlumni;
+		this.surveyTargetClassroom = surveyTargetClassroom;
+		this.surveyPageNum = surveyPageNum;
+		this.surveyQuestionNum = surveyQuestionNum;
+		this.surveyQuestionContent = surveyQuestionContent;
+		this.surveyQuestionType = surveyQuestionType;
+		this.surveyQuestionRequired = surveyQuestionRequired;
+		this.surveyOptionNum = surveyOptionNum;
+		this.surveyOptionContent = surveyOptionContent;
+		this.surveyRespondNum = surveyRespondNum;
+		this.surveyRespondOptionNum = surveyRespondOptionNum;
+		this.surveyRespondContent = surveyRespondContent;
+		this.surveyRespondmemberNum = surveyRespondmemberNum;
+		this.surveyRespondDate = surveyRespondDate;
+		this.alumni = alumni;
+		this.memberNum = memberNum;
+		this.classroom = classroom;
+	}
+	public Survey() {
+		super();
+	}
 	public int getSurveyNum() {
 		return surveyNum;
 	}
 	public void setSurveyNum(int surveyNum) {
 		this.surveyNum = surveyNum;
 	}
-	public String getName() { 
+	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
@@ -164,38 +203,23 @@ public class Survey {
 	public void setSurveyRespondDate(String surveyRespondDate) {
 		this.surveyRespondDate = surveyRespondDate;
 	}
-	public Survey(int surveyNum, String name, int teacherNum, int surveyCategory, String surveyTitle,
-			String surveyWrittenDate, String surveyStartDate, String surveyEndDate, int surveyTargetAlumni,
-			String surveyTargetClassroom, int surveyPageNum, int surveyQuestionNum, String surveyQuestionContent,
-			String surveyQuestionType, int surveyQuestionRequired, int surveyOptionNum, String surveyOptionContent,
-			int surveyRespondNum, int surveyRespondOptionNum, String surveyRespondContent, int surveyRespondmemberNum,
-			String surveyRespondDate) {
-		super();
-		this.surveyNum = surveyNum;
-		this.name = name;
-		this.teacherNum = teacherNum;
-		this.surveyCategory = surveyCategory;
-		this.surveyTitle = surveyTitle;
-		this.surveyWrittenDate = surveyWrittenDate;
-		this.surveyStartDate = surveyStartDate;
-		this.surveyEndDate = surveyEndDate;
-		this.surveyTargetAlumni = surveyTargetAlumni;
-		this.surveyTargetClassroom = surveyTargetClassroom;
-		this.surveyPageNum = surveyPageNum;
-		this.surveyQuestionNum = surveyQuestionNum;
-		this.surveyQuestionContent = surveyQuestionContent;
-		this.surveyQuestionType = surveyQuestionType;
-		this.surveyQuestionRequired = surveyQuestionRequired;
-		this.surveyOptionNum = surveyOptionNum;
-		this.surveyOptionContent = surveyOptionContent;
-		this.surveyRespondNum = surveyRespondNum;
-		this.surveyRespondOptionNum = surveyRespondOptionNum;
-		this.surveyRespondContent = surveyRespondContent;
-		this.surveyRespondmemberNum = surveyRespondmemberNum;
-		this.surveyRespondDate = surveyRespondDate;
+	public int getAlumni() {
+		return alumni;
 	}
-	public Survey() {
-		super();
+	public void setAlumni(int alumni) {
+		this.alumni = alumni;
+	}
+	public int getMemberNum() {
+		return memberNum;
+	}
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
+	}
+	public String getClassroom() {
+		return classroom;
+	}
+	public void setClassroom(String classroom) {
+		this.classroom = classroom;
 	}
 	@Override
 	public String toString() {
@@ -209,6 +233,7 @@ public class Survey {
 				+ surveyOptionContent + ", surveyRespondNum=" + surveyRespondNum + ", surveyRespondOptionNum="
 				+ surveyRespondOptionNum + ", surveyRespondContent=" + surveyRespondContent
 				+ ", surveyRespondmemberNum=" + surveyRespondmemberNum + ", surveyRespondDate=" + surveyRespondDate
-				+ "]";
+				+ ", alumni=" + alumni + ", memberNum=" + memberNum + ", classroom=" + classroom + "]";
 	}
+	
 }

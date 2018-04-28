@@ -9,7 +9,7 @@ function prevPage(index){
 		$('#page'+index ).hide();
 		$('#page'+(index-1)).show();
 	} 
-} 
+}  
 
 function nextPage(index){
 	if (index+1 < $('.pages').length) {
@@ -149,7 +149,7 @@ $(function(){
 					
 					
 					});
-			
+			 
 			
 			respondSurvey.respondArray = respondArray;
 			console.log(respondSurvey);
@@ -179,8 +179,6 @@ $(function(){
 	$('#editBtn').click(function(){
 		
 		$('#surveyEditForm').submit();
-		
-		alert('폼 전송');
 			
 		});
 		

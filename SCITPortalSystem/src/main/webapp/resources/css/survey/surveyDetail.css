@@ -4,7 +4,7 @@ html, body {
 	margin: 0px;  
 	padding: 0px;
 	height: 100%;
-} 
+}    
 
 #modifyBtn {  
 	float: left;
@@ -13,7 +13,7 @@ html, body {
 	height: 5%;
 	border: solid gray 1px;
 }
-
+ 
 #canvase {
 	float: left;
 	display: inline-block;
@@ -47,6 +47,7 @@ html, body {
 	height: 100%;
 	position: absolute;
 	border: solid blue 1px;
+	overflow: scroll;
 }
 
 #rightBtn {
@@ -82,6 +83,5 @@ html, body {
 .questions {
 	margin: 1%;
 	border: solid lime 1px;
-	
 }
 

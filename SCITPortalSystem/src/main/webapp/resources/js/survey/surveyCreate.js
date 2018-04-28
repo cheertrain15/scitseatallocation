@@ -12,7 +12,7 @@ $( function() {
            onClose: function( selectedDate ) {    
                $("#surveyEndDate").datepicker( "option", "minDate", selectedDate );
            }                
-       });
+       }); 
 
        $('#surveyEndDate').datepicker({
            dateFormat: "yy-mm-dd",
@@ -42,426 +42,478 @@ var question = 1;
 var checkbox = 1;
 var radio = 1;
 
-function initialize(){
-	
-$( function() {
-		// 각 툴 드래그 가능
-	    $( ".tools" ).draggable(
-	    	{ 
-	    		scroll: true,
-	    		cursor: "move",
-//	    		connectToSortable: "#surveyCanvas",
-	    		helper: "clone",
-	    		revert: "valid"
-	    	}
-	   );
-});
+function initialize() {
 
-$( function() {
-	
-	// surveyCanvas에서 드롭받아 설문지 생성
-    $( "#surveyCanvas div" ).droppable({
-    		greedy: true,
-        drop: function( event, ui ) {
-        	
-        	var draggableId = ui.draggable.attr("id");
-        	console.log(draggableId);
-        	
-        	var str = '';
-        
-        	if (draggableId == 'singleinput') {
-        		
-        		str +='<div class="questions" id="question' + question + '" surveyType="singleinput">'
-	        		+'<fieldset>'
-	        	    +'<legend>질문' + question + '. 내용 수정하쇼'
-	        	    +'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
-	        		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
-	        		+'</legend>'
-	        		+'<input type="text" size="70" placeholder="유저 답변 입력 공간" readonly>'
-	        		+'</fieldset>'
-	        		+'</div>';
-				
-			}
-        	
-        	if (draggableId == 'radiogroup') {
-        		
-        		str += '<div class="questions" id="question' + question + '" surveyType="radiogroup">'
-	    			+'<fieldset>'
-	    			+'<legend>질문' + question + '. 내용 수정하쇼'
-	    			+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
-	        		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
-	        		+'</legend>'
-	        		+'<input type="button" value="+" class="addOption">'
-	        	    +'<input type="button" value="-" class="subOption">'
-	        	    +'<input type="radio" name="radio'+radio+'" id="radio1">'
-	        	    +'<label for="radio1" class="radio">옵션1</label>'
-	        	    +'</fieldset>'
-	        	    +'</div>';
-        		
-        		radio++;
-				
-			}
-        	
-        	if (draggableId == 'checkbox') {
-        		
-        		str += '<div class="questions" id="question' + question + '" surveyType="checkbox">'
-	    			+'<fieldset>'
-	    			+'<legend>질문' + question + '. 내용 수정하쇼'
-	    			+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
-	        		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
-	        		+'</legend>'
-	        		+'<input type="button" value="+" class="addOption">'
-	        	    +'<input type="button" value="-" class="subOption">'
-	        	    +'<input type="checkbox" name="checkbox'+checkbox+'"  id="checkbox1">'
-	        	    +'<label for="checkbox1">옵션1</label>'
-	        	    +'</fieldset>'
-	        	    +'</div>';
-        		
-        		checkbox++;
-				
-			}
-        	
-       if (draggableId == 'dropdown') {
-	    	    str +='<div class="questions" id="question' + question + '" surveyType="dropdown">'
-	    	   		+'<fieldset>'
-	    	   		+'<legend>질문' + question + '. 내용 수정하쇼'
-	    	   		+'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
-	    			+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
-	    			+'</legend>'
-	    			+'<select v-model="select" name="select" id="select">'
-	    			+'<option disabled value="" selected="selected">선택지</option>'
-		    	    +'</select>'
-		    	    +'<input type="button" value="해당 선택지 삭제" id="subSelectOption'+question+'">'
-		    	    +'<br>'
-		    	    +'<input type="text" id="selectOption'+question+'" placeholder="추가할 선택지 내용을 입력하세요" size="30">'
-		    	    +'<input type="button" value="추가" id="addSelectOption'+question+'">'
-		    	    +'</fieldset>'
-	        	    +'</div>';	    	    
-       }
-       
-      if (draggableId == 'comment') {
-    	
-	    	str +='<div class="questions" id="question' + question + '" surveyType="comment">'
-	  		+'<fieldset>'
-	  		+'<legend>질문' + question + '. 내용 수정하쇼'
-	  	    +'<input type="button" value="수정" onclick="javascript:editQuestion('+question+')">'
-	  		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+question+')">'
-	  		+'</legend>'
-	  		+'<textarea rows="10" cols="70"></textarea>'
-	  		+'</fieldset>'
-	  		+'</div>';
-    	  
-	}
-        
-        	$(this).append(str);
-         
-        
-        addSubOption(); // 라디오, 체크박스 설문지에 대한 선택지 추가/제거
-        addSelectOption(question); // 셀렉트 설문지에 대한 선택지 추가
-        subSelectOption(question); // 셀렉트 설문지에 대한 선택지 제거
-        checkRequired(); // 각 설문항목 클릭시 필수 응답 항목 여부 체크 가능
-        editOption();
-        
-        question++;
-        }
-    
-      });
-});
+	$(function() {
+		// 각 툴 드래그 가능
+		$(".tools").draggable({
+			scroll : true,
+			cursor : "move",
+			helper : "clone",
+			revert : "valid"
+		});
+	});
+
+	$(function() {
+
+		// 드롭하면 설문지 생성
+		$("#questionsWrap div")
+				.droppable(
+						{
+							greedy : true,
+							drop : function(event, ui) {
+
+								var draggableId = ui.draggable.attr("id");
+								console.log(draggableId);
+
+								var str = '';
+
+								if (draggableId == 'singleinput') {
+
+									str += '<div class="questions" id="question' + question + '">'
+											+ '<input type="hidden" id="questionType" value="singleinput">'
+											+ '<fieldset>'
+											+ '<legend>질문 내용을 변경하세요'
+											+ '<input type="button" value="수정" onclick="javascript:editQuestion(' + question + ')">'
+											+ '<input type="button" value="삭제" onclick="javascript:deleteQuestion(' + question + ')">'
+											+ '</legend>'
+											+ '<input type="text" size="50" placeholder="유저 답변 입력 공간" readonly>'
+											+ '</fieldset>' 
+											+ '</div>';
+
+								}
+
+								if (draggableId == 'radiogroup') {
+
+									str += '<div class="questions" id="question' + question + '">'
+											+ '<input type="hidden" id="questionType" value="radiogroup">'
+											+ '<fieldset>'
+											+ '<legend>질문 내용을 변경하세요'
+											+ '<input type="button" value="수정" onclick="javascript:editQuestion(' + question + ')">'
+											+ '<input type="button" value="삭제" onclick="javascript:deleteQuestion(' + question + ')">'
+											+ '</legend>'
+											+ '<input type="button" value="+" class="addOption">'
+											+ '<input type="button" value="-" class="subOption">'
+											+ '<input type="radio" name="radio' + radio + '" id="radio1">'
+											+ '<label for="radio1" class="radio">선택지 내용을 수정하세요</label>'
+											+ '</fieldset>' 
+											+ '</div>';
+
+									radio++;
+
+								}
+
+								if (draggableId == 'checkbox') {
+
+									str += '<div class="questions" id="question' + question + '">'
+											+ '<input type="hidden" id="questionType" value="checkbox">'
+											+ '<fieldset>'
+											+ '<legend>질문 내용을 변경하세요'
+											+ '<input type="button" value="수정" onclick="javascript:editQuestion(' + question + ')">'
+											+ '<input type="button" value="삭제" onclick="javascript:deleteQuestion(' + question + ')">'
+											+ '</legend>'
+											+ '<input type="button" value="+" class="addOption">'
+											+ '<input type="button" value="-" class="subOption">'
+											+ '<input type="checkbox" name="checkbox' + checkbox + '"  id="checkbox1">'
+											+ '<label for="checkbox1">선택지 내용을 수정하세요</label>'
+											+ '</fieldset>' 
+											+ '</div>';
+
+									checkbox++;
+
+								}
+
+								if (draggableId == 'dropdown') {
+									str += '<div class="questions" id="question' + question + '">'
+											+ '<input type="hidden" id="questionType" value="dropdown">'
+											+ '<fieldset>'
+											+ '<legend>질문 내용을 변경하세요'
+											+ '<input type="button" value="수정" onclick="javascript:editQuestion(' + question + ')">'
+											+ '<input type="button" value="삭제" onclick="javascript:deleteQuestion(' + question + ')">'
+											+ '</legend>'
+											+ '<select v-model="select" name="select" id="select">'
+											+ '<option disabled value="" selected="selected">선택지를 추가하세요</option>'
+											+ '</select>'
+											+ '<input type="button" value="선택지 삭제" class="subSelectOption">'
+											+ '<br>'
+											+ '<input type="text" placeholder="추가할 내용 입력" size="15">'
+											+ '<input type="button" value="선택지 추가" class="addSelectOption">'
+											+ '</fieldset>'
+											+ '</div>';
+								}
+
+								if (draggableId == 'comment') {
+
+									str += '<div class="questions" id="question' + question + '">'
+											+ '<input type="hidden" id="questionType" value="comment">'
+											+ '<fieldset>'
+											+ '<legend>질문 내용을 변경하세요'
+											+ '<input type="button" value="수정" onclick="javascript:editQuestion(' + question + ')">'
+											+ '<input type="button" value="삭제" onclick="javascript:deleteQuestion(' + question + ')">'
+											+ '</legend>'
+											+ '<textarea rows="10" cols="50"></textarea>'
+											+ '</fieldset>' 
+											+ '</div>';
+
+								}
+
+								$(this).append(str);
+
+								initialize();
+								editOption();
+								addOption();
+								subOption();
+								addSelectOption();
+								subSelectOption();
+								checkRequired();
+
+								question++;
+							}
+
+						});
+
+	});
 
 };
 
-
-
-	// 각 설문지의 삭제버튼이 눌렸을 때 삭제 처리
-	function deleteSurvey(questionNum){
+//각 설문지의 삭제버튼이 눌렸을 때 삭제 처리
+function deleteQuestion(questionNum){
+	
+	var questionSize = $('.questions').length;
+	
+	if (questionSize <= 1) {
+		
+		alert('더이상 삭제할 수 없습니다.');
+		
+	} else {
+		
 		$( "#question"+questionNum ).remove();
-	};
+		
+	}
+	
+};
 
-	// 각 설문지의 수정버튼이 눌렸을 때 질문 내용을 변경
-	function editQuestion(questionNum){
-		var str = '';
-		str += '<input type="text" id="editQuestion'+questionNum+'" value="질문'+questionNum+'. ">'
-			+ '<input type="button" value="수정" onclick="javascript:completeEditQuestion('+questionNum+')">';
-		
-		$( "#question"+questionNum+" legend")
-			.html(str);
-	};
+//각 설문지의 수정버튼이 눌렸을 때 질문 내용을 변경
+function editQuestion(questionNum){
 	
-	// 각 설문지의 질문 내용을 수정하고 변경 완료
-	function completeEditQuestion(questionNum){
-		
-		var val = $( "#editQuestion"+questionNum ).val();
-		
-		val += '<input type="button" value="수정" onclick="javascript:editQuestion('+questionNum+')">'
-			+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+questionNum+')">';
-		
-		$( "#question"+questionNum+" legend").html(val);
-	};
+//	var val = $(this).prev('legend').val();
 	
-	// 라디오, 체크박스 옵션 내용 수정
-	function editOption(){
+	var str = '';
+	
+	str += '<input type="text" id="editQuestion'+questionNum+'">'
+		+ '<input type="button" value="수정" onclick="javascript:completeEditQuestion('+questionNum+')">';
+	
+	$( "#question"+questionNum+" legend")
+		.html(str);
+}; 
+	
+//각 설문지의 질문 내용을 수정하고 변경 완료
+function completeEditQuestion(questionNum){
+	
+	var val = $( "#editQuestion"+questionNum ).val();
+	
+	val += '<input type="button" value="수정" onclick="javascript:editQuestion('+questionNum+')">'
+		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+questionNum+')">';
+	
+	$( "#question"+questionNum+" legend").html(val);
+};
+	
+//라디오, 체크박스 옵션 내용 수정
+function editOption(){
+	
+	$("label").dblclick(function(){
 		
-		$("label").dblclick(function(){
+		$(this).each(function(index, item){
 			
-			$(this).each(function(index, item){
-				
-				var val = $(this).text();
-				
-				var str = '';
-				str += '<input type="text" id="editOption" value="'+val+'">'
-					+ '<input type="button" value="수정" class="btnModifyOption" id="CompleteEditOPtion">';
-				
-				$(this).html(str);
-				completeEditOption();
-				
-			});
+			var str = '';
+			str += '<input type="text" id="editOption" value="">'
+				+ '<input type="button" value="수정" class="CompleteEditOPtion">';
+			
+			$(this).html(str);
+			completeEditOption();
 			
 		});
-		
-		
-		
-	};
+	});
 	
-	// 라디오, 체크박스 옵션 수정 완료
+};
 	
-	function completeEditOption(){
-		
-		$(".btnModifyOption").off().click(function(){
+//라디오, 체크박스 옵션 수정 완료
+function completeEditOption(){
+	
+	$(".CompleteEditOPtion").off().click(function(){
+		$(this).each(function(index, item){
 			
-			$(this).each(function(index, item){
-				
-				var editVal = $(this).prev('input').val();
-				$(this).parent().html(editVal);
-				console.log(editVal);
-			});
+			var editVal = $(this).prev('input').val();
+			$(this).parent().html(editVal);
+			
 		});
-	};
+	});
+};
 	
-	// 페이지 추가
+// 페이지 추가
 	
-	var Num = 2;
-	var zIndex = 1;
+var Num = 2;
 	 
-	function addPage(){
-//		
-//		var obj = $("#surveyCanvas").offset();
-//		console.log("left: " + obj.left + "px, top: " + obj.top + "px");
-
-		var page = '';
-		page += '<option value="page'+Num+'" selected>page'+Num+'</option>';
+function addPage(pageSize){
+	
+	var pageOption = '';
+	pageOption += '<option value="page'+Num+'" selected="selected">페이지 '+Num+'</option>';
+	
+	$( "#pagesWrap" ).find('select').append(pageOption);
+	
+	var 	page = '';
+	page += '<div id="page'+Num+'" class="pages">'
+		 + '<h1>페이지 '+Num+'</h1>';
+	
+	console.log($( "#pagesWrap" ).find('select'));
+	$( "#questionsWrap" ).append(page);
+	
+	// 페이지를 추가하고 나면 해당 페이지만 보여주고 나머지는 숨김
+	var target = $( "#pagesWrap" ).find('select').find('option:selected');
+	console.log(target);
+	var val = target.val();
+	var num = val.replace(/[^0-9]/g,"");
+	
+	$( '.pages' ).hide();
+	$( '#page'+num ).show();
+	
+	// 페이지를 추가하고 나면 해당 페이지에도 droppable 기능 추가
+	initialize();
+	
+	Num++;
+	
+};
+	
+//페이지 삭제하기
+function subPage(){
+	
+	var pageSize = $( "#pagesWrap" ).find('option').length;
+	
+	if (pageSize <= 1) {
+		alert('더이상 삭제할 수 없습니다.');
+	} else {
 		
-		zIndex++;
-		var canvas = '';
-		canvas += '<div class="canvases" id="canvas'+Num+'" style="z-index:'+zIndex+';">'
-		+ '<p>page'+Num+'</p>'
-		+ '</div>';
-		
-		$( "#pages" ).append(page);
-		$( "#surveyCanvas" ).append(canvas);
-		
-		Num++;
-		
-		// 페이지를 추가하고 나면 해당 페이지만 보여주고 나머지는 숨김
-		var target = $("#pages").find('option:selected');
+		var target = $( "#pagesWrap" ).find('option:selected');
+		console.log(target);
 		var val = target.val();
 		var num = val.replace(/[^0-9]/g,"");
 		
-		$( '.canvases' ).hide();
-		$( '#canvas'+num ).show();
+		target.remove();
 		
-		// 페이지를 추가하고 나면 해당 페이지에도 droppable 기능 추가
-		initialize();
+		$( '#page'+num ).remove();
 		
-	};
-	
-	// 페이지 삭제하기
-	function subPage(){
+		target = $( "#pagesWrap" ).find('option:selected');
+		console.log(target);
+		val = target.val();
+		num = val.replace(/[^0-9]/g,"");
 		
-		var pageSize = $( "#pages" ).find('option').length;
+		$( '#page'+num ).show();
 		
-		if (pageSize <= 1) {
-			alert('남아있는 페이지가 1개일 경우 삭제할 수 없습니다.');
-		} else {
-			
-			var target = $("#pages").find('option:selected');
-			var val = target.val();
-			var num = val.replace(/[^0-9]/g,"");
-			
-			target.remove();
-			
-			$("#canvas"+num).remove();
-			
-			target = $("#pages").find('option:selected');
-			val = target.val();
-			num = val.replace(/[^0-9]/g,"");
-			
-			$(".canvases").eq(0).show();
-			
-		}
 	}
 	
-	// select에서 페이지를 변경하면 해당 페이지를 보여주고 나머지 페이지는 숨김
-	$(function(){
+};
 	
-		$('#pages').change(function() {
-		    
-			var target = $("#pages").find('option:selected');
-			var val = target.val();
-			var num = val.replace(/[^0-9]/g,"");
-		    
-		    	$( '.canvases' ).hide();
-		    $( '#canvas'+num ).show();
-		    
-		});
-	
+//select에서 페이지를 변경하면 해당 페이지를 보여주고 나머지 페이지는 숨김
+$(function(){
+
+	$( "#pagesWrap" ).find('select')
+		.change(function() {
+	    
+		var target = $(this).find('option:selected');
+		var val = target.val();
+		var num = val.replace(/[^0-9]/g,"");
+	    
+	    	$( '.pages' ).hide();
+	    $( '#page'+num ).show();
+	    
 	});
+
+});
 	
-	var checkOptionNum = 1;
-	var radioOptionNum = 1;
+var checkOptionNum = 1;
+var radioOptionNum = 1;
+
+//radio와 checkbox설문 옵션 추가
+function addOption(){
 	
-	// radio와 checkbox설문 옵션 추가/제거
-	function addSubOption(){
+	$(".addOption")
+		.off("click").on("click", function(){
 		
-		$(".addOption, .subOption").click(function(){
-			
-			var option = $(this).parent().find("input").eq(4).attr("type");
-			
-			if ($(this).attr("class") == "addOption ui-selectee") {
+		var option = $(this).parents('.questions')
+						.find('input[type="hidden"]').val();
+		console.log(option);
+
+			if (option == 'checkbox') {
 				
-				if (option =="checkbox") {
-					
-					checkOptionNum++;
-					var name = $(this).parent().find('input[type=checkbox]').attr("name");
-					console.log(name);
-					
-					var str = '';
-					str += '<input type="checkbox" '
-						+ 'name="'+name+'" id="checkbox'+checkOptionNum+'">'
-						+'<label for="checkbox'+checkOptionNum+'">옵션'+checkOptionNum+'</label>'
-						
-						$(this).parent()
-							.last()
-							.append(str);
-					
-						editOption();
-				}
+				checkOptionNum++;
+				var name = $(this).parent().find('input[type=checkbox]').attr("name");
+				console.log(name);
 				
-				if (option =="radio") {
+				var str = '';
+				str += '<input type="checkbox" '
+					+ 'name="'+name+'" id="checkbox'+checkOptionNum+'">'
+					+'<label for="checkbox'+checkOptionNum+'">선택지 내용을 수정하세요</label>'
 					
-					radioOptionNum++;
-					var name = $(this).parent().find('input[type=radio]').attr("name");
-					console.log(name);
+					console.log(str);
 					
-					var str = '';
-					str += '<input type="radio" '
-						+ 'name="'+name+'" id="radio'+radioOptionNum+'">'
-						+'<label for="radio'+radioOptionNum+'">옵션'+radioOptionNum+'</label>'
-						
-						$(this).parent()
-							.last()
-							.append(str);
-					
+					$(this).parent()
+						.last()
+						.append(str);
+				
 					editOption();
+			}
+			
+			if (option == 'radiogroup') {
+				
+				radioOptionNum++;
+				var name = $(this).parent().find('input[type=radio]').attr("name");
+				console.log(name);
+				
+				var str = '';
+				str += '<input type="radio" '
+					+ 'name="'+name+'" id="radio'+radioOptionNum+'">'
+					+'<label for="radio'+radioOptionNum+'">선택지 내용을 수정하세요</label>'
 					
-				}
-		
+					console.log(str);
+					
+					$(this).parent()
+						.last()
+						.append(str);
+				
+				editOption();
+				
 			}
-			
-			if ($(this).attr("class") == "subOption ui-selectee") {
-				
-				$(this).parent().children().last().remove();
-				$(this).parent().children().last().remove();
-				
-			}
-				
-				
+
+	});
+};
+
+//radio와 checkbox설문 옵션 삭제
+function subOption(){
 	
-		});
-	};
-	
-	// select 질문 선택지 추가
-	function addSelectOption(question){
+	$(".subOption")
+		.off("click").on("click", function(){
 		
-		$("#addSelectOption"+question).click(function(){
-			console.log("addselectoption button clicked");
-			var val = $("#selectOption"+question).val();			
-			console.log(val);			
-			var str = ''; 
-			str += '<option>'
-				+ ''+val+''
-				+ '</option>';
+			var optionSize = $(this).parents('.questions').find('input').length;
+			
+			if (optionSize <= 1 ) {
 				
-			$(this).parent()
-				.find("select")
-				.append(str);
-			
-			$(this).parent().find("option:disabled").remove();
-			
-			$("#selectOption" + question).val('');
-			
-		});
-	};
-	
-	// select 질문 선택지 제거
-	function subSelectOption(question){		
-		$("#subSelectOption"+question).click(function(){
-			
-			$(this).parent()
-				.find('option:selected')
-				.remove();
-		});   
-	}; 
-	 
-	// 질문지 선택되면 필수 응답 질문인지 설정 가능하도록 체크박스 띄우기
-	function checkRequired(){
-		$( ".questions" ).selectable({
-	        selected: function() {
-	        		$(this).each(function(index, item){
-	        			
-	        			var required = $(this).attr('required');
-	        			var val = $(this).find('legend').text();
-	        			console.log(val);
-	        			
-	        			var str = '';
-	        			
-	        			if (required == 'required') {
-	        				str += '<input type="checkbox" checked="checked" id="checkRequired" '
-	                   		+ 'associated="'+$( this ).attr('id')+'">'
-	                   		+ '필수 응답항목 설정';
-						} else {
-	               		str += '<input type="checkbox" id="checkRequired" '
-	               			+ 'associated="'+$( this ).attr('id')+'">'
-	               			+ '필수 응답항목 설정';
-						}
-	               		
-	        			$( "#editSurvey" ).html(str); 
-	                      
-	               		reqiredQuestion(); // 필수 응답 항목 체크 시 각 설문항목에 속성 추가
-	        		});
-	        		
-	        }
-	     });
-	};
-	
-	// 필수 응답 체크박스에 체크될 경우 div에 required 속성 추가
-	function reqiredQuestion(){
-		
-		$("#checkRequired").change(function(){
-			
-			var id = $(this).attr('associated');
-			console.log(id);
-			
-			if($("#checkRequired").is(":checked")){
-				
-				$('#'+id).attr('required', 'required');
+				alert ('더이상 삭제할 수 없습니다.');
 				
 			} else {
-				$('#'+id).removeAttr('required');
-			}
+			
+			var option = $(this).parents('.questions')
+							.find('input:checked');
+			
+			option.each(function(index, item){
+				
+				var optionId = $(this).attr('id');
+				
+				var optionLabel = $('label[for="'+optionId+'"]');
+				
+				option.remove();
+				optionLabel.remove();
+				
+			});
+				
+			};
+			
+	});
 	
-		});
+};
+	
+//select 질문 선택지 추가
+function addSelectOption(){
+	
+	$('.addSelectOption').click(function(){
 		
-	};
+		var val = $(this).prev('input[type="text"]').val();			
+		console.log(val);
+		
+		var str = '';
+			str += '<option>'+val+'</option>';
+			
+		$(this).parent().find("select").append(str);
+		
+		$(this).parent().find("option:disabled").remove();
+		
+		$(this).prev('input[type="text"]').val('');
+		
+	});
+};
+
+//select 질문 선택지 제거
+function subSelectOption(){
+	
+	$(".subSelectOption").click(function(){
+		
+		var optionSize = $(this).parent().find('option').length;
+		
+		if (optionSize <= 1) {
+			
+			alert('더이상 삭제할 수 없습니다.');
+			
+		} else {
+		
+		$(this).parent()
+			.find('option:selected')
+			.remove();
+		
+		};
+		
+	}); 
+		
+};
+
+//질문지 선택되면 필수 응답 질문인지 설정 가능하도록 체크박스 띄우기
+function checkRequired(){
+	
+	$( ".questions" ).selectable({
+        selected: function() {
+        		$(this).each(function(index, item){
+        			
+        			var required = $(this).attr('required');
+        			var val = $(this).find('legend').text();
+        			console.log(val);
+        			
+        			var str = '';
+        			
+        			if (required == 'required') {
+        				str += '<input type="checkbox" checked="checked" id="checkRequired" '
+                   		+ 'associated="'+$( this ).attr('id')+'">'
+                   		+ '<' + val + '> 필수 응답항목 설정';
+					} else {
+               		str += '<input type="checkbox" id="checkRequired" '
+               			+ 'associated="'+$( this ).attr('id')+'">'
+               			+ '<' + val + '> 필수 응답항목 설정';
+					}
+               		
+                      $( "#attributeWrap" ).html(str); 
+                      
+               		reqiredQuestion(); // 필수 응답 항목 체크 시 각 설문항목에 속성 추가
+        		});
+        		
+        }
+     });
+	
+};
+
+//필수 응답 체크박스에 체크될 경우 div에 required 속성 추가
+function reqiredQuestion(){
+	
+	$("#checkRequired").change(function(){
+		
+		var id = $(this).attr('associated');
+		console.log(id);
+		
+		if($("#checkRequired").is(":checked")){
+			$('#'+id).attr('required', 'required');
+		} else {
+			$('#'+id).removeAttr('required');
+		}
+
+	});
+	
+};
 	
 	// 설문조사 저장 버튼 누름
 	function saveSurvey(){
@@ -510,7 +562,7 @@ $( function() {
 			
 			// 각 페이지 아이디
 			$(this).parents("body")
-				.find(".canvases")
+				.find(".pages")
 				.each(function(index, item){
 					
 					var pageId = new Object();
@@ -543,7 +595,7 @@ $( function() {
 							}
 							 
 							// 각 설문항목의 타입
-							var surveyType = $(this).attr("surveyType");
+							var surveyType = $(this).find('input[type="hidden"]').val();
 							pageInfo.surveyQuestionType = surveyType;
 							
 							// 각 설문항목의 선택지

@@ -1,9 +1,47 @@
 @charset "UTF-8";
-
-tr td {
-	border: solid black 1px;
-}
+ 
+html, body {
+	
+	height: 100%;
+	width: 100%;
+	
+} 
 
 table {
+	
+	text-align: center;
 	border-collapse: collapse;
+	width: 100%;
+	background-color: #f1f1f1;
+}
+
+td {
+	
+	border: solid black 1px;
+	background-color: #ffffff;
+	
+}
+
+li {
+	
+	display:inline;
+}
+
+#pageGroup {
+	
+	text-align: center;
+	
+}
+
+.surveyAtag {
+	  
+	text-decoration-line: none;
+	
+}
+
+.pageNumber {
+	
+	text-decoration-line: none;
+	color: maroon;
+	
 }

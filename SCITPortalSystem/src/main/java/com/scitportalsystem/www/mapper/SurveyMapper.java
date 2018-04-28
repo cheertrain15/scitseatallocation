@@ -5,11 +5,12 @@ import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 
+import com.scitportalsystem.www.vo.MemberBasic;
 import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.Survey;
  
 public interface SurveyMapper {
-   
+    
 	int countSelectAll(int teacherNum);
  
 	ArrayList<Survey> selectAll(int teacherNum, RowBounds rb);
@@ -57,5 +58,13 @@ public interface SurveyMapper {
 	int countRespondStudent(int surveyNum);
 
 	int checkRespond(Survey target);
+ 
+//	ArrayList<MemberStudent> getTargetStudents(Survey survey);
+
+	ArrayList<Survey> getRespondContentList(int surveyNum);
+
+	ArrayList<Survey> getQuestionContents(int surveyNum);
+
+	ArrayList<Survey> getRespondTargetStudents(int surveyNum);
 	
 }

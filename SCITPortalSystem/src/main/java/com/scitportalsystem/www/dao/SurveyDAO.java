@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.scitportalsystem.www.mapper.SurveyMapper;
+import com.scitportalsystem.www.vo.MemberBasic;
 import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.Survey;
 
@@ -116,7 +117,7 @@ public class SurveyDAO {
 		
 		return result;
 		
-	}
+	} 
 
 	public int insertSurveyPage(Survey survey) {
 		int result = 0;
@@ -221,7 +222,7 @@ public class SurveyDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		 
 		
 		return result;
 	}
@@ -334,6 +335,59 @@ public class SurveyDAO {
 		try { 
 			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
 			result = mapper.checkRespond(target);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+//	public ArrayList<MemberStudent> getTargetStudents(Survey survey) {
+//		
+//		ArrayList<MemberStudent> result = null;
+//		
+//		try { 
+//			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+//			result = mapper.getTargetStudents(survey);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return result;
+//	}
+
+	public ArrayList<Survey> getRespondContentList(int surveyNum) {
+		ArrayList<Survey> result = null;
+		
+		try { 
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.getRespondContentList(surveyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Survey> getQuestionContents(int surveyNum) {
+		ArrayList<Survey> result = null;
+		
+		try { 
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.getQuestionContents(surveyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Survey> getRespondTargetStudents(int surveyNum) {
+		ArrayList<Survey> result = null;
+		
+		try { 
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			result = mapper.getRespondTargetStudents(surveyNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

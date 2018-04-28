@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.scitportalsystem.www.dao.SurveyDAO;
 import com.scitportalsystem.www.util.PageNavigator;
 import com.scitportalsystem.www.vo.CreateSurvey;
+import com.scitportalsystem.www.vo.MemberBasic;
 import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.PageArray;
 import com.scitportalsystem.www.vo.RespondArray;
@@ -35,7 +36,7 @@ public class SurveyController {
 
 	@Autowired
 	SurveyDAO surveyDAO;
-
+ 
 	private final int LIMIT = 10; // 페이지 당 아이템수
 	private final int PAGES = 5; // 그룹 당 페이지수
 
@@ -43,14 +44,14 @@ public class SurveyController {
 
 	@RequestMapping(value = "survey", method = RequestMethod.GET)
 	public String survey(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
-
+ 
 		int memberNum = (int) session.getAttribute("loginMemberNum");
 		
 		String memberClass = surveyDAO.getMemberClass(memberNum);
 		
 		model.addAttribute("memberClass", memberClass);
-		
-		int totalCount = 0;
+		 
+		int totalCount = 0; 
 		PageNavigator navi = null;
 		ArrayList<Survey> list = null;
 		
@@ -58,6 +59,8 @@ public class SurveyController {
 		if (memberClass.equals("teacher")) {
 			
 			int teacherNum = (int) session.getAttribute("teacherNum");
+			
+			System.out.println(teacherNum);
 
 			totalCount = surveyDAO.countSelectAll(teacherNum);
 			navi = new PageNavigator(LIMIT, PAGES, page, totalCount);
@@ -129,7 +132,24 @@ public class SurveyController {
 
 		return "survey/survey";
 	}
-
+	
+	@RequestMapping(value = "checkSurveyRespondStatus", method = RequestMethod.GET)
+	public String checkSurveyRespondStatus(Survey survey, Model model) {
+		
+		int surveyNum = survey.getSurveyNum();
+		
+		ArrayList<Survey> questionList = surveyDAO.getQuestionContents(surveyNum);
+		model.addAttribute("questionList", questionList);
+		ArrayList<Survey> respondTargetStudentsList = surveyDAO.getRespondTargetStudents(surveyNum);
+		model.addAttribute("respondTargetStudentsList", respondTargetStudentsList);
+		ArrayList<Survey> respondContentList = surveyDAO.getRespondContentList(surveyNum);
+		
+		model.addAttribute("respondContentList", respondContentList);
+		
+		
+		return"survey/surveyAnswer";
+	}
+	
 	@RequestMapping(value = "surveyCreate", method = RequestMethod.GET)
 	public String surveyCreate(HttpSession session, Model model) {
 
@@ -164,8 +184,7 @@ public class SurveyController {
 		int pageSize = sa.getSurveyPage().size();
 		System.out.println(sa.getSurveyPage());
 		
-			// int teacherNum = session.getAttribute("teacherNum");
-			int teacherNum = 1;
+			int teacherNum = (int) session.getAttribute("teacherNum");
 
 			// todo : 설문대상 기수선택/반선택 막기
 			// survey 테이블에 설문 기본 정보 넣기
@@ -246,28 +265,40 @@ public class SurveyController {
 			
 			String questionType = ra.get(i).getSurveyQuestionType();
 			
+			System.out.println(questionType);
+			
 			if (questionType.equals("checkbox")) {
 				
 				for (int j = 0; j < ra.get(i).getSurveyRespondOptionNumArray().size(); j++) {
 					survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNumArray().get(j));
 					surveyDAO.insertSurveyRespond(survey);
+					survey.setSurveyRespondOptionNum(0);
 					
 				}
 				
-			} else {
+			} else if (questionType.equals("singleinput")) {
 				
-				if (questionType.equals("singleinput") 
-						|| questionType.equals("comment")) {
-					survey.setSurveyRespondContent(ra.get(i).getSurveyRespondContent());
-				}
-				
-				if (questionType.equals("radiogroup") 
-						|| questionType.equals("comment")) {
-					survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNum());
-				}
-				
+				survey.setSurveyRespondContent(ra.get(i).getSurveyRespondContent());
 				surveyDAO.insertSurveyRespond(survey);
+				survey.setSurveyRespondContent(null);
 				
+			} else if (questionType.equals("comment")) {
+				
+				survey.setSurveyRespondContent(ra.get(i).getSurveyRespondContent());
+				surveyDAO.insertSurveyRespond(survey);
+				survey.setSurveyRespondContent(null);
+				
+			} else if (questionType.equals("radiogroup")) {
+				
+				survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNum());
+				surveyDAO.insertSurveyRespond(survey);
+				survey.setSurveyRespondOptionNum(0);
+				
+			} else if (questionType.equals("dropdown")) {
+				
+				survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNum());
+				surveyDAO.insertSurveyRespond(survey);
+				survey.setSurveyRespondOptionNum(0);
 			}
 			
 		}

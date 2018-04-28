@@ -12,7 +12,7 @@ $(document).ready(function() {
 	editSurvey();
 
 });
-
+ 
 var question = 1;
 var checkbox = 1;
 var radio = 1;
@@ -71,11 +71,11 @@ function initialize() {
 									str += '<div class="questions" id="question' + question + '">'
 											+ '<input type="hidden" id="questionType" value="singleinput">'
 											+ '<fieldset>'
-											+ '<legend>질문' + question + '. 내용 수정하쇼'
+											+ '<legend>질문 내용을 변경하세요'
 											+ '<input type="button" value="수정" onclick="javascript:editQuestion(' + question + ')">'
 											+ '<input type="button" value="삭제" onclick="javascript:deleteQuestion(' + question + ')">'
 											+ '</legend>'
-											+ '<input type="text" size="70" placeholder="유저 답변 입력 공간" readonly>'
+											+ '<input type="text" size="50" placeholder="유저 답변 입력 공간" readonly>'
 											+ '</fieldset>' 
 											+ '</div>';
 
@@ -86,14 +86,14 @@ function initialize() {
 									str += '<div class="questions" id="question' + question + '">'
 											+ '<input type="hidden" id="questionType" value="radiogroup">'
 											+ '<fieldset>'
-											+ '<legend>질문' + question + '. 내용 수정하쇼'
+											+ '<legend>질문 내용을 변경하세요'
 											+ '<input type="button" value="수정" onclick="javascript:editQuestion(' + question + ')">'
 											+ '<input type="button" value="삭제" onclick="javascript:deleteQuestion(' + question + ')">'
 											+ '</legend>'
 											+ '<input type="button" value="+" class="addOption">'
 											+ '<input type="button" value="-" class="subOption">'
 											+ '<input type="radio" name="radio' + radio + '" id="radio1">'
-											+ '<label for="radio1" class="radio">옵션1</label>'
+											+ '<label for="radio1" class="radio">선택지 내용을 수정하세요</label>'
 											+ '</fieldset>' 
 											+ '</div>';
 
@@ -106,14 +106,14 @@ function initialize() {
 									str += '<div class="questions" id="question' + question + '">'
 											+ '<input type="hidden" id="questionType" value="checkbox">'
 											+ '<fieldset>'
-											+ '<legend>질문' + question + '. 내용 수정하쇼'
+											+ '<legend>질문 내용을 변경하세요'
 											+ '<input type="button" value="수정" onclick="javascript:editQuestion(' + question + ')">'
 											+ '<input type="button" value="삭제" onclick="javascript:deleteQuestion(' + question + ')">'
 											+ '</legend>'
 											+ '<input type="button" value="+" class="addOption">'
 											+ '<input type="button" value="-" class="subOption">'
 											+ '<input type="checkbox" name="checkbox' + checkbox + '"  id="checkbox1">'
-											+ '<label for="checkbox1">옵션1</label>'
+											+ '<label for="checkbox1">선택지 내용을 수정하세요</label>'
 											+ '</fieldset>' 
 											+ '</div>';
 
@@ -125,17 +125,17 @@ function initialize() {
 									str += '<div class="questions" id="question' + question + '">'
 											+ '<input type="hidden" id="questionType" value="dropdown">'
 											+ '<fieldset>'
-											+ '<legend>질문' + question + '. 내용 수정하쇼'
+											+ '<legend>질문 내용을 변경하세요'
 											+ '<input type="button" value="수정" onclick="javascript:editQuestion(' + question + ')">'
 											+ '<input type="button" value="삭제" onclick="javascript:deleteQuestion(' + question + ')">'
 											+ '</legend>'
 											+ '<select v-model="select" name="select" id="select">'
-											+ '<option disabled value="" selected="selected">선택지</option>'
+											+ '<option disabled value="" selected="selected">선택지를 추가하세요</option>'
 											+ '</select>'
-											+ '<input type="button" value="해당 선택지 삭제" class="subSelectOption">'
+											+ '<input type="button" value="선택지 삭제" class="subSelectOption">'
 											+ '<br>'
-											+ '<input type="text" placeholder="추가할 선택지 내용을 입력하세요" size="30">'
-											+ '<input type="button" value="추가" class="addSelectOption">'
+											+ '<input type="text" placeholder="추가할 내용 입력" size="30">'
+											+ '<input type="button" value="선택지 추가" class="addSelectOption">'
 											+ '</fieldset>'
 											+ '</div>';
 								}
@@ -145,11 +145,11 @@ function initialize() {
 									str += '<div class="questions" id="question' + question + '">'
 											+ '<input type="hidden" id="questionType" value="comment">'
 											+ '<fieldset>'
-											+ '<legend>질문' + question + '. 내용 수정하쇼'
+											+ '<legend>질문 내용을 변경하세요'
 											+ '<input type="button" value="수정" onclick="javascript:editQuestion(' + question + ')">'
 											+ '<input type="button" value="삭제" onclick="javascript:deleteQuestion(' + question + ')">'
 											+ '</legend>'
-											+ '<textarea rows="10" cols="70"></textarea>'
+											+ '<textarea rows="10" cols="50"></textarea>'
 											+ '</fieldset>' 
 											+ '</div>';
 
@@ -181,7 +181,7 @@ function deleteQuestion(questionNum){
 	
 	if (questionSize <= 1) {
 		
-		alert('질문내용은 반드시 1개이상 존재해야합니다.');
+		alert('더이상 삭제할 수 없습니다.');
 		
 	} else {
 		
@@ -194,11 +194,11 @@ function deleteQuestion(questionNum){
 //각 설문지의 수정버튼이 눌렸을 때 질문 내용을 변경
 function editQuestion(questionNum){
 	
-	var val = $(this).prev('legend').val();
+//	var val = $(this).prev('legend').val();
 	
 	var str = '';
 	
-	str += '<input type="text" id="editQuestion'+questionNum+'" value="'+val+'">'
+	str += '<input type="text" id="editQuestion'+questionNum+'">'
 		+ '<input type="button" value="수정" onclick="javascript:completeEditQuestion('+questionNum+')">';
 	
 	$( "#question"+questionNum+" legend")
@@ -220,14 +220,12 @@ function completeEditQuestion(questionNum){
 function editOption(){
 	
 	$("label").dblclick(function(){
-		
+	 	
 		$(this).each(function(index, item){
-			var val = $(this).text();
-			console.log(val);
 			
 			var str = '';
-			str += '<input type="text" id="editOption" value="'+val+'">'
-				+ '<input type="button" value="수정" id="CompleteEditOPtion">';
+			str += '<input type="text" id="editOption" value="">'
+				+ '<input type="button" value="수정" class="CompleteEditOPtion">';
 			
 			$(this).html(str);
 			completeEditOption();
@@ -235,12 +233,12 @@ function editOption(){
 		});
 	});
 	
-};
+}; 
 
 //라디오, 체크박스 옵션 수정 완료
 function completeEditOption(){
 	
-	$("#CompleteEditOPtion").click(function(){
+	$(".CompleteEditOPtion").off().click(function(){
 		$(this).each(function(index, item){
 			
 			var editVal = $(this).prev('input').val();
@@ -256,13 +254,13 @@ function addPage(pageSize){
 	var Num = pageSize+1;
 	
 	var pageOption = '';
-	pageOption += '<option value="page'+Num+'" selected="selected">page'+Num+'</option>';
+	pageOption += '<option value="page'+Num+'" selected="selected">페이지 '+Num+'</option>';
 	
 	$( "#pagesWrap" ).find('select').append(pageOption);
 	
 	var 	page = '';
 	page += '<div id="page'+Num+'" class="pages">'
-		 + '<h1>Page'+Num+' ( '+Num+' / '+Num+' )</h1>';
+		 + '<h1>페이지 '+Num+'</h1>';
 	
 	console.log($( "#pagesWrap" ).find('select'));
 	$( "#questionsWrap" ).append(page);
@@ -287,7 +285,7 @@ function subPage(){
 	var pageSize = $( "#pagesWrap" ).find('option').length;
 	
 	if (pageSize <= 1) {
-		alert('남아있는 페이지가 1개일 경우 삭제할 수 없습니다.');
+		alert('더이상 삭제할 수 없습니다.');
 	} else {
 		
 		var target = $( "#pagesWrap" ).find('option:selected');
@@ -349,7 +347,7 @@ function addOption(){
 				var str = '';
 				str += '<input type="checkbox" '
 					+ 'name="'+name+'" id="checkbox'+checkOptionNum+'">'
-					+'<label for="checkbox'+checkOptionNum+'">옵션'+checkOptionNum+'</label>'
+					+'<label for="checkbox'+checkOptionNum+'">선택지 내용을 수정하세요</label>'
 					
 					console.log(str);
 					
@@ -369,7 +367,7 @@ function addOption(){
 				var str = '';
 				str += '<input type="radio" '
 					+ 'name="'+name+'" id="radio'+radioOptionNum+'">'
-					+'<label for="radio'+radioOptionNum+'">옵션'+radioOptionNum+'</label>'
+					+'<label for="radio'+radioOptionNum+'">선택지 내용을 수정하세요</label>'
 					
 					console.log(str);
 					
@@ -394,7 +392,7 @@ function subOption(){
 			
 			if (optionSize <= 1 ) {
 				
-				alert ('선택지는 반드시 1개이상 존재해야합니다.');
+				alert ('더이상 삭제할 수 없습니다.');
 				
 			} else {
 			
@@ -447,7 +445,7 @@ function subSelectOption(){
 		
 		if (optionSize <= 1) {
 			
-			alert('선택지는 반드시 1개이상 존재해야 합니다.');
+			alert('더이상 삭제할 수 없습니다.');
 			
 		} else {
 		
@@ -515,8 +513,6 @@ function reqiredQuestion(){
 function editSurvey(){
 	
 	$("#editSurvey").click(function(){
-		
-		alert('수정 버튼은 눌렸냐ㅋㅋ');
 		
 		// 해당 설문조사 배열
 		var surveyArray = new Array();

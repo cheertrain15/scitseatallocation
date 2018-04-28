@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>설문조사 상세보기</title>
+<title>설문조사 참여/확인</title>
   
 <script type="text/javascript" src="./resources/js/jquery-3.2.1.js"/></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -13,8 +13,10 @@
 <link rel="stylesheet" type="text/css" href="./resources/css/survey/surveyDetail.css"/>
 
 </head>
-<body>
-	  	<h1>개별 설문 보기</h1>
+<body> 
+<%@ include file="../header.jsp" %>
+<br><br><br><br><br><br>
+
 	  	<c:if test="${memberClass == 'teacher'}">
 	  	
 	  	<div id="modifyBtn">
@@ -56,10 +58,10 @@
 	  	<div id="canvase">
 	  	
 	  	<c:forEach items="${pages}" var="pg" varStatus="pgStatus">
+	  
+	  	<div id="페이지 ${pgStatus.index}" class="pages" >
 	  	
-	  	<div id="page${pgStatus.index}" class="pages" >
-	  	
-	  	 
+	  	  
 	  	<div id="leftBtn">
 	  	<br><br><br><br><br><br><br>
 	  	<br><br><br><br><br><br>
@@ -68,7 +70,7 @@
 	  		
 	  		<div id="questionWrap">
 	  		
-	  		<h1>Page${pgStatus.count} ( ${pgStatus.count} / ${pages.size()} )</h1>
+	  		<h1>페이지 ${pgStatus.count} ( ${pgStatus.count} / ${pages.size()} )</h1>
 	  
 		  	<c:forEach items="${questions}" var="qs">
 		  	
@@ -146,5 +148,6 @@
 	  	</div>
 	  	</c:if>
 	  	
+<%@ include file="../footer.jsp"%>	
 </body>
 </html>
