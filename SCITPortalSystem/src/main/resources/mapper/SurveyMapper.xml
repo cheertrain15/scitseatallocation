@@ -10,7 +10,8 @@
 <select id="countSelectAll" parameterType="int" resultType="int">
 	select count(*) from 
 	( 
-	select s.surveynum surveynum, 
+	select s.surveynum surveynum,
+	s.surveycategory,
     s.surveytargetalumni surveytargetalumni,
     s.surveytargetclassroom surveytargetclassroom,
     s.teachernum teachernum, mb.name name, 
@@ -21,7 +22,7 @@
 	TO_CHAR(s.surveystartdate, 'yyyy-mm-dd') surveystartdate, 
 	TO_CHAR(s.surveyenddate, 'yyyy-mm-dd') surveyenddate
 	from survey s, memberbasic mb, memberstaff ms
-	where s.teachernum = 1
+	where s.teachernum = #{teacherNum}
 	and s.teachernum = ms.teachernum
 	and mb.id = ms.id
 	order by surveynum desc
@@ -29,7 +30,8 @@
 </select>
 
 <select id="selectAll" parameterType="int" resultType="Survey">
-	select s.surveynum surveynum, 
+	select s.surveynum surveynum,
+	s.surveycategory,
     s.surveytargetalumni surveytargetalumni,
     s.surveytargetclassroom surveytargetclassroom,
     s.teachernum teachernum, mb.name name, 
@@ -40,7 +42,7 @@
 	TO_CHAR(s.surveystartdate, 'yyyy-mm-dd') surveystartdate, 
 	TO_CHAR(s.surveyenddate, 'yyyy-mm-dd') surveyenddate
 	from survey s, memberbasic mb, memberstaff ms
-	where s.teachernum = 1
+	where s.teachernum = #{teacherNum}
 	and s.teachernum = ms.teachernum
 	and mb.id = ms.id
 	order by surveynum desc
@@ -54,7 +56,8 @@
 <select id="countSelectAll2" parameterType="MemberStudent" resultType="int">
 	select count(*) from 
 	( 
-	select s.surveynum surveynum, 
+	select s.surveynum surveynum,
+	s.surveycategory,
 	s.surveytargetalumni surveytargetalumni,
     s.surveytargetclassroom surveytargetclassroom,
 	s.teachernum teachernum, mb.name name, 
@@ -74,7 +77,8 @@
 </select>
 
 <select id="selectAll2" parameterType="MemberStudent" resultType="Survey">
-	select s.surveynum surveynum, 
+	select s.surveynum surveynum,
+	s.surveycategory,
 	s.surveytargetalumni surveytargetalumni,
     s.surveytargetclassroom surveytargetclassroom,
 	s.teachernum teachernum, mb.name name, 
@@ -327,6 +331,54 @@
 	and
 	surveynum = #{surveyNum}
 	)
+</select>
+
+<!-- <select id="getTargetStudents" parameterType="Survey" resultType="MemberStudent">
+	select * from memberstudent
+	where alumni = #{surveyTargetAlumni}
+	<if test="surveyTargetClassroom != 'ALL'">
+	and classroom = #{surveyTargetClassroom}
+	</if>
+	order by classroom asc, memberstudentnum asc
+</select>-->
+
+<select id="getRespondContentList" parameterType="int" resultType="Survey">
+	select
+    s.surveynum, sp.surveypagenum, mb.membernum, mb.name, ms.alumni, ms.classroom, sq.surveyquestionnum, sq.surveyquestiontype, sr.surveyrespondcontent,
+	listagg(so.surveyoptioncontent, ', ') 
+	within group(order by so.surveyoptionnum) surveyoptioncontent
+	from surveyquestion sq
+    full outer join surveyrespond sr on sq.surveyquestionnum = sr.surveyquestionnum
+    full outer join surveyoption so on so.surveyoptionnum = sr.surveyrespondoptionnum
+    full outer join memberbasic mb on sr.surveyrespondmembernum = mb.membernum
+    left outer join surveypage sp on sq.surveypagenum = sp.surveypagenum
+    left outer join survey s on sp.surveynum = s.surveynum
+    inner join memberstudent ms on mb.id = ms.id
+    group by s.surveynum, sp.surveypagenum, mb.membernum, mb.name, ms.alumni, ms.classroom, sq.surveyquestionnum, sq.surveyquestiontype, sr.surveyrespondcontent
+    having s.surveynum = #{surveyNum}
+    order by mb.membernum asc, sq.surveyquestionnum asc
+</select>
+
+<select id="getQuestionContents" parameterType="int" resultType="Survey">
+	select distinct sq.surveyquestionnum, sq.surveyquestioncontent
+    from survey s
+    inner join surveypage sp on s.surveynum = sp.surveynum
+    inner join surveyquestion sq on sp.surveypagenum = sq.surveypagenum
+    inner join memberstudent ms on ms.alumni = s.surveytargetalumni
+    inner join memberbasic mb on mb.id = ms.id
+    where s.surveynum = #{value}
+    order by sq.surveyquestionnum asc
+</select>
+   
+<select id="getRespondTargetStudents" parameterType="int" resultType="Survey">
+	select distinct mb.membernum, mb.name, ms.alumni, ms.classroom
+    from survey s
+    inner join surveypage sp on s.surveynum = sp.surveynum
+    inner join surveyquestion sq on sp.surveypagenum = sq.surveypagenum
+    inner join memberstudent ms on ms.alumni = s.surveytargetalumni
+    inner join memberbasic mb on mb.id = ms.id
+    where s.surveynum = #{value}
+    order by ms.classroom asc, mb.membernum asc
 </select>
 
 </mapper>
