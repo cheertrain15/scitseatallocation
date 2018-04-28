@@ -68,7 +68,7 @@ public class NewsController {
 		if (MemberClass.equals("student")) {
 			int MemberAlumni = (int) session.getAttribute("loginedAlumni");
 			System.out.println("나 기수야"+MemberAlumni);
-			String MemberClassroom = (String) session.getAttribute("loginedClassroom");
+			String MemberClassroom = (String) session.getAttribute("loginClassroom");
 			System.out.println("나 몇 반이야"+MemberClassroom);
 			// 페이징 처리
 			int total = dao.getTotal(searchMap);
