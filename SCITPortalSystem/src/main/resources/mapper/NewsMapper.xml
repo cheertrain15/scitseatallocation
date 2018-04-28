@@ -66,16 +66,16 @@
 	<!-- 전체 목록 출력 선생용-->
 	<select id="selectNewsTheacher" parameterType="hashmap" resultType="News">
 		select 
-			n.newsNum
-			,n.newsTitle
-			,n.newsHeader
-			,n.newsContent
-			,n.newsDate
-			,n.newsHits
-			,n.newsFileName
-			,n.newsSavedFileName
+			newsNum
+			,newsTitle
+			,newsHeader
+			,newsContent
+			,newsDate
+			,newsHits
+			,newsFileName
+			,newsSavedFileName
 		from
-			news n
+			news
 			<if test="targetAlumni != null and targetClass != null" >
 				where			
 					targetAlumni = #{targetAlumni}

@@ -62,13 +62,14 @@ public class NewsController {
 		// 잘 담앗는지 출력
 		String MemberClass = (String) session.getAttribute("loginMemberClass");
 		System.out.println("나 클래스야"+MemberClass);
-		int MemberAlumni = (int) session.getAttribute("loginedAlumni");
-		System.out.println("나 기수야"+MemberAlumni);
-		String MemberClassroom = (String) session.getAttribute("loginedClassroom");
-		System.out.println("나 몇 반이야"+MemberClassroom);
+		
 		//만약 학생으로 로그인하고 세션에서 기수와 클래스를 받아 set을 해주면 자동입력이될것 같다.		
 		
 		if (MemberClass.equals("student")) {
+			int MemberAlumni = (int) session.getAttribute("loginedAlumni");
+			System.out.println("나 기수야"+MemberAlumni);
+			String MemberClassroom = (String) session.getAttribute("loginedClassroom");
+			System.out.println("나 몇 반이야"+MemberClassroom);
 			// 페이징 처리
 			int total = dao.getTotal(searchMap);
 			
@@ -87,11 +88,11 @@ public class NewsController {
 			
 			// 전체 기수 담기
 			model.addAttribute("targetAlumni", MemberAlumni);
-			System.out.println("나 기수가 출력 되고 있어!"+searchSelectAlumni);
+			System.out.println("나 기수가 출력 되고 있어!"+MemberAlumni);
 			
 			// 전체 반 담기
 			model.addAttribute("targetClass", MemberClassroom);
-			System.out.println("나 기수가 출력 되고 있어!"+searchSelectClass);
+			System.out.println("나 기수가 출력 되고 있어!"+MemberClassroom);
 			
 		} else {
 			// 페이징 처리

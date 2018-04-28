@@ -39,12 +39,12 @@
 							<option value="C" <c:if test="${targetClass == 'C' }">selected</c:if>>C반</option>
 							<option value="D" <c:if test="${targetClass == 'D' }">selected</c:if>>D반</option>
 						</select>
-						<input type="submit" value="검색">
+						<input id="submit" type="submit" value="검색">
 					</form>
 				</th>
 				<th>
 					<c:if test="${sessionScope.loginMemberClass == 'teacher'}">
-						<input class="newsinput" type="button" value="글작성" onclick="newsWrite()">
+						<input id="button" class="newsinput" type="button" value="글작성" onclick="newsWrite()">
 					</c:if>
 				</th>
 			</tr>
