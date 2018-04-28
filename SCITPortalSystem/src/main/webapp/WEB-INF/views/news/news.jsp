@@ -24,8 +24,13 @@
 
 <body>
 <%@ include file="../header.jsp" %>
-<br><br><br><br><br>	
-	<table>
+<br><br><br><br><br>
+	<table id="table">
+			<tr>
+				<th colspan="1" class="page-header" style="border-left: 5px solid #1b809e;" >
+				<span style="font-size:22px; font-weight:bold; font-family:inherit; margin-left:1%;" data-langnum="105">공지사항</span>
+				</th>
+			</tr>
 			<tr>
 				<th colspan="3" class="selectNews">
 					<form action="NewsMain" method="get">
@@ -49,37 +54,37 @@
 				</th>
 			</tr>
 		<tr>
-			<th>말머리</th>
-			<th>제목</th>
-			<th>작성일</th>
-			<th>조회수</th>
+			<th id="th" width="10%">말머리</th>
+			<th id="th" width="60%">제목</th>
+			<th id="th" width="10%">작성일</th>
+			<th id="th" width="10%">조회수</th>
 		</tr>
 
 		<c:forEach var="news" items="${NewsList}">
 			<tr>
-				<td class="tdnews">${news.newsHeader}</td>			
-				<td width="300px"><a href="read?newsNum=${news.newsNum}">${news.newsTitle}</a><c:if test="${news.newsFileName != null}">
-				<img width="10px" src="../resources/img/icon.png"></c:if>
+				<td id="td" class="tdnews">${news.newsHeader}</td>			
+				<td id="td" ><a id="atitle" href="read?newsNum=${news.newsNum}">${news.newsTitle}</a><c:if test="${news.newsFileName != null}">
+				<img width="15px" src="../resources/img/icon.png"></c:if>
 				</td>
-				<td class="tdnews"><fmt:formatDate pattern = "yyyy-MM-dd" value = "${news.newsDate}" /></td>
-				<td class="tdnews">${news.newsHits}</td>
+				<td id="td" class="tdnews"><fmt:formatDate pattern = "yyyy-MM-dd" value = "${news.newsDate}" /></td>
+				<td id="td" class="tdnews">${news.newsHits}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<div class="consultdiv">
-		<a href="javascript:pagingFormSubmit(1)">◁◁</a> 
-		<a href="javascript:pagingFormSubmit(${navi.currentPage-1})">◀</a>
+		<a id="a" href="javascript:pagingFormSubmit(1)">◁◁</a> 
+		<a id="a" href="javascript:pagingFormSubmit(${navi.currentPage-1})">◀</a>
 		<c:forEach var="counter" begin="${navi.startPageGroup}"	end="${navi.endPageGroup}">
 			<c:if test="${counter == navi.currentPage}">
 				<b>
 			</c:if>
-				<a href="javascript:pagingFormSubmit(${counter})">${counter}</a>
+				<a id="a" href="javascript:pagingFormSubmit(${counter})">${counter}</a>
 			<c:if test="${counter == navi.currentPage}">
 				</b>
 			</c:if>
 		</c:forEach>
-		<a href="javascript:pagingFormSubmit(${navi.currentPage+1})">▶</a> 
-		<a href="javascript:pagingFormSubmit(${navi.totalPageCount})">▷▷</a>
+		<a id="a" href="javascript:pagingFormSubmit(${navi.currentPage+1})">▶</a> 
+		<a id="a" href="javascript:pagingFormSubmit(${navi.totalPageCount})">▷▷</a>
 	</div>
 	<div class="consultdiv">
 		<form action="NewsMain" method="GET" id="pagingForm">
