@@ -43,7 +43,7 @@ insert into
 </insert> 
 
 <!-- searchOne -->
-<select id="searchOneMember" parameterType="String" resultType="MemberBasic">
+<select id="searchOneMember" parameterType="string" resultType="MemberBasic">
 	select
 		memberNum
 		, id
@@ -57,7 +57,7 @@ insert into
 		, deleteBy		
 		, memberPicName	
 		, memberSaverPicName
-		, emailApproval
+		, emailApproval	
 	from
 		memberbasic
 	where

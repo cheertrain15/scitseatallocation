@@ -37,7 +37,7 @@ commit;
 ----------------------------------------------------------------------------------
 -- SC IT 마스터 웹 프로그램 학사 관리 Project : SC IT MASTER Potal System
 
--- 학색 정보 테이블
+-- 학생 정보 테이블
 CREATE table memberbasic (
     memberNum number PRIMARY KEY,	            -- 회원번호
     id varchar2(20) not null unique,		    -- 아이디
@@ -53,7 +53,8 @@ CREATE table memberbasic (
     postNum varchar2(10) not null,	        	-- 우편번호
     deleteStatus number(1) default 0 not null,	-- 논리적 삭제 여부
     deleteBy varchar2(20) not null,		        -- 논리적 삭제 실행자
-    deleteDate date default sysdate     -- 논리적 삭제 실행일
+    deleteDate date default sysdate ,    -- 논리적 삭제 실행일
+    adminap number(5) default 0 not null	-- 관리자 승인 
     );
 
 -- 회원 가입 시, 회원번호에 사용할 시퀀스    
@@ -276,7 +277,8 @@ create table Registration(
     registerResult number(1) default 0,			-- 지각 처리 결과 (0=정상, 1=지각, 2=결석)
     deleteStatus NUMBER(1) default 0 NOT NULL,  -- 논리적 삭제 여부
     deleteBy Varchar2(20) NOT NULL,             -- 논리적 삭제 실행자
-    deleteDate Date default sysdate             -- 논리적 삭제 실행일
+    deleteDate Date default sysdate,             -- 논리적 삭제 실행일
+    attendance_stu Varchar2(5) default 'N'		-- 출결 관련 승인 여부(staff 승인 완료하면 Y)    
 );
 
 create sequence registrationNum_seq start with 1 increment by 1;

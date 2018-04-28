@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.scitportalsystem.www.dao.MyPageDAO;
 import com.scitportalsystem.www.dao.RegisterDAO;
 import com.scitportalsystem.www.util.PageNavigator;
+import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.Registration;
 import com.scitportalsystem.www.vo.RegistrationResult;
+
 
 
 /**
@@ -82,61 +84,46 @@ public class RegisterController {
 		
 		int result = dao.insertRegist(registration);
 		
-		/*int lateCount = 0;
-		int AbsentCount = 0;
-		
-		if(registration.getRegistrationReason() == 0) {
-			// 지각 카운팅 증가
-			lateCount = MDAO.updateLate(id);
-		} else if(registration.getRegistrationReason() == 1) {
-			// 결석 카운팅 증가 
-			AbsentCount = MDAO.updateAbsent(id);
-		}	*/
-		
 		if (result != 1) {
 			model.addAttribute("errMsg", "등록 실패");
 			logger.info("지각 및 결석 등록  실패");
 			return "attendance/attendanceWrite";
 		}
 		
-		logger.info("지각 및 결석 글 등록 종료");
 		return "attendance/attendanceWriteComplete";
 	}
 	
 	
-	@RequestMapping(value="lateComplete",method=RequestMethod.GET)
+	/**
+	 * @comment : 출결(지각 및 결석) 승인 및 카운팅 처리 => Mypage 출력
+	 * @param registrationNum
+	 * @author 김다희
+	 */
+	@RequestMapping(value="AttendanceCheck",method=RequestMethod.GET)
 	@ResponseBody
-	public void lateCount(String name) {
+	public void approvalAttendance(int registrationNum){		
 		
-		int late = MDAO.updateLate(name);
+		Registration check = dao.selectOneAttendande(registrationNum);
 		
-
-		if(late == 1){
-			logger.info("지각승인 성공");			
+		System.out.println("!!!!!!!!성공!!!!!!!!???" + check);
+				
+		
+		boolean result = dao.attendanceCheck(registrationNum);
+		
+		if(result) {	// 출결 확인 OK
+			if(check.getRegistrationReason() == 0) {	// 지각
+				MDAO.updateLate(check.getId());
+				logger.info("지각 처리 완료");
+			} else if(check.getRegistrationReason() == 1) {	// 결석
+				MDAO.updateAbsent(check.getId());
+				logger.info("결석 처리 완료");
+			}
 		} else {
-			logger.info("지각승인 실패");
-			
-		}	
-		
-		
-	}
-	
-	
-	@RequestMapping(value="absentComplete",method=RequestMethod.GET)
-	@ResponseBody
-	public void absentCount(String name) {
-		
-		int absent = MDAO.updateLate(name);
-		
-		if(absent == 1){
-			logger.info("결석승인 성공");			
-		} else {
-			logger.info("결석승인 실패");
+			logger.info("출결 처리 실패");
 			
 		}	
 		
 	}
-	
 	
 	/**
 	 * 글 목록
@@ -175,6 +162,7 @@ public class RegisterController {
 		String memberClass = dao.userInfo(id);
 		ArrayList<RegistrationResult> registlist_stu = dao.listRegistOne(id);
 		
+			
 		model.addAttribute("registlist_stu", registlist_stu);
 		model.addAttribute("memberClass", memberClass);
 		model.addAttribute("total", total);
@@ -185,6 +173,7 @@ public class RegisterController {
 		model.addAttribute("searchText", searchText);
 		model.addAttribute("selAlumni", selAlumni);
 		model.addAttribute("selClassroom", selClassroom);
+		
 		
 		
 		logger.info("지각 및 결석 등록 목록 출력 종료");

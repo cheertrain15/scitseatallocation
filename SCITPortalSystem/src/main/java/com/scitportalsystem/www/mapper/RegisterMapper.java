@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
+
+import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.Registration;
 import com.scitportalsystem.www.vo.RegistrationResult;
 
@@ -19,8 +21,12 @@ public interface RegisterMapper {
 	//검색 후의 총 글 개수
 	public int getTotal(HashMap<String, Object> searchMap);
 	// 지각 및 결석 목록 삭제 
-	public int deleteRegist(String registrationNum);
+	public int deleteRegist(String registrationNum);	
+
+	// 출결 여부 확인
+	public int attendanceCheck(int registrationNum);
 	
-	
+	// 출결정보 객체 확인(1개), 작성자 : 김다희 
+	public Registration selectOneAttendande(int registrationNum);
 	
 } 

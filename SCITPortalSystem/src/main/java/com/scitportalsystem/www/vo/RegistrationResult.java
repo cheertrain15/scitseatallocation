@@ -12,20 +12,24 @@ public class RegistrationResult {
 	private String name; //-- 이름(실명)
 	private String id; // --글 작성자 회원번호
 	private String registrationContent; // -- 출결관리 글 내용
-	private int registrationReason;
+	private int registrationReason;		// -- 출결 이유
 	private String estimatedTime; // -- 도착 예정 시간
 	private Date registrationDate; // -- 출결관리 글 작성일
 	private int deleteStatus; // -- 논리적 삭제 여부
 	private String deleteBy; // -- 논리적 삭제 실행자
 	private Date deleteDate; // --논리적 삭제 실행일
+	private int late; 		// -- 지각 횟수
+	private int absent;		// -- 결석 횟수
+	private String attendance_stu;	// -- 출결 확인 여부 
 	
-	public RegistrationResult(){
-		
+	public RegistrationResult() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public RegistrationResult(int registrationNum, int alumni, String classroom, String name, String id,
 			String registrationContent, int registrationReason, String estimatedTime, Date registrationDate,
-			int deleteStatus, String deleteBy, Date deleteDate) {
+			int deleteStatus, String deleteBy, Date deleteDate, int late, int absent, String attendance_stu) {
 		super();
 		this.registrationNum = registrationNum;
 		this.alumni = alumni;
@@ -39,6 +43,9 @@ public class RegistrationResult {
 		this.deleteStatus = deleteStatus;
 		this.deleteBy = deleteBy;
 		this.deleteDate = deleteDate;
+		this.late = late;
+		this.absent = absent;
+		this.attendance_stu = attendance_stu;
 	}
 
 	public int getRegistrationNum() {
@@ -137,15 +144,55 @@ public class RegistrationResult {
 		this.deleteDate = deleteDate;
 	}
 
+	public int getLate() {
+		return late;
+	}
+
+	public void setLate(int late) {
+		this.late = late;
+	}
+
+	public int getAbsent() {
+		return absent;
+	}
+
+	public void setAbsent(int absent) {
+		this.absent = absent;
+	}
+
+	public String getAttendance_stu() {
+		return attendance_stu;
+	}
+
+	public void setAttendance_stu(String attendance_stu) {
+		this.attendance_stu = attendance_stu;
+	}
+
 	@Override
 	public String toString() {
 		return "RegistrationResult [registrationNum=" + registrationNum + ", alumni=" + alumni + ", classroom="
 				+ classroom + ", name=" + name + ", id=" + id + ", registrationContent=" + registrationContent
 				+ ", registrationReason=" + registrationReason + ", estimatedTime=" + estimatedTime
 				+ ", registrationDate=" + registrationDate + ", deleteStatus=" + deleteStatus + ", deleteBy=" + deleteBy
-				+ ", deleteDate=" + deleteDate + "]";
+				+ ", deleteDate=" + deleteDate + ", late=" + late + ", absent=" + absent + ", attendance_stu="
+				+ attendance_stu + "]";
 	}
 	
 	
+	
+	
+	
+	
 
+	
+	
+	
+	
+	
 }
+	
+	
+	
+
+	
+	

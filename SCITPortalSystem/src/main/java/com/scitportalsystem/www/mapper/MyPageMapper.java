@@ -4,6 +4,12 @@ import com.scitportalsystem.www.vo.MemberStaff;
 import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.MemberStudentCertificate;
 
+
+/**
+ * @comment : Mypage 관련 Mapper
+ * @author 김다희
+ *
+ */
 public interface MyPageMapper {
 	/**
 	 * 학사 정보 및 직원 추가 정보 입력  Mapper
@@ -41,6 +47,7 @@ public interface MyPageMapper {
 	
 	// student 결석 횟수 카운팅
 	public int updateAbsent(String id);
+	
 	
 	
 }

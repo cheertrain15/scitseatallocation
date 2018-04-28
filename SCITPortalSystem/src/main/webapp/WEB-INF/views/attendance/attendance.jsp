@@ -53,12 +53,7 @@
 				$('#registrationNum').val(registrationNum);
 				$('#delList').submit();
 			});
-		});
-		
-		function comfirm_btn() {
-			document.getElementById("comFirmBTN").value = '완료';			
-}
-		
+		});	
 		
 	</script>
 	
@@ -105,8 +100,13 @@
 								<td width="300px"> ${list.registrationContent }</td>
 								<td width="100px" > ${list.estimatedTime } </td>
 								<td width="150px"> <fmt:formatDate  value="${list.registrationDate }" pattern="yyyy/MM/dd HH:mm"/> </td> <!-- 시간 까지 출력되도록 설정 -->
-								<td>
-									<input type="button" value="확인" id="btn_${list.registrationNum}" class="comFirmBTN" />
+								<td>						
+								<c:if test="${list.attendance_stu == 'N'}">
+									<input type="button" value="확인" i="${list.registrationNum }" class="comFirmBTN"/>											
+								</c:if>	
+								<c:if test="${list.attendance_stu == 'Y'}">
+									<b>Complete</b>										
+								</c:if>	
 								</td>
 							</tr>
 						</c:forEach>

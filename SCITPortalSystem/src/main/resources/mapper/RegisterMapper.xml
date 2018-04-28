@@ -18,7 +18,7 @@
 			, deleteBy
 		)
 		values (
-			registrationnum_seq.nextval
+			registrationNum_seq.nextval
 			, #{ id}
 			, #{ registrationReason}
 			, #{ registrationContent}
@@ -30,15 +30,19 @@
 	<!-- 지각 및 결석 사유 목록 (선생님용)-->
 	<select id="listRegistAll" parameterType="hashmap" resultType="RegistrationResult">
 		select 
-			r.registrationnum
+			r.registrationNum
+			, r.id
 			, ms.alumni
 			, ms.classroom
+			, ms.late
+			, ms.absent
 			, mb.name
 			, r.registerResult
 			, r.registrationcontent
 			, r.estimatedtime 
 			, r.registrationdate
 			, r.registrationReason
+			, r.attendance_stu
 		from 
 			registration r
 			, memberstudent ms
@@ -62,7 +66,7 @@
 		</if>
 			r.id = ms.id 
 			and ms.id = mb.id
-		order by r.registrationnum desc
+		order by r.registrationNum desc
 	</select>
 	
 	<!-- 로그인 유저 정보 출력 -->
@@ -73,15 +77,38 @@
 	where
 		id = #{ id}
 	</select>
-
+	
+	<!-- 출결 정보 확인용 출력(글 1개), 작성자 : 김다희 -->
+	<select id="selectOneAttendande" parameterType="int" resultType="Registration">
+		select
+			registrationNum
+			, id
+			, registrationReason	
+		from 
+			registration
+		where
+			registrationNum = #{registrationNum}
+	</select>
+	
+	<!-- 출결 여부 확인, 작성자 : 김다희  -->
+	<update id="attendanceCheck" parameterType="int">
+	update
+		registration
+	set
+		attendance_stu = 'Y'
+	where		 
+		registrationNum = #{registrationNum}
+	</update>
 	
 	<!-- 지각 및 결석 사유 목록 (학생용)-->
 	<select id="listRegistOne" parameterType="String" resultType="RegistrationResult">
 		select 
-			r.registrationnum
+			r.registrationNum
 			, ms.alumni
 			, ms.classroom
 			, mb.name
+			, ms.late
+			, ms.absent
 			, r.registerResult
 			, r.registrationcontent
 			, r.estimatedtime
@@ -95,7 +122,7 @@
 			r.id = #{ id} 
 			and r.id = ms.id 
 			and ms.id = mb.id
-		order by r.registrationnum desc
+		order by r.registrationNum desc
 	</select>
 	
 	<!-- 전체 글 개수 (검색 필터링 후) -->
@@ -118,9 +145,8 @@
 		delete
 			registration
 		where
-			registrationnum = #{ registrationnum}
+			registrationNum= #{registrationNum}
 	</delete>
-
 	
 
 </mapper>

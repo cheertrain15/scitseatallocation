@@ -1,67 +1,123 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-- link -->
-<meta name="viewport" content="width=device-width, initial-scale=1">		
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-
-
-
-<!-- <Sidebar (hidden by default)> -->
-<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:10%;min-width:300px; background-color: #eeeeeeb5;" id="mySidebar">
-  <a href="javascript:void(0)" onclick="w3_close()"
-  class="w3-bar-item w3-button">Close</a>
-  
-  <c:choose>
-  	<c:when test="${sessionScope.loginID != null}">
-  		<c:if test="${sessionScope.loginID eq 'admin'}">
-  			<a href="<c:url value="/admin/management"/>" onclick="w3_close()" class="w3-bar-item w3-button">Management</a>
-  		</c:if>    		
-  		<c:if test="${sessionScope.loginID != 'admin'}">
-  			<a href="<c:url value="/News/NewsMain"/>" onclick="w3_close()" class="w3-bar-item w3-button">News</a> 
-		  	<a href="<c:url value="/additionalInfo/staffPage"/>" onclick="w3_close()" class="w3-bar-item w3-button">Work Information</a>
-		  	<a href="<c:url value="survey"/>" onclick="w3_close()" class="w3-bar-item w3-button">Survey</a>
-		  	<a href="<c:url value="/attendance/attendance"/>" onclick="w3_close()" class="w3-bar-item w3-button">Attendance</a>
-		  	<a href="<c:url value="/seat/seatpage"/>" onclick="w3_close()" class="w3-bar-item w3-button">Seat Placement</a>
-		  	<a href="<c:url value="/AskQuestion/QnA"/>" onclick="w3_close()" class="w3-bar-item w3-button">Consult</a>   		
-  		</c:if>
-  	</c:when>  	
-  </c:choose>
+  	<meta content="width=device-width" id="viewport" name="viewport" />
+    <title>IU unveils new master's degree in cybersecurity | IT News &amp; Events</title>
+    <link href="<c:url value="https://itnews.iu.edu/files/favicon.ico"/>" rel="shortcut icon" type="image/x-icon" />
+    <meta charset="utf-8" />
+    <!-- CSS -->   
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="<c:url value="/resources/css/main/uits.css"/>" media="all" rel="stylesheet" type="text/css" />   
+    <link href="<c:url value="/resources/css/main/app.css"/>" media="all" rel="stylesheet" type="text/css" />
     
-</nav>
-<!-- ☰s -->
-<!-- Top menu -->
- <div class="w3-top">
-  <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
-    <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">Menu</div>
-        <div class="w3-right w3-padding-16"> 
-        <c:if test="${sessionScope.loginID == null }">
-            <span><a href="<c:url value="/member/loginForm"/>">Login</a></span>
-      		<span><a href="<c:url value="/member/joinType"/>">Join</a></span>                                  
-        </c:if>
-        <c:if test="${sessionScope.loginID != null }">
-        	<span><a href="<c:url value="/member/logoutForm"/>">Logout</a></span>
-      		<span><a href="<c:url value="/member/myPage"/>">MyPage</a></span>          
-        </c:if>
-      
-    </div>
-    <div class="w3-center w3-padding-16">
-    <a href="<c:url value="/"/>">
-      <img src="<c:url value="/resources/img/logo.jpg"/>">
-     </a>
-    </div>
-  </div>
-</div>
+     <script>
+        var phpRoot = '/files/php/';
+        var mediaRoot = '/media';
+        var articleRoot = '/articles';
+    </script>
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="<c:url value="//www.googletagmanager.com/ns.html?id=GTM-P8S3H4"/>" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-P8S3H4');
+    </script>
+    <!-- End Google Tag Manager -->
 
-<script>
-// Script to open and close sidebar
-function w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
-}
- 
-function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-}
-</script>
+<div>
+    <div class="clearfix">
+        <div id="branding-bar-v1" itemscope="itemscope" itemtype="http://schema.org/CollegeOrUniversity">
+            <div class="bar">
+                <div class="header--subsite" role="banner">
+                    <div class="header container">
+                        <div class="header__wrapper">
+                            <div class="header__masthead">
+                                <a class="header__masthead-link" href="http://www.iu.edu" title="Indiana University">
+                                    <img class="header__masthead-image" src="<c:url value="/resources/img/logo_sample.png"/>" height="73" width="64" alt="">
+                                    <span class="header__masthead-text" itemprop="name sourceOrganization provider" style="font-size: 20px;">SCIT&nbsp;PORTAL</span>
+                                </a>
+                            </div>
+                            <!-- UITS Navigation -->
+                            <div class="uits-nav uits-nav--with-search search-nudge js-expandable-search__nudge">                               
+                                    <nav role="navigation" class="uits-nav__menu">
+                                        <ul class="uits-nav__list">
+                                        <c:if test="${sessionScope.loginID == null}">                                        
+                                            <li class="uits-nav__item">
+                                                <a href="<c:url value="/member/loginForm"/>" class="js-dropdown__trigger js-services" data-dropdown="uits-nav-dropdown--quicklinks">LOGIN</a>
+                                            </li>
+                                            <li class="uits-nav__item">
+                                                <a href="<c:url value="/member/joinType"/>" class="js-dropdown__trigger js-about" data-dropdown="uits-nav-dropdown--about">JOIN </a>
+                                            </li>   
+                                        </c:if>  
+                                        <c:if test="${sessionScope.loginID != null}">
+                                        	<li class="uits-nav__item">
+                                                <a href="<c:url value="/member/myPage"/>" class="js-dropdown__trigger js-services" data-dropdown="uits-nav-dropdown--quicklinks">MYPAGE</a>
+                                            </li>
+                                            <li class="uits-nav__item">
+                                                <a href="<c:url value="/member/logoutForm"/>" class="js-dropdown__trigger js-about" data-dropdown="uits-nav-dropdown--about">LOGOUT</a>
+                                            </li>                                           
+                                        </c:if>                                                                             
+                                        </ul>                                       
+                                    </nav>                                            
+                            </div>
+                            <!-- /.search -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-wrapper">
+            <div class="results-area" role="main" tabindex="-1">
+                <div class="results-target">
+                    <div class="hero__site hero__site--small">
+                        <div class="row">
+                            <div class="large-12 columns">                                
+                                <nav class="hero__nav" id="nav-toggle">
+                              	<c:choose>
+                              		
+                              		<c:when test="${sessionScope.loginID != null}">
+                              			<c:if test="${sessionScope.loginID eq 'admin'}">
+                              			<ul>
+                              				<li><a href="<c:url value="/admin/management"/>">  Management  </a></li>
+                              			 </ul> 
+                                   		</c:if>
+                                   		<c:if test="${sessionScope.loginID != 'admin'}">
+                                   		<ul>
+	                                        <li><a href="">  News  </a></li>
+	                                        <c:if test="${sessionScope.loginMemberClass == 'staff'}">
+	                                        <li><a href="<c:url value="/additionalInfo/staffPage"/>">  Work Information  </a></li>
+	                                        </c:if>
+	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
+	                                        <li><a href="">  Survey  </a></li>
+	                                        <li><a href="">  Seat  </a></li>
+	                                        
+	                                    </ul> 
+                               			</c:if>
+                               			<%-- <c:if test="${sessionScope.loginMemberClass == 'staff'}">
+                               				<li><a href="">  News  </a></li>
+	                                        <li><a href="">  Attendance  </a></li>
+	                                        <li><a href="">  Survey  </a></li>
+	                                        <li><a href="">  Seat  </a></li>
+	                                        <li><a href="">  Work Information  </a></li>                               			
+                               			</c:if>   
+                               			   --%>
+                               			  		
+                                     </c:when>
+                                     
+                               </c:choose>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>

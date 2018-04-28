@@ -12,6 +12,13 @@ import com.scitportalsystem.www.vo.MemberStaff;
 import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.MemberStudentCertificate;
 
+
+
+/**
+ * @comment : Mypage 처리 
+ * @author 김다희
+ *
+ */
 @Repository
 public class MyPageDAO {
 	
@@ -203,4 +210,5 @@ public class MyPageDAO {
 		logger.info("student 결석 카운팅  DAO 종료");
 		return result;
 	}
+	
 }

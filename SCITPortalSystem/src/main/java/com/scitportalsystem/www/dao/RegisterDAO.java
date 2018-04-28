@@ -140,4 +140,55 @@ public class RegisterDAO {
 		return result;
 	}
 	
+	/**
+	 * @comment : 출결 처리 하기 위한 Registration 객체 출력
+	 * @author 김다희
+	 *
+	 */
+	public Registration selectOneAttendande(int registrationNum) {
+		RegisterMapper mapper = sqlSession.getMapper(RegisterMapper.class);
+		Registration result = null;
+		
+		try {
+			result = mapper.selectOneAttendande(registrationNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;			
+	}
+	
+	
+	/**
+	 * @comment : 출결 확인 처리용 
+	 * @param id : 지각 및 결석 작성 ID
+	 * @author 김다희
+	 * @return
+	 */
+	public boolean attendanceCheck(int registrationNum) {
+		logger.info("출결확인용 DAO 시작");
+		RegisterMapper mapper = sqlSession.getMapper(RegisterMapper.class);
+		boolean result = false;
+		int attendanceCheck = 0;
+		
+		try {
+			attendanceCheck = mapper.attendanceCheck(registrationNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+		if(attendanceCheck == 1){
+			logger.info("출결확인 DAO 성공");
+			result = true;
+		} else {
+			logger.info("출결확인 DAO 실패");
+			result = false;
+			
+		}
+		
+		logger.info("출결확인용 DAO 종료");
+		return result;
+	}
+	
+
 }
