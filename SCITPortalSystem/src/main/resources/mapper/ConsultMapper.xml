@@ -66,6 +66,35 @@
 	</select>
 
 	<!-- 1:1문의 전체보기 교사용 -->
+	<!-- <select id="selectAskQuestionAll" parameterType="hashmap" resultType="AskQuestion">
+		select 
+			a.AskQuestionNum
+			,a.id
+			,a.askQuestionReplies
+			,a.AskQuestionTitle
+			,a.AskQuestionContent0
+			,a.AskQuestionDate
+			,m.name
+		from 
+			AskQuestion a inner join memberbasic m on a.id = m.id
+		<if test="searchText != null">
+			<choose>
+	            <when test="searchSelect.equals('AskQuestionTitleContent')">
+		            where
+		               a.AskQuestionTitle like '%' || #{searchText} || '%'
+		               or
+		               a.AskQuestionContent like '%' || #{searchText} || '%'         
+	            </when>
+	            <otherwise>
+		            where
+		               ${searchSelect} like '%' || #{searchText} || '%'
+	            </otherwise>      
+        	</choose>
+		</if>
+		order by 
+			AskQuestionNum desc
+	</select> -->
+	<!-- 1:1문의 전체보기 교사용 -->
 	<select id="selectAskQuestionAll" parameterType="hashmap" resultType="AskQuestion">
 		select 
 			a.AskQuestionNum
@@ -76,7 +105,7 @@
 			,a.AskQuestionDate
 			,m.name
 		from 
-			AskQuestion a, MemberBasic m
+			AskQuestion a inner join memberbasic m on a.id = m.id
 		<if test="searchText != null">
 			<choose>
 	            <when test="searchSelect.equals('AskQuestionTitleContent')">

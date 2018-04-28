@@ -382,6 +382,7 @@ public class LoginController {
 				session.setAttribute("loginName", login.getName());
 				session.setAttribute("loginMemberNum", login.getMemberNum());
 				session.setAttribute("loginMemberClass", login.getMemberClass());
+				session.setAttribute("loginClassroom", student.getClassroom());
 				session.setAttribute("loginedAlumni", student.getAlumni());
 				
 				logger.info("학생 login 성공 ");
