@@ -32,6 +32,7 @@ import com.scitportalsystem.www.vo.SurveyArray;
  * Handles requests for the application home page.
  */
 @Controller
+@RequestMapping(value="survey")
 public class SurveyController {
 
 	@Autowired
@@ -42,8 +43,8 @@ public class SurveyController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SurveyController.class);
 
-	@RequestMapping(value = "survey", method = RequestMethod.GET)
-	public String survey(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+	@RequestMapping(value = "surveyList", method = RequestMethod.GET)
+	public String surveyList(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
  
 		int memberNum = (int) session.getAttribute("loginMemberNum");
 		
@@ -133,8 +134,8 @@ public class SurveyController {
 		return "survey/survey";
 	}
 	
-	@RequestMapping(value = "surveyCreate", method = RequestMethod.GET)
-	public String surveyCreate(HttpSession session, Model model) {
+	@RequestMapping(value = "createSurvey", method = RequestMethod.GET)
+	public String createSurvey(HttpSession session, Model model) {
 
 		int teacherNum = (int) session.getAttribute("teacherNum");
 
@@ -153,8 +154,8 @@ public class SurveyController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "createNewSurvey", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String createNewSurvey(@RequestBody String createSurvey, HttpSession session, Survey survey) {
+	@RequestMapping(value = "completeCreateSurvey", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String completeCreateSurvey(@RequestBody String createSurvey, HttpSession session, Survey survey) {
 
 		Gson gson = new Gson();
 
@@ -219,7 +220,7 @@ public class SurveyController {
 
 		}
 
-		return "성공";
+		return "새로운 설문조사를 생성하였습니다.";
 	}
 	
 	@RequestMapping(value = "surveyDetail", method = RequestMethod.GET)
@@ -257,8 +258,8 @@ public class SurveyController {
 	} 
 	
 	@ResponseBody
-	@RequestMapping(value = "surveyRespond", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-	public String surveyRespond(@RequestBody String respondSurvey, HttpSession session, Survey survey) {
+	@RequestMapping(value = "respondSurvey", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String respondSurvey(@RequestBody String respondSurvey, HttpSession session, Survey survey) {
 		
 		Gson gson = new Gson();
 
@@ -320,11 +321,11 @@ public class SurveyController {
 			
 		}
 
-		return "성공";
+		return "참여가 완료되었습니다.";
 	}
 
-	@RequestMapping(value = "surveyEdit", method = RequestMethod.GET)
-	public String surveyEdit(int surveyNum, Model model) {
+	@RequestMapping(value = "editSurvey", method = RequestMethod.GET)
+	public String editSurvey(int surveyNum, Model model) {
 		
 		model.addAttribute("surveyNum", surveyNum);
 		
@@ -427,7 +428,7 @@ public class SurveyController {
 
 		}
 
-		return "성공";
+		return "수정이 완료되었습니다.";
 	}
 	
 	@RequestMapping(value = "checkSurveyRespondStatus", method = RequestMethod.GET)

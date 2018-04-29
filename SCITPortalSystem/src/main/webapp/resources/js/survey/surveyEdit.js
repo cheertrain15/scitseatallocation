@@ -658,13 +658,13 @@ function editSurvey(){
 		// 데이터 넘기기
 		$.ajax({
 			
-			url : 'completeEditSurvey',
+			url : 'survey/completeEditSurvey',
 			type : 'post',
 			contentType : 'application/json;charset=utf-8',
 			data : JSON.stringify(createSurvey),
 			success : function(data) {
 				alert(data);
-				$(location).attr('href', 'survey');
+				$(location).attr('href', 'survey/suveyList');
 			},
 			error : function(err) {
 				console.log(err);

@@ -43,7 +43,7 @@
                     <div class="header container">
                         <div class="header__wrapper">
                             <div class="header__masthead">
-                                <a class="header__masthead-link" href="http://www.iu.edu" title="Indiana University">
+                                <a class="header__masthead-link" href="<c:url value="/"/>" title="SCIT Portal System">
                                     <img class="header__masthead-image" src="<c:url value="/resources/img/logo_sample.png"/>" height="73" width="64" alt="">
                                     <span class="header__masthead-text" itemprop="name sourceOrganization provider" style="font-size: 20px;">SCIT&nbsp;PORTAL</span>
                                 </a>
@@ -99,7 +99,7 @@
 	                                        <li><a href="<c:url value="/additionalInfo/staffPage"/>">  Work Information  </a></li>
 	                                        </c:if>
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
-	                                        <li><a href="<c:url value='survey/surveyList' />">  Survey  </a></li>
+	                                        <li><a href="<c:url value='/survey/surveyList' />">  Survey  </a></li>
 	                                        <li><a href="">  Seat  </a></li>	                                        
 	                                    </ul> 
                                			</c:if>                               			
@@ -108,7 +108,7 @@
                                     	 <ul>                                 
                                      		<li><a href="">  News  </a></li>	                                       
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
-	                                        <li><a href="<c:url value='survey/surveyList' />">  Survey  </a></li>
+	                                        <li><a href="<c:url value='/survey/surveyList' />">  Survey  </a></li>
 	                                        <li><a href="">  Seat  </a></li>
 	                                       </ul>	
                                      </c:when>                                     

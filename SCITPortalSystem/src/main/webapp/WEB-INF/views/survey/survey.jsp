@@ -6,10 +6,10 @@
 <head> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>설문조사 목록</title>
- 
-	<script type="text/javascript" src="./resources/js/jquery-3.2.1.js"></script>
-	<script type="text/javascript" src="./resources/js/survey/survey.js"></script>
-	<link rel="stylesheet" type="text/css" href="./resources/css/survey/survey.css">
+
+	<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.2.1.js' />"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/survey/survey.js' />"></script>
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/survey/survey.css' />">
 		
 </head>
 <body> 
@@ -18,7 +18,7 @@
 <br>
 
 <c:if test="${memberClass == 'teacher'}">
-	<a href="surveyCreate"><input type="button" value="새설문작성" class="button" id="createBtn"></a>
+	<a href="survey/createSurvey"><input type="button" value="새설문작성" class="button" id="createBtn"></a>
 	<br>
 </c:if>
 
@@ -102,11 +102,11 @@
 	<div id="pageGroup">
 		<ul>
 			<c:if test="${navi.currentPage > 1}">
-				<li><a href="survey?page=1"><input class="button"
+				<li><a href="surveyList?page=1"><input class="button"
 						type="button" value="맨앞"></a></li>
 			</c:if>
 			<c:if test="${navi.startPageGroup > 1 }">
-				<li><a href="survey?page=${navi.startPageGroup-1}"><input
+				<li><a href="surveyList?page=${navi.startPageGroup-1}"><input
 						class="button" type="button" value="이전"></a></li>
 			</c:if>
 			<c:forEach begin="${navi.startPageGroup}" end="${navi.endPageGroup}"
@@ -115,15 +115,15 @@
 					<li>${p}</li>
 			 	</c:if>
 				<c:if test="${navi.currentPage != p}">
-					<li><a href="survey?page=${p}" class="pageNumber">${p}</a></li>
+					<li><a href="surveyList?page=${p}" class="pageNumber">${p}</a></li>
 				</c:if>
 			</c:forEach>
 			<c:if test="${navi.endPageGroup < navi.totalPageCount }">
-				<li><a href="survey?page=${navi.endPageGroup+1}"><input
+				<li><a href="surveyList?page=${navi.endPageGroup+1}"><input
 						class="button" type="button" value="다음"></a></li>
 			</c:if>
 			<c:if test="${navi.currentPage != navi.totalPageCount}">
-				<li><a href="survey?page=${navi.totalPageCount}"><input
+				<li><a href="surveyList?page=${navi.totalPageCount}"><input
 						class="button" type="button" value="맨뒤"></a></li>
 			</c:if>
 		</ul>

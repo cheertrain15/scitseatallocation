@@ -163,13 +163,13 @@ $(function(){
 			
 			$.ajax({
 				
-				url : 'surveyRespond',
+				url : 'survey/respondSurvey',
 				type : 'post',
 				contentType : 'application/json;charset=utf-8',
 				data : JSON.stringify(respondSurvey),
 				success : function(data) {
 					alert(data);
-					$(location).attr('href', 'survey');
+					$(location).attr('href', 'survey/suveyList');
 				},
 				error : function(err) {
 					console.log(err);

@@ -7,10 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>설문조사 참여/확인</title>
   
-<script type="text/javascript" src="./resources/js/jquery-3.2.1.js"/></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="./resources/js/survey/surveyDetail.js"/></script>
-<link rel="stylesheet" type="text/css" href="./resources/css/survey/surveyDetail.css"/>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.2.1.js' />"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/survey/surveyDetail.js' />"></script>
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/survey/surveyDetail.css' />">
 
 </head>
 <body> 

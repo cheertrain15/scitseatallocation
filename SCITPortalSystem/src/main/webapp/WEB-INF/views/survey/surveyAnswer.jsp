@@ -6,9 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>설문조사 응답현황</title>
-<script type="text/javascript" src="./resources/js/jquery-3.2.1.js"></script>
-<script type="text/javascript" src="./resources/js/survey/surveyAnswer.js"></script>
-<link rel="stylesheet" type="text/css" href="./resources/css/survey/surveyAnswer.css">
+	<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.2.1.js' />"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/survey/surveyAnswer.js' />"></script>
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/survey/surveyAnswer.css' />">
 </head>
 <body>
 <%@ include file="../header.jsp" %>
