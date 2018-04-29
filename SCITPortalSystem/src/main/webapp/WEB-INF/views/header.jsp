@@ -99,11 +99,7 @@
 	                                        <li><a href="<c:url value="/additionalInfo/staffPage"/>">  Work Information  </a></li>
 	                                        </c:if>
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
-<<<<<<< HEAD
-	                                        <li><a href="<c:url value='/survey' />">  Survey  </a></li>
-=======
-	                                        <li><a href="">  Survey  </a></li>
->>>>>>> branch 'master' of https://github.com/cheertrain15/scitseatallocation.git
+	                                        <li><a href="<c:url value='survey/survey' />">  Survey  </a></li>
 	                                        <li><a href="">  Seat  </a></li>	                                        
 	                                    </ul> 
                                			</c:if>                               			
@@ -112,7 +108,7 @@
                                     	 <ul>                                 
                                      		<li><a href="">  News  </a></li>	                                       
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
-	                                        <li><a href="">  Survey  </a></li>
+	                                        <li><a href="<c:url value='survey/survey' />">  Survey  </a></li>
 	                                        <li><a href="">  Seat  </a></li>
 	                                       </ul>	
                                      </c:when>                                     
