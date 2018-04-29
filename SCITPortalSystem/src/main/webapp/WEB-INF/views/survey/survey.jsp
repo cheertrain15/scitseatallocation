@@ -18,7 +18,7 @@
 <br>
 
 <c:if test="${memberClass == 'teacher'}">
-	<a href="survey/createSurvey"><input type="button" value="새설문작성" class="button" id="createBtn"></a>
+	<a href="createSurvey"><input type="button" value="새설문작성" class="button" id="createBtn"></a>
 	<br>
 </c:if>
 

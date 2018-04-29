@@ -658,13 +658,13 @@ function reqiredQuestion(){
 			// 데이터 넘기기
 			$.ajax({
 				
-				url : 'survey/completeCreateSurvey',
+				url : 'completeCreateSurvey',
 				type : 'post',
 				contentType : 'application/json;charset=utf-8',
 				data : JSON.stringify(createSurvey),
 				success : function(data) {
 					alert(data);
-					$(location).attr('href', 'survey/surveyList');
+					$(location).attr('href', 'surveyList');
 				},
 				error : function(err) {
 					console.log(err);
