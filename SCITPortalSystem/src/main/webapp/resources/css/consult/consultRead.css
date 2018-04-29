@@ -10,7 +10,7 @@ table{
 
 #button{
     width: 50px;
-    height: 25px;
+    height: 28px;
     border-radius: 4px;
     border: 0;
     background-color: #7a1705;
@@ -55,4 +55,20 @@ table{
 #newTd{
 	text-align: left;
 	border-bottom: 1px solid #7a1705;
+}
+
+#button:hover, #button2:hover{
+	 border: 2px solid #7a1705;
+	background-color: #E9967A;
+	color: white;
+}
+
+#consultReadTh{
+	height: 30px;
+	width: 500px;
+	color: white;
+	text-align: left;
+	background-color: #7a1705;
+	border-bottom: 1px solid #7a1705;
+	border-top: 1px solid #7a1705;
 }

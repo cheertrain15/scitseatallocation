@@ -34,3 +34,19 @@ table{
 	text-align: left;
 	border-bottom: 1px solid #7a1705;
 }
+
+#button2{
+    width: 80px;
+    height: 30px;
+    border-radius: 4px;
+    border: 0;
+    background-color: #7a1705;
+    color: #fff;
+    font-size: 16px;
+}
+
+#button2:hover{
+	 border: 2px solid #7a1705;
+	background-color: #E9967A;
+	color: white;
+}

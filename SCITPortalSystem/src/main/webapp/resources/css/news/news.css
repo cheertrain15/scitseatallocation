@@ -38,7 +38,7 @@ table{
     font-size: 16px;
 }
 
-#button{
+.newsinput{
     width: 80px;
     height: 30px;
     border-radius: 4px;
@@ -80,4 +80,10 @@ select {
     color: #7a1705;
     border: 1px solid #7a1705;
     border-radius: 3px;
+}
+
+#button:hover, #submit:hover{
+	 border: 2px solid #7a1705;
+	background-color: #E9967A;
+	color: white;
 }

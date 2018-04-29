@@ -70,7 +70,8 @@
 				<%-- <c:if test="${sessionScope.loginId != null }"> --%>
 				<form action="insertReply" method="post" onsubmit="return ">
 					<input type="hidden" name="askQuestionNum" value="${askquestion.askQuestionNum}">
-					답글 <input style="width: 200px; height: 25px" type="text" name="text"> <input id="button" type="submit" value="등록">
+					답글 <input style="width: 200px; height: 25px" type="text" name="text"> 
+					<input id="button" type="submit" value="등록">
 				</form>				
 				<%-- </c:if> --%>
 			</th>

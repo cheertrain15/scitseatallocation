@@ -7,6 +7,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="../resources/css/news/newsRead.css"/>
 <title>[해달 글 읽기]</title>
+	<script type="text/javascript">
+
+	function askQestionlistReturn() {
+		location.href = "NewsMain"
+	}
+		
+	</script>
 </head>
 <body>
 <%@ include file="../header.jsp" %>
@@ -37,6 +44,11 @@
 			<a href="download?newsNum=${news.newsNum}"> 
 					${news.newsFileName}
 			</a></td>
+		</tr>
+		<tr>
+			<th class="return">
+				<input id="button2" type="button" value="돌아가기" onclick="askQestionlistReturn()">
+			</th>
 		</tr>
 	</table>
 	<br><br><br>
