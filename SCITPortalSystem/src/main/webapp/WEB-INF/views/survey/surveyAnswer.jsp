@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>  
+<html>   
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>설문조사 응답현황</title>
@@ -12,37 +12,42 @@
 </head>
 <body>
 <%@ include file="../header.jsp" %>
-<br><br><br><br><br><br>
+
 	<div id="tableWrap">
 	<table>
-	<tr> 
-	<td colspan="3">대상</td>
-	<td colspan="${questionList.size()}">설문 내용</td>
-	</tr>
-	<tr>
-	<td>이름</td>
-	<td>기수</td>
-	<td>반</td>
-	<c:forEach items="${questionList}" var="q">
-	<td>${q.surveyQuestionContent}</td>
-	</c:forEach>
-	</tr>
-	<c:forEach items="${respondTargetStudentsList}" var="s" varStatus="vst">
-	<tr>
-	<td>${s.name}</td>
-	<td>${s.alumni}기</td>
-	<td>${s.classroom}반</td>
-		<c:forEach items="${respondContentList}" var="c">
-			<c:if test="${s.memberNum == c.memberNum}">
-				<c:if test="${c.surveyOptionContent != null}">
-				<td>${c.surveyOptionContent}</td>
-				</c:if>
-				<c:if test="${c.surveyRespondContent != null}">
-				<td>${c.surveyRespondContent}</td>
-				</c:if>
-			</c:if>
-		</c:forEach>
-	</c:forEach>
+		<thead>
+			<tr> 
+				<th colspan="3">대상</th>
+				<th colspan="${questionList.size()}">설문 내용</th>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<th>기수</th>
+				<th>반</th>
+				<c:forEach items="${questionList}" var="q">
+				<th><strong>${q.surveyQuestionContent}</strong></th>
+				</c:forEach>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${respondTargetStudentsList}" var="s" varStatus="vst">
+				<tr>
+					<td>${s.name}</td>
+					<td>${s.alumni}기</td>
+					<td>${s.classroom}반</td>
+					<c:forEach items="${respondContentList}" var="c">
+						<c:if test="${s.memberNum == c.memberNum}">
+							<c:if test="${c.surveyOptionContent != null}">
+							<td>${c.surveyOptionContent}</td>
+							</c:if>
+							<c:if test="${c.surveyRespondContent != null}">
+							<td>${c.surveyRespondContent}</td>
+							</c:if>
+						</c:if>
+					</c:forEach>
+				</tr>
+			</c:forEach>
+		</tbody>
 	</table>
 	</div>
 <%@ include file="../footer.jsp"%>

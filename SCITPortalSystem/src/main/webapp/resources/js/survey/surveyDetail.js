@@ -5,16 +5,23 @@ $( document ).ready(function(){
 });
 
 function prevPage(index){
+	 
 	if (index-1 >= 0) {
 		$('#page'+index ).hide();
 		$('#page'+(index-1)).show();
-	} 
+	} else {
+		alert('첫 페이지입니다.')
+	}
+	
 }  
 
 function nextPage(index){
+	
 	if (index+1 < $('.pages').length) {
 		$('#page'+index ).hide();
 		$('#page'+(index+1)).show();
+	}	else {
+		alert('마지막 페이지입니다.')
 	}
 }
 

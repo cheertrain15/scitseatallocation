@@ -4,14 +4,15 @@ html, body {
 	margin: 0px;  
 	padding: 0px;
 	height: 100%;
-}    
+}     
 
 #modifyBtn {  
 	float: left;
 	display: block;
 	width: 100%;
 	height: 5%;
-	border: solid gray 1px;
+	background-color: #f2f2f2;
+	border: solid #e6e6e6 1px;
 }
  
 #canvase {
@@ -20,7 +21,8 @@ html, body {
 	position: relative;
 	height: 80%;
 	width: 100%;
-	border: solid red 1px;
+	background-color: #f2f2f2;
+	border: solid #e6e6e6 1px;
 }
 
 #leftBtn {
@@ -28,7 +30,8 @@ html, body {
 	display: inline-block;
 	width: 15%;
 	height: 100%;
-	border: solid yellow 1px;
+	background-color: #f2f2f2;
+	border: solid #e6e6e6 1px;
 	text-align: center;
 }
 
@@ -36,17 +39,18 @@ html, body {
 	float: left;
 	display: inline-block;
 	width: 100%;
-	height: 8%;
-	border: solid green 1px;
+	background-color: #f2f2f2;
+	border: solid #e6e6e6 1px;
 }
 
 #questionWrap {
 	float: left;
 	display: inline-block;
-	width: 69.6%;
+	width: 70%;
 	height: 100%;
 	position: absolute;
-	border: solid blue 1px;
+	background-color: #f2f2f2;
+	border: solid #e6e6e6 1px;
 	overflow: scroll;
 }
 
@@ -55,7 +59,8 @@ html, body {
 	display: inline-block;
 	width: 15%;
 	height: 100%;
-	border: solid purple 1px;
+	background-color: #f2f2f2;
+	border: solid #e6e6e6 1px;
 	text-align: center;
 }
 
@@ -64,7 +69,8 @@ html, body {
 	width: 100%;
 	height: 5%;
 	text-align: right;
-	border: solid cyan 1px;
+	background-color: #f2f2f2;
+	border: solid #e6e6e6 1px;
 }
 
 #required {
@@ -77,11 +83,12 @@ html, body {
 	width: 100%;
 	top: 0px;
 	left: 0px;
-	border: solid pink 1px;
+	background-color: #f2f2f2;
+	border: solid #e6e6e6 1px;
 }
 
 .questions {
 	margin: 1%;
-	border: solid lime 1px;
+	padding: 1%;
 }
 

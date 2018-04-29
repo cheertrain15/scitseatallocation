@@ -15,32 +15,37 @@
 <body> 
 
 <%@ include file="../header.jsp" %>
-<br><br><br><br><br><br>
-	
-	<c:if test="${memberClass == 'teacher'}">
-	<a href="surveyCreate" class="surveyAtag"><input type="button" value="새설문작성"></a>
-	<br><br>
-	</c:if>
+<br>
 
+<c:if test="${memberClass == 'teacher'}">
+	<a href="surveyCreate"><input type="button" value="새설문작성" class="button" id="createBtn"></a>
+	<br>
+</c:if>
+
+<div id="bodyWrqp">
+	
 	<div> 
 		<table>
-			<tr>
-				<td>글번호</td>
-				<td>분류</td>
-				<td>대상 기수</td>
-				<td>대상 반</td>
-				<td>제목</td>
-				<td>작성자</td>
-				<td>설문 작성일</td>
-				<td>설문 시작일</td>
-				<td>설문 마감일</td>
-				<c:if test="${memberClass == 'teacher' }">
-					<td>참여자 수</td>
-				</c:if>
-				<c:if test="${memberClass == 'student' }">
-					<td>참여 여부</td>
-				</c:if>
-			</tr>
+			<thead>
+			    <tr>
+					<th>글번호</th>
+					<th>분류</th>
+					<th>대상 기수</th>
+					<th>대상 반</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>설문 작성일</th>
+					<th>설문 시작일</th>
+					<th>설문 마감일</th>
+					<c:if test="${memberClass == 'teacher' }">
+						<th>참여자 수</th>
+					</c:if>
+					<c:if test="${memberClass == 'student' }">
+						<th>참여 여부</th>
+					</c:if>
+				</tr>
+			</thead>
+			<tbody>
 			<c:forEach items="${list}" var="v" varStatus="st">
 			<tr>
 				<td>${v.surveyNum}</td>
@@ -90,6 +95,7 @@
 				</c:if>
 			</tr>
 			</c:forEach>
+			</tbody>
 		</table>
 	</div>
 	
@@ -107,7 +113,7 @@
 				var="p">
 				<c:if test="${navi.currentPage == p}">
 					<li>${p}</li>
-				</c:if>
+			 	</c:if>
 				<c:if test="${navi.currentPage != p}">
 					<li><a href="survey?page=${p}" class="pageNumber">${p}</a></li>
 				</c:if>
@@ -122,6 +128,8 @@
 			</c:if>
 		</ul>
 	</div>
+	
+</div>
 		
 <%@ include file="../footer.jsp"%>
 

@@ -4,7 +4,7 @@
     <title>IU unveils new master's degree in cybersecurity | IT News &amp; Events</title>
     <link href="<c:url value="https://itnews.iu.edu/files/favicon.ico"/>" rel="shortcut icon" type="image/x-icon" />
     <meta charset="utf-8" />
-    <!-- CSS -->   
+    <!-- CSS -->     
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" />
     <link href="<c:url value="/resources/css/main/uits.css"/>" media="all" rel="stylesheet" type="text/css" />   
     <link href="<c:url value="/resources/css/main/app.css"/>" media="all" rel="stylesheet" type="text/css" />
@@ -99,7 +99,11 @@
 	                                        <li><a href="<c:url value="/additionalInfo/staffPage"/>">  Work Information  </a></li>
 	                                        </c:if>
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
+<<<<<<< HEAD
+	                                        <li><a href="<c:url value='/survey' />">  Survey  </a></li>
+=======
 	                                        <li><a href="">  Survey  </a></li>
+>>>>>>> branch 'master' of https://github.com/cheertrain15/scitseatallocation.git
 	                                        <li><a href="">  Seat  </a></li>	                                        
 	                                    </ul> 
                                			</c:if>                               			
@@ -118,3 +122,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
+         </div>
+     </div>
+</div>

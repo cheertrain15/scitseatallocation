@@ -2,7 +2,7 @@
             </div>
         </div>
     </div>
-  
+   
 </div>
 <div id="footer" class="footer">
     <footer id="footer-v1" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/CollegeOrUniversity">

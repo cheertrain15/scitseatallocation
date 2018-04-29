@@ -133,23 +133,6 @@ public class SurveyController {
 		return "survey/survey";
 	}
 	
-	@RequestMapping(value = "checkSurveyRespondStatus", method = RequestMethod.GET)
-	public String checkSurveyRespondStatus(Survey survey, Model model) {
-		
-		int surveyNum = survey.getSurveyNum();
-		
-		ArrayList<Survey> questionList = surveyDAO.getQuestionContents(surveyNum);
-		model.addAttribute("questionList", questionList);
-		ArrayList<Survey> respondTargetStudentsList = surveyDAO.getRespondTargetStudents(surveyNum);
-		model.addAttribute("respondTargetStudentsList", respondTargetStudentsList);
-		ArrayList<Survey> respondContentList = surveyDAO.getRespondContentList(surveyNum);
-		
-		model.addAttribute("respondContentList", respondContentList);
-		
-		
-		return"survey/surveyAnswer";
-	}
-	
 	@RequestMapping(value = "surveyCreate", method = RequestMethod.GET)
 	public String surveyCreate(HttpSession session, Model model) {
 
@@ -239,6 +222,40 @@ public class SurveyController {
 		return "성공";
 	}
 	
+	@RequestMapping(value = "surveyDetail", method = RequestMethod.GET)
+	public String surveyDetail(int surveyNum, Model model, HttpSession session) {
+		
+		// 현재 로그인 한 회원 유형 확인
+		int memberNum = (int) session.getAttribute("loginMemberNum");
+		String memberClass = surveyDAO.getMemberClass(memberNum);
+		model.addAttribute("memberClass", memberClass);
+		
+		// 설문 기본 정보(제목, 작성자 등)
+		Survey survey = surveyDAO.selectASurvey(surveyNum);
+		model.addAttribute("survey", survey);
+		
+		// 설문 페이지 관련 정보
+		ArrayList<Survey> pages = surveyDAO.selectPages(surveyNum);
+		for (int i = 0; i < pages.size(); i++) {
+			System.out.println(pages.get(i).getSurveyPageNum());
+		}
+		HashMap<String, Object> pageNum = new HashMap<String, Object>();
+		pageNum.put("pages", pages);
+		model.addAttribute("pages", pages);
+		
+		// 설문 속 질문 관련 정보
+		ArrayList<Survey> questions = surveyDAO.selectQuestions(pageNum);
+		HashMap<String, Object> questionNum = new HashMap<String, Object>();
+		questionNum.put("questions", questions);
+		model.addAttribute("questions", questions);
+		
+		// 설문 속 질문의 각 선택지 정보
+		ArrayList<Survey> options = surveyDAO.selectOptions(questionNum);
+		model.addAttribute("options", options);
+		
+		return "survey/surveyDetail";
+	} 
+	
 	@ResponseBody
 	@RequestMapping(value = "surveyRespond", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	public String surveyRespond(@RequestBody String respondSurvey, HttpSession session, Survey survey) {
@@ -305,40 +322,6 @@ public class SurveyController {
 
 		return "성공";
 	}
-
-	@RequestMapping(value = "surveyDetail", method = RequestMethod.GET)
-	public String surveyDetail(int surveyNum, Model model, HttpSession session) {
-		
-		// 현재 로그인 한 회원 유형 확인
-		int memberNum = (int) session.getAttribute("loginMemberNum");
-		String memberClass = surveyDAO.getMemberClass(memberNum);
-		model.addAttribute("memberClass", memberClass);
-		
-		// 설문 기본 정보(제목, 작성자 등)
-		Survey survey = surveyDAO.selectASurvey(surveyNum);
-		model.addAttribute("survey", survey);
-		
-		// 설문 페이지 관련 정보
-		ArrayList<Survey> pages = surveyDAO.selectPages(surveyNum);
-		for (int i = 0; i < pages.size(); i++) {
-			System.out.println(pages.get(i).getSurveyPageNum());
-		}
-		HashMap<String, Object> pageNum = new HashMap<String, Object>();
-		pageNum.put("pages", pages);
-		model.addAttribute("pages", pages);
-		
-		// 설문 속 질문 관련 정보
-		ArrayList<Survey> questions = surveyDAO.selectQuestions(pageNum);
-		HashMap<String, Object> questionNum = new HashMap<String, Object>();
-		questionNum.put("questions", questions);
-		model.addAttribute("questions", questions);
-		
-		// 설문 속 질문의 각 선택지 정보
-		ArrayList<Survey> options = surveyDAO.selectOptions(questionNum);
-		model.addAttribute("options", options);
-		
-		return "survey/surveyDetail";
-	} 
 
 	@RequestMapping(value = "surveyEdit", method = RequestMethod.GET)
 	public String surveyEdit(int surveyNum, Model model) {
@@ -445,6 +428,23 @@ public class SurveyController {
 		}
 
 		return "성공";
+	}
+	
+	@RequestMapping(value = "checkSurveyRespondStatus", method = RequestMethod.GET)
+	public String checkSurveyRespondStatus(Survey survey, Model model) {
+		
+		int surveyNum = survey.getSurveyNum();
+		
+		ArrayList<Survey> questionList = surveyDAO.getQuestionContents(surveyNum);
+		model.addAttribute("questionList", questionList);
+		ArrayList<Survey> respondTargetStudentsList = surveyDAO.getRespondTargetStudents(surveyNum);
+		model.addAttribute("respondTargetStudentsList", respondTargetStudentsList);
+		ArrayList<Survey> respondContentList = surveyDAO.getRespondContentList(surveyNum);
+		
+		model.addAttribute("respondContentList", respondContentList);
+		
+		
+		return"survey/surveyAnswer";
 	}
 
 }

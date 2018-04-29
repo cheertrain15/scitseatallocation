@@ -12,12 +12,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="./resources/js/survey/surveyEdit.js"/></script>
 <link rel="stylesheet" type="text/css" href="./resources/css/survey/surveyEdit.css"/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	
 </head>  
 <body>
 
 <%@ include file="../header.jsp" %>
-<br><br><br><br><br><br>
 
 <div id="bodyWrap">
 
@@ -83,7 +83,7 @@
 			<td><input type="text" id="surveyEndDate" value="${survey.surveyEndDate}"></td>
 		</tr>
 		<tr>
-			<td colspan="10">
+			<td colspan="7">
 			<input type="text" size="120" id="surveyTitle" value="${survey.surveyTitle}" placeholder="설문 제목을 입력하세요.">
 			</td>
 			<td>
@@ -167,7 +167,7 @@
 						  	<c:if test="${qs.surveyQuestionType == 'radiogroup'}">
 					        	    <input type="radio" name="option${qs.surveyQuestionNum}" id="radio${op.surveyOptionNum}">
 					        	    <label for="radio${op.surveyOptionNum}" class="radio">${op.surveyOptionContent}</label>
-						  	</c:if>
+					 	  	</c:if>
 						  	
 						  	<c:if test="${qs.surveyQuestionType == 'checkbox'}">
 					        	    <input type="checkbox" name="option${qs.surveyQuestionNum}" id="checkbox${op.surveyOptionNum}">
@@ -201,6 +201,8 @@
 <div id="attributeWrap">
 </div>
 </div>
+
+<%@ include file="../footer.jsp"%>
 
 </body>
 </html>

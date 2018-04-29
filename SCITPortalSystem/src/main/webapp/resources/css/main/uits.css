@@ -208,15 +208,15 @@ iframe {
 /* Buttons! */
 .button {
     display: inline-block;
-    padding: .7em 1.5em;
+    padding: .5em .7em;
     color: #404011;
     font-weight: normal;
     border: 1px solid #404041;
-    -webkit-border-radius: 999px;
+/*     -webkit-border-radius: 999px;
     -moz-border-radius: 999px;
     -ms-border-radius: 999px;
-    -o-border-radius: 999px;
-    border-radius: 999px;
+    -o-border-radius: 999px; */
+    border-radius: 5px;
 }
 .button:hover {
     background-color: #900;
@@ -1117,10 +1117,10 @@ http://nicolasgallagher.com/micro-clearfix-hack/
 
     /**************************************** Footer from it.iu.edu/brand ***************************************/
 #footer-v1 { clear: both; }
-
+ 
 #footer-v1 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
-#footer-v1 { background: #fff; font-size: 16px; /* Force a default size for ems */ font-family: "BentonSansRegular", Arial, Helvetica, sans-serif; margin: 350px 0 0 0; padding: 0 0 20px 0; text-align: center; }
+#footer-v1 { background: #fff; font-size: 16px; /* Force a default size for ems */ font-family: "BentonSansRegular", Arial, Helvetica, sans-serif; margin: 0; padding: 0 0 20px 0; text-align: center; }
 
 #footer-v1 .wrapper { max-width: 63.75em; margin-left: auto; margin-right: auto; padding-right: 2.35765%; padding-left: 2.35765%; }
 #footer-v1 .wrapper:after { content: ""; display: table; clear: both; }
@@ -6340,7 +6340,7 @@ input.search__input:focus {
 @media screen and (max-width: 64em) {
   .uits-nav.search-nudge.is-nudged,
   .uits-nav .uits-nav--with-search.is-nudged {
-    margin-right: 300px;
+    /* margin-right: 300px; */
   }
 }
 

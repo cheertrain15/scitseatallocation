@@ -2,7 +2,7 @@ $( document ).ready(function(){
 	initialize();
 	saveSurvey();
 });  
-  
+   
 // 설문 시작일과 마감일 설정
 $( function() {
 	    $('#surveyStartDate').datepicker({

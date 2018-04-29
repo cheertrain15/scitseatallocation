@@ -14,8 +14,8 @@
 
 </head>
 <body> 
+
 <%@ include file="../header.jsp" %>
-<br><br><br><br><br><br>
 
 	  	<c:if test="${memberClass == 'teacher'}">
 	  	
@@ -59,9 +59,8 @@
 	  	
 	  	<c:forEach items="${pages}" var="pg" varStatus="pgStatus">
 	  
-	  	<div id="페이지 ${pgStatus.index}" class="pages" >
+	  	<div id="page${pgStatus.index}" class="pages" >
 	  	
-	  	  
 	  	<div id="leftBtn">
 	  	<br><br><br><br><br><br><br>
 	  	<br><br><br><br><br><br>
@@ -132,7 +131,7 @@
 		  	<br><br><br><br><br><br><br><br>
 		  	<br><br><br><br><br><br>
 		  	<button id="nextBtn" onclick="nextPage(${pgStatus.index})"><h1>▶</h1></button>
-		  	</div>
+		  	</div> 
 		  	
 		  	</div>
 
@@ -143,11 +142,11 @@
 	  	
 	  	<!-- 로그인 한 회원이 학생일 경우 설문 응답 제출 버튼 보이기 -->
 	  	<c:if test="${memberClass == 'student'}">
-	  	<div id="saveBtn">
-	  	<button>제출</button>
-	  	</div>
+		  	<div id="saveBtn">
+		  		<button>제출</button>
+		  	</div>
 	  	</c:if>
 	  	
-<%@ include file="../footer.jsp"%>	
+<%@ include file="../footer.jsp"%>
 </body>
 </html>

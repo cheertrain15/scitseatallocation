@@ -1371,7 +1371,7 @@ p + .posts-button {
 
 /* start events page */
 
-input[type="checkbox"] {
+/* input[type="checkbox"] {
     display: none;
 }
 
@@ -1382,7 +1382,7 @@ input[type="checkbox"] + label {
   font-size: 1em;
   padding-bottom: 5px;
 }
-
+ 
 input[type="checkbox"] + label .decoy-checkbox {
     display: block;
     width: 20px;
@@ -1397,7 +1397,7 @@ input[type="checkbox"] + label .decoy-checkbox {
 
 input[type=checkbox]:checked + label .decoy-checkbox {
   background-position: -18px 0;
-}
+} */
 
 .accordion__list dd {
   background-color: #eee;

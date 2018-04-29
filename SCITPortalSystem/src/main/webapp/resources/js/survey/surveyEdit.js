@@ -4,7 +4,7 @@ $(document).ready(function() {
 	
 	initialize();
 	editOption();
-	addOption();
+	addOption(); 
 	subOption();
 	addSelectOption();
 	subSelectOption();

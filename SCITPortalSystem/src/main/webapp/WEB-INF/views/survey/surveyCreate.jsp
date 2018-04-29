@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html> 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>설문조사 생성</title>
@@ -11,12 +11,12 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="./resources/js/survey/surveyCreate.js"/></script>
 	<link rel="stylesheet" type="text/css" href="./resources/css/survey/surveyCreate.css"/>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	
 </head>
 <body>
  
 <%@ include file="../header.jsp" %>
-<br><br><br><br><br><br>
 
 <div id="bodyWrap">
 
