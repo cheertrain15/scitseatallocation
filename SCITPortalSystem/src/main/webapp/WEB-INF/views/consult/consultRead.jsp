@@ -47,29 +47,30 @@
 <%@ include file="../header.jsp" %>
 <br><br><br><br><br>
 	<table>
+		
+		<tr>
+			<th id="consultReadTh">&nbsp 제목</th>
+		</tr>
+		<tr>
+			<td id="consultTitle" height="50px" width="300px">${askquestion.askQuestionTitle}</td>
+		</tr>
+		<tr>
+			<th id="consultReadTh">&nbsp 내용</th>
+		</tr>
+		<tr>
+			<td id="consultContent" height="100px" width="300px">${askquestion.askQuestionContent}</td>
+		</tr>
 		<tr>
 			<th class="return">
-				<input type="button" value="돌아가기" onclick="askQestionlistReturn()">
+				<input id="button2" type="button" value="돌아가기" onclick="askQestionlistReturn()">
 			</th>
-		</tr>
-		<tr>
-			<th class="consultReadTh">제목</th>
-		</tr>
-		<tr>
-			<td height="50px" width="300px">${askquestion.askQuestionTitle}</td>
-		</tr>
-		<tr>
-			<th class="consultReadTh">내용</th>
-		</tr>
-		<tr>
-			<td class="consultContent" height="100px" width="300px">${askquestion.askQuestionContent}</td>
 		</tr>
 		<tr>
 			<th>
 				<%-- <c:if test="${sessionScope.loginId != null }"> --%>
 				<form action="insertReply" method="post" onsubmit="return ">
 					<input type="hidden" name="askQuestionNum" value="${askquestion.askQuestionNum}">
-					답글 <input type="text" name="text"> <input type="submit"	value="등록">
+					답글 <input style="width: 200px; height: 25px" type="text" name="text"> <input id="button" type="submit" value="등록">
 				</form>				
 				<%-- </c:if> --%>
 			</th>
@@ -93,6 +94,7 @@
 				</tr>
 			</c:forEach>
 	</table>
+	<br><br>
 	<%@ include file="../footer.jsp"%>
 </body>
 </html>

@@ -3,6 +3,34 @@
 table{
 	margin: auto;
 }
-th{
+#newReadth{
+	color: white;
 	text-align: left;
+	background-color: #7a1705;
+	border-bottom: 1px solid #7a1705;
+	border-top: 1px solid #7a1705;
+    padding: 10px;
+}
+
+#newReadth{
+	color: white;
+	text-align: left;
+	background-color: #7a1705;
+	border-bottom: 1px solid #7a1705;
+	border-top: 1px solid #7a1705;
+    padding: 10px;
+}
+
+#newReadfile{
+	text-align: left;
+	color: white;
+	background-color: #7a1705;
+	border-bottom: 1px solid #7a1705;
+	border-top: 1px solid #7a1705;
+    padding: 10px;
+}
+
+#newTd{
+	text-align: left;
+	border-bottom: 1px solid #7a1705;
 }

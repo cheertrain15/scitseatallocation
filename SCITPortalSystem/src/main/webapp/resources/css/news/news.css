@@ -33,7 +33,7 @@ table{
     height: 30px;
     border-radius: 4px;
     border: 0;
-    background-color: #00afef;
+    background-color: #7a1705;
     color: #fff;
     font-size: 16px;
 }
@@ -43,20 +43,20 @@ table{
     height: 30px;
     border-radius: 4px;
     border: 0;
-    background-color: #00afef;
+    background-color: #7a1705;
     color: #fff;
     font-size: 16px;
 }
 
 #th{
 	background-color: #DCDCDC;
-	border-bottom: 1px solid #444444;
-	border-top: 1px solid #444444;
+	border-bottom: 1px solid #7a1705;
+	border-top: 1px solid #7a1705;
     padding: 10px;
 }
 
 #td{
-	border-bottom: 1px solid #444444;
+	border-bottom: 1px solid #7a1705;
     padding: 10px;
 }
 
@@ -77,7 +77,7 @@ select {
     height: 30px;
     padding-left: 10px;
     font-size: 18px;
-    color: #006fff;
-    border: 1px solid #006fff;
+    color: #7a1705;
+    border: 1px solid #7a1705;
     border-radius: 3px;
 }

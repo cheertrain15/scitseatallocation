@@ -4,3 +4,32 @@ table{
 	margin-left: auto; 
 	margin-right: auto;
 }
+
+#consultTh{
+	color: #7a1705;
+}
+
+#consultTh1{
+	color: #7a1705;
+	border-bottom: 1px solid #7a1705;
+}
+
+#consultTd{
+	width: 500px;
+	height: 30px;
+}
+
+#askQuestionContent{
+	width: 500px;
+	height: 500px;
+}
+
+#consultButton{
+    width: 120px;
+    height: 30px;
+    border-radius: 4px;
+    border: 0;
+    background-color: #7a1705;
+    color: #fff;
+    font-size: 16px;
+}

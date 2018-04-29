@@ -5,17 +5,54 @@ table{
 }
 
 .return{
-	text-align: right;
+	text-align: center;
 }
 
-.consultContent{
+#button{
+    width: 50px;
+    height: 25px;
+    border-radius: 4px;
+    border: 0;
+    background-color: #7a1705;
+    color: #fff;
+    font-size: 16px;
+}
+
+#button2{
+    width: 120px;
+    height: 25px;
+    border-radius: 4px;
+    border: 0;
+    background-color: #7a1705;
+    color: #fff;
+    font-size: 16px;
+    
+}
+
+#consultReadTh{
+	height: 30px;
+	width: 500px;
+	color: white;
 	text-align: left;
+	background-color: #7a1705;
+	border-bottom: 1px solid #7a1705;
+	border-top: 1px solid #7a1705;
 }
 
-.replyconsult{
-	word-break:break-all;
+#consultContent{
+	height: 300px;
+	width: 500px;
+	border-bottom: 1px solid #7a1705;
 }
 
-.consultReadTh{
+#consultTitle{
+	height: 50px;
+	width: 500px;
+	border-bottom: 1px solid #7a1705;
+}
+
+
+#newTd{
 	text-align: left;
+	border-bottom: 1px solid #7a1705;
 }

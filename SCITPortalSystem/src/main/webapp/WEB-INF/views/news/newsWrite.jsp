@@ -32,18 +32,25 @@
 	<form action="insertNewsWrite" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
 		<table>
 			<tr>
-				<th>제목</th>
-				<td><input type="text" id="newsTitle" name="newsTitle"></td>
+			<th></th>
+			<td>
+				<span class="page-header" style="border-left: 5px solid #7a1705; font-size:22px; font-weight:bold; font-family:inherit; margin-left:1%;" data-langnum="105">&nbsp 공지사항 작성</span>
+			</td>
+		</tr>
+			<tr>
+				<th id="newWriteTh">제목</th>
+				<td><input id="newWriteinput" type="text" id="newsTitle" name="newsTitle"></td>
 			</tr>
 			<tr>
 				<th></th>
-				<td><input type="checkbox" id="newsHeader" name="newsHeader" value="중요">중요
-					<select name="writeAlumni">
+				<td>
+				<input id="WritecheckBox" type="checkbox" id="newsHeader" name="newsHeader" value="중요">중요
+					<select id="WriteSelect" name="writeAlumni">
 							<option value="0">전체공지</option>
 							<option value="34">34기</option>
 							<option value="35">35기</option>
 						</select>
-						<select name="writeClass">
+						<select id="WriteSelect" name="writeClass">
 							<option value="Z">--</option>
 							<option value="A">A반</option>
 							<option value="B">B반</option>
@@ -53,11 +60,11 @@
 				</td>
 			</tr>
 			<tr>
-				<th>내용</th>
-				<td><textarea id="newsContent" name="newsContent" rows="5" cols="40"></textarea></td>
+				<th id="newWriteTh">내용</th>
+				<td><textarea id="newWritetextarea" name="newsContent" rows="5" cols="40"></textarea></td>
 			</tr>
 			<tr>
-				<th>첨부파일</th>
+				<th id="newWriteTh">첨부파일</th>
 				<td>
 					<input type="file" name="upload">
 				</td>
@@ -65,9 +72,10 @@
 				
 		</table>
 		<div style="width: 50px; height: 50px; margin: auto;" id="submitDiv">
-			<input type="submit" value="저장">
+			<input id="button" type="submit" value="저장">
 		</div>		
 	</form>	
+	<br><br><br>
 	<%@ include file="../footer.jsp"%>
 	</body>
 </html>

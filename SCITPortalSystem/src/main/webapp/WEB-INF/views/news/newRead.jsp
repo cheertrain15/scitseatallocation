@@ -13,19 +13,24 @@
 <br><br><br><br><br>
 	<table>
 		<tr>
-			<th>제목</th>
+		<th>
+			<span class="page-header" style="border-left: 5px solid #7a1705; font-size:22px; font-weight:bold; font-family:inherit; margin-left:1%;" data-langnum="105">&nbsp 공지사항 확인</span>
+		</th>
 		</tr>
 		<tr>
-			<td height="50px" width="300px">${news.newsTitle}</td>
+			<th id="newReadth">제목</th>
 		</tr>
 		<tr>
-			<th>내용</th>
+			<td id="newTd" height="50px" width="500px">${news.newsTitle}</td>
 		</tr>
 		<tr>
-			<td height="100px" width="300px">${news.newsContent}</td>
+			<th id="newReadth">내용</th>
 		</tr>
 		<tr>
-			<th>첨부파일</th>
+			<td id="newTd" height="300px" width="500px">${news.newsContent}</td>
+		</tr>
+		<tr>
+			<th id="newReadfile">첨부파일</th>
 		</tr>
 		<tr>
 			<td>
@@ -34,6 +39,7 @@
 			</a></td>
 		</tr>
 	</table>
+	<br><br><br>
 <%@ include file="../footer.jsp"%>
 </body>
 </html>

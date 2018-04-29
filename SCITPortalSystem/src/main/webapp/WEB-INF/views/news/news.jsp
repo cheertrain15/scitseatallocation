@@ -27,7 +27,7 @@
 <br><br><br><br><br>
 	<table id="table">
 			<tr>
-				<th colspan="1" class="page-header" style="border-left: 5px solid #1b809e;" >
+				<th colspan="1" class="page-header" style="border-left: 5px solid #7a1705;" >
 				<span style="font-size:22px; font-weight:bold; font-family:inherit; margin-left:1%;" data-langnum="105">공지사항</span>
 				</th>
 			</tr>
@@ -91,6 +91,7 @@
 				<input type="hidden" name="page" id="page">
 		</form>
 	</div>
+	<br><br><br>
 	<%@ include file="../footer.jsp"%>
 </body>
 </html>

@@ -28,22 +28,29 @@
 <br><br><br><br><br>
 	<form action="writeQuestion" method="post"onsubmit="return formCheck();">
 		<table>
+		<tr>
+		<th></th>
+		<td>
+			<span class="page-header" style="border-left: 5px solid #7a1705; font-size:22px; font-weight:bold; font-family:inherit; margin-left:1%;" data-langnum="105">&nbsp 1:1문의 작성</span>
+		</td>
+		</tr>
 			<tr>
-				<th>제목</th>
-				<td><input type="text" id="askQuestionTitle" name="askQuestionTitle"></td>
+				<th id="consultTh1">제목</th>
+				<td ><input id="consultTd" type="text" id="askQuestionTitle" name="askQuestionTitle"></td>
 			</tr>
 			<tr>
-				<th>내용</th>
+				<th id="consultTh">내용</th>
 				<td><textarea id="askQuestionContent" name="askQuestionContent" rows="5" cols="40"></textarea></td>
 			</tr>
 			<tr>
 				<th></th>
 				<td colspan="2">
-					<input type="submit" value="등록하기">
+					<input id="consultButton" type="submit" value="등록하기">
 				</td>
 			</tr>		
 		</table>		
 	</form>
+	<br><br>
 	<%@ include file="../footer.jsp"%>
 </body>
 </html>

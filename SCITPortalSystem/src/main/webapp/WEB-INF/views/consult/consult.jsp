@@ -28,7 +28,12 @@
 <body>
 <%@ include file="../header.jsp" %>
 <br><br><br><br><br>
-	<table id="table">		
+	<table id="table">
+		<tr>
+			<th colspan="1" class="page-header" style="border-left: 5px solid #7a1705;" >
+			<span style="font-size:22px; font-weight:bold; font-family:inherit; margin-left:1%;" data-langnum="105">&nbsp 1:1문의하기</span>
+			</th>
+		</tr>		
 		<tr>		
 			<th></th>
 			<th></th>
@@ -86,10 +91,11 @@
 					<option value="AskQuestionContent" <c:if test="${AskQuestionContent == 'askQuestionContent'}"/>>내용</option>
 					<option value="id" <c:if test="${searchSelect == 'id'}"/>>작성자</option>
 				</select>
-				<input type="text" name="searchText" value="${searchText}"> 
+				<input style="width: 200px; height: 25px" type="text" name="searchText" value="${searchText}"> 
 				<input id="buttonSerach" type="button" onclick="pagingFormSubmit(1)" value="검색">
 		</form>
 		</div>
+		<br><br>
 <%@ include file="../footer.jsp"%>
 </body>
 </html>
