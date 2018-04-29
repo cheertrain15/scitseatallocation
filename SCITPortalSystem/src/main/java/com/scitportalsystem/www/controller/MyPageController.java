@@ -40,7 +40,7 @@ public class MyPageController {
 	 * @param session
 	 * @author 김다희
 	 */
-	@RequestMapping(value="staffPage",method=RequestMethod.GET)
+	@RequestMapping(value="member/staffPage",method=RequestMethod.GET)
 	public String staffPage(Model model, MemberStaff memberstaff, HttpSession session){
 		
 		String searchStaffId = (String) session.getAttribute("loginID");
@@ -49,7 +49,7 @@ public class MyPageController {
 		
 		model.addAttribute("staff", searchStaff);
 		
-		return "additionalInfo/staffPage";
+		return "member/staffPage";
 	}
 	
 	/**
@@ -58,7 +58,7 @@ public class MyPageController {
 	 * @param memberStaff
 	 * @author 김다희 
 	 */
-	@RequestMapping(value="addStaffInfo",method=RequestMethod.POST)
+	@RequestMapping(value="member/addStaffInfo",method=RequestMethod.GET)
 	public String addStaffInfo(Model model, MemberStaff memberStaff) {
 		logger.info("staffInfo 입력 시작");	
 		
@@ -132,9 +132,12 @@ public class MyPageController {
 	
 		MemberBasic searchOne = dao.searchOneMember(loginId);
 		MemberStudent searchStudent = Pdao.selectStudentInfo(loginId);
+		MemberStaff searchStaff = Pdao.selectStaff(loginId);
+		
 		
 		model.addAttribute("searchOne", searchOne);		
 		model.addAttribute("searchStudent", searchStudent);
+		model.addAttribute("searchStaff", searchStaff);
 		
 		logger.info("개인정보 폼 이동 종료");	
 		

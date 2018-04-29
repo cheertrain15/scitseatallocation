@@ -30,11 +30,11 @@
 	<br>
 	
 	<b>management</b>
-    <input id="email" type="text" placeholder="Please Write" name="inChargeAlumni" value="${staff.inChargeAlumni}">
+    <input id="email" type="text" placeholder="Please Write" name="inChargeAlumni"/> 기
 	<br>	
     
     <b>Subject</b>    
-    <input type="radio" name="inChargeSubject" value="Administrator">administrator
+    <input type="radio" name="inChargeSubject" value="Staff">Staff
     <input type="radio" name="inChargeSubject" value="Japanese">Japanese
     <input type="radio" name="inChargeSubject" value="IT">IT   
     <br>    

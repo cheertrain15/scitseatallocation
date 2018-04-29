@@ -10,7 +10,7 @@
 	<script type="text/javascript">
 	function goToHome() {
 		/* alert("왜?"); */
-		location.href = '../home';
+		location.href = '../';
 	}
 	</script>
 	</head>
