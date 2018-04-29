@@ -99,7 +99,7 @@
 	                                        <li><a href="<c:url value="/additionalInfo/staffPage"/>">  Work Information  </a></li>
 	                                        </c:if>
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
-	                                        <li><a href="<c:url value='survey/survey' />">  Survey  </a></li>
+	                                        <li><a href="<c:url value='survey/surveyList' />">  Survey  </a></li>
 	                                        <li><a href="">  Seat  </a></li>	                                        
 	                                    </ul> 
                                			</c:if>                               			
@@ -108,7 +108,7 @@
                                     	 <ul>                                 
                                      		<li><a href="">  News  </a></li>	                                       
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
-	                                        <li><a href="<c:url value='survey/survey' />">  Survey  </a></li>
+	                                        <li><a href="<c:url value='survey/surveyList' />">  Survey  </a></li>
 	                                        <li><a href="">  Seat  </a></li>
 	                                       </ul>	
                                      </c:when>                                     
