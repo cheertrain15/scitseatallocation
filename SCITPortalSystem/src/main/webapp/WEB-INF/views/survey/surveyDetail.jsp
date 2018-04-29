@@ -7,8 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>설문조사 참여/확인</title>
   
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.2.1.js' />"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript" src="<c:url value='/resources/js/survey/surveyDetail.js' />"></script>
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/survey/surveyDetail.css' />">
 
@@ -68,8 +68,6 @@
 	  	</div>
 	  		
 	  		<div id="questionWrap">
-	  		
-	  		<h1>페이지 ${pgStatus.count} ( ${pgStatus.count} / ${pages.size()} )</h1>
 	  
 		  	<c:forEach items="${questions}" var="qs">
 		  	
@@ -120,6 +118,10 @@
 						  	</c:if>
 				  	
 				  	</fieldset>
+				</div>
+				
+				<div id="pageCount">
+					(${pgStatus.count}/${pages.size()})
 				</div>
 			  	
 			</c:if>

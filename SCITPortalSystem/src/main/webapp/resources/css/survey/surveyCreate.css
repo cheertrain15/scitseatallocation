@@ -105,3 +105,15 @@ input {
 	margin: 0.5%;
 	padding: 0.5%;
 }
+
+fieldset {
+	
+	border: none;
+}
+
+#pageCount {
+	
+	position: absolute;
+	left: 50%;
+	bottom: 1%;
+}
