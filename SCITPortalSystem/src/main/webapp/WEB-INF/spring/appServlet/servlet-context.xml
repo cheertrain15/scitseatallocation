@@ -32,8 +32,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/administrate"/>
-		
-			
+			<mvc:mapping path="/survey/**"/>
 			<beans:ref bean="LoginIntercept"/>
 		</mvc:interceptor>
 	

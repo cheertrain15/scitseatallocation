@@ -13,10 +13,10 @@ public class LoginIntercept extends HandlerInterceptorAdapter{
 			throws Exception {
 		
 		HttpSession session = request.getSession();
-		String loginId = (String)session.getAttribute("loginId");
+		String loginId = (String)session.getAttribute("loginID");
 		if(loginId==null){
 			String path = request.getContextPath();
-			response.sendRedirect(path+"/login");
+			response.sendRedirect(path+"/member/loginForm");
 			return false;
 		}
 		return super.preHandle(request, response, handler);
