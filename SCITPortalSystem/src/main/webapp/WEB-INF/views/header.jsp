@@ -94,7 +94,8 @@
                                    		</c:if>
                                    		<c:if test="${sessionScope.loginID != 'admin'}">
                                    		<ul>
-	                                        <li><a href="">  News  </a></li>
+	                                        <li><a href="<c:url value="/News/NewsMain"/>">  News  </a></li>
+	                                        <li><a href="<c:url value="/AskQuestion/QnA"/>">  1:1Consult  </a></li>
 	                                        <c:if test="${sessionScope.loginMemberClass == 'staff'}">
 	                                        <li><a href="<c:url value="/additionalInfo/staffPage"/>">  Work Information  </a></li>
 	                                        </c:if>
