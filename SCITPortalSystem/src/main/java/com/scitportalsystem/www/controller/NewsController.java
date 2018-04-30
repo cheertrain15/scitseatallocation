@@ -184,6 +184,33 @@ public class NewsController {
 		return"news/newRead";
 	}
 	
+	// 글 삭제
+	@RequestMapping(value="deleteBoard", method=RequestMethod.GET)
+	public String deleteBoard(HttpSession session ,int newsNum){
+		
+		String id = (String) session.getAttribute("loginID");
+		News news = new News();
+		news.setId(id);
+		news.setNewsNum(newsNum);
+		
+		News vo = dao.selectNewsOne(newsNum);
+		
+		
+		int result = dao.deleteBoard(news);
+		
+		if (result != 1) {
+			//삭제 실패
+						
+		}
+
+		FileService.deleteFile(uploadPath+"/"+vo.getNewsSavedFileName());
+		//그 경로로 들어가서 파일 삭제
+		
+		return"redirect:NewsMain";
+	}
+	
+	
+	
 	// 파일 다운로드
 	@RequestMapping(value="download", method=RequestMethod.GET)
 

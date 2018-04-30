@@ -8,7 +8,11 @@
 <link rel="stylesheet" type="text/css" href="../resources/css/news/newsRead.css"/>
 <title>[해달 글 읽기]</title>
 	<script type="text/javascript">
-
+	function deleteBoard(newsNum) {
+		if (confirm("정말로 삭제하시겠습니까?")) {
+			location.href = "deleteBoard?newsNum=" + newsNum;
+		}
+	}
 	function askQestionlistReturn() {
 		location.href = "NewsMain"
 	}
@@ -44,6 +48,13 @@
 			<a href="download?newsNum=${news.newsNum}"> 
 					${news.newsFileName}
 			</a></td>
+		</tr>
+		<tr>
+			<th>
+				<c:if test="${sessionScope.loginMemberClass == 'teacher'}">
+					<a href="javascript:deleteBoard('${news.newsNum}')">삭제</a>
+				</c:if>
+			</th>
 		</tr>
 		<tr>
 			<th class="return">

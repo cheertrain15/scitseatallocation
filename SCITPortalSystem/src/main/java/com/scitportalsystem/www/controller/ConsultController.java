@@ -179,4 +179,22 @@ public class ConsultController {
 		return"redirect:QnA";
 	}
 	
+	// 글 삭제
+		@RequestMapping(value="deleteBoard", method=RequestMethod.GET)
+		public String deleteBoard(HttpSession session ,int askQuestionNum){
+			
+			String id = (String) session.getAttribute("loginID");
+			AskQuestion askquestion = new AskQuestion();
+			askquestion.setId(id);
+			askquestion.setAskQuestionNum(askQuestionNum);
+			
+			AskQuestion vo = dao.selectAskQuestionOne(askQuestionNum);
+			
+			
+			int result = dao.deleteBoard(askquestion);
+
+			
+			return"redirect:QnA";
+		}
+	
 }

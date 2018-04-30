@@ -9,6 +9,11 @@
 <link rel="stylesheet" type="text/css" href="../resources/css/consult/consultRead.css"/>
 <title>[글 읽기]</title>
 <script type="text/javascript">
+	function deleteBoard(askQuestionNum) {
+		if (confirm("정말로 삭제하시겠습니까?")) {
+			location.href = "deleteBoard?askQuestionNum=" + askQuestionNum;
+		}
+	}
 	function deleteReply(askQuestionReplyNum, askQuestionNum) {
 		if (confirm("정말로 삭제하시겠습니까?")) {
 			location.href = "deleteReply?askQuestionReplyNum=" + askQuestionReplyNum + "&askQuestionNum="
@@ -59,6 +64,11 @@
 		</tr>
 		<tr>
 			<td id="consultContent" height="100px" width="300px">${askquestion.askQuestionContent}</td>
+		</tr>
+		<tr>
+			<th>
+				<a href="javascript:deleteBoard('${askquestion.askQuestionNum}')">삭제</a>
+			</th>
 		</tr>
 		<tr>
 			<th class="return">

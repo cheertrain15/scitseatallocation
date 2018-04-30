@@ -107,7 +107,8 @@
                                      </c:when>
                                      <c:when test="${sessionScope.loginID == null}">    
                                     	 <ul>                                 
-                                     		<li><a href="">  News  </a></li>	                                       
+                                     		<li><a href="<c:url value="/News/NewsMain"/>">  News  </a></li>
+                                     		<li><a href="<c:url value="/AskQuestion/QnA"/>">  1:1Consult  </a></li>	                                       
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
 	                                        <li><a href="<c:url value='/survey/surveyList' />">  Survey  </a></li>
 	                                        <li><a href="">  Seat  </a></li>

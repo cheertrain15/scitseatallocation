@@ -38,6 +38,13 @@
 			)
 	</insert>
 	
+	<!-- 글 삭제 -->
+	<delete id="deleteBoard" parameterType="News">
+		delete from
+			news
+		where
+			id = #{id} and newsNum = #{newsNum}
+	</delete>	
 	
 	<!-- 전체 목록 출력 학생용 -->
 	<select id="selectNewsAll" parameterType="hashmap" resultType="News">

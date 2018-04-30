@@ -17,6 +17,7 @@ import com.scitportalsystem.www.mapper.NewsMapper;
 import com.scitportalsystem.www.vo.News;
 
 
+
 @Repository
 public class NewsDAO {
 	
@@ -36,6 +37,26 @@ public class NewsDAO {
 		}
 		logger.info("공지사항 글 쓰기 종료 다오");
 	}
+	
+	public int deleteBoard(News news){
+		logger.info("글 삭제 시작 DAO");
+		
+		NewsMapper mapper = sqlSession.getMapper(NewsMapper.class);
+		int result = 0;
+		try {
+			
+			result = mapper.deleteBoard(news);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		logger.info("글 삭제 종료 DAO");
+		return result;		
+		
+	}
+	
 	
 	// 페이징 처리를 위한 다오다오
 	public int getTotal(HashMap<String, Object> searchMap){
@@ -87,13 +108,13 @@ public class NewsDAO {
 	}
 	
 	// 공지사항 글 하나 보기 다오다오
-	public News selectNewsOne(int boardnum){
+	public News selectNewsOne(int newsNum){
 		logger.info("글 보기 시작 다오");
 		NewsMapper mapper = sqlSession.getMapper(NewsMapper.class);
 		News board = null;
 		try {
-			board = mapper.selectNewsOne(boardnum);
-			mapper.updateHits(boardnum);
+			board = mapper.selectNewsOne(newsNum);
+			mapper.updateHits(newsNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -222,6 +222,14 @@
 			)			
 	</insert>
 	
+	<!-- 글 삭제 -->
+	<delete id="deleteBoard" parameterType="AskQuestion">
+		delete from
+			AskQuestion
+		where
+			id = #{id} and askQuestionNum = #{askQuestionNum}
+	</delete>
+	
 		<!-- 리플 갯수 상승 -->
 	<select id="updateReplyHits" parameterType="int">
 		update

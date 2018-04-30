@@ -16,6 +16,7 @@ import com.scitportalsystem.www.mapper.ConsultMapper;
 import com.scitportalsystem.www.mapper.NewsMapper;
 import com.scitportalsystem.www.vo.AskQuestion;
 import com.scitportalsystem.www.vo.AskQuestionReply;
+import com.scitportalsystem.www.vo.News;
 
 
 
@@ -182,6 +183,24 @@ public class ConsultDAO {
 		logger.info("1:1문의 글 쓰기 종료 다오");
 	}
 	
+	public int deleteBoard(AskQuestion askquestion){
+		logger.info("글 삭제 시작 DAO");
+		
+		ConsultMapper mapper = sqlSession.getMapper(ConsultMapper.class);
+		int result = 0;
+		try {
+			
+			result = mapper.deleteBoard(askquestion);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		logger.info("글 삭제 종료 DAO");
+		return result;		
+		
+	}
 	
 	
 	}
