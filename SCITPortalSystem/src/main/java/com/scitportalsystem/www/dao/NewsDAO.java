@@ -38,6 +38,24 @@ public class NewsDAO {
 		logger.info("공지사항 글 쓰기 종료 다오");
 	}
 	
+public int updateBoard(News news){
+		
+		logger.info("글 수정 종료 DAO");
+		NewsMapper mapper = sqlSession.getMapper(NewsMapper.class);
+		int result = 0;
+		try {
+			
+			result = mapper.updateBoard(news);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		logger.info("글 수정 종료 DAO");
+		return result;
+	}
+	
 	public int deleteBoard(News news){
 		logger.info("글 삭제 시작 DAO");
 		

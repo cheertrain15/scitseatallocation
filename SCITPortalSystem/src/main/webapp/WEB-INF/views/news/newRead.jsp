@@ -53,6 +53,7 @@
 			<th>
 				<c:if test="${sessionScope.loginMemberClass == 'teacher'}">
 					<a href="javascript:deleteBoard('${news.newsNum}')">삭제</a>
+					<a href="updateForm?newsNum=${news.newsNum}">수정</a>
 				</c:if>
 			</th>
 		</tr>
