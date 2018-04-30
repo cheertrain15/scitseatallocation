@@ -12,8 +12,6 @@ import com.scitportalsystem.www.vo.News;
 public interface NewsMapper {
 	// 공지사항 글 쓰기 매퍼매퍼
 	public void writeNews(News news);
-	// 글 수정
-	public int updateBoard(News news);
 	// 글 삭제
 	public int deleteBoard(News news);
 	// 공지사항 글 전체보기 학생용

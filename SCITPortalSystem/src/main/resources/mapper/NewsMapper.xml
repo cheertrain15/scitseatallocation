@@ -45,18 +45,7 @@
 		where
 			id = #{id} and newsNum = #{newsNum}
 	</delete>	
-	<update id="updateBoard" parameterType="News">
-		update
-			News
-		set
-			targetAlumni = #{targetAlumni}
-			, targetClass = #{targetClass}
-			, newsTitle = #{newsTitle}
-			, newsHeader = #{newsHeader}
-			, newsContent = #{newsContent}
-		where
-			newsNum = #{newsNum}	
-	</update>
+	
 	<!-- 전체 목록 출력 학생용 -->
 	<select id="selectNewsAll" parameterType="hashmap" resultType="News">
 		select

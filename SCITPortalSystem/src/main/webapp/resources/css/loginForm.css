@@ -1,0 +1,210 @@
+@CHARSET "UTF-8";
+
+tbody{
+	width: 700px;
+	height: 300px;
+}
+
+.container{
+	padding-right: 0px;
+	padding-left: 0px;
+	
+}
+
+.container form{
+	width: 700px;
+	height: 200px;
+	margin-top: 150px;
+	margin: 0 auto;
+	vertical-align: middle;
+}
+
+.loginMain{
+	width: 500px;
+	height: 500px;
+	margin-top: 150px;
+	margin: auto;
+}
+
+
+.loginImg{
+	width: 105px;
+	height: 120px;
+	vertical-align: middle;
+	border: 0;
+	float: left;
+}
+
+.firstB{
+	width: 90px;
+	text-align: left;
+}
+
+.secondB{
+	width: 90px;
+	text-align: left;
+}
+
+
+.loginInput{
+	width: 350px;
+	height: 120px;
+	vertical-align: middle;
+	border: 0;
+	float:left;	
+}
+
+.loginImg img{
+	width: 80px;
+	vertical-align: middle;
+	border: 0;
+}
+
+
+
+.loginFormDiv ul li input{
+	width: 270px;
+	height: 40px;
+	margin-bottom: 2px;
+	text-indent: 10px;
+	border: 1px solid #ccc;
+	font-size: 13px;
+	
+}
+
+
+
+
+.LoginBT{
+	width: 90px;
+	height: 75px;
+	border-radius: 4px;
+	border: 0;
+	background-color: #00afef;
+	color: white;
+	font-size: 15px;
+}
+
+.loginText{
+	clear: both;
+	width: 500px;
+	height: 20px;
+}
+
+.loginText{
+	float: right;
+}
+
+
+
+
+/* ul{
+	
+	list-style-type: disc;
+} */
+
+/* .joinTypeMain{
+	height: 380px;	
+	vertical-align : middle;
+	margin: auto;
+}
+
+.joinTypeMain ul{
+	text-align: center;
+	margin-left: 335px;
+}
+
+.joinTypeMain ul li{
+	width: 200px;
+	height: 280px;
+	float: left;
+	border: 2px solid #ccc;
+	margin-left: 4%;
+	margin-bottom: 10%;
+	border-radius: 20px;
+	text-align: center;
+	overflow: hidden;
+	display: inline-block;
+	
+}
+
+.introJoin p{
+	background-color: gray;
+	color: #ffffff;
+	height: 40px;
+	line-height: 40px;
+	width: 735px;
+	margin-left: 41px;
+	margin-bottom: 50px;
+	letter-spacing: 1px;
+	margin: auto;
+}
+
+.introJoin p span{
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.joinTypeMain ul li img{
+	width: 200px;
+	margin-top: 50px;
+}
+
+.joinStaff p{
+	width: 150px;
+	line-height: 30px;
+	height: 30px;
+	background: #000000;
+	border-radius: 15px;
+	margin: -10px auto 5px;
+	z-index: 99999;
+}
+
+
+.joinStaff a{
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+
+.joinStudent p{
+	width: 150px;
+	line-height: 30px;
+	height: 30px;
+	background: #000000;
+	border-radius: 15px;
+	margin: -10px auto 5px;
+	z-index: 99999;
+}
+
+
+.joinStudent a{
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.joinTeacher p{
+	width: 150px;
+	line-height: 30px;
+	height: 30px;
+	background: #000000;
+	border-radius: 15px;
+	margin: -10px auto 5px;
+	z-index: 99999;
+}
+
+
+.joinTeacher a{
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+}
+ */
+
+
+

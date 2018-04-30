@@ -1,0 +1,108 @@
+@CHARSET "UTF-8";
+
+
+
+.joinTypeMain ul{
+	width: 1200px;
+	text-align: center;
+	margin: 0 auto;
+	padding-left: 360px;
+	list-style: none;
+}
+
+.joinTypeMain ul li{
+	width: 200px;
+	height: 280px;
+	float: left;
+	border: 2px solid #ccc;
+	margin-left: 4%;
+	margin-bottom: 10%;
+	border-radius: 20px;
+	text-align: center;
+	overflow: hidden;
+
+	padding-bottom: 3px;
+	padding-right: 10px;
+	
+}
+
+.introJoin p{
+	background-color: #990000;
+	color: #ffffff;
+	height: 40px;
+	line-height: 40px;
+	width: 735px;
+	margin-left: 41px;
+	margin-bottom: 50px;
+	letter-spacing: 1px;
+	margin: auto;
+}
+
+.introJoin p span{
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.joinTypeMain ul li img{
+	width: 200px;
+	margin-top: 50px;
+}
+
+.joinStaff p{
+	width: 150px;
+	line-height: 30px;
+	height: 30px;
+	background: #000000;
+	border-radius: 15px;
+	margin: -10px auto 5px;
+	z-index: 99999;
+}
+
+
+.joinStaff a{
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+
+.joinStudent p{
+	width: 150px;
+	line-height: 30px;
+	height: 30px;
+	background: #000000;
+	border-radius: 15px;
+	margin: -10px auto 5px;
+	z-index: 99999;
+}
+
+
+.joinStudent a{
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.joinTeacher p{
+	width: 150px;
+	line-height: 30px;
+	height: 30px;
+	background: #000000;
+	border-radius: 15px;
+	margin: -10px auto 5px;
+	z-index: 99999;
+}
+
+
+.joinTeacher a{
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+
+
+

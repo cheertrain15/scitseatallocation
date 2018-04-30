@@ -132,43 +132,6 @@ public class NewsController {
 		return"news/newsWrite";
 	}
 	
-	@RequestMapping(value="updateForm", method=RequestMethod.GET)
-	public String updateForm(HttpSession session ,int newsNum, Model model){
-		
-		//해당되는 보드넘버를 찾아서 저장
-		News news = dao.selectNewsOne(newsNum);
-		
-		String id = (String) session.getAttribute("loginID");
-		
-		model.addAttribute("news", news);
-				
-		return"news/newsUpdate";
-	}
-	
-	@RequestMapping(value="update", method=RequestMethod.POST)
-	public String update(News news, HttpSession session,MultipartFile upload, int writeAlumni, String writeClass){
-		
-		String id = (String) session.getAttribute("loginID");
-		
-		news.setId(id);//jsp에서 3개의 데이터가 넘어왔고 마지막 id를 를 포함 총 4개를 넘겨주기 위해서 저장한다.
-		news.setTargetAlumni(writeAlumni);
-		System.out.println(writeAlumni);
-		news.setTargetClass(writeClass);
-		System.out.println(writeClass);
-		
-		if(news.getNewsHeader() == null){
-			System.out.println("나 여기 왔어!");
-			news.setNewsHeader(" ");
-		}
-		
-		System.out.println(news);
-		
-		int result=dao.updateBoard(news);
-		
-		
-		return"redirect:read?newsNum="+news.getNewsNum();
-	}
-	
 	// 공지사항 글쓰기 컨트롤러
 	@RequestMapping(value="insertNewsWrite", method=RequestMethod.POST)
 	public String insertNewsWrite(HttpSession session, News news, MultipartFile upload, int writeAlumni, String writeClass){
