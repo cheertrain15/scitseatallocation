@@ -17,10 +17,15 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.structure.min.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.theme.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.theme.min.css"/>">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	
 <title>학생 배치</title>
 </head>
 <body>
+<div >
+	<%@ include file="../header.jsp" %>
+</div>
+<br><br><br><br><br>
 <div class="thePageDiv">
 	<h1>학생 배치</h1>
 	
@@ -54,13 +59,17 @@
 						<input type="button" id="autoAllocation" value="자동배치">
 						<hr>
 						<div class="studentListScroll">
-							<input type="hidden" id="evaluationCount" value="${evaluationCount}">${evaluationCount}
+							<input type="hidden" id="evaluationCount" value="${evaluationCount}">
+							<input type="hidden" id="conductedSurvey" value="${conductedSurvey}">
 							<c:forEach items="${getStudents}" var="students" varStatus="status">
 								<div id="cell${status.index+1}" class="cell">
 									<div class="studentPhoto">
+										<!-- 
+										<img src="${students.memberSaverPicName}"/> 
+										-->
 										${students.id}
 									</div>
-									<div class="studentName">
+									<div class="studentName" value="${students.name}">
 										${students.name}
 									</div>
 									<input type="hidden" class="memberstudentNum" name="memberstudentNum" value="${students.memberstudentNum}">
@@ -69,7 +78,8 @@
 									<input type="hidden" class="seat" name="seat"  value="0">
 									<input type="hidden" class="itMajor" value="${students.itMajor}">
 									<input type="hidden" class="jpMajor" value="${students.jpMajor}">
-									<input type="hidden" class="jpCertificate" value="${students.jpCertificate}">
+									<input type="hidden" class="memberNum" value="${students.memberNum}">
+									<input type="hidden" class="avoidPerson" value="${students.avoidPerson}">
 								</div>
 							</c:forEach>
 						</div>
@@ -84,7 +94,10 @@
 		</div>
 	</div>
 </div>
-			
+<br><br><br>
+<div >
+	<%@ include file="../footer.jsp"%>
+</div>			
 </body>
 </html>
 

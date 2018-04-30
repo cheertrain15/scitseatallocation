@@ -2,6 +2,7 @@
 
 .thePageDiv{
 	text-align: center;
+
 }
 
 .classroomFront{
@@ -24,7 +25,6 @@
 	display: inline-block;
 	width: 4%;
 }
-
 
 .previousClassroom {
 	display: inline-block;
@@ -101,8 +101,9 @@
 	
 }
 
-
-
+.footer{
+ text-align: center;	
+}
 
 
 

@@ -19,13 +19,18 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.structure.min.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.theme.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.theme.min.css"/>">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	
 </head>
 <body>
+<div >
+	<%@ include file="../header.jsp" %>
+</div>
+<!--  문희규  -->
 <!-- 화면에 전체에 현재 div로 채워 넣기 -->
 <!-- 이유 : 각 DOM 위치를 편하게 조정할 수 있게-->
-<div class="thePageDiv">
-
+<div class="thePageDiv ">
+<br><br><br><br><br>	
 	<h1>학생 반 배치</h1>
 	
 	<!-- 로그인한 선생님이 담당 하는 기수만 보여주기 -->
@@ -36,8 +41,7 @@
 	</div>
 		
 		<div id="seatJSP">
-			<h1>자리 배치도</h1>
-			<br>
+		<br><br><br>
 			<!-- 선생님/관리자 전용 -->
 			<!-- 자동으로 반배치하는 링크 -->
 			<c:if test="${sessionScope.loginMemberClass == 'teacher' || sessionScope.loginMemberClass == 'admin'}">
@@ -96,8 +100,9 @@
 			
 			</div>
 		</div>
-		
-		
-</div>	
+</div>
+<div >
+	<%@ include file="../footer.jsp"%>
+</div>
 </body>
 </html>

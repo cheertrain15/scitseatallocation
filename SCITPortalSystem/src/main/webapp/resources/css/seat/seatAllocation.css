@@ -15,8 +15,8 @@
 	position: fixed;
 	width:20%;
 	height: 600px;
-	background-color: #dcfeef;
-	border: 1px solid black;
+	background-color: #ffe7e2;
+	border: 2px solid black;
 	z-index: 10;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .studentListScroll{
-	height: 500px;
+	height: 420px;
 	overflow: auto;
 }
 
@@ -106,7 +106,9 @@
 	
 }
 
-
+.footer{
+ text-align: center;	
+}
 
 
 

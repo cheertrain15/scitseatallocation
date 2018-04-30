@@ -13,9 +13,12 @@ public class SeatStudent {
 	private int jpMajor; // -- 일본어전공 유무
 	private int itCertificate; // -- 정보처리기사/산업기사 유무
 	private int jpCertificate; // -- JLPT
+	private int memberNum; // -- 회원 번호
+	private String avoidPerson; // --피하고픈 사람
 
 	public SeatStudent(int memberstudentNum, String id, String name, String memberSaverPicName, int alumni,
-			String classroom, int groupNum, int seat, int itMajor, int jpMajor, int itCertificate, int jpCertificate) {
+			String classroom, int groupNum, int seat, int itMajor, int jpMajor, int itCertificate, int jpCertificate,
+			int memberNum, String avoidPerson) {
 		super();
 		this.memberstudentNum = memberstudentNum;
 		this.id = id;
@@ -29,6 +32,8 @@ public class SeatStudent {
 		this.jpMajor = jpMajor;
 		this.itCertificate = itCertificate;
 		this.jpCertificate = jpCertificate;
+		this.memberNum = memberNum;
+		this.avoidPerson = avoidPerson;
 	}
 
 	public SeatStudent() {
@@ -131,12 +136,29 @@ public class SeatStudent {
 		this.jpCertificate = jpCertificate;
 	}
 
+	public int getMemberNum() {
+		return memberNum;
+	}
+
+	public void setMemberNum(int memberNum) {
+		this.memberNum = memberNum;
+	}
+
+	public String getAvoidPerson() {
+		return avoidPerson;
+	}
+
+	public void setAvoidPerson(String avoidPerson) {
+		this.avoidPerson = avoidPerson;
+	}
+
 	@Override
 	public String toString() {
 		return "SeatStudent [memberstudentNum=" + memberstudentNum + ", id=" + id + ", name=" + name
 				+ ", memberSaverPicName=" + memberSaverPicName + ", alumni=" + alumni + ", classroom=" + classroom
 				+ ", groupNum=" + groupNum + ", seat=" + seat + ", itMajor=" + itMajor + ", jpMajor=" + jpMajor
-				+ ", itCertificate=" + itCertificate + ", jpCertificate=" + jpCertificate + "]";
+				+ ", itCertificate=" + itCertificate + ", jpCertificate=" + jpCertificate + ", memberNum=" + memberNum
+				+ ", avoidPerson=" + avoidPerson + "]";
 	}
 
 }

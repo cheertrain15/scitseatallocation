@@ -18,10 +18,13 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.structure.min.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.theme.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.theme.min.css"/>">
-	
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
 <body>
+<div class="w3-container">
+	<%@ include file="../header.jsp" %>
+</div>
 	<!-- 문희규 : 좌석 배치도를 설정하는 페이지 -->
 	<div class="thePageDiv">
 	
@@ -77,6 +80,8 @@
 		</div>
 	</div>
 	
-	
+<div >
+	<%@ include file="../footer.jsp"%>
+</div>
 </body>
 </html>

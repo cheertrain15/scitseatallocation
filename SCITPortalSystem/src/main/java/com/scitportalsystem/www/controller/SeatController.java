@@ -3,7 +3,8 @@ package com.scitportalsystem.www.controller;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.scitportalsystem.www.dao.SeatDAO;
 import com.scitportalsystem.www.vo.EvaluationCount;
 import com.scitportalsystem.www.vo.MemberStaff;
-import com.scitportalsystem.www.vo.MemberStudent;
+import com.scitportalsystem.www.vo.SeatAvoid;
 import com.scitportalsystem.www.vo.SeatPlacement;
 import com.scitportalsystem.www.vo.SeatStudent;
 import com.scitportalsystem.www.vo.SendSeatStudent;
@@ -64,14 +65,14 @@ public class SeatController {
 				//학사 선생님이 담당하는 기수의 반의 좌석 배치도 자료를 가져오고 모델에 담는다.
 				ArrayList<SeatPlacement> loadedSeatPlacementList = seatdao.showSeatInfo(foundMemberNum);
 				model.addAttribute("loginedStaffSeatPlacement",loadedSeatPlacementList);
-				System.out.println(currentMemberClass);
+				
 				
 			} else if(currentMemberClass.equals("student")) {
 				//학생이 조회할 수 있는 반 배치도를 가져온다.
 				int alumni = (int)session.getAttribute("loginedAlumni");
 				ArrayList<SeatPlacement> loadedSeatPlacementList = seatdao.showSeatInfoForStudent(alumni);
 				model.addAttribute("loginedStaffSeatPlacement",loadedSeatPlacementList);
-				System.out.println(currentMemberClass);
+				
 				
 			}
 			
@@ -98,7 +99,7 @@ public class SeatController {
 		logger.info("**LODING saveSeatConfig**");
 			String loginedId = (String) session.getAttribute("loginID");
 			MemberStaff loginedStaff = seatdao.getStaffInfo(loginedId);
-			int alumni = Integer.parseInt((String)session.getAttribute("loginedChargeAlumni"));
+			int alumni = Integer.parseInt((String)session.getAttribute("loginedAlumni"));
 			
 			SeatPlacement seatPlacement = new SeatPlacement();
 			seatPlacement.setSeatCreator(loginedStaff.getTeacherNum());
@@ -168,18 +169,42 @@ public class SeatController {
 	@RequestMapping(value="seatAllocation", method=RequestMethod.GET)
 	public String seatAllocation(HttpSession session, Model model, int seatPlacementNum){
 		logger.info("**LODING seatAllocation.jsp**");
+		
 			//수정할 반 배치 가져오기
 			SeatPlacement seatPlacement = seatdao.modifySeatPlacement(seatPlacementNum);
+			
 			//현재 로그인한 사람의 담당자 정보 가져오기
-			MemberStaff loginedStaff = (MemberStaff) session.getAttribute("loginedStaffInfo");
+			int alumni = Integer.parseInt((String)session.getAttribute("loginedAlumni"));
+			
 			//역량평가 횟수 가져오기 
-			EvaluationCount loadedEvaluation = seatdao.getEvaluationCount(Integer.parseInt(loginedStaff.getInChargeAlumni()));
+			EvaluationCount loadedEvaluation = seatdao.getEvaluationCount(alumni);
 			if(loadedEvaluation != null) {
 				int evaluationCount = loadedEvaluation.getEvaluationCount();
 				model.addAttribute("evaluationCount",evaluationCount);
 			}
+			
+			//설문조사 시행 횟수 가져오기
+			int conductedSurvey = seatdao.conductedSurvey();
+			
 //			담당자가 담당하는 기수의 학생들 중, 반배치 미지정된 정보 가져오기 
-			ArrayList<SeatStudent> getStudents = seatdao.seatForStudents(Integer.parseInt(loginedStaff.getInChargeAlumni()));
+			ArrayList<SeatStudent> getStudents = seatdao.seatForStudents(alumni);
+			
+			//같은 반 되기 싫은 사람의 정보 가져오기
+			ArrayList<SeatAvoid> seatAvoid = seatdao.filterPerson();
+			
+			//싫은 사람의 정보가 있으면 해당 SeatStudent VO안에 넣기. 
+			System.out.println(seatAvoid);
+			for(int selectStudent = 0 ; selectStudent<getStudents.size() ; selectStudent++) {
+				for(int seatAvoidStudent = 0 ; seatAvoidStudent<seatAvoid.size() ; seatAvoidStudent++ ) {
+					if(getStudents.get(selectStudent).getMemberNum() == seatAvoid.get(seatAvoidStudent).getMemberNum()) {
+						getStudents.get(selectStudent).setAvoidPerson(seatAvoid.get(seatAvoidStudent).getAvoidPerson());
+					}
+				}
+			}
+			//순서를 섞어주자
+			Collections.shuffle(getStudents);
+			
+			model.addAttribute("conductedSurvey", conductedSurvey);
 			model.addAttribute("getStudents",getStudents);
 			model.addAttribute("seatPlacement",seatPlacement);
 		logger.info("**FINISHED LODING seatAllocation.jsp**");
@@ -193,7 +218,7 @@ public class SeatController {
 	@RequestMapping(value="seatAllocationSave", method=RequestMethod.POST)
 	public String seatAllocationSave(SendSeatStudent sendSeatStudent, String dispatchedSeatPlacement, int seatPlacementNum, int[] studentNumOfStudentList){
 		logger.info("**LODING seatAllocationSave**");
-			
+		
 			if(studentNumOfStudentList.length !=0) {
 				seatdao.cancelStudentSeat(studentNumOfStudentList);
 			}
@@ -216,7 +241,7 @@ public class SeatController {
 				seatdao.dispatchSeatForStudent(seatStudentToDB);
 				} 
 			} catch(Exception e) {
-				
+				e.printStackTrace();
 			}
 			
 			//좌석 배치 및 학생 배치 표시를 저장하기 
@@ -231,48 +256,6 @@ public class SeatController {
 	}
 	
 	
-	/*	TODO: 결합해야할 부분
-	 * 사진 출력해주는 기능
-	 */
-	@RequestMapping(value="downLoad",method=RequestMethod.GET)
-	public void downLoad(String id, HttpServletResponse response, HttpServletRequest req) {
-		logger.info("다운로드(img) 시작");	
-		
-//		MemberBasic memberOne = dao.searchOneMember(id);
-		
-//		String profileName = memberOne.getMemberPicName();
-		
-		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/resources/img/profile");
-		
-		try {			
-			response.setHeader("Content-Disposition", "attachment;filename="+URLEncoder.encode("TODO", "UTF-8"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		//파일이 저장된 전체 경로(profile에 저장된 파일명까지) 
-		
-//		String fullPath = UPLOAD_PATH + "/" + memberOne.getMemberSaverPicName();
-		//서버의 파일을 읽을 입력 스트림과 클라이언트에게 전달할 출력스트림
-		FileInputStream fis = null; //내 pc에 있는 걸 읽어올 때 사용
-		ServletOutputStream sos = null; //서블릿을 통해 출력할 때 사용 (다른 pc와 서블릿으로 연결되어 있기때문에)
-		
-		try {
-			
-			fis = new FileInputStream("fullPath");
-			sos = response.getOutputStream();
-			
-			FileCopyUtils.copy(fis, sos);
-			
-			fis.close();
-			sos.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		logger.info("다운 로드 종료");
-	}
 }
 
 

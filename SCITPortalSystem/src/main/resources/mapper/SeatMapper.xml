@@ -166,6 +166,7 @@
 			, MemberStudent.jpMajor as jpMajor
 			, MemberStudentCertificate.itCertificate as itCertificate
 			, MemberStudentCertificate.jpCertificate as jpCertificate
+			, MemberBasic.memberNum as memberNum
 		from
 			MemberStudent
 			, MemberBasic
@@ -238,4 +239,56 @@
 			seatPlacementNum = #{seatPlacementNum}
 	</update>
 	
+	<!-- 반 배치 설문조사 시행 횟수 수치 가져오기 -->
+	<select id="conductedSurvey" resultType="int">
+		select
+			surveynum
+		from 
+			(select
+				max(surveynum) as surveynum
+			from 
+				survey
+			where
+				surveycategory = 1
+			)
+	</select>
+	
+	
+	<!-- (설문조사이후)반 배정 받을 학생들을 불러온다 -->
+	<select id="filterPerson" resultType="SeatAvoid">
+			select
+                 seat.membernum as membernum
+       			, seat.surveyrespondcontent as avoidPerson
+    		from
+			    (
+			    select
+                    s.surveynum, sp.surveypagenum, mb.membernum, mb.name, ms.alumni, ms.classroom, sq.surveyquestionnum, sq.surveyquestiontype, sr.surveyrespondcontent,
+                    listagg(so.surveyoptioncontent, ', ') 
+				within group(order by so.surveyoptionnum) surveyoptioncontent
+				from surveyquestion sq
+			    full outer join surveyrespond sr on sq.surveyquestionnum = sr.surveyquestionnum
+			    full outer join surveyoption so on so.surveyoptionnum = sr.surveyrespondoptionnum
+			    full outer join memberbasic mb on sr.surveyrespondmembernum = mb.membernum
+			    left outer join surveypage sp on sq.surveypagenum = sp.surveypagenum
+			    left outer join survey s on sp.surveynum = s.surveynum
+			    inner join memberstudent ms on mb.id = ms.id
+			    group by s.surveynum, sp.surveypagenum, mb.membernum, mb.name, ms.alumni, ms.classroom, sq.surveyquestionnum, sq.surveyquestiontype, sr.surveyrespondcontent
+			    having s.surveynum = 1
+                ) seat
+            where
+            	 seat.surveyQuestionNum = 23
+	</select>
+	
+	 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+

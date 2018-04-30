@@ -11,10 +11,14 @@ public class SendSeatStudent {
 	private String classroom;// 반
 	private int groupNum; // 조 번호
 	private int seat; // 좌석 번호
+	private int itMajor; // IT 전공
+	private int jpMajor; // JP 전공
+	private int jpCertificate; // JP자격증
 	private List<SendSeatStudent> sendSeatStudentList; // 학생 묶음
 
 	public SendSeatStudent(int memberstudentNum, String id, String name, String memberSaverPicName, int alumni,
-			String classroom, int groupNum, int seat, List<SendSeatStudent> sendSeatStudentList) {
+			String classroom, int groupNum, int seat, int itMajor, int jpMajor, int jpCertificate,
+			List<SendSeatStudent> sendSeatStudentList) {
 		super();
 		this.memberstudentNum = memberstudentNum;
 		this.id = id;
@@ -24,6 +28,9 @@ public class SendSeatStudent {
 		this.classroom = classroom;
 		this.groupNum = groupNum;
 		this.seat = seat;
+		this.itMajor = itMajor;
+		this.jpMajor = jpMajor;
+		this.jpCertificate = jpCertificate;
 		this.sendSeatStudentList = sendSeatStudentList;
 	}
 
@@ -95,6 +102,30 @@ public class SendSeatStudent {
 		this.seat = seat;
 	}
 
+	public int getItMajor() {
+		return itMajor;
+	}
+
+	public void setItMajor(int itMajor) {
+		this.itMajor = itMajor;
+	}
+
+	public int getJpMajor() {
+		return jpMajor;
+	}
+
+	public void setJpMajor(int jpMajor) {
+		this.jpMajor = jpMajor;
+	}
+
+	public int getJpCertificate() {
+		return jpCertificate;
+	}
+
+	public void setJpCertificate(int jpCertificate) {
+		this.jpCertificate = jpCertificate;
+	}
+
 	public List<SendSeatStudent> getSendSeatStudentList() {
 		return sendSeatStudentList;
 	}
@@ -105,13 +136,10 @@ public class SendSeatStudent {
 
 	@Override
 	public String toString() {
-		return "\n\nSendSeatStudent [멤버번호 =" + memberstudentNum + "\n 아이디=" + id + "\n 이름=" + name
-				+ "\n 사진경로=" + memberSaverPicName + "\n 기수=" + alumni + "\n 반=" + classroom
-				+ "\n 조 번호=" + groupNum + "\n 좌석=" + seat + "\n sendSeatStudentList=" + sendSeatStudentList + "]";
+		return "SendSeatStudent [memberstudentNum=" + memberstudentNum + ", id=" + id + ", name=" + name
+				+ ", memberSaverPicName=" + memberSaverPicName + ", alumni=" + alumni + ", classroom=" + classroom
+				+ ", groupNum=" + groupNum + ", seat=" + seat + ", itMajor=" + itMajor + ", jpMajor=" + jpMajor
+				+ ", jpCertificate=" + jpCertificate + ", sendSeatStudentList=" + sendSeatStudentList + "]";
 	}
-
-	
-
-	
 
 }

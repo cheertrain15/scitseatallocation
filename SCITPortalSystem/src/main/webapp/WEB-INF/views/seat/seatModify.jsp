@@ -21,6 +21,9 @@
 <title>좌석 배치 수정하기</title>
 </head>
 <body>
+<div >
+	<%@ include file="../header.jsp" %>
+</div>
 <div class="thePageDiv">
 	<h1>좌석 배치 	수정하기</h1>
 	
@@ -58,5 +61,8 @@
 		</div>
 	</div>
 </div>
+<div >
+	<%@ include file="../footer.jsp"%>
+</div>	
 </body>
 </html>

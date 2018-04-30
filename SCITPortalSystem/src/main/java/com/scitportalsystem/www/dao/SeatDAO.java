@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.scitportalsystem.www.mapper.SeatMapper;
 import com.scitportalsystem.www.vo.EvaluationCount;
 import com.scitportalsystem.www.vo.MemberStaff;
+import com.scitportalsystem.www.vo.SeatAvoid;
 import com.scitportalsystem.www.vo.SeatPlacement;
 import com.scitportalsystem.www.vo.SeatStudent;
 
@@ -226,5 +227,30 @@ public class SeatDAO{
 		return result;
 		}
 		
-	
+		public int conductedSurvey() {
+			logger.info("** LOADING conductedSurvey() **");
+			SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+			int result = 0;
+			try{
+				result = mapper.conductedSurvey();
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		logger.info("** LOADED conductedSurvey() **");
+		return result;
+		}
+		
+		public ArrayList<SeatAvoid> filterPerson() {
+			logger.info("** LOADING filterPerson() **");
+			SeatMapper mapper = sqlSession.getMapper(SeatMapper.class);
+			ArrayList<SeatAvoid> result = null;
+			try{
+				result = mapper.filterPerson();
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		logger.info("** LOADED filterPerson() **");
+		return result;
+		}
+		
 	}
