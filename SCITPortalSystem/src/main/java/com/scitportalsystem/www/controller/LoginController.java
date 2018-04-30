@@ -172,7 +172,7 @@ public class LoginController {
 		
 		// 관리자 계정
 		String admin = "project4u5cho@gmail.com";		
-		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/resources/img/profile");
+		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/profile");
 		
 		if(upload.isEmpty() == false){
 			String savedfile = FileService.saveFile(upload, UPLOAD_PATH);
@@ -215,7 +215,7 @@ public class LoginController {
 			messageHelper.setText(					
 					new StringBuffer()
 					.append("Join Approval\n")
-					.append("http://localhost:8888/www/member/email4u?id=")
+					.append("http://10.10.17.56:9999/www/member/email4u?id=")
 					+ memberBasic.getId()
 					.toString());				
 			mailSender.send(message);						
@@ -245,7 +245,7 @@ public class LoginController {
 		
 		// 관리자 계정
 		String admin = "project4u5cho@gmail.com";		
-		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/resources/img/profile");
+		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/profile");
 		
 		if(upload.isEmpty() == false){
 			String savedfile = FileService.saveFile(upload, UPLOAD_PATH);
@@ -456,7 +456,7 @@ public class LoginController {
 		String profileName = memberOne.getMemberPicName();	
 		
 		
-		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/resources/img/profile");		
+		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/profile");		
 	
 		
 		try {			
