@@ -172,6 +172,141 @@ public class NewsController {
 		return"redirect:NewsMain";
 	}
 	
+	@RequestMapping(value="updateForm", method=RequestMethod.GET)
+	public String updateForm(HttpSession session ,int newsNum, Model model){
+		
+		//해당되는 보드넘버를 찾아서 저장
+		News news = dao.selectNewsOne(newsNum);
+		
+		String id = (String) session.getAttribute("loginID");
+		
+		model.addAttribute("news", news);
+				
+		return"news/newsUpdate";
+	}
+	
+	@RequestMapping(value="update", method=RequestMethod.POST)
+	public String update(News news, HttpSession session, MultipartFile upload, int writeAlumni, String writeClass, String newsHeader){
+		
+		String id = (String) session.getAttribute("loginID");
+		
+		news.setId(id);
+		
+		// 임의로 반 담기
+		news.setTargetAlumni(writeAlumni);
+		System.out.println(writeAlumni);
+		// 임의로 기수 담기
+		news.setTargetClass(writeClass);
+		System.out.println(writeClass);
+		
+		news.setNewsHeader(newsHeader);
+		System.out.println(newsHeader);
+		
+		System.out.println(news);
+		// 임의로 논리적 삭제 담기
+		news.setDeleteBy(" ");
+
+		
+		if (news.getNewsHeader() == null) {
+			System.out.println("나 여기 왔어!");
+			news.setNewsHeader(" ");
+		}
+		
+		System.out.println(upload);
+        logger.info("업로드: {}",upload.getOriginalFilename());
+     
+        News old = dao.selectNewsOne(news.getNewsNum());
+        
+        
+        //값이 없었는데 새로운값을 받을때
+        if(upload.isEmpty() == false&&old.getNewsFileName() == null && old.getNewsSavedFileName() == null){
+           //파일을 스토리지에 저장
+           String savedFile = FileService.saveFile(upload, uploadPath);
+           //board 객체에 실제 파일명과 저장 파일명을 보존
+           news.setNewsFileName(upload.getOriginalFilename());
+           news.setNewsSavedFileName(savedFile);
+        }
+        
+        
+        //값이 있었는데 새로운값을 받을때
+        if(upload.isEmpty() == false && old.getNewsFileName() != null && old.getNewsSavedFileName() != null){
+        String s = uploadPath +"/"+ old.getNewsSavedFileName();
+        FileService.deleteFile(s);
+        
+        String p = FileService.saveFile(upload, uploadPath);
+        news.setNewsFileName(upload.getOriginalFilename());
+        news.setNewsSavedFileName(p);
+     
+        dao.updateBoard(news);
+        return "redirect:read?newsNum="+news.getNewsNum();
+        }
+        /*//값이 있었는데 없앨때  (동적쿼리 다시 짜야 함ㅠ)
+        else if(upload.isEmpty() == true && old.getOriginalfile() != null && old.getSavedfile() != null){
+           String s = UPLOAD_PATH +"/"+ old.getSavedfile();
+           FileService.deleteFile(s);
+           
+           board.setOriginalfile("");
+           board.setSavedfile("");
+        
+           boardDAO.updateBoard(board);
+           return "board/boardUpdateComplete";
+        
+        }*/		
+		
+		dao.updateBoard(news);		
+		
+		return"redirect:read?newsNum="+news.getNewsNum();
+		
+	}
+	
+	/*@RequestMapping(value="boardupdate",method=RequestMethod.POST)
+	   public String boardupdate(Board board, MultipartFile upload){
+	         System.out.println(upload);
+	         logger.info("업로드: {}",upload.getOriginalFilename());
+	      
+	         Board old = boardDAO.selectBoardOne(board.getBoardnum());
+	         
+	         
+	         //값이 없었는데 새로운값을 받을때
+	         if(upload.isEmpty() == false&&old.getOriginalfile() == null && old.getSavedfile() == null){
+	            //파일을 스토리지에 저장
+	            String savedFile = FileService.saveFile(upload, UPLOAD_PATH);
+	            //board 객체에 실제 파일명과 저장 파일명을 보존
+	            board.setOriginalfile(upload.getOriginalFilename());
+	            board.setSavedfile(savedFile);
+	         }
+	         
+	         
+	         //값이 있었는데 새로운값을 받을때
+	         if(upload.isEmpty() == false && old.getOriginalfile() != null && old.getSavedfile() != null){
+	         String s = UPLOAD_PATH +"/"+ old.getSavedfile();
+	         FileService.deleteFile(s);
+	         
+	         String p = FileService.saveFile(upload, UPLOAD_PATH);
+	         board.setOriginalfile(upload.getOriginalFilename());
+	         board.setSavedfile(p);
+	      
+	         boardDAO.updateBoard(board);
+	         return "board/boardUpdateComplete";
+	         }
+	         //값이 있었는데 없앨때  (동적쿼리 다시 짜야 함ㅠ)
+	         else if(upload.isEmpty() == true && old.getOriginalfile() != null && old.getSavedfile() != null){
+	            String s = UPLOAD_PATH +"/"+ old.getSavedfile();
+	            FileService.deleteFile(s);
+	            
+	            board.setOriginalfile("");
+	            board.setSavedfile("");
+	         
+	            boardDAO.updateBoard(board);
+	            return "board/boardUpdateComplete";
+	         
+	         }
+	      
+	         boardDAO.updateBoard(board);
+	         return "board/boardUpdateComplete";
+	      
+	}*/
+	
 	// 글 한개씩 읽기 컨트롤러
 	@RequestMapping(value="read", method=RequestMethod.GET)
 	public String read(int newsNum, Model model){

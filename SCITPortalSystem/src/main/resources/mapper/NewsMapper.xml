@@ -38,6 +38,24 @@
 			)
 	</insert>
 	
+	<!-- 글 수정 -->
+	<update id="updateBoard" parameterType="News">
+		update
+			News
+		set
+			targetAlumni = #{targetAlumni}
+			, targetClass = #{targetClass}
+			, newsTitle = #{newsTitle}
+			, newsHeader = #{newsHeader}
+			, newsContent = #{newsContent}
+			<if test="newsFileName != null and newsSavedFileName != null">
+			, newsFileName = #{newsFileName}
+			, newsSavedFileName = #{newsSavedFileName}
+			</if>
+		where
+		 	newsNum = #{newsNum}	
+	</update>
+	
 	<!-- 글 삭제 -->
 	<delete id="deleteBoard" parameterType="News">
 		delete from

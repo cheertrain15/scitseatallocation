@@ -21,7 +21,6 @@
 		}
 	</script>
 </head>
-
 <body>
 <%@ include file="../header.jsp" %>
 <br><br><br><br><br>

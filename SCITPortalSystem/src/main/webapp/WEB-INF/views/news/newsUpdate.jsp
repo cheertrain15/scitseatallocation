@@ -64,12 +64,13 @@
 				<th id="newWriteTh">내용</th>
 				<td><textarea id="newWritetextarea" name="newsContent" rows="5" cols="40" >${news.newsContent}</textarea></td>
 			</tr>
-			<!-- <tr>
+			<tr>
 				<th id="newWriteTh">첨부파일</th>
 				<td>
-					<input type="file" name="newsFileName">
+					${news.newsFileName}
+					<input type="file" name="upload">
 				</td>
-			</tr> -->
+			</tr>
 		</table>
 		<div style="width: 50px; height: 50px; margin: auto;" id="submitDiv">
 			<input id="button" type="submit" value="저장">
