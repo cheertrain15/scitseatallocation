@@ -28,15 +28,18 @@ function deleteSurvey(){
 		
 		$(this).each(function(index, item){
 			
-			console.log($(this));
-			var surveyNum = $(this).text();
-			console.log(surveyNum);
+			var memberClass = $(this).attr('memberClass');
 			
-			
-			var str = '';
-			str += '<input type="button" value="삭제" onclick="javascript:completeDeleteSurvey('+surveyNum+')">';
-			
-			$(this).html(str);
+			if (memberClass == 'teacher') {
+				
+				var surveyNum = $(this).text();
+				
+				var str = '';
+				str += '<input type="button" value="삭제" onclick="javascript:completeDeleteSurvey('+surveyNum+')">';
+				
+				$(this).html(str);
+				
+			}
 			
 		});
 		

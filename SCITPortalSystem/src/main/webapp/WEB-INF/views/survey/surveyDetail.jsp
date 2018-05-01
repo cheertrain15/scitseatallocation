@@ -16,6 +16,7 @@
 <body> 
 
 <%@ include file="../header.jsp" %>
+<br><br>
 
 	  	<c:if test="${memberClass == 'teacher'}">
 	  	

@@ -48,7 +48,7 @@
 			<tbody>
 			<c:forEach items="${list}" var="v" varStatus="st">
 			<tr>
-				<td class="deleteSurvey">${v.surveyNum}</td>
+				<td class="deleteSurvey" memberClass="${memberClass}">${v.surveyNum}</td>
 					<c:if test="${v.surveyCategory == 0}">
 						<td>만족도</td>
 					</c:if>
