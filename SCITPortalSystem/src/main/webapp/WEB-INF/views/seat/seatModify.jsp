@@ -25,12 +25,15 @@
 	<%@ include file="../header.jsp" %>
 </div>
 <div class="thePageDiv">
-	<h1>좌석 배치 	수정하기</h1>
-	
+	<div id="titleName">
+		<h1>좌석 배치 수정하기</h1>
+	</div>
 	<div class="showClassDiv">
 		<div  class="showClassroom">
 			<div>
-				<h2>${seatPlacement.seatClassroom}반</h2>
+				<div id="classname">
+					<h2>${seatPlacement.seatClassroom}반</h2>
+				</div>
 				<br>
 				<form id="seatPlan" action="seatModifySave" method="post">
 					좌석 수 : <div class="numberOfSeat" value="${seatPlacement.seatCount}">${seatPlacement.seatCount}</div>석

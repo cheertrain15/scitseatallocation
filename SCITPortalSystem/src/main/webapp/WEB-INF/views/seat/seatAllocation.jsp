@@ -27,12 +27,15 @@
 </div>
 <br><br><br><br><br>
 <div class="thePageDiv">
+	<div id="seatAllocation">
 	<h1>학생 배치</h1>
-	
+	</div>
 	<div class="showClassDiv">
 		<div  class="showClassroom">
 			<div class="showClassroomInfo">
-				<h2>${seatPlacement.seatClassroom}반</h2>
+				<div id="classname">
+					<h2>${seatPlacement.seatClassroom}반</h2>
+				</div>
 				<br>
 					좌석 수 : <div class="numberOfSeat">${seatPlacement.seatCount}</div>석
 					<br>
@@ -49,25 +52,27 @@
 					<!-- 반 배정을 기다리는 학생을 표시하는 DIV -->
 				
 					<div class="studentList">
-						<h4>미배정 학생 목록</h4>
+						<div id="noAllocation">
+							<h4>미배정 학생 목록</h4>
+						</div>
 						<!-- 
 						<div id="minimize" onclick="minimize()">숨기기</div>
 						<div id="appear" onclick="appear()">최대화</div>
 						 -->
-						<hr>
+						<br>
 						<!-- 자동 배치 버튼 -->
 						<input type="button" id="autoAllocation" value="자동배치">
-						<hr>
+						<br><br>
 						<div class="studentListScroll">
 							<input type="hidden" id="evaluationCount" value="${evaluationCount}">
 							<input type="hidden" id="conductedSurvey" value="${conductedSurvey}">
 							<c:forEach items="${getStudents}" var="students" varStatus="status">
 								<div id="cell${status.index+1}" class="cell">
 									<div class="studentPhoto">
-										<!-- 
 										<img src="${students.memberSaverPicName}"/> 
-										-->
+										<!-- 
 										${students.id}
+										 -->
 									</div>
 									<div class="studentName" value="${students.name}">
 										${students.name}
@@ -85,8 +90,7 @@
 						</div>
 					</div>
 				</div>
-			<hr>
-			<br>
+			<br><br>
 			<div class="saveButtonDiv">
 				<input type="button" id="saveButton" value="저장하기 " onclick="saveSeatConfig()">
 			</div>

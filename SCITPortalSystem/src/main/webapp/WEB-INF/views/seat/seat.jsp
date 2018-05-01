@@ -30,13 +30,14 @@
 <!-- 화면에 전체에 현재 div로 채워 넣기 -->
 <!-- 이유 : 각 DOM 위치를 편하게 조정할 수 있게-->
 <div class="thePageDiv ">
-<br><br><br><br><br>	
-	<h1>학생 반 배치</h1>
-	
+	<div id="seatAllocation">
+		<h1>학생 반 배치</h1>
+	</div>
+	<br><br>
 	<!-- 로그인한 선생님이 담당 하는 기수만 보여주기 -->
 	<div>
 		<div class="autoAllocation">
-		담당 기수 : ${sessionScope.loginedAlumni}기
+			담당 기수 : ${sessionScope.loginedAlumni}기
 		</div>
 	</div>
 		
@@ -57,13 +58,15 @@
 							<c:forEach items="${loginedStaffSeatPlacement}" var="classList" varStatus="status">
 										<div id="showClassroom${status.index}" class="showClassroom" hide="0">
 											<div id="previousClassroom" class="previousClassroom" onclick="previousClassroom('${status.index}')">
-												◁
+												<h1>◀</h1>
 											</div>
 											<div class="blankDiv"></div>
 											<div id="nextClassroom" class="nextClassroom" onclick="nextClassroom('${status.index}')">
-												▷
+												<h1>▶</h1>
 											</div>
-												<h3>${classList.seatClassroom}반</h3>
+												<div id="classname">
+													<h3>${classList.seatClassroom}반</h3>
+												</div>
 												<br>
 												좌석 수 : ${classList.seatCount}석
 												${classList.seatContent}

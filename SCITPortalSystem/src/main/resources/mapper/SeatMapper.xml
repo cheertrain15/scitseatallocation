@@ -116,8 +116,7 @@
 	update
 		MemberStudent
 	set
-		classroom = ' '
-		, seat = 0
+		seat = 0
 	where
 		classroom = 
 		(
@@ -210,8 +209,7 @@
 	update
 		MemberStudent
 	set
-			classroom = ' '
-			, seat = 0
+			seat = 0
 	where
 			memberstudentNum = #{memberstudentNum}
 	

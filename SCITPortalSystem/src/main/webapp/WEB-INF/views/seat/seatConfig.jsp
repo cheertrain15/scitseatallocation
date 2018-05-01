@@ -29,9 +29,11 @@
 	<div class="thePageDiv">
 	
 	<div>
-		<h1>자리 배치 설정</h1>
-		<br>
-		담당 기수 : ${loginedStaffInfo.inChargeAlumni}기
+		<div id="titleName">
+			<h1>자리 배치 설정</h1>
+		</div>
+		<br><br>
+		담당 기수 : ${sessionScope.loginedAlumni}기
 		<br><br>
 	</div>	
 		
@@ -79,7 +81,7 @@
 				</div>
 		</div>
 	</div>
-	
+	<br><br><br><br>
 <div >
 	<%@ include file="../footer.jsp"%>
 </div>
