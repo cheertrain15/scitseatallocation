@@ -48,7 +48,7 @@
 			<tbody>
 			<c:forEach items="${list}" var="v" varStatus="st">
 			<tr>
-				<td>${v.surveyNum}</td>
+				<td class="deleteSurvey">${v.surveyNum}</td>
 					<c:if test="${v.surveyCategory == 0}">
 						<td>만족도</td>
 					</c:if>
@@ -74,7 +74,7 @@
 					</c:if>
 					<c:if test="${memberClass == 'student' }">
 						<c:if test="${checkRespondList[st.index] == '미참여'}">
-						<a href="surveyDetail?surveyNum=${v.surveyNum}" class="surveyAtag">${v.surveyTitle}</a>
+						<a class="surveyAtag" onclick="javascript:toRespond('${today}', '${v.surveyStartDate}', '${v.surveyEndDate}', ${v.surveyNum})">${v.surveyTitle}</a>
 						</c:if>
 						<c:if test="${checkRespondList[st.index] == '참여'}">
 						${v.surveyTitle}

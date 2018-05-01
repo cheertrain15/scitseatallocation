@@ -159,13 +159,13 @@ function initialize() {
 
 								$(this).append(str);
 
-								initialize();
+								checkRequired();
 								editOption();
 								addOption();
 								subOption();
 								addSelectOption();
 								subSelectOption();
-								checkRequired();
+								
 
 								question++;
 							}
@@ -230,6 +230,7 @@ function editOption(){
 				+ '<input type="button" value="수정" class="CompleteEditOPtion">';
 			
 			$(this).html(str);
+			
 			completeEditOption();
 			
 		});
@@ -467,9 +468,9 @@ function subSelectOption(){
 //질문지 선택되면 필수 응답 질문인지 설정 가능하도록 체크박스 띄우기
 function checkRequired(){
 	
-	$( ".questions" ).selectable({
-        selected: function() {
-        		$(this).each(function(index, item){
+	$( ".questions" ).mouseover(function(){
+        		
+			$(this).each(function(index, item){
         			
         			var required = $(this).attr('required');
         			var val = $(this).find('legend').text();
@@ -492,8 +493,7 @@ function checkRequired(){
                		reqiredQuestion(); // 필수 응답 항목 체크 시 각 설문항목에 속성 추가
         		});
         		
-        }
-     });
+        });
 	
 };
 

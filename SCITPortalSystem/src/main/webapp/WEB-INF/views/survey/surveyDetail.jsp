@@ -26,7 +26,7 @@
 	  	</c:if>
 	  	
 	  	<div id="surveyInfo">
-	  	<form action="surveyEdit" method="get" id="surveyEditForm">
+	  	<form action="editSurvey" method="get" id="surveyEditForm">
 	  	<input type="hidden" id="surveyNum" name="surveyNum" value="${survey.surveyNum}">
 	  	</form>
 	  	<table>
@@ -73,12 +73,17 @@
 		  	
 		  	<c:if test="${pg.surveyPageNum == qs.surveyPageNum}">
 		  	
-		  		<div class="questions" id="question${qs.surveyQuestionNum}">
+		  		<c:if test="${qs.surveyQuestionRequired == 1}">
+				    	<div class="questions" id="question${qs.surveyQuestionNum}" required="required">
+				</c:if>
+		  		<c:if test="${qs.surveyQuestionRequired == 0}">
+				    	<div class="questions" id="question${qs.surveyQuestionNum}">
+				</c:if>
 		  			<input type="hidden" id="questionType" value="${qs.surveyQuestionType}">
 				    	<fieldset>
-				    	<legend>${qs.surveyQuestionContent}
+				    	<legend><span id="title">${qs.surveyQuestionContent}</span>
 				    	<c:if test="${qs.surveyQuestionRequired == 1}">
-				    	<span id="required">(* 필수응답 항목입니다.)</span>
+				    	<span id="required">*</span>
 				    	</c:if>
 				    </legend>
 				    
@@ -86,7 +91,7 @@
 					  	<input type="text" id="option${qs.surveyQuestionNum}" placeholder="답변을 입력하세요." size="70">
 					</c:if>
 					<c:if test="${qs.surveyQuestionType == 'comment'}">
-					  	<textarea rows="10" cols="70" id="option${qs.surveyQuestionNum}">답변을 입력하세요.</textarea>
+					  	<textarea rows="10" cols="70" id="option${qs.surveyQuestionNum}" placeholder="답변을 입력하세요."></textarea>
 					</c:if>
 					
 					<c:if test="${qs.surveyQuestionType == 'dropdown'}">

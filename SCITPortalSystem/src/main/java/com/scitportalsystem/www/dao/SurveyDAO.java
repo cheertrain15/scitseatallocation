@@ -395,6 +395,16 @@ public class SurveyDAO {
 		return result;
 	}
 
+	public void deleteSurvey(int surveyNum) {
+		try { 
+			SurveyMapper mapper = sqlSession.getMapper(SurveyMapper.class);
+			mapper.deleteSurvey(surveyNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 
 }
 	

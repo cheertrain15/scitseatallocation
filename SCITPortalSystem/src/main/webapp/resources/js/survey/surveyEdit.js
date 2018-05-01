@@ -4,6 +4,7 @@ $(document).ready(function() {
 	
 	initialize();
 	editOption();
+	deleteQuestion();
 	addOption(); 
 	subOption();
 	addSelectOption();
@@ -211,7 +212,7 @@ function completeEditQuestion(questionNum){
 	var val = $( "#editQuestion"+questionNum ).val();
 	
 	val += '<input type="button" value="수정" onclick="javascript:editQuestion('+questionNum+')">'
-		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+questionNum+')">';
+		+'<input type="button" value="삭제" onclick="javascript:deleteQuestion('+questionNum+')">';
 	
 	$( "#question"+questionNum+" legend").html(val);
 };
@@ -367,7 +368,7 @@ function addOption(){
 				var str = '';
 				str += '<input type="radio" '
 					+ 'name="'+name+'" id="radio'+radioOptionNum+'">'
-					+'<label for="radio'+radioOptionNum+'">선택지 내용을 수정하세요</label>'
+					+ '<label for="radio'+radioOptionNum+'">선택지 내용을 수정하세요</label>'
 					
 					console.log(str);
 					
@@ -462,9 +463,9 @@ function subSelectOption(){
 //질문지 선택되면 필수 응답 질문인지 설정 가능하도록 체크박스 띄우기
 function checkRequired(){
 	
-	$( ".questions" ).selectable({
-        selected: function() {
-        		$(this).each(function(index, item){
+	$( ".questions" ).mouseover(function(){
+        		
+			$(this).each(function(index, item){
         			
         			var required = $(this).attr('required');
         			var val = $(this).find('legend').text();
@@ -487,8 +488,7 @@ function checkRequired(){
                		reqiredQuestion(); // 필수 응답 항목 체크 시 각 설문항목에 속성 추가
         		});
         		
-        }
-     });
+        });
 	
 };
 

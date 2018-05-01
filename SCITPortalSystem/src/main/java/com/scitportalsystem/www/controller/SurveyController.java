@@ -1,7 +1,10 @@
 package com.scitportalsystem.www.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +23,6 @@ import com.google.gson.Gson;
 import com.scitportalsystem.www.dao.SurveyDAO;
 import com.scitportalsystem.www.util.PageNavigator;
 import com.scitportalsystem.www.vo.CreateSurvey;
-import com.scitportalsystem.www.vo.MemberBasic;
 import com.scitportalsystem.www.vo.MemberStudent;
 import com.scitportalsystem.www.vo.PageArray;
 import com.scitportalsystem.www.vo.RespondArray;
@@ -127,7 +129,14 @@ public class SurveyController {
 		}
 		
 		System.out.println(list);
+		
+		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+		Date currentTime = new Date ();
+		String today = mSimpleDateFormat.format ( currentTime );
+		
+		System.out.println(today);
 
+		model.addAttribute("today", today);
 		model.addAttribute("list", list);
 		model.addAttribute("navi", navi);
 
@@ -287,36 +296,72 @@ public class SurveyController {
 			
 			if (questionType.equals("checkbox")) {
 				
-				for (int j = 0; j < ra.get(i).getSurveyRespondOptionNumArray().size(); j++) {
-					survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNumArray().get(j));
+				if (ra.get(i).getSurveyRespondOptionNumArray() != null) {
+					
+					for (int j = 0; j < ra.get(i).getSurveyRespondOptionNumArray().size(); j++) {
+						survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNumArray().get(j));
+						surveyDAO.insertSurveyRespond(survey);
+						survey.setSurveyRespondOptionNum(0);
+						
+					}
+					
+				} else {
+					
 					surveyDAO.insertSurveyRespond(survey);
-					survey.setSurveyRespondOptionNum(0);
 					
 				}
 				
 			} else if (questionType.equals("singleinput")) {
 				
-				survey.setSurveyRespondContent(ra.get(i).getSurveyRespondContent());
-				surveyDAO.insertSurveyRespond(survey);
-				survey.setSurveyRespondContent(null);
+				if (ra.get(i).getSurveyRespondContent() != null) {
+					
+					survey.setSurveyRespondContent(ra.get(i).getSurveyRespondContent());
+					surveyDAO.insertSurveyRespond(survey);
+					survey.setSurveyRespondContent(null);
+					
+				} else {
+					
+					surveyDAO.insertSurveyRespond(survey);
+					
+				}
 				
 			} else if (questionType.equals("comment")) {
 				
-				survey.setSurveyRespondContent(ra.get(i).getSurveyRespondContent());
-				surveyDAO.insertSurveyRespond(survey);
-				survey.setSurveyRespondContent(null);
+				if (ra.get(i).getSurveyRespondContent() != null) {
+					
+					survey.setSurveyRespondContent(ra.get(i).getSurveyRespondContent());
+					surveyDAO.insertSurveyRespond(survey);
+					survey.setSurveyRespondContent(null);
+					
+				} else {
+					
+					surveyDAO.insertSurveyRespond(survey);
+					
+				}
 				
 			} else if (questionType.equals("radiogroup")) {
 				
-				survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNum());
-				surveyDAO.insertSurveyRespond(survey);
-				survey.setSurveyRespondOptionNum(0);
+				if (ra.get(i).getSurveyRespondOptionNum() != 0) {
+					
+					survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNum());
+					surveyDAO.insertSurveyRespond(survey);
+					survey.setSurveyRespondOptionNum(0);
+					
+				} else {
+					
+					surveyDAO.insertSurveyRespond(survey);
+					
+				}
 				
 			} else if (questionType.equals("dropdown")) {
 				
-				survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNum());
-				surveyDAO.insertSurveyRespond(survey);
-				survey.setSurveyRespondOptionNum(0);
+					if (ra.get(i).getSurveyRespondOptionNum() != 0) {
+					
+					survey.setSurveyRespondOptionNum(ra.get(i).getSurveyRespondOptionNum());
+					surveyDAO.insertSurveyRespond(survey);
+					survey.setSurveyRespondOptionNum(0);
+					
+				}
 			}
 			
 		}
@@ -431,6 +476,14 @@ public class SurveyController {
 		return "수정이 완료되었습니다.";
 	}
 	
+	@RequestMapping(value = "deleteSurvey", method = RequestMethod.GET)
+	public String deleteSurvey(int surveyNum) {
+		
+		surveyDAO.deleteSurvey(surveyNum);
+		
+		return "redirect:surveyList";
+	}
+	
 	@RequestMapping(value = "checkSurveyRespondStatus", method = RequestMethod.GET)
 	public String checkSurveyRespondStatus(Survey survey, Model model) {
 		
@@ -445,7 +498,7 @@ public class SurveyController {
 		model.addAttribute("respondContentList", respondContentList);
 		
 		
-		return"survey/surveyAnswer";
+		return "survey/surveyAnswer";
 	}
 
 }

@@ -1,8 +1,4 @@
 @charset "UTF-8";
-*{
-	margin: 0px;
-	padding: 0px;
-}
 
 html, body {
 	
@@ -93,27 +89,4 @@ html, body {
 
 .tools:hover {
 	background-color: #8c8c8c;
-}
-
-.questions {
-	margin: 1%;
-	padding: 1%;
-}
-
-input {
-	
-	margin: 0.5%;
-	padding: 0.5%;
-}
-
-fieldset {
-	
-	border: none;
-}
-
-#pageCount {
-	
-	position: absolute;
-	left: 50%;
-	bottom: 1%;
 }

@@ -66,5 +66,7 @@ public interface SurveyMapper {
 	ArrayList<Survey> getQuestionContents(int surveyNum);
 
 	ArrayList<Survey> getRespondTargetStudents(int surveyNum);
+
+	void deleteSurvey(int surveyNum);
 	
 }

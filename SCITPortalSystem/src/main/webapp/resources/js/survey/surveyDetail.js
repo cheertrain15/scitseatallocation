@@ -32,6 +32,8 @@ $(function(){
 	$('#saveBtn').find('button')
 		.click(function(){
 			
+			var exit = false;
+			
 			// get surveyNum
 			
 			var surveyNum = $(this).parents('body')
@@ -56,7 +58,7 @@ $(function(){
 					var questionId = $(this).attr('id');
 					var surveyQuestionNum = questionId.replace(/[^0-9]/g,"");
 					
-					console.log(surveyQuestionNum);
+					console.log(surveyQuestionNum); 
 					
 					respondInfo.surveyQuestionNum = surveyQuestionNum;
 					
@@ -78,39 +80,130 @@ $(function(){
 							
 							var surveyRespondOptionNumArray = new Array();
 							
+							var required = $(this).attr('required');
+							var title = $(this).find('legend').find('#title').text();
+							
 							// in the case of radio
 							if (surveyQuestionType == 'radiogroup') {
 								
-								optionId = $(this).find('input[type=radio]:checked')
-															.attr('id');
-								console.log(optionId);
-								surveyRespondOptionNum = optionId.replace(/[^0-9]/g,"");
+								var checked = $(this).find('input[type=radio]').is(':checked');
 								
-								console.log('라디오옵션 아이디: '+surveyRespondOptionNum);
+								// 필수 응답 항목일 경우
+								if (required == 'required') {
+									
+									// 응답하지 않았을 경우
+									if (checked == false) {
+										alert('<'+$.trim(title)+'>는 필수 응답 항목입니다.');
+										exit = true;
+										return false;
+										
+									} else {
+										
+										optionId = $(this).find('input[type=radio]:checked')
+										.attr('id');
+										console.log(optionId);
+										surveyRespondOptionNum = optionId.replace(/[^0-9]/g,"");
+										
+										console.log('라디오옵션 아이디: '+surveyRespondOptionNum);
+										
+										respondInfo.surveyRespondOptionNum = surveyRespondOptionNum;
+										
+									}
+									
+									if(exit){ return false;}
 								
-								respondInfo.surveyRespondOptionNum = surveyRespondOptionNum;
+								// 필수 응답 항목이 아닐 경우
+								} else {
+									
+									// 응답하지 않았을 경우
+									if(checked == false) {
+										
+									} else {
+										
+										optionId = $(this).find('input[type=radio]:checked')
+										.attr('id');
+										console.log(optionId);
+										surveyRespondOptionNum = optionId.replace(/[^0-9]/g,"");
+										
+										console.log('라디오옵션 아이디: '+surveyRespondOptionNum);
+										
+										respondInfo.surveyRespondOptionNum = surveyRespondOptionNum;
+										
+									}
+									
+								}
 								
-							} 
+								if(exit){ return false;}
+								
+							} // radiogroup 끝 
 							
 							// in the case of checkbox
 							else if (surveyQuestionType == 'checkbox') {
 								
-								$(this)
-									.find('input[type=checkbox]:checked')
-									.each(function(index, item){
-										
-										optionId = $(this).attr('id');
-										console.log(optionId);
-										surveyRespondOptionNum = optionId.replace(/[^0-9]/g,"");
-										
-										surveyRespondOptionNumArray.push(surveyRespondOptionNum);
-										
-									});
+								var checked = $(this).find('input[type=checkbox]:checked').is(':checked');
 								
-								console.log('체크박스옵션 아이디: '+surveyRespondOptionNumArray);
+								// 필수 응답 항목일 경우
+								if (required == 'required') {
+									
+									// 응답하지 않았을 경우
+									if (checked == false) {
+										alert('<'+$.trim(title)+'>는 필수 응답 항목입니다.');
+										exit = true;
+										return false;
+										
+									} else {
+										
+										$(this)
+										.find('input[type=checkbox]:checked')
+										.each(function(index, item){
+											
+											optionId = $(this).attr('id');
+											console.log(optionId);
+											surveyRespondOptionNum = optionId.replace(/[^0-9]/g,"");
+											
+											surveyRespondOptionNumArray.push(surveyRespondOptionNum);
+											
+										});
+									
+									console.log('체크박스옵션 아이디: '+surveyRespondOptionNumArray);
+									
+									respondInfo.surveyRespondOptionNumArray = surveyRespondOptionNumArray;
+										
+									}
+									
+									if(exit){ return false;}
+									
+								// 필수 응답 항목이 아닐 경우
+								} else {
+									
+									// 응답하지 않았을 경우
+									if(checked == false) {
+										
+									} else {
+										
+										$(this)
+										.find('input[type=checkbox]:checked')
+										.each(function(index, item){
+											
+											optionId = $(this).attr('id');
+											console.log(optionId);
+											surveyRespondOptionNum = optionId.replace(/[^0-9]/g,"");
+											
+											surveyRespondOptionNumArray.push(surveyRespondOptionNum);
+											
+										});
+									
+									console.log('체크박스옵션 아이디: '+surveyRespondOptionNumArray);
+									
+									respondInfo.surveyRespondOptionNumArray = surveyRespondOptionNumArray;
+										
+									}
+									
+								}
 								
-								respondInfo.surveyRespondOptionNumArray = surveyRespondOptionNumArray;
-							}
+								if(exit){ return false;}
+								
+							} // checkbox 끝
 							
 							// in the case of dropdown
 							else if (surveyQuestionType == 'dropdown') {
@@ -128,35 +221,109 @@ $(function(){
 							
 							else if (surveyQuestionType == 'singleinput'){
 								
-								surveyRespondContent = $(this).find('input[type=text]')
-													.val();
+								var checked = $(this).find('input[type=text]').val();
 								
-								console.log('싱글인풋 내용: '+surveyRespondContent);
+								// 필수 응답 항목일 경우
+								if (required == 'required') {
+									
+									// 응답하지 않았을 경우
+									if (checked == null || checked == '') {
+										alert('<'+$.trim(title)+'>는 필수 응답 항목입니다.');
+										exit = true;
+										return false;
+										
+									} else {
+										surveyRespondContent = $(this).find('input[type=text]')
+										.val();
+					
+										console.log('싱글인풋 내용: '+surveyRespondContent);
+										
+										respondInfo.surveyRespondContent = surveyRespondContent;
+										
+									}
+									
+									if(exit){ return false;}
 								
-								respondInfo.surveyRespondContent = surveyRespondContent;
+								// 필수 응답 항목이 아닐 경우
+								} else {
+									
+									// 응답하지 않았을 경우
+									if(checked == null || checked == '') {
+										
+									} else {
+										surveyRespondContent = $(this).find('input[type=text]')
+										.val();
+					
+										console.log('싱글인풋 내용: '+surveyRespondContent);
+										
+										respondInfo.surveyRespondContent = surveyRespondContent;
+										
+									}
+								}
 								
-							}
+								if(exit){ return false;}
+								
+							} // singleinput 끝
 							
 							else {
 								
-								surveyRespondContent = $(this).find('textarea')
-													.val();
+								var checked = $(this).find('textarea').val();
 								
-								console.log('코멘트 내용: '+surveyRespondContent);
+								// 필수 응답 항목일 경우
+								if (required == 'required') {
+									
+									// 응답하지 않았을 경우
+									if (checked == null || checked == '') {
+										alert('<'+$.trim(title)+'>는 필수 응답 항목입니다.');
+										exit = true;
+										return false;
+										
+									} else {
+										surveyRespondContent = $(this).find('textarea')
+										.val();
+					
+										console.log('코멘트 내용: '+surveyRespondContent);
+										
+										respondInfo.surveyRespondContent = surveyRespondContent;
+										
+									}
+									
+									if(exit){ return false;}
+									
+								// 필수 응답 항목이 아닐 경우
+								} else {
+									
+									// 응답하지 않았을 경우
+									if(checked == 0) {
+										
+									} else {
+										surveyRespondContent = $(this).find('textarea')
+										.val();
+					
+										console.log('코멘트 내용: '+surveyRespondContent);
+										
+										respondInfo.surveyRespondContent = surveyRespondContent;
+										
+										
+									}
 								
-								respondInfo.surveyRespondContent = surveyRespondContent;
+								}
 								
+								if(exit){ return false;}
 								
-							}
+							} //comment 끝
 							
 						});
+					
+					if(exit){ return false;}
 					
 					respondArray.push(respondInfo);
 					console.log(respondArray);
 					
 					
 					});
-			 
+			
+			if(exit){ return false;}
 			
 			respondSurvey.respondArray = respondArray;
 			console.log(respondSurvey);

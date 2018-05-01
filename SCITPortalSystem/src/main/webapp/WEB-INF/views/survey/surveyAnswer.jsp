@@ -36,14 +36,13 @@
 					<td>${s.alumni}기</td>
 					<td>${s.classroom}반</td>
 					<c:forEach items="${respondContentList}" var="c">
+					<c:forEach items="${questionList}" var="q">
 						<c:if test="${s.memberNum == c.memberNum}">
-							<c:if test="${c.surveyOptionContent != null}">
-							<td>${c.surveyOptionContent}</td>
-							</c:if>
-							<c:if test="${c.surveyRespondContent != null}">
-							<td>${c.surveyRespondContent}</td>
-							</c:if>
+						<c:if test="${q.surveyQuestionNum == c.surveyQuestionNum}">
+							<td>${c.surveyOptionContent}${c.surveyRespondContent} </td>
 						</c:if>
+						</c:if>
+					</c:forEach>
 					</c:forEach>
 				</tr>
 			</c:forEach>
