@@ -6354,7 +6354,7 @@ input.search__input:focus {
 @media screen and (max-width: 64em) {
   .uits-nav.search-nudge,
   .uits-nav .uits-nav--with-search {
-    /* margin-right: 300px; */
+    margin-right: 300px;
   }
 }
 

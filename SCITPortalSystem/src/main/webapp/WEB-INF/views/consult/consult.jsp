@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="../resources/css/consult/consult.css" />
+<link href="<c:url value ="/resources/css/mainMenu.css"/>" rel="stylesheet" type="text/css" />	
 <title>[1:1 문의 게시판]</title>
 <script type="text/javascript">
 	function question(){

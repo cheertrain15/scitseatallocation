@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/seat/seat.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/attendance/attendance.js"/>"></script>
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/attendance/attendance.css"/>">
+	<link href="<c:url value ="/resources/css/mainMenu.css"/>" rel="stylesheet" type="text/css" />	
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.min.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.structure.css"/>">

@@ -5,6 +5,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link href="<c:url value ="/resources/css/loginForm.css"/>" rel="stylesheet" type="text/css" />
+		<link href="<c:url value ="/resources/css/mainMenu.css"/>" rel="stylesheet" type="text/css" />	
 		<title>[Login Form]</title>
 <script type="text/javascript">	
 <c:if test="${errorPW != null}">

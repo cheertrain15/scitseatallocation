@@ -5,6 +5,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link href="<c:url value ="../resources/css/joinType.css"/>" rel="stylesheet" type="text/css" />
+		<link href="<c:url value ="/resources/css/mainMenu.css"/>" rel="stylesheet" type="text/css" />	
 		<title>[Join Type]</title>
 	</head>
 	

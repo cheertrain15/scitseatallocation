@@ -5,6 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="<c:url value ="/resources/css/joinStaff.css"/>" rel="stylesheet" type="text/css" />
+	<link href="<c:url value ="/resources/css/mainMenu.css"/>" rel="stylesheet" type="text/css" />	
 	<script type="text/javascript" src="<c:url value="../js/jquery-3.2.1.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="../js/joinForm.js"/>"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -35,7 +36,7 @@
     	<h1>회원가입</h1>
     	<p>[학생 가입화면]</p>
   	
-	<form action="join" style="border:1px solid #ccc" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
+	<form action="joinTheStudent" style="border:1px solid #ccc" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
 		<input type="hidden" name="memberClass" value="staff">
 		<table class="joinTable">
 		  	<tr>

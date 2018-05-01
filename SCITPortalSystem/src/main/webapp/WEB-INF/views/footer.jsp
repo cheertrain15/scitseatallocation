@@ -11,15 +11,24 @@
         </div>
         <div class="container kill-vertical">
             <div class="unit brand-unit two-thirds footer--section-left">
-                    <span class="signature">
-                    <img src="<c:url value="/resources/img/logo_sample.png"/>" width="50" height="50" alt="Indiana University">
-                        <!--<img src="/img/signature-zipped.svgz" onerror="this.src='//assets.uits.iu.edu/image/iu-sig.2x.png'" width="236" height="36" alt="Indiana University">-->
-                </span>
-                <p class="copyright">
-                    <a href="http://www.iu.edu/comments/copyright.shtml" target="_blank">Copyright</a> Â© For&nbsp;&nbsp;You 
-                    <span class="footer--link-divider">|</span>
-                    <a href="http://www.iu.edu/comments/complaint.shtml" target="_blank">All rights reserved.</a> |
-                 </div>
+            	<div class="c">
+            		<ul>
+            			<li>
+            				<span class="signature">
+                   				<img src="<c:url value="/resources/img/logo_sample.png"/>" width="50" height="50" alt="Indiana University">
+                       <!--<img src="/img/signature-zipped.svgz" onerror="this.src='//assets.uits.iu.edu/image/iu-sig.2x.png'" width="236" height="36" alt="Indiana University">-->
+               				</span>	
+            			</li>
+            			<li>
+            				<p class="copyright">
+			                   	<a href="http://www.iu.edu/comments/copyright.shtml" target="_blank">Copyright</a> © For&nbsp;&nbsp;You 
+			                   	<span class="footer--link-divider">|</span>
+			                   	<a href="http://www.iu.edu/comments/complaint.shtml" target="_blank">All rights reserved.</a> |
+			                </p>
+            			</li>
+            		</ul>
+            	</div>
+            </div>
             <div class="unit social-unit one-third last footer--section-right">
                 <ul class="social-icons">
                     <li><a href="https://www.facebook.com/smart.cloud.master/" target="_BLANK"><i class="fa fa-facebook"></i></a></li>

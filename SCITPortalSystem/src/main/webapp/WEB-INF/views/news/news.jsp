@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>[공지사항]</title>
 <link rel="stylesheet" type="text/css" href="../resources/css/news/news.css" />
+<link href="<c:url value ="/resources/css/mainMenu.css"/>" rel="stylesheet" type="text/css" />	
 	<script type="text/javascript" src="<c:url value="/resources/js/news/news.js"/>"></script>
 	<script type="text/javascript">
 		function newsWrite() {

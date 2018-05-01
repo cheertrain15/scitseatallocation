@@ -4,7 +4,7 @@ body #branding-bar-v1 {
 }
 
 ul, ol {
-    padding-left: 20px;
+    /* padding-left: 20px; */
     margin: 0 0 30px;
 }
 
@@ -482,10 +482,9 @@ html, body {
 
 .hero__nav {
   display: block;
+  width: 100%;
   position: absolute;
-  margin-right: 75px;
   top: 1.5em;
-  right: 1em;
 }
 
 .hero__nav > ul, ul.main-nav__list  {
@@ -496,8 +495,10 @@ html, body {
 
 
 .hero__nav > ul > li {
-    display: inline-block;
-    padding-left: 2em;
+    float: left;
+    width: 16%;
+    margin-left: 56px;
+    text-align: center;
 }
 
 .hero__nav > ul > li > a {

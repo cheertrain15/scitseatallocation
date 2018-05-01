@@ -6,6 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<script type="text/javascript" src="<c:url value="../js/jquery-3.2.1.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="../js/admin/admin.js"/>"></script>
+		<link href="<c:url value ="/resources/css/mainMenu.css"/>" rel="stylesheet" type="text/css" />
 		<title>[Member Management]</title>		
 	</head>
 <body>

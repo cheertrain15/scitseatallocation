@@ -1,0 +1,11 @@
+/* footer */
+.c ul{
+	list-style: none;
+}
+.c ul li{
+	float: left;
+	margin-left: 20px; 
+}
+.c ul li:nth-child(2){
+	padding: 10px 0;
+}
