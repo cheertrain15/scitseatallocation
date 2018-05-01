@@ -1,13 +1,8 @@
    <!-- 푸터 -->
-            </div>
-        </div>
-    </div>
-   
-</div>
 <div id="footer" class="footer">
     <footer id="footer-v1" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/CollegeOrUniversity">
         <div class="wrapper">
-            <p class="tagline">Fulfilling <span>the</span> Promise</p>
+            <p class="tagline"><span>Smart Cloud IT Master</span> Portal System</p>
         </div>
         <div class="container kill-vertical">
             <div class="unit brand-unit two-thirds footer--section-left">

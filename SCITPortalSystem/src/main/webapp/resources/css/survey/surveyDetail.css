@@ -12,7 +12,6 @@ html, body {
 	float: left;
 	display: block;
 	width: 100%;
-	background-color: #f2f2f2;
 	background-color: #4c1213;
 }
  
@@ -54,7 +53,7 @@ table {
 	display: inline-block;
 	width: 70%;
 	height: 100%;
-	position: absolute;
+	position: relative;
 	background-color: #f2f2f2;
 	overflow: scroll;
 	font-size: smaller;
@@ -82,6 +81,7 @@ table {
 }
 
 .pages {
+	
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -91,21 +91,22 @@ table {
 }
 
 .questions {
+
 	margin: auto;
-	width: 40%;
+	width: 60%;
 	padding: 3%;
 }
 
 fieldset {
 	
-	border: none;
+	padding: 2%;
+	border-radius: 10px;
 }
 
 #pageCount {
 	
-	position: absolute;
+	position: inherit;
 	left: 50%;
-	bottom: 3%;
 }
 
 #nextBtn, #prevBtn {

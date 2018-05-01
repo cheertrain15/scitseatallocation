@@ -57,7 +57,7 @@
 		</tr>
 		<tr>
 			<td colspan="6">
-				<input type="text" size="80" id="surveyTitle" placeholder="설문 제목을 입력하세요.">
+				<input type="text" size="84" id="surveyTitle" placeholder="설문 제목을 입력하세요.">
 			</td>
 			<td>
 				<input type="button" value="설문 생성" id="saveSurvey">
@@ -90,7 +90,7 @@
 <div id="questionsWrap">
 	
 	<div id="page1" class="pages">
-	<h1>페이지 1</h1>
+	<h3>페이지 1</h3>
 	
 	</div>
 </div>
