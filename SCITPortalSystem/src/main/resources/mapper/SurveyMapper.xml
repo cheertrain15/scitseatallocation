@@ -333,15 +333,6 @@
 	)
 </select>
 
-<!-- <select id="getTargetStudents" parameterType="Survey" resultType="MemberStudent">
-	select * from memberstudent
-	where alumni = #{surveyTargetAlumni}
-	<if test="surveyTargetClassroom != 'ALL'">
-	and classroom = #{surveyTargetClassroom}
-	</if>
-	order by classroom asc, memberstudentnum asc
-</select>-->
-
 <select id="getRespondContentList" parameterType="int" resultType="Survey">
 	select
     s.surveynum, sp.surveypagenum, mb.membernum, mb.name, ms.alumni, ms.classroom, sq.surveyquestionnum, sq.surveyquestiontype, sr.surveyrespondcontent,
@@ -380,5 +371,10 @@
     where s.surveynum = #{value}
     order by ms.classroom asc, mb.membernum asc
 </select>
+
+<delete id="deleteSurvey" parameterType="int">
+	delete survey
+	where surveyNum = #{value}
+</delete>
 
 </mapper>
