@@ -89,6 +89,11 @@
 	height: 120px;
 }
 
+#photo{
+	width : 85px;
+	height: 115px;
+}
+
 .studentName{
 	display: inline-block;
 }

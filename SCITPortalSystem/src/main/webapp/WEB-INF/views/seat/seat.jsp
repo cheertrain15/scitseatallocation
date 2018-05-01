@@ -37,7 +37,7 @@
 	<!-- 로그인한 선생님이 담당 하는 기수만 보여주기 -->
 	<div>
 		<div class="autoAllocation">
-			담당 기수 : ${sessionScope.loginedAlumni}기
+			기수 : ${sessionScope.loginedAlumni}기
 		</div>
 	</div>
 		

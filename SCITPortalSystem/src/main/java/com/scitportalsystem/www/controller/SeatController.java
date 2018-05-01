@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +22,10 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
+import com.scitportalsystem.www.dao.LoginDAO;
 import com.scitportalsystem.www.dao.SeatDAO;
 import com.scitportalsystem.www.vo.EvaluationCount;
+import com.scitportalsystem.www.vo.MemberBasic;
 import com.scitportalsystem.www.vo.MemberStaff;
 import com.scitportalsystem.www.vo.SeatAvoid;
 import com.scitportalsystem.www.vo.SeatPlacement;
@@ -42,9 +44,12 @@ import com.scitportalsystem.www.vo.SendSeatStudent;
  *
  */
 public class SeatController {
+
+	@Autowired
+	private LoginDAO logindao;	
 	
 	@Autowired
-	SeatDAO seatdao;
+	private SeatDAO seatdao;
 	
 	private static final Logger logger = LoggerFactory.getLogger(SeatController.class);
 	
@@ -255,6 +260,47 @@ public class SeatController {
 		return "redirect:seatpage";
 	}
 	
+	@RequestMapping(value="downLoad",method=RequestMethod.GET)
+	public void downLoad(String id, HttpServletResponse response, HttpServletRequest req) {
+		logger.info("다운로드(img) 시작");	
+		
+		MemberBasic memberOne = logindao.searchOneMember(id);
+		
+		String profileName = memberOne.getMemberPicName();	
+		System.out.println(profileName);
+		
+		String UPLOAD_PATH = req.getSession().getServletContext().getRealPath("/profile");		
+	
+		
+		try {			
+			response.setHeader("Content-Disposition", "attachment;filename="+URLEncoder.encode(profileName, "UTF-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//파일이 저장된 전체 경로(profile에 저장된 파일명까지) 
+		
+		String fullPath = UPLOAD_PATH + "/" + memberOne.getMemberSaverPicName();
+		//서버의 파일을 읽을 입력 스트림과 클라이언트에게 전달할 출력스트림
+		FileInputStream fis = null; //내 pc에 있는 걸 읽어올 때 사용
+		ServletOutputStream sos = null; //서블릿을 통해 출력할 때 사용 (다른 pc와 서블릿으로 연결되어 있기때문에)
+		
+		try {
+			
+			fis = new FileInputStream(fullPath);
+			sos = response.getOutputStream();
+			
+			FileCopyUtils.copy(fis, sos);
+			
+			fis.close();
+			sos.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		logger.info("다운 로드 종료");
+	}
 	
 }
 

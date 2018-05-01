@@ -69,7 +69,7 @@
 							<c:forEach items="${getStudents}" var="students" varStatus="status">
 								<div id="cell${status.index+1}" class="cell">
 									<div class="studentPhoto">
-										<img src="${students.memberSaverPicName}"/> 
+										<img id="photo" src="downLoad?id=${students.id}"/> 
 										<!-- 
 										${students.id}
 										 -->
