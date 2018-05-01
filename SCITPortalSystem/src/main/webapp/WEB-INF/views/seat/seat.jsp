@@ -72,7 +72,7 @@
 												${classList.seatContent}
 											<br>
 											<c:if test="${sessionScope.loginMemberClass == 'teacher' || sessionScope.loginMemberClass == 'admin'}">
-												<div class="deleteButtonDiv">
+													<div class="deleteButtonDiv">
 													<input type="button" value="반 배치 삭제 " onclick="deleteSeatPlacement('${classList.seatPlacementNum}')">
 												</div>
 												<div class="blankLowerDiv"></div>

@@ -215,7 +215,7 @@ public class LoginController {
 			messageHelper.setText(					
 					new StringBuffer()
 					.append("Join Approval\n")
-					.append("http://10.10.17.56:9999/www/member/email4u?id=")
+					.append("http://10.10.9.130:9999/www/member/email4u?id=")
 					+ memberBasic.getId()
 					.toString());				
 			mailSender.send(message);						

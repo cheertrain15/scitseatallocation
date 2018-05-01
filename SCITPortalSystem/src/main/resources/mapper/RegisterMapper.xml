@@ -19,11 +19,11 @@
 		)
 		values (
 			registrationNum_seq.nextval
-			, #{ id}
-			, #{ registrationReason}
-			, #{ registrationContent}
-			, #{ estimatedTime}
-			, #{ deleteBy}			
+			, #{id}
+			, #{registrationReason}
+			, #{registrationContent}
+			, #{estimatedTime}
+			, #{deleteBy}			
 		)
 	</insert>
 	

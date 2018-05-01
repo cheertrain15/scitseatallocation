@@ -101,7 +101,7 @@
 	                                        </c:if> --%>
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
 	                                        <li><a href="<c:url value='/survey/surveyList' />">  Survey  </a></li>
-	                                        <li><a href="<c:url value='seat/seatpage' />">  Seat  </a></li>	                                        
+	                                        <li><a href="<c:url value='/seat/seatpage' />">  Seat  </a></li>	                                        
 	                                    </ul> 
                                			</c:if>                               			
                                      </c:when>
@@ -113,7 +113,7 @@
                                      		<li><a href="<c:url value="/AskQuestion/QnA"/>">  1:1Consult  </a></li>	                                       
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
 	                                        <li><a href="<c:url value='/survey/surveyList' />">  Survey  </a></li>
-	                                        <li><a href="<c:url value='seat/seatpage' />">  Seat  </a></li>
+	                                        <li><a href="<c:url value='/seat/seatpage' />">  Seat  </a></li>
 	                                       </ul>	
                                      </c:when>  
                                                                   

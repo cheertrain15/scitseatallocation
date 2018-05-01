@@ -37,7 +37,7 @@
     	<p>[학생 가입화면]</p>
   	
 	<form action="joinTheStudent" style="border:1px solid #ccc" method="post" enctype="multipart/form-data" onsubmit="return formCheck();">
-		<input type="hidden" name="memberClass" value="staff">
+		<input type="hidden" name="memberClass" value="student">
 		<table class="joinTable">
 		  	<tr>
 		  		<th class="joinInput-id">I D</th>

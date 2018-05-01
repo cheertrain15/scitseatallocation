@@ -64,7 +64,7 @@
 	<%@ include file="../header.jsp" %>
 	<br><br><br><br><br>	
 	<div class="attendanceMain" id="attendanceMain" align="center">
-		<c:if test="${memberClass == 'staff' }">
+		<c:if test="${memberClass != 'student' }">
 			<input type="button" id="delRegiBtn" value="삭제">
 			<table>
 				<tr>
