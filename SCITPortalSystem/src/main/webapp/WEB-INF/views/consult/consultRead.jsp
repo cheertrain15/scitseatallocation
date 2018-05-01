@@ -93,10 +93,10 @@
 					<td style="width: 100px" >${reply.name}</td>
 					<td class="replyconsult" style="width: 300px">${reply.text }</td>
 					<td style="width: 100px"><fmt:formatDate pattern = "yyyy-MM-dd" value = "${reply.inputdate }" /></td>
-					<td><%-- <c:if test="${sessionScope.loginId == reply.id }"> --%>
+					<td><c:if test="${sessionScope.loginID == reply.id}">
 							<a	href="javascript:deleteReply('${reply.askQuestionReplyNum}','${reply.askQuestionNum}')">
 								[삭제] </a>
-						<%-- </c:if> --%></td>
+						</c:if></td>
 				</tr>
 				<tr>
 					<td colspan="4">
