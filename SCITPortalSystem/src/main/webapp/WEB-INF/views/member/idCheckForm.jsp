@@ -4,15 +4,19 @@
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link href="<c:url value ="../resources/css/idCheckForm.css"/>" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="../js/joinForm.js"></script>
-	<title>Insert title here</title>
+	<title>ID CHECK</title>
 	</head>
 	
 <body>
-<h2>[ ID CHECK ]</h2>
+<div class="idCheckMain">
+	<h2><a>&nbsp; [ ID CHECK ] &nbsp; </a></h2>
+</div>
+<br><br>
 		<form action="idSearch" method="post" onsubmit="return formcheck();">
 			<input type="text" name="searchId" id="searchId" value="${searchId}">
-			<input type="submit" value="Search">		
+			<input type="submit" value="검색" class="idCheckBtn">		
 		</form>
 		
 		<!-- 검색 후에만 출력되는 부분 -->
@@ -21,10 +25,10 @@
 				<c:if test="${searchResult == null}">
 					<p>
 						<b>
-						${searchId} </b> :  [ Available ]				
+						${searchId} </b> 는 사용가능한 아이디 입니다.				
 					</p>
 					<p>
-						<input type="button" value="UseID" onclick="useId('${searchId}')"> 
+						<input type="button" value="사용하기" onclick="useId('${searchId}')" class="useIdButton"> 
 					</p>
 				
 				</c:if>
@@ -32,7 +36,7 @@
 				<c:if test="${searchResult != null}">
 					<p>
 					
-						<b>${searchId} </b> :  [ Already in use ]				
+						<b>${searchId} </b>은 이미 사용 중인 아이디 입니다.				
 					</p>
 				</c:if>
 		</c:if>
