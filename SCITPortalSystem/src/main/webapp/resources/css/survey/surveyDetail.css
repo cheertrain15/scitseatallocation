@@ -12,8 +12,8 @@ html, body {
 	float: left;
 	display: block;
 	width: 100%;
-	height: 5%;
 	background-color: #f2f2f2;
+	background-color: #4c1213;
 }
  
 #canvase {
@@ -35,10 +35,18 @@ html, body {
 }
 
 #surveyInfo {
+	padding: 1% 0 0 0;
 	float: left;
-	display: inline-block;
-	width: 100%;
-	background-color: #f2f2f2;
+    display: inline-block;
+    width: 100%;
+    background-color: #4c1213;
+    font-size: smaller;
+}
+
+table {
+    text-align: center;
+    margin: auto;
+    color: #ffffff;
 }
 
 #questionWrap {
@@ -49,6 +57,7 @@ html, body {
 	position: absolute;
 	background-color: #f2f2f2;
 	overflow: scroll;
+	font-size: smaller;
 }
 
 #rightBtn {
@@ -96,7 +105,7 @@ fieldset {
 	
 	position: absolute;
 	left: 50%;
-	bottom: 5px;
+	bottom: 3%;
 }
 
 #nextBtn, #prevBtn {
@@ -104,6 +113,13 @@ fieldset {
 	background: none;
 	border: none;
 	
+}
+
+button {
+	
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 select, input[type=text], textarea {

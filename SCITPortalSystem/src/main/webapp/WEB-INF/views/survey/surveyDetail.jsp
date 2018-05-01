@@ -16,7 +16,6 @@
 <body> 
 
 <%@ include file="../header.jsp" %>
-<br><br>
 
 	  	<c:if test="${memberClass == 'teacher'}">
 	  	
@@ -41,7 +40,12 @@
 	  	</td>
 	  	<td>대상:</td>
 	  	<td>${survey.surveyTargetAlumni}기</td>
-	  	<td>${survey.surveyTargetClassroom}</td>
+	  	<c:if test="${survey.surveyTargetClassroom == 'ALL'}">
+	  	<td>전체</td>
+	  	</c:if>
+	  	<c:if test="${survey.surveyTargetClassroom != 'ALL'}">
+	  	<td>${survey.surveyTargetClassroom}반</td>
+	  	</c:if>
 	  	</tr>
 	  	<tr>
 	  	<td>제목:</td>
