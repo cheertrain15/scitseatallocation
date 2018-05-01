@@ -66,8 +66,9 @@
 			<td id="consultContent" height="100px" width="300px">${askquestion.askQuestionContent}</td>
 		</tr>
 		<tr>
-			<th>
+			<th><c:if test="${sessionScope.loginID == reply.id}">
 				<a href="javascript:deleteBoard('${askquestion.askQuestionNum}')">삭제</a>
+				</c:if>
 			</th>
 		</tr>
 		<tr>

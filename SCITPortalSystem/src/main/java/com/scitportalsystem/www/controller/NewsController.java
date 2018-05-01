@@ -38,7 +38,7 @@ public class NewsController {
 	@Inject
 	NewsDAO dao;
 	
-	final int countPerPage = 15;
+	final int countPerPage = 10;
 	final int pagePerGroup = 5;	
 	
 	final String uploadPath = "/boardfile";
