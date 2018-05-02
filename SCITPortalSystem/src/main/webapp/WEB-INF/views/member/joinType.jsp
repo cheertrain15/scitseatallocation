@@ -11,15 +11,14 @@
 	
 <body>
 <%@ include file="../header.jsp" %>
-
+<br><br>
 <div class="mainJoin">
-	<div class="introJoin">
-	
-		<p>
+	<div class="introJoin" style="left: 27%;position: absolute;">
+		<p style="border-radius: 6px;">
 			<span>▶ Welcome To The SCIT PORTAL</span>
-		</p>
-	
+		</p>	
 	</div>
+	<br><br>
 	<div class="joinTypeMain">
 		<ul>
 			<li class="joinStaff">
