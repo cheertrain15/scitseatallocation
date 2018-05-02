@@ -6,14 +6,15 @@
 <html>
 <head>
 <style type="text/css">
-	th,td {padding: 15px;}
+	th,td {padding: 15px; }
+	
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>[ 지각 및 결석 글쓰기 ] - SC IT Master</title>
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery-3.2.1.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/home.js"/>"></script>
-	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/home.css"/>">
-
+		<link href="<c:url value ="/resources/css/attendance/attendanceWrite.css"/>" rel="stylesheet" type="text/css" />
+	
 
 	
 	
@@ -21,21 +22,23 @@
 <body>
 	<br><br>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="radio" name="registrationReason" id="lateBtn" value="0"  checked>지각&nbsp;&nbsp;
-	<input type="radio" name="registrationReason" id="absenceBtn" value="1"  >결석&nbsp;&nbsp;
+	<a class="attendanceWrite-Main">
+		<input type="radio" name="registrationReason" id="lateBtn" value="0"  checked> 지 각&nbsp;&nbsp;
+		<input type="radio" name="registrationReason" id="absenceBtn" value="1"  > 결 석&nbsp;&nbsp;
+	</a>
 	<div id="viewLate" class="descAttend" align="center">
 		<form action="write" method="post" >
-			<table>
+			<table class="attendWrite-table">
 				<tr>
 					<td align="right" colspan="5">
-						<input type="submit" value="등록">		
+						<input type="submit" value="등록" class="adwBtn">		
 					</td>
 				</tr>
 				<tr>
-					<td width="200px">
+					<td width="200px" class="lateTd">
 						<a>지각 사유</a>
 					</td>
-					<td width="200px">
+					<td width="200px" class="lateTd">
 						<a>예상 도착 시간</a>
 					</td>
 				</tr>
@@ -79,19 +82,19 @@
 	
 	
 	
-	<div id="viewAbsence" align="center">
+	<div id="viewAbsence" align="center" class="viewAbsence">
 		<form action="write" method="post" >
 			<table>
 				<tr>
 					<td align="right" colspan="5">
-						<input type="submit" value="등록"  >
+						<input type="submit" value="등록"  class="adwBtn">
 					</td>
 				</tr>
 				<tr>
-					<td width="200px">
+					<td width="200px" class="lateTd">
 						<a >결석 사유</a>
 					</td>
-					<td width="200px">
+					<td width="200px" class="lateTd">
 						<a>예상 연락 시간</a>
 					</td>
 				</tr>
