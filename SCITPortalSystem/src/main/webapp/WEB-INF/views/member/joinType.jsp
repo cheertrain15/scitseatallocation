@@ -14,11 +14,11 @@
 
 <div class="mainJoin">
 	<div class="introJoin">
-		<br><br>
+	
 		<p>
-			<span>▶ 해당하시는 회원종류를 선택해주세요</span>
+			<span>▶ Welcome To The SCIT PORTAL</span>
 		</p>
-		<br>
+	
 	</div>
 	<div class="joinTypeMain">
 		<ul>
@@ -26,27 +26,27 @@
 				<a href="joinStaff">
 					<img src="../resources/img/staff.jpg" >
 					<br><br>
-					<p>직원</p>
+					<p>STAFF</p>
 				</a>
 			</li>
 			<li class="joinStudent">
 				<a href="joinStudent">
 					<img src="../resources/img/staff.jpg" >	
 					<br><br>
-					<p>연수생</p>
+					<p>STUDENT</p>
 				</a>
 			</li>
 			<li class="joinTeacher">
 				<a href="joinTeacher">
 					<img src="../resources/img/staff.jpg"  >
 					<br><br>
-					<p>선생님</p>
+					<p>TEACHER</p>
 				</a>
 			</li>
 		</ul>
 	</div>
-
 </div>
+
 
 <br>
 

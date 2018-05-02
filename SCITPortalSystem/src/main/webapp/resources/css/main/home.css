@@ -14,12 +14,19 @@ a{
 	margin-top: 10px;
 	position: relative;
 }
+.a h2{
+	text-align: center;
+    font-size: 40px;
+	
+}
+
 .a a{
 	width: 200px;
     display: inline-block;
     /* height: 50px; */
     text-align: center;
     /* border: solid; */
+    font-size:17px;
     border-radius: 15px;
     padding: 10px 0;
     margin: 0 auto;
@@ -30,8 +37,8 @@ a{
 	position: absolute;
     bottom: 45px;
     right: 50px;
-    width: 750px;
-    height: 200px;
+    width: 730px;
+    height: 240px;
     background: #000;
     opacity: .8;
     color: #fff;
@@ -58,6 +65,7 @@ a{
 	float: left;
 	width: 49.75%;
 	position: relative;
+	
 }
 .b ul li img{
 	width: 100%;
@@ -76,7 +84,7 @@ a{
 	top: 0;
 	left: 0;
 	background: #000;
-	opacity: .4;
+	opacity: .6;
 }
 
 .e{
@@ -95,9 +103,10 @@ a{
 }
 .ea a{
 	width: 200px;
+	font-size: 17px;
 	position: absolute;
 	top: 260px;
-	right: 160px;
+	right: 115px;
     text-align: center;
     /* border: solid; */
     border-radius: 15px;

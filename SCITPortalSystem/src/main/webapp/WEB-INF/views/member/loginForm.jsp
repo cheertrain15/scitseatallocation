@@ -24,7 +24,7 @@ alert('${errorEmail}');
 
 <br><br><br>
  
-	<div class="memberLogin">
+	<div class="memberLogin" style="margin-top: 45px;margin-left: 10%;">
 		<form action="login"  method="post">
 			<div class="login_Img">
 				<img src="<c:url value="../resources/img/logo_ses.png"/>" alt="logo">

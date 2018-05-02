@@ -23,7 +23,10 @@
 	}
 	 */
 
-
+	function goReset() {
+		location.href = "./";
+		
+	}
 	
 	 $(function(){
 	   $('.hello').remove();

@@ -154,7 +154,7 @@
 								    	</tr>      								    	
 								    </table>  
 								  </li>
-								  <li class="studentBtn">						  
+								  <li class="studentBtn" style="margin-left: -160px;smargin-top: 70px;">						  
                                      <label id="cancelBtn" onclick='goHome()' style="left: -70px;">Home</label>                                            
                                      <label id="ChangeBtn" onclick='goCertificate()' style="left: -40px;">Change</label>                                     
 								  </li>

@@ -31,12 +31,7 @@
                     <li><a href="https://www.youtube.com/channel/UCCsiCEQ8g6PacQLuJEYEWpw?view_as=subscriber" target="_BLANK"><i class="fa fa-youtube"></i></a></li>
                     <li><a href="http://codingnala.com/?src=email&kw=00059A&ACENO=3&ACENO=3" target="_BLANK"><i class="fa fa-circle"></i></a></li>
                 </ul>
-                <p>
-                    <a href="https://uits.iu.edu/comments" title="Leave feedback about this page">Leave feedback</a> |
-                    <a href="http://it.iu.edu/privacy" id="privacy-policy-link" title="Privacy Policy">Privacy Notice</a> |
-                    <a href="https://accessibility.iu.edu" id="accessibility-link" title="Having trouble accessing this web page because of a disability? Visit this page for assistance." class="external">Accessibility</a>
-                </p>
-            </div>
+               </div>
         </div>
     </footer>
 </div>

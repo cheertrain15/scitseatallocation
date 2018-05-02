@@ -58,7 +58,7 @@ public class MyPageController {
 	 * @param memberStaff
 	 * @author 김다희 
 	 */
-	@RequestMapping(value="member/addStaffInfo",method=RequestMethod.POST)
+	@RequestMapping(value="addStaffInfo",method=RequestMethod.POST)
 	public String addStaffInfo(Model model, MemberStaff memberStaff) {
 		logger.info("staffInfo 입력 시작");	
 		

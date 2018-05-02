@@ -11,50 +11,59 @@
 	</head>
 <body>
 <%@ include file="../header.jsp" %>
-<br><br><br><br><br>
+<section class="notice" style="height: 413px;">
+    <!-- board seach area -->
+    <div id="board-search">
+        <div class="container_board">
+            <div class="search-window">               
+                    <div class="search-wrap">
+                        <label id="manageLabel">Managemenet</label>                    
+                   </div>               
+            </div>
+        </div>
+    </div>
+   
+  <!-- board list area -->
+    <div id="joinList">
+        <div class="container_board">
+            <table class="board-table">
+                <thead>
+                <tr>
+                    <th scope="col" class="th-num">No.</th>
+                    <th scope="col" class="th-date">ID</th>
+                    <th scope="col" class="th-date">Name</th>
+                    <th scope="col" class="th-num">Type</th>
+                    <th scope="col" class="th-date">Phone</th>
+                    <th scope="col" class="th-date">Approval</th>                    
+                </tr>
+                </thead>
+		         <c:forEach var ="MemberBasic" items="${memberList}">
+					<tbody>		
+					<c:if test="${MemberBasic.id != 'admin'}">	
+					<tr>
+						<td>${MemberBasic.memberNum}</td>			
+						<td>${MemberBasic.id}</td>				
+						<td>${MemberBasic.name}</td>
+						<td>${MemberBasic.memberClass}</td>
+						<td>${MemberBasic.phone}</td>
+						<td>
+						<c:if test="${MemberBasic.adminap == 0}">					
+							<input type="button" i="${MemberBasic.id}" class="btn_click" value="확인"/>								
+						</c:if>
+						<c:if test="${MemberBasic.adminap == 1}">
+							<b>complete</b>				
+						</c:if>				
+						</td>				
+					</tr>	
+					</c:if>		
+					</tbody>	
+				</c:forEach>	
+            </table>
+        </div>
+    </div>
+</section>
 
-<div class="joinList">
-	<div class="row">
-		<div class="sub-row">
-		<table>
-			<thead>
-				<tr>
-					<th>No.</th>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Phone</th>
-					<th>Approval</th>				
-				</tr>
-			</thead>
-			
-		<c:forEach var ="MemberBasic" items="${memberList}">
-			<tbody>		
-			<c:if test="${MemberBasic.id != 'admin'}">	
-			<tr>
-				<td>${MemberBasic.memberNum}</td>			
-				<td>${MemberBasic.id}</td>				
-				<td>${MemberBasic.name}</td>
-				<td>${MemberBasic.memberClass}</td>
-				<td>${MemberBasic.phone}</td>
-				<td>
-				<c:if test="${MemberBasic.adminap == 0}">					
-					<input type="button" i="${MemberBasic.id}" class="btn_click" value="확인"/>								
-				</c:if>
-				<c:if test="${MemberBasic.adminap == 1}">
-					<b>complete</b>				
-				</c:if>				
-				</td>				
-			</tr>	
-			</c:if>		
-			</tbody>	
-		</c:forEach>		
-	</table>
-		</div>
-	</div>
-</div>
-
-	<form action="management" method="get" id="pagingForm">	
+	<form action="management" method="get" id="pagingForm" style="margin-left: 41%;">	
 			<input type="hidden" name="page" id="page">	<!-- 현재 페이지 값을 갖고 컨트롤러로 전달해준다 -->
 			
 			<select id="selectTy" name="searchList">
@@ -86,7 +95,7 @@
 			<input id="searchbt" type="button" value="Search" onclick="pagingFormSubmit(1)" >	
 			<!-- 검색한 뒤에는 항상 첫번째 페이지로 가기 때문에 -->	
 		</form>
-	<div class="pagaingbt">
+	<div class="pagaingbt" style="margin-left: 45%;">
 			<a href="javascript:pagingFormSubmit(1)">◁◁</a>	<!-- 첫 번째 페이지로 이동 -->
 			<a href="javascript:pagingFormSubmit(${navi.currentPage - 1})">◀</a>
 			<c:forEach var="counter" begin="${navi.startPageGroup}" end="${navi.endPageGroup}">
@@ -101,7 +110,7 @@
 				
 			<a href="javascript:pagingFormSubmit(${navi.currentPage + 1 })">▶</a>
 			<a href="javascript:pagingFormSubmit(${navi.totalPageCount})">▷▷</a>	<!-- 마지막 페이지로 이동 -->
-		<br><br>
+		<br><br><br><br><br>
 	</div>		
 <%@ include file="../footer.jsp"%>
 </body>
