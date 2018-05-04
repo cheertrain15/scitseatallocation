@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 영상정보 처리 SQL -->
+<mapper namespace="com.twoDimensionForAll.enjoy.dao.VideoMapper">
+
+	<!-- 영상 정보 저장 -->
+	<insert id="addVideo" parameterType="Video">
+		insert into
+			video (
+		videoNum,
+		videoName,
+		videoGenre,
+		videoSource,
+		videoThumbnail,
+		videoRegisterdate
+		) 
+		values 
+		(
+		videonum_seq.nextval,
+		#{videoName},
+		#{videoGenre},
+		#{videoSource},
+		#{videoThumbnail},
+		SYSDATE
+		)
+	</insert>
+	
+	<select id="showAllVideo" resultType="Video">
+	select 
+		videoNum,
+		videoName,
+		videoGenre,
+		videoSource,
+		videoThumbnail,
+		videoRegisterdate
+	from
+		video
+	Order By
+		videoNum DESC
+	</select>
+	
+	<select id="selectVideo" parameterType="int" resultType="Video">
+	select 
+		videoNum,
+		videoName,
+		videoGenre,
+		videoSource,
+		videoThumbnail,
+		videoRegisterdate
+	from
+		video
+	where
+		videoNum = #{videoNum}
+	</select>
+	
+	<select id="searchVideo" parameterType="String" resultType="Video">
+	select 
+		videoNum,
+		videoName,
+		videoGenre,
+		videoSource,
+		videoThumbnail,
+		videoRegisterdate
+	from
+		video
+	where
+		videoName like '%'||#{videoName}||'%'
+  	Order By
+		videoNum DESC
+	</select>
+		
+	<select id="sortByGenre" parameterType="String" resultType="Video">
+	select 
+		videoNum,
+		videoName,
+		videoGenre,
+		videoSource,
+		videoThumbnail,
+		videoRegisterdate
+	from
+		video
+	where
+		videoGenre = #{videoGenre}
+	Order By
+		videoNum DESC
+	</select>
+
+</mapper>

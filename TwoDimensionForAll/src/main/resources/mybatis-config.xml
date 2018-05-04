@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.twoDimensionForAll.enjoy.Member" alias="Member" />
+		<typeAlias type="com.twoDimensionForAll.enjoy.Video" alias="Video" />
+		<typeAlias type="com.twoDimensionForAll.enjoy.UserFavourite" alias="UserFavourite" />
+		<typeAlias type="com.twoDimensionForAll.enjoy.UserHistory" alias="UserHistory" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/memberMapper.xml" />
+		<mapper resource="mapper/videoMapper.xml" />
+	</mappers>
+</configuration>
