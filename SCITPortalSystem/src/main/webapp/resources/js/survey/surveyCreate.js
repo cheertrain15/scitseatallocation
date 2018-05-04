@@ -213,7 +213,7 @@ function completeEditQuestion(questionNum){
 	var val = $( "#editQuestion"+questionNum ).val();
 	
 	val += '<input type="button" value="수정" onclick="javascript:editQuestion('+questionNum+')">'
-		+'<input type="button" value="삭제" onclick="javascript:deleteSurvey('+questionNum+')">';
+		+'<input type="button" value="삭제" onclick="javascript:deleteQuestion('+questionNum+')">';
 	
 	$( "#question"+questionNum+" legend").html(val);
 };
@@ -264,7 +264,7 @@ function addPage(pageSize){
 	
 	var 	page = '';
 	page += '<div id="page'+Num+'" class="pages">'
-		 + '<h1>페이지 '+Num+'</h1>';
+		 + '<h3>페이지 '+Num+'</h3>';
 	
 	console.log($( "#pagesWrap" ).find('select'));
 	$( "#questionsWrap" ).append(page);

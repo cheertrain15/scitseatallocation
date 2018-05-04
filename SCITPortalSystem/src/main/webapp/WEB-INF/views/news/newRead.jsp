@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="../resources/css/news/newsRead.css"/>
+<link href="<c:url value ="/resources/css/mainMenu.css"/>" rel="stylesheet" type="text/css" />	
 <title>[해달 글 읽기]</title>
 	<script type="text/javascript">
 	function deleteBoard(newsNum) {

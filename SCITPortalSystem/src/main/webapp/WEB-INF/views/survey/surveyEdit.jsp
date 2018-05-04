@@ -80,14 +80,15 @@
 				</select>
 			</td>
 			<td><input type="text" id="surveyStartDate" value="${survey.surveyStartDate}"></td>
+			<td> ~ </td>
 			<td><input type="text" id="surveyEndDate" value="${survey.surveyEndDate}"></td>
 		</tr>
-		<tr>
-			<td colspan="7">
-			<input type="text" size="120" id="surveyTitle" value="${survey.surveyTitle}" placeholder="설문 제목을 입력하세요.">
+		<tr> 
+			<td colspan="6">
+			<input type="text" size="84" id="surveyTitle" value="${survey.surveyTitle}" placeholder="설문 제목을 입력하세요.">
 			</td>
-			<td>
-			<input type="button" value="edit" id="editSurvey">
+			<td> 
+			<input type="button" value="설문 수정" id="editSurvey">
 			</td>
 		</tr>
 	</table>
@@ -121,7 +122,7 @@
 	<c:forEach items="${pages}" var="pg" varStatus="pgStatus">
 	  	<div id="page${pgStatus.count}" class="pages">
 	  		
-	  		<h1>페이지 ${pgStatus.count}</h1>
+	  		<h3>페이지 ${pgStatus.count}</h3>
 	  
 		  	<c:forEach items="${questions}" var="qs">
 		  	

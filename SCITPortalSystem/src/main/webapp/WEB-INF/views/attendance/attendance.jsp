@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/seat/seat.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/attendance/attendance.js"/>"></script>
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/attendance/attendance.css"/>">
+	<link href="<c:url value ="/resources/css/mainMenu.css"/>" rel="stylesheet" type="text/css" />	
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.min.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.structure.css"/>">
@@ -60,70 +61,142 @@
 	
 </head>
 <body>	
-	<%@ include file="../header.jsp" %>
-	<br><br><br><br><br>	
-	<div class="attendanceMain" id="attendanceMain" align="center">
-		<c:if test="${memberClass == 'staff' }">
-			<input type="button" id="delRegiBtn" value="삭제">
-			<table>
-				<tr>
-					<th><input type="checkbox" name="selected_all" class="selected_all"/></th>
-					<th width="70px">번호</th>
-					<th width="70px"> 기수</th>
-					<th width="70px">반</th>	
-					<th width="90px">이름</th>
-					<th width="70px">종류</th>
-					<th width="200px">사유</th>
-					<th width="150px">도착예정시간</th>
-					<th width="150px">작성일시</th>
-					<th width="150px">확인</th>
-		  	 	</tr>
-	  	 		<c:choose>
-	  	 			<c:when test="${registlist != null }">
-						<c:forEach var="list" items="${registlist }" varStatus="status">
-							<tr class="trList" >
-								<td>
-									<input type="checkbox" class="reginumCheck" value="${list.registrationNum }">
-								</td>
-								<td width="50px" align="center"> ${list.registrationNum }</>
+	<%@ include file="../header.jsp" %>	
+<section class="notice" style="height: 413px;">
+    <!-- board seach area -->
+    <div id="board-search">
+        <div class="container_board">
+            <div class="search-window">               
+                    <div class="search-wrap" style="height: 100%; position: relative; padding: 12px 0;">
+                        <label id="manageLabel">Attendance</label>  
+                        <c:if test="${memberClass != 'student' }">
+                        <input type="button" id="delRegiBtn" value="삭제" style="position: absolute; top: 18px; left: 0;">                        
+                        </c:if>               
+                        <c:if test="${memberClass == 'student' }">
+                        <input type="button" value="글쓰기" onclick="writeRegist()" align="right" style="position: absolute;top: 18px;left: 0;">
+                       <!--  <button id="writeRegist" style="position: absolute; top: 0; left: 0;">글쓰기</button> -->
+                        </c:if>
+                   </div>               
+            </div>
+        </div>
+    </div>
+   
+  <!-- board list area -->
+   
+    <div id="joinList">
+        <div class="container_board">
+            <table class="board-table">
+            <c:if test="${memberClass != 'student' }">
+                <thead>
+                <tr>
+                  			<th><input type="checkbox" name="selected_all" class="selected_all"/></th>
+		                    <th scope="col" class="th-num">No.</th>
+		                    <th scope="col" class="th-num">Th</th>
+		                    <th scope="col" class="th-num">Class</th>
+		                    <th scope="col" class="th-num">Name</th>
+		                    <th scope="col" class="th-num">Type</th> 
+		                    <th scope="col" class="th-title">Reason</th> 
+		                    <th scope="col" class="th-num">ETA</th> 
+		                    <th scope="col" class="th-num">Date</th> 
+		                    <th scope="col" class="th-num">Approval</th>               
+                </tr>
+                </thead>
+                <c:choose>
+                	 <c:when test="${registlist != null }">
+		                    <c:forEach var="list" items="${registlist }" varStatus="status">
+		                    <tbody>  		 
+		                    <tr class="trList" >                    
+		                        <td><input type="checkbox" class="reginumCheck" value="${list.registrationNum }"></td>           
+		                        <td>${list.registrationNum }</td>              
+		                        <td>${list.alumni }</td>
+		                        <td>${list.classroom }</td>    
+		                        <td>${list.name }</td> 
+		                        <c:if test="${list.registrationReason == 0}">
+		                            <td width="50px" align="center"> late</td>
+		                         </c:if>
+		                         <c:if test="${list.registrationReason == 1}">
+		                            <td width="50px" align="center"> absence</td>
+		                         </c:if>     
+		                        <td>${list.registrationContent }</td> 
+		                        <td>${list.estimatedTime }</td> 
+		                        <td><fmt:formatDate  value="${list.registrationDate }" pattern="yyyy/MM/dd HH:mm"/></td> 
+		                        <td>
+		                            <c:if test="${list.attendance_stu == 'N'}">
+		                              <input type="button" value="확인" i="${list.registrationNum }" class="comFirmBTN"/>
+		                            </c:if> 
+		                            <c:if test="${list.attendance_stu == 'Y'}">
+		                                <b>Complete</b>                                     
+		                            </c:if> 
+		                        </td>                             
+		                    </tr>  
+		                   </tbody>
+		                     </c:forEach>
+		                    </c:when>     
+		                    <c:otherwise>
+			                   <tr height="100px">
+			                      <td colspan="8" align="center">출력할 결과가 없습니다.</td>
+			                   </tr>
+			                </c:otherwise>
+                </c:choose>
+                </c:if>
+                <c:if test="${memberClass == 'student' }">
+                	 <thead>
+					<!-- <tr>
+						<td colspan="7">
+							<input type="button" value="글쓰기" onclick="writeRegist()" align="right">
+						</td>
+					</tr> -->
+		  			<tr>
+				  		<th scope="col" class="th-num">No.</th>
+				        <th scope="col" class="th-num">Th</th>
+				        <th scope="col" class="th-num">Class</th>
+				        <th scope="col" class="th-num">Name</th>
+				        <th scope="col" class="th-num">Type</th> 
+				        <th scope="col" class="th-title">Reason</th> 
+				        <th scope="col" class="th-num">ETA</th> 
+				    	<th scope="col" class="th-num">Date</th> 
+		  			</tr>
+		  	</thead>
+		 	 <c:if test="${registlist_stu != null }">
+	  	 				<c:set var="n" value="1"/>
+	  	 				<c:forEach var="list" items="${registlist_stu }" varStatus="status">
+	  	 				<tbody>
+							<tr>
+								<td width="50px" align="center"> ${n}</td>
 								<td width="50px" align="center"> ${list.alumni } </td>
 								<td width="50px" align="center"> ${list.classroom } </td>
 								<td width="70px" align="center"> 
 									<a> ${list.name } </a> <!-- 이름 클릭 시, 학생 정보 창 보여기주기 위한 a Tag -->
 								</td>
-								<c:if test="${list.registrationReason == 0}">
-									<td width="50px" align="center"> 지각</td>
-								</c:if>
 								<c:if test="${list.registrationReason == 1}">
-									<td width="50px" align="center"> 결석</td>
+									<td width="50px" align="center"> 결석 </td>
+								</c:if>
+								<c:if test="${list.registrationReason == 0}">
+									<td width="50px" align="center"> 지각 </td>
 								</c:if>								
 								<td width="300px"> ${list.registrationContent }</td>
 								<td width="100px" > ${list.estimatedTime } </td>
 								<td width="150px"> <fmt:formatDate  value="${list.registrationDate }" pattern="yyyy/MM/dd HH:mm"/> </td> <!-- 시간 까지 출력되도록 설정 -->
-								<td>						
-								<c:if test="${list.attendance_stu == 'N'}">
-									<input type="button" value="확인" i="${list.registrationNum }" class="comFirmBTN"/>											
-								</c:if>	
-								<c:if test="${list.attendance_stu == 'Y'}">
-									<b>Complete</b>										
-								</c:if>	
-								</td>
 							</tr>
+						
+							<c:set var="n" value="${n+1 }"/>
 						</c:forEach>
-					</c:when>
-					<c:otherwise>
+					</c:if>
+					<c:if test="${registlist_stu == null }">
 						<tr height="100px">
-							<td colspan="8" align="center">출력할 결과가 없습니다.</td>
+							<td colspan="7" align="center">출력할 결과가 없습니다.</td>
 						</tr>
-					</c:otherwise>
-				</c:choose>
-			</table>
-			<form action="delRegistration" method="get" id="delList">
-				<input type="hidden" name="reginumCheck" id="registrationNum">
-			</form>
-			<br>
-			
-			<a href="javascript:pagingFormSubmit(${navi.currentPage -5 })" style="text-decoration:none">◁◁ </a>&nbsp;&nbsp;
+					</tbody>
+					</c:if>                
+         </c:if>
+         </table>  
+       </div>
+  </div>
+    <form action="delRegistration" method="get" id="delList">
+		<input type="hidden" name="reginumCheck" id="registrationNum">
+	</form>
+	<div class="page" style="text-align: center; margin-top: 20px;">
+    	<a href="javascript:pagingFormSubmit(${navi.currentPage -5 })" style="text-decoration:none">◁◁ </a>&nbsp;&nbsp;
 			<a href="javascript:pagingFormSubmit(${navi.currentPage -1 })" style="text-decoration:none">◀ </a>&nbsp;&nbsp;
 			<c:forEach var="counter" begin="${navi.startPageGroup }" end="${navi.endPageGroup }">
 				<c:if test="${counter == navi.currentPage }" >
@@ -160,60 +233,9 @@
 			
 				<input type="button" onclick="pagingFormSubmit(1)" value="검색" >
 						
-			</form>
-		</c:if>
-		
-		
-		<!-- 학생 로그인시 보여줄 화면 -->
-		<c:if test="${memberClass == 'student' }">
-			<table>
-				<tr>
-					<td colspan="7">
-						<input type="button" value="글쓰기" onclick="writeRegist()" align="right">
-					</td>
-				</tr>
-				<tr>
-					<th width="70px">번호</th>
-					<th width="70px">기수</th>
-					<th width="70px">반</th>
-					<th width="90px">이름</th>
-					<th width="90px">종류</th>
-					<th width="350px">사유</th>
-					<th width="150px">도착예정시간</th>
-					<th width="150px">작성일시</th>
-		  	 	</tr>
-	  	 			<c:if test="${registlist_stu != null }">
-	  	 				<c:set var="n" value="1"/>
-	  	 				<c:forEach var="list" items="${registlist_stu }" varStatus="status">
-							<tr>
-								<td width="50px" align="center"> ${n}</td>
-								<td width="50px" align="center"> ${list.alumni } </td>
-								<td width="50px" align="center"> ${list.classroom } </td>
-								<td width="70px" align="center"> 
-									<a> ${list.name } </a> <!-- 이름 클릭 시, 학생 정보 창 보여기주기 위한 a Tag -->
-								</td>
-								<c:if test="${list.registrationReason == 1}">
-									<td width="50px" align="center"> 결석 </td>
-								</c:if>
-								<c:if test="${list.registrationReason == 0}">
-									<td width="50px" align="center"> 지각 </td>
-								</c:if>								
-								<td width="300px"> ${list.registrationContent }</td>
-								<td width="100px" > ${list.estimatedTime } </td>
-								<td width="150px"> <fmt:formatDate  value="${list.registrationDate }" pattern="yyyy/MM/dd HH:mm"/> </td> <!-- 시간 까지 출력되도록 설정 -->
-							</tr>
-							<c:set var="n" value="${n+1 }"/>
-						</c:forEach>
-					</c:if>
-					<c:if test="${registlist_stu == null }">
-						<tr height="100px">
-							<td colspan="7" align="center">출력할 결과가 없습니다.</td>
-						</tr>
-					</c:if>
-			</table>
-		</c:if>					
-	</div>
-	<br><br><br><br><br>
+			</form>	
+    </div>	  
+</section>
 <%@ include file="../footer.jsp"%>	
 </body>
 </html>

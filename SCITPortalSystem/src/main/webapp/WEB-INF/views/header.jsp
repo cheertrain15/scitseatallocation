@@ -96,16 +96,18 @@
                                    		<ul>
 	                                        <li><a href="<c:url value="/News/NewsMain"/>">  News  </a></li>
 	                                        <li><a href="<c:url value="/AskQuestion/QnA"/>">  1:1Consult  </a></li>
-	                                        <c:if test="${sessionScope.loginMemberClass == 'staff'}">
-	                                        <li><a href="<c:url value="/additionalInfo/staffPage"/>">  Work Information  </a></li>
-	                                        </c:if>
+	                                       <%--  <c:if test="${sessionScope.loginMemberClass == 'staff'}">
+	                                        <li><a href="<c:url value="/additionalInfo/staffPage"/>">  Work </a></li>
+	                                        </c:if> --%>
 	                                        <li><a href="<c:url value="/attendance/attendance"/>">  Attendance  </a></li>
 	                                        <li><a href="<c:url value='/survey/surveyList' />">  Survey  </a></li>
 	                                        <li><a href="<c:url value='/seat/seatpage' />">  Seat  </a></li>	                                        
 	                                    </ul> 
                                			</c:if>                               			
                                      </c:when>
-                                     <c:when test="${sessionScope.loginID == null}">    
+                                     
+                                     <c:when test="${sessionScope.loginID == null}">   
+                                     
                                     	 <ul>                                 
                                      		<li><a href="<c:url value="/News/NewsMain"/>">  News  </a></li>
                                      		<li><a href="<c:url value="/AskQuestion/QnA"/>">  1:1Consult  </a></li>	                                       
@@ -113,7 +115,8 @@
 	                                        <li><a href="<c:url value='/survey/surveyList' />">  Survey  </a></li>
 	                                        <li><a href="<c:url value='/seat/seatpage' />">  Seat  </a></li>
 	                                       </ul>	
-                                     </c:when>                                     
+                                     </c:when>  
+                                                                  
                                </c:choose>
                                 </nav>
                             </div>

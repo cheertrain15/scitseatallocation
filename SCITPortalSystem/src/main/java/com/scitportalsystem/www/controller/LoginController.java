@@ -215,7 +215,7 @@ public class LoginController {
 			messageHelper.setText(					
 					new StringBuffer()
 					.append("Join Approval\n")
-					.append("http://10.10.17.56:9999/www/member/email4u?id=")
+					.append("http://localhost:8888/www/member/email4u?id=")
 					+ memberBasic.getId()
 					.toString());				
 			mailSender.send(message);						
@@ -332,7 +332,7 @@ public class LoginController {
 			logger.info("E-mail Fail");
 		}
 		
-		return "redirect:joinSuccess";
+		return "redirect:loginForm";
 	}
 	
 	/**

@@ -31,14 +31,14 @@
 	  	</form>
 	  	<table>
 	  	<tr>
-	  	<td>분류:</td>
+	  	<td>분류 : </td>
 	  	<td>
 	  	<c:if test="${survey.surveyCategory == 0}">만족도</c:if>
 	  	<c:if test="${survey.surveyCategory == 1}">반배치</c:if>
 	  	<c:if test="${survey.surveyCategory == 2}">자격증</c:if>
 	  	<c:if test="${survey.surveyCategory == 3}">기타</c:if>
 	  	</td>
-	  	<td>대상:</td>
+	  	<td>대상 : </td>
 	  	<td>${survey.surveyTargetAlumni}기</td>
 	  	<c:if test="${survey.surveyTargetClassroom == 'ALL'}">
 	  	<td>전체</td>
@@ -48,12 +48,12 @@
 	  	</c:if>
 	  	</tr>
 	  	<tr>
-	  	<td>제목:</td>
-	  	<td colspan="5">${survey.surveyTitle}</td>
+	  	<td>제목 : </td>
+	  	<td colspan="4">${survey.surveyTitle}</td>
 	  	</tr>
 	  	<tr>
-	  	<td>설문 기간:</td>
-	  	<td colspan="5">${survey.surveyStartDate}~${survey.surveyEndDate}</td>
+	  	<td>기간 : </td>
+	  	<td colspan="4">${survey.surveyStartDate}~${survey.surveyEndDate}</td>
 	  	</tr>
 	  	</table>
 	  	</div> 
@@ -129,13 +129,13 @@
 				  	
 				  	</fieldset>
 				</div>
-				
-				<div id="pageCount">
-					(${pgStatus.count}/${pages.size()})
-				</div>
 			  	
 			</c:if>
 			</c:forEach>
+			
+			<div id="pageCount">
+					(${pgStatus.count}/${pages.size()})
+			</div>
 			
 			</div>
 		  	

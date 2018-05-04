@@ -252,7 +252,8 @@ function completeEditOption(){
 // 페이지 추가
 function addPage(pageSize){
 	
-	var Num = pageSize+1;
+	var Num = $( "#pagesWrap" ).find('select').find('option').length+1;
+	console.log(Num);
 	
 	var pageOption = '';
 	pageOption += '<option value="page'+Num+'" selected="selected">페이지 '+Num+'</option>';
@@ -261,7 +262,7 @@ function addPage(pageSize){
 	
 	var 	page = '';
 	page += '<div id="page'+Num+'" class="pages">'
-		 + '<h1>페이지 '+Num+'</h1>';
+		 + '<h3>페이지 '+Num+'</h3>';
 	
 	console.log($( "#pagesWrap" ).find('select'));
 	$( "#questionsWrap" ).append(page);
@@ -277,7 +278,6 @@ function addPage(pageSize){
 	
 	// 페이지를 추가하고 나면 해당 페이지에도 droppable 기능 추가
 	initialize();
-	
 };
 
 //페이지 삭제하기

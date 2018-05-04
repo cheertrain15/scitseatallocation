@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/jquery-ui.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/seat/seat.js"/>"></script>
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/seat/seat.css"/>">
+	<link href="<c:url value ="/resources/css/main/home.css"/>" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.min.css"/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.structure.css"/>">
@@ -72,7 +73,7 @@
 												${classList.seatContent}
 											<br>
 											<c:if test="${sessionScope.loginMemberClass == 'teacher' || sessionScope.loginMemberClass == 'admin'}">
-												<div class="deleteButtonDiv">
+													<div class="deleteButtonDiv">
 													<input type="button" value="반 배치 삭제 " onclick="deleteSeatPlacement('${classList.seatPlacementNum}')">
 												</div>
 												<div class="blankLowerDiv"></div>

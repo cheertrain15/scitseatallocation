@@ -5,6 +5,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link href="<c:url value ="/resources/css/loginForm.css"/>" rel="stylesheet" type="text/css" />
+		<link href="<c:url value ="/resources/css/mainMenu.css"/>" rel="stylesheet" type="text/css" />	
 		<title>[Login Form]</title>
 <script type="text/javascript">	
 <c:if test="${errorPW != null}">
@@ -23,7 +24,7 @@ alert('${errorEmail}');
 
 <br><br><br>
  
-	<div class="memberLogin">
+	<div class="memberLogin" style="margin-top: 45px;margin-left: 10%;">
 		<form action="login"  method="post">
 			<div class="login_Img">
 				<img src="<c:url value="../resources/img/logo_ses.png"/>" alt="logo">
