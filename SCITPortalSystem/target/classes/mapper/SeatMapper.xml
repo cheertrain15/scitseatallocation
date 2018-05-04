@@ -10,7 +10,7 @@
 	<!-- 임의: 선생님의 정보를 가져오기 
 		 이유: 선생님의 담당 기수만 볼 수 있게 하기 위해.
 	 -->
-	<select id="getStaffInfo" resultType="MemberStaff">
+	<select id="getStaffInfo" parameterType="String" resultType="MemberStaff">
 		select
 			id
 			, teacherNum
@@ -18,5 +18,275 @@
 			, inChargeSubject
 		from
 			MemberStaff
+		where
+			id = #{id}
 	</select>
+	
+
+	<!-- 회원의 기본 정보 중 회원번호를 불러오기 위한 명령 -->
+	<select id="getMemberNum" parameterType="String" resultType="int">
+		select 
+			memberNum
+		from
+			memberbasic
+		where
+			id = #{id}
+	</select>
+	
+	
+	
+	<!--자리 배치도를 저장하는 명령문  -->
+	<insert id="saveSeatInfo" parameterType="SeatPlacement">
+		insert into SeatPlacement(
+		seatPlacementNum
+		, seatCreator
+		, seatAlumni
+		, seatClassroom
+		, seatCount
+		, seatContent
+		, seatCreatedDate 
+		)
+		values
+		(
+		seatPlacementNum_seq.nextval
+		, #{seatCreator}
+		, #{seatAlumni}
+		, #{seatClassroom}
+		, #{seatCount}
+		, #{seatContent}
+		, SYSDATE
+		)
+	</insert>
+	
+	<!-- 학사 선생님이 담당하는 기수의 반 배치만 조회하게 하는 sql -->
+	<select id="showSeatInfo" parameterType="int" resultType="SeatPlacement">
+	select 
+		SeatPlacement.seatPlacementNum as seatPlacementNum
+		, MemberBasic.name as seatCreatorName
+		, SeatPlacement.seatAlumni as seatAlumni
+		, SeatPlacement.seatClassroom as seatClassroom
+		, SeatPlacement.seatCount as seatCount
+		, SeatPlacement.seatContent as seatContent
+		, SeatPlacement.seatCreatedDate as seatCreatedDate
+	from
+		SeatPlacement
+		, MemberBasic
+	where
+		SeatPlacement.seatCreator = #{seatCreator}
+		AND
+		MemberBasic.memberNum =#{seatCreator}
+	order by 	
+		SeatPlacement.seatClassroom ASC
+	</select>
+	
+	<!-- 학생이 조회할 수 있는 반배치도 출력 -->
+	<select id="showSeatInfoForStudent" parameterType="int" resultType="SeatPlacement">
+	select 
+		seatPlacementNum 
+		, seatAlumni 
+		, seatClassroom 
+		, seatCount 
+		, seatContent
+		, seatCreatedDate
+	from
+		SeatPlacement
+	where
+		seatAlumni = #{seatAlumni}
+	order by 	
+		seatClassroom ASC
+	</select>
+	
+	
+	<!-- 수정하기 위해 하나의 반 배치도를 불러오는 sql -->
+	<select id="modifySeatPlacement" parameterType="int" resultType="SeatPlacement">
+		select
+			seatPlacementNum
+			, seatClassroom
+			, seatCount
+			, seatContent
+		from
+			SeatPlacement
+		where
+			seatPlacementNum = #{seatPlacementNum}
+	</select>
+	
+	
+	<!-- 반 배치 지우기 전에 해당 반에 있는 학생들의 반 배치 정보를 초기화  -->
+	<update id="defaultStudentSeat" parameterType="int">
+	update
+		MemberStudent
+	set
+		seat = 0
+	where
+		classroom = 
+		(
+		select 
+			seatClassroom
+		from
+			seatPlacement
+		where
+			seatPlacementNum = #{seatPlacementNum}		
+		) 	
+	</update>
+	
+	
+	<!--  반 배치 지우기  -->
+	<delete id="deleteSeatInfo" parameterType="int">
+		delete from
+			SeatPlacement
+		where
+			seatPlacementNum = #{seatPlacementNum}
+	</delete>
+	
+	
+	<!-- 수정 된 반 배치를 DB에 반영하기 -->
+	<update id="modifiedSeatSave" parameterType="SeatPlacement">
+		update
+			SeatPlacement
+		set
+			seatCount = #{seatCount}
+			, seatContent = #{seatContent}
+		where
+			seatPlacementNum = #{seatPlacementNum}
+	</update>
+
+	<!-- 반 배정 받을 학생들을 불러온다 -->
+	<select id="seatForStudents" parameterType="int" resultType="SeatStudent">
+		select
+			MemberStudent.memberstudentNum as memberstudentNum
+			, MemberStudent.id as id
+			, MemberBasic.name as name
+			, MemberBasic.memberSaverPicName as memberSaverPicName
+			, MemberStudent.alumni as alumni
+			, MemberStudent.classroom as classroom
+			, MemberStudent.groupNum as groupNum
+			, MemberStudent.seat as seat
+			, MemberStudent.itMajor as itMajor
+			, MemberStudent.jpMajor as jpMajor
+			, MemberStudentCertificate.itCertificate as itCertificate
+			, MemberStudentCertificate.jpCertificate as jpCertificate
+			, MemberBasic.memberNum as memberNum
+		from
+			MemberStudent
+			, MemberBasic
+			, MemberStudentCertificate
+		where
+			MemberStudent.alumni = #{teacherAlumni}
+			AND
+			(
+			MemberStudent.classroom = ' '
+			OR
+			MemberStudent.seat = 0
+			)
+			AND
+            (MemberStudent.id = MemberBasic.id
+            AND
+            MemberStudentCertificate.id = MemberBasic.id
+            )
+	</select>
+	
+	<!-- 역량평가 횟수 가져오기 -->
+	<select id="getEvaluationCount" parameterType="int" resultType="EvaluationCount">
+	select
+        COUNT(ItEvaluation.ID) as  itEvaluationCount
+        , COUNT(JpEvaluation.ID) as jpEvaluationCount  
+		from
+			ItEvaluation
+			, MemberBasic
+			, JpEvaluation
+            , MemberStudent
+		where
+			MemberStudent.alumni = #{teacherAlumni}
+			AND
+            (ItEvaluation.id = MemberBasic.id
+            AND
+            JpEvaluation.id = MemberBasic.id
+            )
+    </select>
+	
+	<!-- 다시 미배정으로 분류된 학생된 학생들의 정보를 초기화  -->
+	<update id="cancelStudentSeat" parameterType="int">
+	update
+		MemberStudent
+	set
+			seat = 0
+	where
+			memberstudentNum = #{memberstudentNum}
+	
+	</update>
+	
+	<!--반 배정 받은 학생의 반,정보를 갱신하기 -->
+	<update id="dispatchSeatForStudent" parameterType="SeatStudent">
+	update
+		MemberStudent
+	set
+			classroom = #{classroom}
+			, seat = #{seat}
+	where
+			memberstudentNum = #{memberstudentNum}
+
+	</update>
+	
+	<!-- 반 좌석과 학생 자리 배치도를 저장한다.  -->
+	<update id="modifiedSeatStudentPlacement" parameterType="SeatPlacement">
+		update
+			SeatPlacement
+		set
+			seatContent = #{seatContent}
+		where
+			seatPlacementNum = #{seatPlacementNum}
+	</update>
+	
+	<!-- 반 배치 설문조사 시행 횟수 수치 가져오기 -->
+	<select id="conductedSurvey" resultType="int">
+		select
+			surveynum
+		from 
+			(select
+				max(surveynum) as surveynum
+			from 
+				survey
+			where
+				surveycategory = 1
+			)
+	</select>
+	
+	
+	<!-- (설문조사이후)반 배정 받을 학생들을 불러온다 -->
+	<select id="filterPerson" resultType="SeatAvoid">
+			select
+                 seat.membernum as membernum
+       			, seat.surveyrespondcontent as avoidPerson
+    		from
+			    (
+			    select
+                    s.surveynum, sp.surveypagenum, mb.membernum, mb.name, ms.alumni, ms.classroom, sq.surveyquestionnum, sq.surveyquestiontype, sr.surveyrespondcontent,
+                    listagg(so.surveyoptioncontent, ', ') 
+				within group(order by so.surveyoptionnum) surveyoptioncontent
+				from surveyquestion sq
+			    full outer join surveyrespond sr on sq.surveyquestionnum = sr.surveyquestionnum
+			    full outer join surveyoption so on so.surveyoptionnum = sr.surveyrespondoptionnum
+			    full outer join memberbasic mb on sr.surveyrespondmembernum = mb.membernum
+			    left outer join surveypage sp on sq.surveypagenum = sp.surveypagenum
+			    left outer join survey s on sp.surveynum = s.surveynum
+			    inner join memberstudent ms on mb.id = ms.id
+			    group by s.surveynum, sp.surveypagenum, mb.membernum, mb.name, ms.alumni, ms.classroom, sq.surveyquestionnum, sq.surveyquestiontype, sr.surveyrespondcontent
+			    having s.surveynum = 1
+                ) seat
+            where
+            	 seat.surveyQuestionNum = 23
+	</select>
+	
+	 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+

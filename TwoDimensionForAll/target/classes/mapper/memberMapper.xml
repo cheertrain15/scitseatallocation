@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 회원정보 처리 SQL -->
+<mapper namespace="com.twoDimensionForAll.enjoy.dao.MemberMapper">
+
+	<!-- 회원 정보 저장 -->
+	<insert id="insertMember" parameterType="String">
+	insert into
+		members (
+		id 
+		) values (
+		#{id}
+		)
+	</insert>
+	
+	<!-- 회원 정보 불러오기 -->
+	<select id="selectMember" parameterType="String" resultType="Member">
+	select 
+		id
+	from
+		members
+	where
+		id = #{id}
+	</select>	
+
+	<!-- 회원의 즐겨찾기에 영상 추가하기 -->
+	<insert id="addFavourite" parameterType="UserFavourite">
+	insert into
+		userFavourite
+		(
+		favouritenum
+		, id
+		, favouriteVideo
+		) 
+		values
+		(
+		userfavouritenum_seq.nextval
+		, #{id}
+		, #{favouriteVideo}
+		)
+	</insert>
+	
+	<!-- 회원의 즐겨찾기의 영상 목록 불러오기 -->
+	<select id="getFavourite" parameterType="String" resultType="Video">
+	select 
+		Video.videoNum,
+		Video.videoName,
+		Video.videoGenre,
+		Video.videoSource,
+		Video.videoThumbnail
+	from
+		Video 
+		,(select
+			favouritenum
+			,id
+			,favouriteVideo
+		from 
+			userFavourite
+		where
+			id = #{id}
+		Order By
+			favouritenum DESC
+			) A
+	where
+		Video.videoNum = A.favouriteVideo
+	</select>
+	
+	<!-- 회원의 즐겨찾기의 영상 목록 지우기 -->
+	<delete id="deleteFavourite" parameterType="UserFavourite">
+	delete from
+		UserFavourite
+	where
+		id = #{id} 
+		AND
+		favouriteVideo = #{favouriteVideo}
+	</delete>
+	
+	<insert id="addHistory" parameterType="UserHistory">
+	insert into
+		userHistory
+		(
+		historynum
+		, id
+		, historyVideo
+		) 
+		values
+		(
+		userhistorynum_seq.nextval
+		,#{id}
+		, #{historyVideo}
+		)
+	</insert>
+	
+	<select id="getHistory" parameterType="String" resultType="Video">
+	select 
+		Video.videoNum,
+		Video.videoName,
+		Video.videoGenre,
+		Video.videoSource,
+		Video.videoThumbnail
+	from
+		Video 
+		,(select
+			historynum
+			,id
+			,historyVideo
+		from 
+			userHistory
+		where
+			id = #{id}
+		Order By
+			historynum DESC
+			) A
+	where
+		Video.videoNum = A.historyVideo
+	</select>	
+	
+	<delete id="deleteHistory" parameterType="UserHistory">
+	delete from
+		UserHistory
+	where
+		id = #{id} 
+		AND
+		historyVideo = #{historyVideo}
+	</delete>
+
+	
+</mapper>

@@ -4,8 +4,150 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- SCIT PORTAL 공지사항  관련 정보 처리 SQL -->
-
 <mapper namespace="com.scitportalsystem.www.mapper.NewsMapper">
-
+	
+	<!-- 글 쓰기 -->
+	<insert id="writeNews" parameterType="News">
+		insert into
+			news(
+				newsNum
+				, id
+				, targetAlumni
+				, targetClass
+				, newsTitle
+				, newsHeader
+				, newsContent
+				, deleteBy
+				<if test="newsFileName != null and newsSavedFileName != null">
+				, newsFileName
+				, newsSavedFileName
+				</if>				
+			)values(
+				newsNum_seq.nextval
+				, #{id}
+				, #{targetAlumni}
+				, #{targetClass}
+				, #{newsTitle}
+				, #{newsHeader}
+				, #{newsContent}
+				, #{deleteBy}
+				<if test="newsFileName != null and newsSavedFileName != null">
+				, #{newsFileName}
+				, #{newsSavedFileName}	
+				</if>			
+			)
+	</insert>
+	
+	<!-- 글 수정 -->
+	<update id="updateBoard" parameterType="News">
+		update
+			News
+		set
+			targetAlumni = #{targetAlumni}
+			, targetClass = #{targetClass}
+			, newsTitle = #{newsTitle}
+			, newsHeader = #{newsHeader}
+			, newsContent = #{newsContent}
+			<if test="newsFileName != null and newsSavedFileName != null">
+			, newsFileName = #{newsFileName}
+			, newsSavedFileName = #{newsSavedFileName}
+			</if>
+		where
+		 	newsNum = #{newsNum}	
+	</update>
+	
+	<!-- 글 삭제 -->
+	<delete id="deleteBoard" parameterType="News">
+		delete from
+			news
+		where
+			id = #{id} and newsNum = #{newsNum}
+	</delete>	
+	
+	<!-- 전체 목록 출력 학생용 -->
+	<select id="selectNewsAll" parameterType="hashmap" resultType="News">
+		select
+			newsNum
+			,newsTitle
+			,newsHeader
+			,newsContent
+			,newsDate
+			,newsHits
+			,newsFileName
+			,newsSavedFileName
+		from
+			news
+			<if test="targetAlumni != null and targetClass != null" >
+				where			
+					targetAlumni = #{targetAlumni}
+					AND 
+					targetClass = #{targetClass}
+			</if>
+		order by
+			newsHeader desc
+			,newsNum desc
+	</select>
+	
+	<!-- 전체 목록 출력 선생용-->
+	<select id="selectNewsTheacher" parameterType="hashmap" resultType="News">
+		select 
+			newsNum
+			,newsTitle
+			,newsHeader
+			,newsContent
+			,newsDate
+			,newsHits
+			,newsFileName
+			,newsSavedFileName
+		from
+			news
+			<if test="targetAlumni != null and targetClass != null" >
+				where			
+					targetAlumni = #{targetAlumni}
+					AND 
+					targetClass = #{targetClass}
+			</if>
+		order by
+			newsHeader desc
+			, newsNum desc
+	</select>
+	
+	<!-- 페이징 처리 -->
+	<select id="getTotal" parameterType="hashmap" resultType="int">
+		select
+			count(*)
+		from
+			news
+			<if test="targetAlumni != null and targetClass != null" >
+				where			
+					targetAlumni = #{targetAlumni}
+					AND 
+					targetClass = #{targetClass}
+			</if>
+	</select>
+	
+	<!-- 전체 하나 보기 -->
+	<select id="selectNewsOne" parameterType="int" resultType="News">
+		select 
+			newsNum
+			, newsTitle
+			, newsContent
+			, newsFileName
+			, newsSavedFileName
+		from 
+			news
+		where
+			newsNum = #{newsNum}
+	</select>
+	
+	<!-- 글 조회수 업데이트 -->
+	<update id="updateHits" parameterType="int">
+		update
+			news
+		set
+			newsHits = newsHits+1
+		where
+			newsNum = #{newsNum}
+	</update>
 	
 </mapper>

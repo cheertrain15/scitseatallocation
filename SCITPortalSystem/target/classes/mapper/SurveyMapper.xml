@@ -6,32 +6,94 @@
 <!-- SCIT PORTAL 설문조사  관련 정보 처리 SQL -->
  
 <mapper namespace="com.scitportalsystem.www.mapper.SurveyMapper">
-
-<select id="countSelectAll" parameterType="int" resultType="Survey">
+   
+<select id="countSelectAll" parameterType="int" resultType="int">
 	select count(*) from 
-	(
-	select s.surveynum surveynum, s.teachernum teachernum, mb.name name, 
+	( 
+	select s.surveynum surveynum,
+	s.surveycategory,
+    s.surveytargetalumni surveytargetalumni,
+    s.surveytargetclassroom surveytargetclassroom,
+    s.teachernum teachernum, mb.name name, 
 	s.surveytitle surveytitle, 
+	s.surveyTargetAlumni surveyTargetAlumni, 
+	s.surveyTargetClassroom surveyTargetClassroom,
 	TO_CHAR(s.surveywrittendate, 'yyyy-mm-dd') surveywrittendate, 
 	TO_CHAR(s.surveystartdate, 'yyyy-mm-dd') surveystartdate, 
 	TO_CHAR(s.surveyenddate, 'yyyy-mm-dd') surveyenddate
 	from survey s, memberbasic mb, memberstaff ms
-	where s.teachernum = 1
+	where s.teachernum = #{teacherNum}
 	and s.teachernum = ms.teachernum
 	and mb.id = ms.id
+	order by surveynum desc
 	)
 </select>
 
 <select id="selectAll" parameterType="int" resultType="Survey">
-	select s.surveynum surveynum, s.teachernum teachernum, mb.name name, 
+	select s.surveynum surveynum,
+	s.surveycategory,
+    s.surveytargetalumni surveytargetalumni,
+    s.surveytargetclassroom surveytargetclassroom,
+    s.teachernum teachernum, mb.name name, 
 	s.surveytitle surveytitle, 
+	s.surveyTargetAlumni surveyTargetAlumni, 
+	s.surveyTargetClassroom surveyTargetClassroom,
 	TO_CHAR(s.surveywrittendate, 'yyyy-mm-dd') surveywrittendate, 
 	TO_CHAR(s.surveystartdate, 'yyyy-mm-dd') surveystartdate, 
 	TO_CHAR(s.surveyenddate, 'yyyy-mm-dd') surveyenddate
 	from survey s, memberbasic mb, memberstaff ms
-	where s.teachernum = 1
+	where s.teachernum = #{teacherNum}
 	and s.teachernum = ms.teachernum
-	and mb.id = ms.id 
+	and mb.id = ms.id
+	order by surveynum desc
+</select>
+
+<select id="getAlumniClassroom" parameterType="String" resultType="MemberStudent">
+	select alumni, classroom from memberstudent
+	where id = #{id}
+</select>
+
+<select id="countSelectAll2" parameterType="MemberStudent" resultType="int">
+	select count(*) from 
+	( 
+	select s.surveynum surveynum,
+	s.surveycategory,
+	s.surveytargetalumni surveytargetalumni,
+    s.surveytargetclassroom surveytargetclassroom,
+	s.teachernum teachernum, mb.name name, 
+	s.surveytitle surveytitle,
+	s.surveyTargetAlumni surveyTargetAlumni, 
+	s.surveyTargetClassroom surveyTargetClassroom,
+	TO_CHAR(s.surveywrittendate, 'yyyy-mm-dd') surveywrittendate, 
+	TO_CHAR(s.surveystartdate, 'yyyy-mm-dd') surveystartdate, 
+	TO_CHAR(s.surveyenddate, 'yyyy-mm-dd') surveyenddate
+	from survey s, memberbasic mb, memberstaff ms
+	where s.teachernum = ms.teachernum
+	and mb.id = ms.id
+    and s.surveytargetalumni = #{alumni}
+    and s.surveytargetclassroom in (#{classroom}, 'ALL')
+    )
+    order by surveynum desc
+</select>
+
+<select id="selectAll2" parameterType="MemberStudent" resultType="Survey">
+	select s.surveynum surveynum,
+	s.surveycategory,
+	s.surveytargetalumni surveytargetalumni,
+    s.surveytargetclassroom surveytargetclassroom,
+	s.teachernum teachernum, mb.name name, 
+	s.surveytitle surveytitle,
+	s.surveyTargetAlumni surveyTargetAlumni, 
+	s.surveyTargetClassroom surveyTargetClassroom,
+	TO_CHAR(s.surveywrittendate, 'yyyy-mm-dd') surveywrittendate, 
+	TO_CHAR(s.surveystartdate, 'yyyy-mm-dd') surveystartdate, 
+	TO_CHAR(s.surveyenddate, 'yyyy-mm-dd') surveyenddate
+	from survey s, memberbasic mb, memberstaff ms
+	where s.teachernum = ms.teachernum
+	and mb.id = ms.id
+    and s.surveytargetalumni = #{alumni}
+    and s.surveytargetclassroom in (#{classroom}, 'ALL')
+    order by surveynum desc
 </select>
 
 <select id="selectInChargeAlumni" parameterType="int" resultType="int">
@@ -60,7 +122,259 @@
     from memberstudent
     where alumni = #{inChargeAlumni}
     ORDER BY classroom asc
+</select> 
+
+<insert id="insertSurvey" parameterType="Survey">
+	INSERT INTO survey
+	(surveynum
+	, teachernum
+	, surveycategory
+	, surveytargetalumni
+	, surveytargetclassroom
+	, surveystartdate
+	, surveyenddate
+	, surveytitle
+	, surveywrittendate) 
+	VALUES(
+	surveynum_seq.nextval
+	, #{teacherNum}
+	, #{surveyCategory}
+	, #{surveyTargetAlumni}
+	, #{surveyTargetClassroom}
+	, #{surveyStartDate}
+	, #{surveyEndDate}
+	, #{surveyTitle}
+	, sysdate
+	) 
+	<selectKey keyProperty="surveyNum" resultType="Integer" order="AFTER"> 
+	SELECT surveynum_seq.currval FROM dual 
+	</selectKey> 
+</insert>
+
+<insert id="insertSurveyPage" parameterType="Survey"> 
+	INSERT INTO surveypage
+	(
+	surveypagenum
+	, surveynum 
+	) 
+	VALUES
+	(
+	surveypagenum_seq.nextval
+	, #{surveyNum}
+	) 
+	<selectKey keyProperty="surveyPageNum" resultType="Integer" order="AFTER"> 
+	SELECT surveypagenum_seq.currval FROM dual 
+	</selectKey> 
+</insert>
+
+<insert id="insetSurveyQuestion" parameterType="Survey">
+	INSERT INTO surveyquestion
+	(
+	surveyquestionnum
+	, surveypagenum
+	, surveyquestioncontent
+	, surveyquestiontype
+	, surveyquestionrequired
+	) 
+	VALUES
+	(
+	surveyquestionnum_seq.nextval
+	, #{surveyPageNum}
+	, #{surveyQuestionContent}
+	, #{surveyQuestionType}
+	, #{surveyQuestionRequired}
+	) 
+	<selectKey keyProperty="surveyQuestionNum" resultType="Integer" order="AFTER"> 
+	SELECT surveyquestionnum_seq.currval FROM dual 
+	</selectKey>
+</insert>
+
+<insert id="insertSurveyOption" parameterType="Survey">
+	INSERT INTO surveyoption
+	(
+	surveyoptionnum
+	, surveyquestionnum
+	, surveyoptioncontent
+	) 
+	VALUES
+	(
+	surveyoptionnum_seq.nextval
+	, #{surveyQuestionNum}
+	, #{surveyOptionContent}
+	) 
+	<selectKey keyProperty="surveyOptionNum" resultType="Integer" order="AFTER"> 
+	SELECT surveyoptionnum_seq.currval FROM dual 
+	</selectKey>
+</insert>
+
+<select id="selectASurvey" parameterType="int" resultType="Survey">
+	select surveynum, teachernum, surveycategory, 
+        surveytargetalumni, surveytargetclassroom, surveytitle,
+        TO_CHAR(surveywrittendate, 'yyyy-mm-dd') surveywrittendate,
+        TO_CHAR(surveystartdate, 'yyyy-mm-dd') surveystartdate,
+        TO_CHAR(surveyenddate, 'yyyy-mm-dd') surveyenddate
+        from survey
+	where surveynum = #{surveyNum}
 </select>
 
-	
+<select id="selectPages" parameterType="int" resultType="Survey">
+	select surveypagenum from surveypage
+	where surveynum = #{surveyNum}
+	order by surveypagenum asc
+</select>
+
+<select id="selectQuestions" parameterType="HashMap" resultType="Survey">
+	select *
+	from surveyquestion
+	where
+	<foreach collection="pages" item="page" open="(" close=")" separator="or">
+	surveypagenum = #{page.surveyPageNum}
+	</foreach>
+	order by surveyquestionnum asc
+	     
+</select> 
+
+<select id="selectOptions" parameterType="HashMap" resultType="Survey">
+	select *
+	from surveyoption
+	where
+	<foreach collection="questions" item="qstn" open="(" close=")" separator="or">
+	surveyquestionnum = #{qstn.surveyQuestionNum}
+	</foreach>
+	order by surveyoptionnum asc
+</select>
+
+<select id="getMemberClass" parameterType="int" resultType="String">
+	select memberclass from memberbasic
+	where membernum = #{memberNum}
+</select>
+
+<insert id="insertSurveyRespond" parameterType="Survey">
+	INSERT INTO surveyrespond
+	(
+	surveyRespondNum
+	, surveyNum
+	, surveyQuestionNum
+	, surveyQuestionType
+	<if test="surveyRespondOptionNum != null">
+	, surveyRespondOptionNum
+	</if>
+	<if test="surveyRespondContent != null">
+	, surveyRespondContent
+	</if>
+	, surveyRespondmemberNum
+	, surveyRespondDate
+	) 
+	VALUES
+	(
+	surveyRespondNum_seq.nextval
+	, #{surveyNum}  
+	, #{surveyQuestionNum}
+	, #{surveyQuestionType}
+	<if test="surveyRespondOptionNum != null">
+	, #{surveyRespondOptionNum}
+	</if>
+	<if test="surveyRespondContent != null">
+	, #{surveyRespondContent}
+	</if>
+	, #{surveyRespondmemberNum}
+	, sysdate
+	) 
+	<selectKey keyProperty="surveyRespondNum" resultType="Integer" order="AFTER"> 
+	SELECT surveyRespondNum_seq.currval FROM dual 
+	</selectKey>
+</insert>
+
+<update id="updateSurvey" parameterType="Survey">
+	update survey
+	set 
+	surveyCategory = #{surveyCategory},
+	surveyTargetAlumni = #{surveyTargetAlumni},
+	surveyTargetClassroom = #{surveyTargetClassroom},
+	surveyTitle = #{surveyTitle},
+	surveyWrittenDate = sysdate,
+	surveyStartDate = #{surveyStartDate},
+	surveyEndDate = #{surveyEndDate}
+	where
+	surveyNum = #{surveyNum}
+	and
+	teacherNum = #{teacherNum}
+</update>
+
+<delete id="deleteOldSurvey" parameterType="int">
+	delete surveypage
+	where surveyNum = #{surveyNum}
+</delete>
+
+<select id="countTargetStudent" parameterType="Survey" resultType="int">
+	select count(*) from memberstudent
+	where alumni = #{surveyTargetAlumni}
+	<if test="surveyTargetClassroom != 'ALL'">
+	and classroom = #{surveyTargetClassroom}
+	</if>
+</select>
+
+<select id="countRespondStudent" parameterType="int" resultType="int">
+	select count(*) 
+	from (
+	select distinct surveyrespondmembernum
+	from surveyrespond
+	where surveynum = #{surveyNum})
+</select>
+
+<select id="checkRespond" parameterType="Survey" resultType="int">
+	select count(*)
+	from (
+	select distinct surveyRespondmemberNum
+	from surveyrespond
+	where surveyRespondmemberNum = #{surveyRespondmemberNum}
+	and
+	surveynum = #{surveyNum}
+	)
+</select>
+
+<select id="getRespondContentList" parameterType="int" resultType="Survey">
+	select
+    s.surveynum, sp.surveypagenum, mb.membernum, mb.name, ms.alumni, ms.classroom, sq.surveyquestionnum, sq.surveyquestiontype, sr.surveyrespondcontent,
+	listagg(so.surveyoptioncontent, ', ') 
+	within group(order by so.surveyoptionnum) surveyoptioncontent
+	from surveyquestion sq
+    full outer join surveyrespond sr on sq.surveyquestionnum = sr.surveyquestionnum
+    full outer join surveyoption so on so.surveyoptionnum = sr.surveyrespondoptionnum
+    full outer join memberbasic mb on sr.surveyrespondmembernum = mb.membernum
+    left outer join surveypage sp on sq.surveypagenum = sp.surveypagenum
+    left outer join survey s on sp.surveynum = s.surveynum
+    inner join memberstudent ms on mb.id = ms.id
+    group by s.surveynum, sp.surveypagenum, mb.membernum, mb.name, ms.alumni, ms.classroom, sq.surveyquestionnum, sq.surveyquestiontype, sr.surveyrespondcontent
+    having s.surveynum = #{surveyNum}
+    order by mb.membernum asc, sq.surveyquestionnum asc
+</select>
+
+<select id="getQuestionContents" parameterType="int" resultType="Survey">
+	select distinct sq.surveyquestionnum, sq.surveyquestioncontent
+    from survey s
+    inner join surveypage sp on s.surveynum = sp.surveynum
+    inner join surveyquestion sq on sp.surveypagenum = sq.surveypagenum
+    inner join memberstudent ms on ms.alumni = s.surveytargetalumni
+    inner join memberbasic mb on mb.id = ms.id
+    where s.surveynum = #{value}
+    order by sq.surveyquestionnum asc
+</select> 
+   
+<select id="getRespondTargetStudents" parameterType="int" resultType="Survey">
+	select distinct mb.membernum, mb.name, ms.alumni, ms.classroom
+    from survey s
+    inner join surveypage sp on s.surveynum = sp.surveynum
+    inner join surveyquestion sq on sp.surveypagenum = sq.surveypagenum
+    inner join memberstudent ms on ms.alumni = s.surveytargetalumni
+    inner join memberbasic mb on mb.id = ms.id
+    where s.surveynum = #{value}
+    order by ms.classroom asc, mb.membernum asc
+</select>
+
+<delete id="deleteSurvey" parameterType="int">
+	delete survey
+	where surveyNum = #{value}
+</delete>
+
 </mapper>

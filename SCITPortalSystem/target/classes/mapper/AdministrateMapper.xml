@@ -7,6 +7,46 @@
 
 <mapper namespace="com.scitportalsystem.www.mapper.AdministrateMapper">
 
-	
+<!-- 회원가입 목록 출력  -->
+<select id="selectmemberlist" parameterType="hashMap" resultType="MemberBasic">
+select
+		memberNum
+		, id		
+		, memberClass			
+		, name		
+		, phone			
+		, adminap
+	from
+		memberbasic
+	<if test="searchText != null">
+	where
+		${searchList} like '%' || #{searchText} || '%'
+	</if>	
+	order by
+		memberNum desc
+</select>
+
+<!-- 전체 가입 회원 개수(검색 필터링 후: 검색을 하면 해당되는 사항만 나오게) -->
+<select id="getTotal" parameterType="hashMap" resultType="int">
+	select
+		count(*)
+	from
+		memberbasic
+	<if test="searchText != null">
+	where
+		${searchList} like '%' || #{searchText} || '%'
+	</if>		
+</select>
+
+<!-- 회원가입 승인 -->
+<update id="memberApproval" parameterType="string">
+	UPDATE 
+			memberbasic
+		SET 
+			adminap = 1
+	where
+		id = #{id}
+</update>		
+
 </mapper>
  
